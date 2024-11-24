@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutSeguridad.cshtml";
+}
+@section scripts {
+    <script src="~/src/aplicacion/servicios/formularioservice.js" asp-append-version="true"></script>
+    <script src="~/src/aplicacion/servicios/moduloservice.js" asp-append-version="true"></script>
+    <script src="~/src/controllers/Seguridad/formulario.js" asp-append-version="true"></script>
+    <script>
+        const form = new FormularioController();
+        form.Initialize();
+    </script>
+}
+<div id="tasks"></div>

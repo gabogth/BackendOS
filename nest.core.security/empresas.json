@@ -1,0 +1,16 @@
+{
+  "Empresas": [
+    {
+      "Id": 1,
+      "Nombre": "Default S.A.C.",
+      "TenantConnection": "Connection_Tenant_1",
+      "Estado": true
+    },
+    {
+      "Id": 2,
+      "Nombre": "Default 2 S.A.C.",
+      "TenantConnection": "Connection_Tenant_2",
+      "Estado": true
+    }
+  ]
+}

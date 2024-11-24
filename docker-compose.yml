@@ -1,0 +1,41 @@
+version: "3"
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=123Lucia01
+      - MSSQL_PID=Express
+    ports:
+      - "1434:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    networks:
+      - nestnetwork
+
+  security:
+    build:
+        context: .
+        dockerfile: security.dockerfile
+        args:
+          ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
+          ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+    container_name: security
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    networks:
+      - nestnetwork
+    depends_on:
+      - sqlserver
+
+
+volumes:
+  sql_data:
+networks:
+  nestnetwork:
+    driver: bridge

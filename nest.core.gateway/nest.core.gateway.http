@@ -1,0 +1,6 @@
+@nest.core.gateway_HostAddress = http://localhost:5128
+
+GET {{nest.core.gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@section scripts {
+    <script src="~/src/aplicacion/servicios/moduloservice.js" asp-append-version="true"></script>
+    <script src="~/src/controllers/home/index.js" asp-append-version="true"></script>
+    <script>
+        const controller = new Index("@Url.Content("~/images/iconos")");
+        controller.Initialize();
+    </script>
+}
+<div id="contenido"></div>

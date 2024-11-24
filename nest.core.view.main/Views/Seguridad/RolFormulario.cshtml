@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutSeguridad.cshtml";
+}
+@section scripts {
+    <script src="~/src/seguridad/servicios/rolservice.js" asp-append-version="true"></script>
+    <script src="~/src/aplicacion/servicios/formularioservice.js" asp-append-version="true"></script>
+    <script src="~/src/aplicacion/servicios/moduloservice.js" asp-append-version="true"></script>
+    <script src="~/src/seguridad/servicios/rolclaimservice.js" asp-append-version="true"></script>
+    <script src="~/src/controllers/Seguridad/RolFormulario.js" asp-append-version="true"></script>
+    <script>
+        const form = new RolFormularioController();
+        form.Initialize();
+    </script>
+}
+<div class="row">
+    <div class="col-lg-6">
+        <div id="grid"></div>
+    </div>
+    <div class="col-lg-6">
+        <div id="permisos"></div>
+    </div>
+</div>
+
+

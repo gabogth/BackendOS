@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutSeguridad.cshtml";
+}
+@section scripts {
+    <script src="~/src/seguridad/servicios/rolservice.js" asp-append-version="true"></script>
+    <script src="~/src/controllers/Seguridad/Rol.js" asp-append-version="true"></script>
+    <script>
+        const form = new RolController();
+        form.Initialize();
+    </script>
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div id="grid"></div>
+    </div>
+</div>
