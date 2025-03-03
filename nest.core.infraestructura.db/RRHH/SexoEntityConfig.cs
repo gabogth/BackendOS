@@ -8,6 +8,7 @@ namespace nest.core.infraestructura.db.RRHH
     {
         public void Configure(EntityTypeBuilder<Sexo> builder)
         {
+            
             builder.HasKey(x => x.Id);
             builder.HasData(ObtenerInformacionInicial());
         }
@@ -16,9 +17,9 @@ namespace nest.core.infraestructura.db.RRHH
         {
             List<Sexo> roles = new List<Sexo>()
             {
-                new Sexo { Id = 1, Nombre = "HOMBRE" },
-                new Sexo { Id = 2, Nombre = "MUJER" },
-                new Sexo { Id = 3, Nombre = "OTROS" }
+                new Sexo { Id = 1, Nombre = "Hombre" },
+                new Sexo { Id = 2, Nombre = "Mujer" },
+                new Sexo { Id = 3, Nombre = "Otros" }
             };
             return roles;
         }

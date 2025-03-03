@@ -8,6 +8,7 @@ namespace nest.core.infraestructura.db.RRHH
     {
         public void Configure(EntityTypeBuilder<Cargo> builder)
         {
+            builder.ToTable("cargo", "rrhh");
             builder.HasKey(x => x.Id);
             builder.HasData(ObtenerInformacionInicial());
         }

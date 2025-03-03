@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using nest.core.infraestructura.db.DbContext;
 
@@ -11,9 +12,11 @@ using nest.core.infraestructura.db.DbContext;
 namespace nest.core.security.Migrations
 {
     [DbContext(typeof(NestDbContext))]
-    partial class NestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241218163849_personal")]
+    partial class personal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -317,8 +320,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 196, DateTimeKind.Local).AddTicks(1717),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(2618),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 334, DateTimeKind.Local).AddTicks(2926),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(3947),
                             Icono = "home",
                             ModuloId = 1,
                             Nombre = "Inicio",
@@ -332,8 +335,8 @@ namespace nest.core.security.Migrations
                             Controlador = "",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4084),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4085),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5473),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5475),
                             Icono = "window-restore",
                             ModuloId = 1,
                             Nombre = "Aplicacion",
@@ -348,8 +351,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4089),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4089),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5479),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5480),
                             Icono = "table-list",
                             ModuloId = 1,
                             Nombre = "Formulario",
@@ -364,8 +367,8 @@ namespace nest.core.security.Migrations
                             Controlador = "",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4166),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4166),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5483),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5483),
                             Icono = "shield",
                             ModuloId = 1,
                             Nombre = "Seguridad",
@@ -380,8 +383,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4168),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4168),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5485),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5485),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol",
@@ -397,8 +400,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4174),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4174),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5491),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5492),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol Usuarios",
@@ -414,8 +417,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4176),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4176),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5493),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5494),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol Formularios",
@@ -431,8 +434,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4178),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 197, DateTimeKind.Local).AddTicks(4178),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5496),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 335, DateTimeKind.Local).AddTicks(5496),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Usuarios",
@@ -495,8 +498,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "Modulo donde se setean los roles, permisos y menús.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 198, DateTimeKind.Local).AddTicks(3732),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 198, DateTimeKind.Local).AddTicks(3736),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 336, DateTimeKind.Local).AddTicks(4252),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 336, DateTimeKind.Local).AddTicks(4256),
                             Nombre = "Seguridad",
                             NombreCorto = "SECURITY",
                             RutaImagen = ""
@@ -508,8 +511,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Logistica",
                             Descripcion = "Modulo de inventarios logistica y transferencias.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 198, DateTimeKind.Local).AddTicks(4509),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 198, DateTimeKind.Local).AddTicks(4509),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 336, DateTimeKind.Local).AddTicks(5238),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 336, DateTimeKind.Local).AddTicks(5241),
                             Nombre = "Logistica",
                             NombreCorto = "LOGISTIC",
                             RutaImagen = ""
@@ -521,8 +524,8 @@ namespace nest.core.security.Migrations
                             Controlador = "VentasHome",
                             Descripcion = "Modulo de facturacion, ventas, caja.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 198, DateTimeKind.Local).AddTicks(4511),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 198, DateTimeKind.Local).AddTicks(4511),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 336, DateTimeKind.Local).AddTicks(5243),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 336, DateTimeKind.Local).AddTicks(5244),
                             Nombre = "Ventas",
                             NombreCorto = "VENTAS",
                             RutaImagen = ""
@@ -534,8 +537,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Contabilidad",
                             Descripcion = "Modulo de libro diario, asientos, libro mayor.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 198, DateTimeKind.Local).AddTicks(4513),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 198, DateTimeKind.Local).AddTicks(4513),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 336, DateTimeKind.Local).AddTicks(5245),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 336, DateTimeKind.Local).AddTicks(5246),
                             Nombre = "Contabilidad",
                             NombreCorto = "CONTABIL",
                             RutaImagen = ""
@@ -547,8 +550,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Produccion",
                             Descripcion = "Modulo de producción, recetas, conversiones.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2024, 12, 18, 11, 39, 11, 198, DateTimeKind.Local).AddTicks(4515),
-                            FechaModificacion = new DateTime(2024, 12, 18, 11, 39, 11, 198, DateTimeKind.Local).AddTicks(4515),
+                            FechaCreacion = new DateTime(2024, 12, 18, 11, 38, 48, 336, DateTimeKind.Local).AddTicks(5247),
+                            FechaModificacion = new DateTime(2024, 12, 18, 11, 38, 48, 336, DateTimeKind.Local).AddTicks(5247),
                             Nombre = "Produccion",
                             NombreCorto = "PRODUCCI",
                             RutaImagen = ""
@@ -1827,13 +1830,13 @@ namespace nest.core.security.Migrations
                         new
                         {
                             Id = (byte)8,
-                            Nivel = (byte)8,
+                            Nivel = (byte)7,
                             Nombre = "BIIA"
                         },
                         new
                         {
                             Id = (byte)9,
-                            Nivel = (byte)9,
+                            Nivel = (byte)7,
                             Nombre = "BIIB"
                         });
                 });
@@ -2048,15 +2051,15 @@ namespace nest.core.security.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "93d75960-13ff-4aba-8dc7-46b1c5f6aa3e",
+                            ConcurrencyStamp = "bb579973-2a3e-4eef-8c32-f23629dbacc7",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDPUrlwzkiIhdgUp55cpWy6wL7KD8x+1lhlAyf796OrYr8DLQSbSNho7PkOptPEm8g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEP7GeMIQjgKRMzrpTrle2LmPp6e7+Izdl+rIg+BxUgDYNE/YMdc9gvGFmDQ6Uldqg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "973b3bbb-7c82-46fa-928a-641f8d808746",
+                            SecurityStamp = "0ca69a2d-ae71-4922-8cf4-1f113688f20d",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -2064,15 +2067,15 @@ namespace nest.core.security.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "633cc906-04c1-4807-957d-18a4aeac7f16",
+                            ConcurrencyStamp = "9d1cd288-bc99-486b-b14a-642689b642b6",
                             Email = "superadmin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN@ADMIN.COM",
                             NormalizedUserName = "SUPERADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEItzNbFfV1NW134jT/eCJ0NgyKZWOWM96TB2LBN+fCtwbbwmG9tg7D3zCXYVZXG8cw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPUjoxw2vTdMMWG3TA5785/6Z/PmTuC9UCXnW1NvpoANuCqBqMZGAh60h9xq4G/64A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ab171b0e-b644-4858-8cd1-7341c6afc76b",
+                            SecurityStamp = "c30d420e-5db5-4d9d-835c-7e20945bd465",
                             TwoFactorEnabled = false,
                             UserName = "superadmin@admin.com"
                         });

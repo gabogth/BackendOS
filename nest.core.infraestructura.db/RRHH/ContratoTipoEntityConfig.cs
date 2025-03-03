@@ -8,6 +8,7 @@ namespace nest.core.infraestructura.db.RRHH
     {
         public void Configure(EntityTypeBuilder<ContratoTipo> builder)
         {
+            builder.ToTable("contratotipo", "legal");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Detalle).HasMaxLength(800);
             builder.HasData(ObtenerInformacionInicial());

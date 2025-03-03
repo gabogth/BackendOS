@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using nest.core.infraestructura.db.DbContext;
 
@@ -11,9 +12,11 @@ using nest.core.infraestructura.db.DbContext;
 namespace nest.core.security.Migrations
 {
     [DbContext(typeof(NestDbContext))]
-    partial class NestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241218163911_personal1")]
+    partial class personal1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

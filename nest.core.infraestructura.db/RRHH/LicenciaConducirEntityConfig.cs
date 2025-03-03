@@ -8,6 +8,7 @@ namespace nest.core.infraestructura.db.RRHH
     {
         public void Configure(EntityTypeBuilder<LicenciaConducir> builder)
         {
+            builder.ToTable("licenciaconducir", "rrhh");
             builder.HasKey(x => x.Id);
             builder.HasData(ObtenerInformacionInicial());
         }
@@ -23,8 +24,8 @@ namespace nest.core.infraestructura.db.RRHH
                 new LicenciaConducir { Id = 5, Nombre = "AIIIB", Nivel = 5 },
                 new LicenciaConducir { Id = 6, Nombre = "AIIIC", Nivel = 6 },
                 new LicenciaConducir { Id = 7, Nombre = "B1", Nivel = 7 },
-                new LicenciaConducir { Id = 7, Nombre = "BIIA", Nivel = 7 },
-                new LicenciaConducir { Id = 7, Nombre = "BIIB", Nivel = 7 }
+                new LicenciaConducir { Id = 8, Nombre = "BIIA", Nivel = 8 },
+                new LicenciaConducir { Id = 9, Nombre = "BIIB", Nivel = 9 }
             };
             return roles;
         }
