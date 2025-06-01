@@ -19,7 +19,7 @@ namespace nest.core.security.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<CustomAccessTokenResponse>> Login([FromBody] LoginDto login)
+        public async Task<ActionResult<CustomAccessTokenResponse>> Login([FromHeader(Name = "x-action-login")] string? actionLogin, [FromBody] LoginDto login)
         {
             try
             {

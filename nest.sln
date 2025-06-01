@@ -46,6 +46,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.infraestructura.l
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplication.auth", "nest.core.aplication.auth\nest.core.aplication.auth.csproj", "{FF87C9E2-BC55-4D97-961E-8F081861AF5F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.infraestructura.rrhh", "nest.core.infraestructura.rrhh\nest.core.infraestructura.rrhh.csproj", "{D0E0A52B-67D0-4F86-96C8-7E680830FD8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,10 @@ Global
 		{FF87C9E2-BC55-4D97-961E-8F081861AF5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF87C9E2-BC55-4D97-961E-8F081861AF5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF87C9E2-BC55-4D97-961E-8F081861AF5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0E0A52B-67D0-4F86-96C8-7E680830FD8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0E0A52B-67D0-4F86-96C8-7E680830FD8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0E0A52B-67D0-4F86-96C8-7E680830FD8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0E0A52B-67D0-4F86-96C8-7E680830FD8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +123,7 @@ Global
 		{63990945-2B5F-49C5-8857-D465CDD521D3} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{574F996B-0195-4F99-B314-8F305087CD4B} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{FF87C9E2-BC55-4D97-961E-8F081861AF5F} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
+		{D0E0A52B-67D0-4F86-96C8-7E680830FD8D} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {651F4B0C-740F-4ABF-8B23-D07A56743FFF}

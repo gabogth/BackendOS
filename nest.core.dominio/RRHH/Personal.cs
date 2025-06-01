@@ -6,13 +6,13 @@ namespace nest.core.dominio.RRHH
     public class Personal
     {
         public int Id { get; set; }
+        public string Nombres { get; set; }
+        public string ApellidoPaterno { get; set; }
+        public string ApellidoMaterno { get; set; }
+        public DateTime FechaNacimiento { get; set; }
+        public string DocumentoIdentidad {  get; set; }
+        public string Correo { get; set; }
+        public string Celular { get; set; }
         public string Usuario { get; set; }
-        public string? CelularEmpresa { get; set; }
-        [EmailAddress]
-        public string? CorreoEmpresa { get; set; }
-        public int? JefeId { get; set; }
-        public Personal Jefe { get; set; }
-        public Persona Persona { get; set; }
-        public ICollection<Personal> Children { get; set; } = new List<Personal>();
     }
 }

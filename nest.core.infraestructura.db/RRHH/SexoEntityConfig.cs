@@ -8,7 +8,6 @@ namespace nest.core.infraestructura.db.RRHH
     {
         public void Configure(EntityTypeBuilder<Sexo> builder)
         {
-            builder.ToTable("sexo", "rrhh");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
@@ -19,9 +18,6 @@ namespace nest.core.infraestructura.db.RRHH
         {
             List<Sexo> roles = new List<Sexo>()
             {
-                new Sexo { Id = 1, Nombre = "Hombre", NombreCorto = "H" },
-                new Sexo { Id = 2, Nombre = "Mujer", NombreCorto = "M" },
-                new Sexo { Id = 3, Nombre = "Otros", NombreCorto = "O" }
             };
             return roles;
         }

@@ -11,17 +11,20 @@ namespace nest.core.infraestructura.db.RRHH
         {
             builder.ToTable("personal", "rrhh");
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Nombres)
+                .HasMaxLength(120);
+            builder.Property(x => x.ApellidoPaterno)
+                .HasMaxLength(120);
+            builder.Property(x => x.ApellidoMaterno)
+                .HasMaxLength(120);
+            builder.Property(x => x.DocumentoIdentidad)
+                .HasMaxLength(25);
+            builder.Property(x => x.Correo)
+                .HasMaxLength(120);
+            builder.Property(x => x.Celular)
+                .HasMaxLength(25);
             builder.Property(x => x.Usuario)
                 .HasMaxLength(90);
-            builder.HasOne(x => x.Persona)
-                .WithOne()
-                .HasForeignKey<Persona>(x => x.Id)
-                .HasPrincipalKey<Personal>(x => x.Id)
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(x => x.Jefe)
-                .WithMany(x => x.Children)
-                .HasForeignKey(x => x.JefeId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
