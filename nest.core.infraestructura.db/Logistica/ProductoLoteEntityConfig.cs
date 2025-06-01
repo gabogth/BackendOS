@@ -9,10 +9,11 @@ namespace nest.core.infraestructura.db.Logistica
         public void Configure(EntityTypeBuilder<ProductoLote> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.ToTable("productolote", "logistica");
+            builder.ToTable("producto_lote", "logistica");
             builder.HasOne(ic => ic.Producto)
                 .WithMany()
-                .HasForeignKey(ic => ic.ProductoId);
+                .HasForeignKey(ic => ic.ProductoId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

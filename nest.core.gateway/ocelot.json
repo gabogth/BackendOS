@@ -5,7 +5,7 @@
   "Routes": [
     {
       "UpstreamPathTemplate": "/security/{url}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "ATTRIBUTES", "OPTIONS" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
       "DownstreamPathTemplate": "/{url}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -17,13 +17,63 @@
     },
     {
       "UpstreamPathTemplate": "/logistica/{url}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "ATTRIBUTES", "OPTIONS" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
       "DownstreamPathTemplate": "/{url}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
           "Port": 8381
+        }
+      ]
+    },
+    //Start Region [Swagger config]
+    {
+      "SwaggerKey": "security",
+      "UpstreamPathTemplate": "/security/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8382
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "logistica",
+      "UpstreamPathTemplate": "/logistica/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8381
+        }
+      ]
+    }
+    //End Region [Swagger config]
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "security",
+      "Config": [
+        {
+          "Name": "API Seguridad",
+          "Version": "v1",
+          "Url": "https://localhost:8382/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "logistica",
+      "Config": [
+        {
+          "Name": "API Logistica",
+          "Version": "v1",
+          "Url": "https://localhost:8381/swagger/v1/swagger.json"
         }
       ]
     }

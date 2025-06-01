@@ -9,7 +9,7 @@ namespace nest.core.infraestructura.db.Audit
         public void Configure(EntityTypeBuilder<AuditLog> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.ToTable("auditlog", "audit");
+            builder.ToTable("audit_log", "audit");
             builder.Property(x => x.NewValues)
                 .HasMaxLength(-1);
             builder.Property(x => x.OldValues)

@@ -12,7 +12,8 @@ namespace nest.core.infraestructura.db.General
             builder.ToTable("provincia", "dbo");
             builder.HasMany(p => p.Distritos)
                 .WithOne(d => d.Provincia)
-                .HasForeignKey(d => d.ProvinciaId);
+                .HasForeignKey(d => d.ProvinciaId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasData(GetData());
         }
 

@@ -15,11 +15,11 @@ namespace nest.core.infraestructura.db.Logistica
             builder.HasOne(ic => ic.UnidadMedidaCompra)
                 .WithMany()
                 .HasForeignKey(ic => ic.UnidadMedidaCompraId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(ic => ic.UnidadMedidaConsumo)
                 .WithMany()
                 .HasForeignKey(ic => ic.UnidadMedidaConsumoId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

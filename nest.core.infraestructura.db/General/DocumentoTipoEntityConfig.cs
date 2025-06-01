@@ -9,7 +9,7 @@ namespace nest.core.infraestructura.db.General
         public void Configure(EntityTypeBuilder<DocumentoTipo> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.ToTable("documentotipo", "dbo");
+            builder.ToTable("documento_tipo", "dbo");
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
         }

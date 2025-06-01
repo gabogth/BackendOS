@@ -12,7 +12,8 @@ namespace nest.core.infraestructura.db.General
             builder.ToTable("pais", "dbo");
             builder.HasMany(p => p.Departamentos)
                 .WithOne(d => d.Pais)
-                .HasForeignKey(d => d.PaisId);
+                .HasForeignKey(d => d.PaisId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasData(GetData());
         }
 

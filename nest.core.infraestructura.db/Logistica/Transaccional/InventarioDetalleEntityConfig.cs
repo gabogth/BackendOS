@@ -9,17 +9,17 @@ namespace nest.core.infraestructura.db.Logistica.Transaccional
         public void Configure(EntityTypeBuilder<InventarioDetalle> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.ToTable("inventariodetalle", "logistica");
+            builder.ToTable("inventario_detalle", "logistica");
             builder.Property(x => x.Nota)
                 .HasMaxLength(400);
             builder.HasOne(ic => ic.Producto)
                 .WithMany()
                 .HasForeignKey(ic => ic.ProductoId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(ic => ic.ProductoLote)
                 .WithMany()
                 .HasForeignKey(ic => ic.ProductoLoteId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(d => d.InventarioCabecera)
                 .WithMany(c => c.InventarioDetalles)
                 .HasForeignKey(d => d.InventarioCabeceraId)

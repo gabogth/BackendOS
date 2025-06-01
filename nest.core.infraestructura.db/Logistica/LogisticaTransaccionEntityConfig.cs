@@ -9,7 +9,7 @@ namespace nest.core.infraestructura.db.Logistica
         public void Configure(EntityTypeBuilder<LogisticaTransaccion> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.ToTable("logisticatransaccion", "logistica");
+            builder.ToTable("logistica_transaccion", "logistica");
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
             builder.Property(x => x.ES)
