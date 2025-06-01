@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using nest.core.dominio.Security;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.security.Extensions;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -64,6 +65,7 @@ builder.Services.AddSwaggerGen(c => {
         },
         new string[] {} }
     });
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
 });
 builder.Services.AddAuthentication(option =>
 {
