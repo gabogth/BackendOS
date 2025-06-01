@@ -8,6 +8,7 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<NoWarn>1591</NoWarn>
+	<AssemblyVersion>1.0.0.16</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

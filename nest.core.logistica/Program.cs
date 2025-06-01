@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.logistica.Extensions;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -37,7 +38,15 @@ builder.Services.AddControllers()
     }); ;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "NEST API", Version = "v1" });
+    string proyecto = Assembly.GetExecutingAssembly().GetName().Name.Split('.')[2];
+    proyecto = char.ToUpper(proyecto[0]) + proyecto.Substring(1).ToLower();
+    string apiName = $"{proyecto} Api";
+    c.SwaggerDoc("v1", new OpenApiInfo { 
+        Title = apiName, 
+        Version = $"v{Assembly.GetExecutingAssembly().GetName().Version}", 
+        Description = $"La {apiName} permite gestionar los almacenes de la organización. Con esta API puedes consultar, crear, modificar y eliminar almacenes, así como obtener sólo aquellos activos.\r\n\r\nTodos los endpoints requieren autorización para acceder.",
+        Contact = new OpenApiContact { Email = "gabogth@gmail.com", Name = "Gabriel Rodriguez", Url = new Uri("https://es.stackoverflow.com/users/30423") }
+    });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "Ingrese el token JWT en este formato: Bearer {token}",
@@ -55,6 +64,7 @@ builder.Services.AddSwaggerGen(c => {
         },
         new string[] {} }
     });
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
 });
 builder.Services.AddAuthentication(option =>
 {

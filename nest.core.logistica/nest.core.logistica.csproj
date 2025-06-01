@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -6,6 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>56c14820-25f6-4fd9-b162-763d15e1266a</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<NoWarn>1591</NoWarn>
+	<FileVersion></FileVersion>
+	<AssemblyVersion>1.0.0.16</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

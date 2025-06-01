@@ -47,7 +47,15 @@ builder.Services.AddControllers()
     }); ;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "NEST API", Version = "v1" });
+    string proyecto = Assembly.GetExecutingAssembly().GetName().Name.Split('.')[2];
+    proyecto = char.ToUpper(proyecto[0]) + proyecto.Substring(1).ToLower();
+    string apiName = $"{proyecto} Api";
+    c.SwaggerDoc("v1", new OpenApiInfo { 
+        Title = apiName, 
+        Version = $"v{Assembly.GetExecutingAssembly().GetName().Version}",
+        Description = $"La {apiName} permite administrar usuarios y roles dentro del sistema. Incluye operaciones para crear, modificar, eliminar usuarios, así como asignar roles a usuarios y obtener usuarios por roles.\r\n\r\nTodos los endpoints requieren autorización y autenticación.",
+        Contact = new OpenApiContact { Email = "gabogth@gmail.com", Name = "Gabriel Rodriguez", Url = new Uri("https://es.stackoverflow.com/users/30423") }
+    });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "Ingrese el token JWT en este formato: Bearer {token}",
