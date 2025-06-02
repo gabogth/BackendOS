@@ -4,6 +4,18 @@
   },
   "Routes": [
     {
+      "UpstreamPathTemplate": "/logistica/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8381
+        }
+      ]
+    },
+    {
       "UpstreamPathTemplate": "/security/{url}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
       "DownstreamPathTemplate": "/{url}",
@@ -16,9 +28,25 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/logistica/{url}",
+      "UpstreamPathTemplate": "/rrhh/{url}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
       "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8383
+        }
+      ]
+    },
+
+    //Start Region [Swagger config]
+
+    {
+      "SwaggerKey": "logistica",
+      "UpstreamPathTemplate": "/logistica/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -27,7 +55,6 @@
         }
       ]
     },
-    //Start Region [Swagger config]
     {
       "SwaggerKey": "security",
       "UpstreamPathTemplate": "/security/{everything}",
@@ -42,21 +69,31 @@
       ]
     },
     {
-      "SwaggerKey": "logistica",
-      "UpstreamPathTemplate": "/logistica/{everything}",
+      "SwaggerKey": "rrhh",
+      "UpstreamPathTemplate": "/rrhh/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 8381
+          "Port": 8383
         }
       ]
     }
     //End Region [Swagger config]
   ],
   "SwaggerEndPoints": [
+    {
+      "Key": "logistica",
+      "Config": [
+        {
+          "Name": "API Logistica",
+          "Version": "v1",
+          "Url": "https://localhost:8381/swagger/v1/swagger.json"
+        }
+      ]
+    },
     {
       "Key": "security",
       "Config": [
@@ -68,12 +105,12 @@
       ]
     },
     {
-      "Key": "logistica",
+      "Key": "rrhh",
       "Config": [
         {
-          "Name": "API Logistica",
+          "Name": "API RRHH",
           "Version": "v1",
-          "Url": "https://localhost:8381/swagger/v1/swagger.json"
+          "Url": "https://localhost:8383/swagger/v1/swagger.json"
         }
       ]
     }

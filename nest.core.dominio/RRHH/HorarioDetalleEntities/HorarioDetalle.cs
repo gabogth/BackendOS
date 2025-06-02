@@ -1,4 +1,7 @@
-﻿namespace nest.core.dominio.RRHH
+﻿using nest.core.dominio.RRHH.GrupoHorarioEntities;
+using nest.core.dominio.RRHH.HorarioCabeceraEntities;
+
+namespace nest.core.dominio.RRHH.HorarioDetalleEntities
 {
     public class HorarioDetalle
     {

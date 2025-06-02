@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using nest.core.dominio.General;
-using nest.core.dominio.RRHH;
+using nest.core.dominio.RRHH.PersonalEntities;
 
 namespace nest.core.infraestructura.db.RRHH
 {

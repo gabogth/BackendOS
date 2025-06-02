@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.RRHH;
+using nest.core.dominio.RRHH.GrupoHorarioEntities;
 
 namespace nest.core.infraestructura.db.RRHH
 {

@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\nest.core.dominio\nest.core.dominio.csproj" />
+    <ProjectReference Include="..\nest.core.infraestructura.db\nest.core.infraestructura.db.csproj" />
+    <ProjectReference Include="..\nest.core.infrastructura.utils\nest.core.infrastructura.utils.csproj" />
+  </ItemGroup>
+
 </Project>

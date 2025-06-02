@@ -1,6 +1,8 @@
 ﻿using nest.core.dominio.Legal;
+using nest.core.dominio.RRHH.HorarioCabeceraEntities;
+using nest.core.dominio.RRHH.PersonalEntities;
 
-namespace nest.core.dominio.RRHH
+namespace nest.core.dominio.RRHH.PersonalConfiguracionEntities
 {
     public class PersonalConfiguracion
     {

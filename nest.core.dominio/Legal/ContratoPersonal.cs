@@ -1,5 +1,6 @@
 ﻿using nest.core.dominio.Corporativo;
-using nest.core.dominio.RRHH;
+using nest.core.dominio.RRHH.CargoEntities;
+using nest.core.dominio.RRHH.PersonalEntities;
 
 namespace nest.core.dominio.Legal
 {

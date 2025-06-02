@@ -1,7 +1,7 @@
 ﻿using nest.core.dominio.General;
 using System.ComponentModel.DataAnnotations;
 
-namespace nest.core.dominio.RRHH
+namespace nest.core.dominio.RRHH.PersonalEntities
 {
     public class Personal
     {
@@ -10,7 +10,7 @@ namespace nest.core.dominio.RRHH
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
         public DateTime FechaNacimiento { get; set; }
-        public string DocumentoIdentidad {  get; set; }
+        public string DocumentoIdentidad { get; set; }
         public string Correo { get; set; }
         public string Celular { get; set; }
         public string Usuario { get; set; }

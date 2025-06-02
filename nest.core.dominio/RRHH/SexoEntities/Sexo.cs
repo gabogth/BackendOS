@@ -1,4 +1,4 @@
-﻿namespace nest.core.dominio.RRHH
+﻿namespace nest.core.dominio.RRHH.SexoEntities
 {
     public class Sexo
     {
