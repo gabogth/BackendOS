@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.General;
+using nest.core.dominio.General.SexoEntities;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.GrupoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalConfiguracionEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
-using nest.core.dominio.RRHH.SexoEntities;
 
 namespace nest.core.infraestructura.db.DbContext
 {

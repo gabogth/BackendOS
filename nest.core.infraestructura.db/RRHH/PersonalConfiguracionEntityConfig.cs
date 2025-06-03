@@ -11,6 +11,8 @@ namespace nest.core.infraestructura.db.RRHH
         {
             builder.ToTable("personal_configuracion", "rrhh");
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id)
+                .ValueGeneratedNever();
             builder.HasOne(x => x.Personal)
                 .WithOne()
                 .HasForeignKey<Personal>(x => x.Id)

@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.General;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace nest.core.infraestructura.db.General
 {
@@ -13,8 +10,11 @@ namespace nest.core.infraestructura.db.General
     {
         public void Configure(EntityTypeBuilder<Distrito> builder)
         {
-            builder.HasKey(x => x.Id);
             builder.ToTable("distrito", "dbo");
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id)
+                .ValueGeneratedNever()
+                .HasValueGenerator<DistritoValueGenerator>();
             builder.HasData(GetData());
         }
 
@@ -57,5 +57,14 @@ namespace nest.core.infraestructura.db.General
                 new Distrito { Id = 33, Nombre = "Chivay", ProvinciaId = 1 }
             };
         }
+    }
+
+    public class DistritoValueGenerator : ValueGenerator<int>
+    {
+        public override bool GeneratesTemporaryValues => false;
+        public override int Next(EntityEntry entry) =>
+            (entry.Context.Set<Distrito>().Max(g => (int?)g.Id) ?? 0) + 1;
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
+            (await entry.Context.Set<Distrito>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
     }
 }

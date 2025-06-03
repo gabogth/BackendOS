@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.General;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace nest.core.infraestructura.db.General
 {
@@ -10,6 +12,9 @@ namespace nest.core.infraestructura.db.General
         {
             builder.HasKey(x => x.Id);
             builder.ToTable("pais", "dbo");
+            builder.Property(x => x.Id)
+                .ValueGeneratedNever()
+                .HasValueGenerator<PaisValueGenerator>();
             builder.HasMany(p => p.Departamentos)
                 .WithOne(d => d.Pais)
                 .HasForeignKey(d => d.PaisId)
@@ -44,5 +49,14 @@ namespace nest.core.infraestructura.db.General
             };
         }
 
+    }
+
+    public class PaisValueGenerator : ValueGenerator<int>
+    {
+        public override bool GeneratesTemporaryValues => false;
+        public override int Next(EntityEntry entry) =>
+            (entry.Context.Set<Pais>().Max(g => (int?)g.Id) ?? 0) + 1;
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
+            (await entry.Context.Set<Pais>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
     }
 }

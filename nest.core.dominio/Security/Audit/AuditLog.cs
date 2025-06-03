@@ -2,7 +2,7 @@
 {
     public class AuditLog
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string EntidadNombre { get; set; }
         public string EntidadId { get; set; }
         public string Accion { get; set; }

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infrastructura.utils.Excepciones;
-using System.Data.Entity;
 
 namespace nest.core.infraestructura.rrhh
 {

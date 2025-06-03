@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using nest.core.dominio.General;
 using nest.core.dominio.RRHH.PersonalEntities;
 
 namespace nest.core.infraestructura.db.RRHH
@@ -11,6 +10,8 @@ namespace nest.core.infraestructura.db.RRHH
         {
             builder.ToTable("personal", "rrhh");
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id)
+                .ValueGeneratedNever();
             builder.Property(x => x.Nombres)
                 .HasMaxLength(120);
             builder.Property(x => x.ApellidoPaterno)

@@ -1,4 +1,4 @@
-﻿using nest.core.dominio.RRHH.SexoEntities;
+﻿using nest.core.dominio.General.SexoEntities;
 using System.ComponentModel.DataAnnotations;
 
 namespace nest.core.dominio.General
