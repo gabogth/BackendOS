@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.GrupoHorarioEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infrastructura.utils.Excepciones;
@@ -52,13 +53,8 @@ namespace nest.core.infraestructura.rrhh
             var existente = await context.GrupoHorarios.FindAsync(id);
             if (existente == null)
                 throw new RegistroNoEncontradoException<GrupoHorario>(id);
-
             mapper.Map(entry, existente);
-
-            // (Opcional) actualizar auditoría
             existente.FechaModificacion = DateTime.UtcNow;
-            // existente.UsuarioModificacion = // asignar según contexto de usuario
-
             await context.SaveChangesAsync();
             await context.Entry(existente).ReloadAsync();
             return existente;
@@ -66,13 +62,11 @@ namespace nest.core.infraestructura.rrhh
 
         public async Task Eliminar(int id)
         {
-            // EF Core 7+: ExecuteDeleteAsync
-            var registrosAfectados = await context.GrupoHorarios
-                .Where(g => g.Id == id)
-                .ExecuteDeleteAsync();
-
-            if (registrosAfectados < 1)
-                throw new RegistroNoEncontradoException<GrupoHorario>(id);
+            var existente = await context.GrupoHorarios.FindAsync(id);
+            if (existente == null)
+                throw new RegistroNoEncontradoException<Cargo>(id);
+            context.GrupoHorarios.Remove(existente);
+            context.SaveChanges();
         }
     }
 }

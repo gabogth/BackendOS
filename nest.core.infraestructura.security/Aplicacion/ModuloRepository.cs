@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.Aplicacion.Modulo;
 using nest.core.dominio.Aplicacion.Modulo.Repository;
+using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infrastructura.utils.Excepciones;
 
@@ -60,9 +61,10 @@ namespace nest.core.infraestructura.security.Aplicacion
         }
         public async Task Eliminar(int id)
         {
-            int registrosAfectados = await context.Modulo.Where(x => x.Id == id).ExecuteDeleteAsync();
-            if (registrosAfectados < 1)
-                throw new RegistroNoEncontradoException<Modulo>(id);
+            var existente = await context.Modulo.FindAsync(id);
+            if (existente == null)
+                throw new RegistroNoEncontradoException<Cargo>(id);
+            context.Modulo.Remove(existente);
             context.SaveChanges();
         }
     }

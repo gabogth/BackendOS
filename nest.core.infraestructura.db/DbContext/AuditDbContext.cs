@@ -27,8 +27,9 @@ namespace nest.core.infraestructura.db.DbContext
         {
             ChangeTracker.DetectChanges();
             var auditEntries = new List<AuditEntry>();
+            IEnumerable<EntityEntry> entries = ChangeTracker.Entries();
 
-            foreach (var entry in ChangeTracker.Entries())
+            foreach (EntityEntry entry in entries)
             {
                 if (entry.Entity is AuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                     continue;

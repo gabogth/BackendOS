@@ -54,9 +54,10 @@ namespace nest.core.infraestructura.rrhh
 
         public async Task Eliminar(int id)
         {
-            int registrosAfectados = await context.Cargos.Where(x => x.Id == id).ExecuteDeleteAsync();
-            if (registrosAfectados < 1)
+            var existente = await context.Cargos.FindAsync(id);
+            if (existente == null)
                 throw new RegistroNoEncontradoException<Cargo>(id);
+            context.Cargos.Remove(existente);
             context.SaveChanges();
         }
     }

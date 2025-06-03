@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.General;
 using nest.core.dominio.Logistica.AlmacenEN;
+using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infrastructura.utils.Excepciones;
 
@@ -40,9 +41,10 @@ namespace nest.core.infraestructura.logistica
         }
         public async Task Eliminar(int id)
         {
-            int registrosAfectados = await context.Almacen.Where(x => x.Id == id).ExecuteDeleteAsync();
-            if (registrosAfectados < 1)
-                throw new RegistroNoEncontradoException<Almacen>(id);
+            var existente = await context.Almacen.FindAsync(id);
+            if (existente == null)
+                throw new RegistroNoEncontradoException<Cargo>(id);
+            context.Almacen.Remove(existente);
             context.SaveChanges();
         }
     }
