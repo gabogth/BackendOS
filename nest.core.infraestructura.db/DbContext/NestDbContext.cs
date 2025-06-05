@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Logging;
 using nest.core.dominio.Security;
 using nest.core.dominio.Security.Tenant;
 using System.Reflection;
@@ -26,7 +27,8 @@ namespace nest.core.infraestructura.db.DbContext
             optionsBuilder.ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning));
             switch (this.engine) {
                 case "SQLSERVER":
-                    optionsBuilder.UseSqlServer(this.connectionString, b => {
+                    optionsBuilder.UseSqlServer(this.connectionString, b =>
+                    {
                         b.MigrationsAssembly("nest.core.security");
                     });
                     break;

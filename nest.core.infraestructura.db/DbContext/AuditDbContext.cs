@@ -7,6 +7,7 @@ namespace nest.core.infraestructura.db.DbContext
     public partial class NestDbContext
     {
         public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<CorrelativoMaestro> CorrelativoMaestro { get; set; }
         public override int SaveChanges()
         {
             List<AuditEntry> auditEntries = OnBeforeSaveChanges();
@@ -31,7 +32,7 @@ namespace nest.core.infraestructura.db.DbContext
 
             foreach (EntityEntry entry in entries)
             {
-                if (entry.Entity is AuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
+                if (entry.Entity is AuditLog || entry.Entity is CorrelativoMaestro || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                     continue;
 
                 var entityType = entry.Entity.GetType();

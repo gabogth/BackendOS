@@ -8,13 +8,15 @@ namespace nest.core.infraestructura.db.Audit
 {
     public class AuditLogEntityConfig : IEntityTypeConfiguration<AuditLog>
     {
+        public static readonly string SCHEMA = "audit";
+        public static readonly string TABLE = "audit_log";
         public void Configure(EntityTypeBuilder<AuditLog> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                .ValueGeneratedNever()
                .HasValueGenerator<AuditLogValueGenerator>();
-            builder.ToTable("audit_log", "audit");
+            builder.ToTable(TABLE, SCHEMA);
             builder.Property(x => x.NewValues)
                 .HasMaxLength(-1);
             builder.Property(x => x.OldValues)
@@ -26,9 +28,7 @@ namespace nest.core.infraestructura.db.Audit
     public class AuditLogValueGenerator : ValueGenerator<long>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override long Next(EntityEntry entry) =>
-            (entry.Context.Set<AuditLog>().Max(g => (long?)g.Id) ?? 0) + 1;
-        public override async ValueTask<long> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<AuditLog>().MaxAsync(g => (long?)g.Id, cancellationToken) ?? 0) + 1;
+        public override long Next(EntityEntry entry) => GeneradorCorrelativo.GetValue(entry.Context, AuditLogEntityConfig.SCHEMA, AuditLogEntityConfig.TABLE);
+        public override async ValueTask<long> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync(entry.Context, AuditLogEntityConfig.Schema, AuditLogEntityConfig.Table, cancellationToken);
     }
 }
