@@ -6,9 +6,11 @@ namespace nest.core.infraestructura.db.Audit
 {
     public class CorrelativoMaestroEntityConfig : IEntityTypeConfiguration<CorrelativoMaestro>
     {
+        public static readonly string SCHEMA = "audit";
+        public static readonly string TABLE = "correlativo_maestro";
         public void Configure(EntityTypeBuilder<CorrelativoMaestro> builder)
         {
-            builder.ToTable("correlativo_maestro", "audit");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => new { x.Schema, x.Table });
         }
     }

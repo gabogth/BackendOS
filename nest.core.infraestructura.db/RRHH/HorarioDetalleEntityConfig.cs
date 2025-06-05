@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.RRHH
 {
     public class HorarioDetalleEntityConfig : IEntityTypeConfiguration<HorarioDetalle>
     {
+        public static readonly string SCHEMA = "rrhh";
+        public static readonly string TABLE = "horario_detalle";
         public void Configure(EntityTypeBuilder<HorarioDetalle> builder)
         {
-            builder.ToTable("horario_detalle", "rrhh");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -28,9 +30,7 @@ namespace nest.core.infraestructura.db.RRHH
     public class HorarioDetalleValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<HorarioDetalle>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<HorarioDetalle>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, HorarioDetalleEntityConfig.SCHEMA, HorarioDetalleEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, HorarioDetalleEntityConfig.SCHEMA, HorarioDetalleEntityConfig.TABLE, cancellationToken);
     }
 }

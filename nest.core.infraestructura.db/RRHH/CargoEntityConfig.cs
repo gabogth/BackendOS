@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.RRHH
 {
     public class CargoEntityConfig : IEntityTypeConfiguration<Cargo>
     {
+        public static readonly string SCHEMA = "rrhh";
+        public static readonly string TABLE = "cargo";
         public void Configure(EntityTypeBuilder<Cargo> builder)
         {
-            builder.ToTable("cargo", "rrhh");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -33,9 +35,7 @@ namespace nest.core.infraestructura.db.RRHH
     public class CargoValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) => 
-            (entry.Context.Set<Cargo>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => 
-            (await entry.Context.Set<Cargo>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, CargoEntityConfig.SCHEMA, CargoEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, CargoEntityConfig.SCHEMA, CargoEntityConfig.TABLE, cancellationToken);
     }
 }

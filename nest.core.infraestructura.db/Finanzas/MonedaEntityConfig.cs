@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.Finanzas
 {
     public class MonedaEntityConfig : IEntityTypeConfiguration<Moneda>
     {
+        public static readonly string SCHEMA = "finanzas";
+        public static readonly string TABLE = "moneda";
         public void Configure(EntityTypeBuilder<Moneda> builder)
         {
-            builder.ToTable("moneda", "finanzas");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -39,9 +41,7 @@ namespace nest.core.infraestructura.db.Finanzas
     public class MonedaValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<Moneda>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<Moneda>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, MonedaEntityConfig.SCHEMA, MonedaEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, MonedaEntityConfig.SCHEMA, MonedaEntityConfig.TABLE, cancellationToken);
     }
 }
