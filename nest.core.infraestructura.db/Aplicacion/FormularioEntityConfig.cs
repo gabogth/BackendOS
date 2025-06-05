@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using nest.core.dominio.Aplicacion.Formulario;
-using nest.core.infraestructura.db.Audit;
 
 namespace nest.core.infraestructura.db.Aplicacion
 {
