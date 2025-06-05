@@ -64,7 +64,7 @@ namespace nest.core.infraestructura.rrhh
         {
             var existente = await context.GrupoHorarios.FindAsync(id);
             if (existente == null)
-                throw new RegistroNoEncontradoException<Cargo>(id);
+                throw new RegistroNoEncontradoException<GrupoHorario>(id);
             context.GrupoHorarios.Remove(existente);
             context.SaveChanges();
         }
