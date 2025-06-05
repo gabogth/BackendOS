@@ -1,4 +1,7 @@
-﻿namespace nest.core.dominio.General
+﻿using nest.core.dominio.General.PaisEntities;
+using nest.core.dominio.General.ProvinciaEntities;
+
+namespace nest.core.dominio.General.DepartamentoEntites
 {
     public class Departamento
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.General;
+using nest.core.dominio.General.ProvinciaEntities;
 
 namespace nest.core.infraestructura.db.General
 {

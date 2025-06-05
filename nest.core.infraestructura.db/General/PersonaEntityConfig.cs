@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using nest.core.dominio.General;
+using nest.core.dominio.General.PersonaEntities;
 
 namespace nest.core.infraestructura.db.General
 {

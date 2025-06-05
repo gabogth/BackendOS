@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.General;
+using nest.core.dominio.General.LicenciaConducirEntities;
 using nest.core.dominio.General.SexoEntities;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.GrupoHorarioEntities;

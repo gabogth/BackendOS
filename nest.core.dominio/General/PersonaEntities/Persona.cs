@@ -1,7 +1,9 @@
-﻿using nest.core.dominio.General.SexoEntities;
+﻿using nest.core.dominio.General.DocumentoIdentidadTipoEntities;
+using nest.core.dominio.General.LicenciaConducirEntities;
+using nest.core.dominio.General.SexoEntities;
 using System.ComponentModel.DataAnnotations;
 
-namespace nest.core.dominio.General
+namespace nest.core.dominio.General.PersonaEntities
 {
     public class Persona
     {

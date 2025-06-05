@@ -1,4 +1,4 @@
-﻿using nest.core.dominio.General;
+﻿using nest.core.dominio.General.DocumentoTipoEntities;
 using nest.core.dominio.Logistica.AlmacenEN;
 
 namespace nest.core.dominio.Logistica.Transaccional

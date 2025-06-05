@@ -1,10 +1,12 @@
-﻿using System;
+﻿using nest.core.dominio.General.DepartamentoEntites;
+using nest.core.dominio.General.DistritoEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace nest.core.dominio.General
+namespace nest.core.dominio.General.ProvinciaEntities
 {
     public class Provincia
     {

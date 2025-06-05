@@ -1,5 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.General;
+using nest.core.dominio.General.DepartamentoEntites;
+using nest.core.dominio.General.DistritoEntities;
+using nest.core.dominio.General.DocumentoIdentidadTipoEntities;
+using nest.core.dominio.General.DocumentoTipoEntities;
+using nest.core.dominio.General.LicenciaConducirEntities;
+using nest.core.dominio.General.PaisEntities;
+using nest.core.dominio.General.PersonaEntities;
+using nest.core.dominio.General.ProvinciaEntities;
 
 namespace nest.core.infraestructura.db.DbContext
 {

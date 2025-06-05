@@ -1,4 +1,6 @@
-﻿namespace nest.core.dominio.General
+﻿using nest.core.dominio.General.DepartamentoEntites;
+
+namespace nest.core.dominio.General.PaisEntities
 {
     public class Pais
     {

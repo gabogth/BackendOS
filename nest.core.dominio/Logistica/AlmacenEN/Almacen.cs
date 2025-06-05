@@ -1,4 +1,4 @@
-﻿using nest.core.dominio.General;
+﻿using nest.core.dominio.General.DistritoEntities;
 
 namespace nest.core.dominio.Logistica.AlmacenEN
 {

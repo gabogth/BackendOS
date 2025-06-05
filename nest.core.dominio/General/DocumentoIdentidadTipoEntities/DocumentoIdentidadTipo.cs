@@ -1,4 +1,4 @@
-﻿namespace nest.core.dominio.General
+﻿namespace nest.core.dominio.General.DocumentoIdentidadTipoEntities
 {
     public class DocumentoIdentidadTipo
     {

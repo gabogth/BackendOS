@@ -1,4 +1,4 @@
-﻿using nest.core.dominio.General;
+﻿using nest.core.dominio.General.PersonaEntities;
 
 namespace nest.core.dominio.Legal
 {

@@ -1,4 +1,6 @@
-﻿namespace nest.core.dominio.General
+﻿using nest.core.dominio.General.ProvinciaEntities;
+
+namespace nest.core.dominio.General.DistritoEntities
 {
     public class Distrito
     {
