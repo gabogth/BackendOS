@@ -1,4 +1,4 @@
-﻿namespace nest.core.dominio.Legal
+﻿namespace nest.core.dominio.Legal.ContratoTipoEntities
 {
     public class ContratoTipo
     {

@@ -1,4 +1,4 @@
-﻿using nest.core.dominio.Legal;
+﻿using nest.core.dominio.Legal.ContratoCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 

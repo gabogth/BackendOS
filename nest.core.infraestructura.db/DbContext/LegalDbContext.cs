@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.General;
-using nest.core.dominio.Legal;
+using nest.core.dominio.Legal.ContratoCabeceraEntities;
+using nest.core.dominio.Legal.ContratoDetalleEntities;
+using nest.core.dominio.Legal.ContratoPersonalEntities;
+using nest.core.dominio.Legal.ContratoTipoEntities;
 
 namespace nest.core.infraestructura.db.DbContext
 {

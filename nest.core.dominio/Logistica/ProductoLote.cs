@@ -1,4 +1,4 @@
-﻿using nest.core.dominio.Finanzas;
+﻿using nest.core.dominio.Finanzas.MonedaEntities;
 
 namespace nest.core.dominio.Logistica
 {

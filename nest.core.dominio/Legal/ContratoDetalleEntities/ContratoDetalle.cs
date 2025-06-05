@@ -1,6 +1,7 @@
 ﻿using nest.core.dominio.General.PersonaEntities;
+using nest.core.dominio.Legal.ContratoCabeceraEntities;
 
-namespace nest.core.dominio.Legal
+namespace nest.core.dominio.Legal.ContratoDetalleEntities
 {
     public class ContratoDetalle
     {

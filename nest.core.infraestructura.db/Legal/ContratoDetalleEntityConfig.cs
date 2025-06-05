@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using nest.core.dominio.Legal;
+using nest.core.dominio.Legal.ContratoDetalleEntities;
 
 namespace nest.core.infraestructura.db.Legal
 {

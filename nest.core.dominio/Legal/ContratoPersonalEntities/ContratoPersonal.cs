@@ -1,8 +1,9 @@
 ﻿using nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities;
+using nest.core.dominio.Legal.ContratoCabeceraEntities;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 
-namespace nest.core.dominio.Legal
+namespace nest.core.dominio.Legal.ContratoPersonalEntities
 {
     public class ContratoPersonal
     {

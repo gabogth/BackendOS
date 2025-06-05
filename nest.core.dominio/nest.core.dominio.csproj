@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Excepciones\" />
-    <Folder Include="Finanzas\MonedaEntities\" />
   </ItemGroup>
 
 </Project>

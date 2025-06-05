@@ -39,6 +39,18 @@
         }
       ]
     },
+    {
+      "UpstreamPathTemplate": "/corporativo/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8384
+        }
+      ]
+    },
 
     //Start Region [Swagger config]
 
@@ -80,6 +92,19 @@
           "Port": 8383
         }
       ]
+    },
+    {
+      "SwaggerKey": "corporativo",
+      "UpstreamPathTemplate": "/corporativo/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8384
+        }
+      ]
     }
     //End Region [Swagger config]
   ],
@@ -111,6 +136,16 @@
           "Name": "API RRHH",
           "Version": "v1",
           "Url": "https://localhost:8383/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "corporativo",
+      "Config": [
+        {
+          "Name": "API Corporativo",
+          "Version": "v1",
+          "Url": "https://localhost:8384/swagger/v1/swagger.json"
         }
       ]
     }

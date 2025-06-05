@@ -1,4 +1,4 @@
-﻿namespace nest.core.dominio.Finanzas
+﻿namespace nest.core.dominio.Finanzas.MonedaEntities
 {
     public class Moneda
     {

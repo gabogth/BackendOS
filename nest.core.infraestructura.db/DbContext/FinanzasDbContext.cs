@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.Finanzas;
+using nest.core.dominio.Finanzas.MonedaEntities;
 
 namespace nest.core.infraestructura.db.DbContext
 {
