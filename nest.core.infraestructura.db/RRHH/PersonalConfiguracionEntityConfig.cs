@@ -7,9 +7,11 @@ namespace nest.core.infraestructura.db.RRHH
 {
     public class PersonalConfiguracionEntityConfig : IEntityTypeConfiguration<PersonalConfiguracion>
     {
+        public static readonly string SCHEMA = "rrhh";
+        public static readonly string TABLE = "personal_configuracion";
         public void Configure(EntityTypeBuilder<PersonalConfiguracion> builder)
         {
-            builder.ToTable("personal_configuracion", "rrhh");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever();

@@ -8,13 +8,15 @@ namespace nest.core.infraestructura.db.Aplicacion
 {
     public class ModuloEntityConfig : IEntityTypeConfiguration<Modulo>
     {
+        public static readonly string SCHEMA = "aplicacion";
+        public static readonly string TABLE = "modulo";
         public void Configure(EntityTypeBuilder<Modulo> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<ModuloValueGenerator>();
-            builder.ToTable("modulo", "aplicacion");
+            builder.ToTable(TABLE, SCHEMA);
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
             builder.Property(x => x.Descripcion)
@@ -38,9 +40,7 @@ namespace nest.core.infraestructura.db.Aplicacion
     public class ModuloValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<Modulo>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<Modulo>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, ModuloEntityConfig.SCHEMA, ModuloEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, ModuloEntityConfig.SCHEMA, ModuloEntityConfig.TABLE, cancellationToken);
     }
 }
