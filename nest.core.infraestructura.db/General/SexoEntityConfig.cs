@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.General
 {
     public class SexoEntityConfig : IEntityTypeConfiguration<Sexo>
     {
+        public static readonly string SCHEMA = "dbo";
+        public static readonly string TABLE = "sexo";
         public void Configure(EntityTypeBuilder<Sexo> builder)
         {
-            builder.ToTable("sexo", "dbo");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -32,9 +34,7 @@ namespace nest.core.infraestructura.db.General
     public class SexoValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<Sexo>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<Sexo>().MaxAsync(g => (byte?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, SexoEntityConfig.SCHEMA, SexoEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, SexoEntityConfig.SCHEMA, SexoEntityConfig.TABLE, cancellationToken);
     }
 }

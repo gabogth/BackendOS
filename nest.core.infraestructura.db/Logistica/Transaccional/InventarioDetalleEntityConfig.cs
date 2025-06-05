@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.Logistica.Transaccional
 {
     public class InventarioDetalleEntityConfig : IEntityTypeConfiguration<InventarioDetalle>
     {
+        public static readonly string SCHEMA = "logistica";
+        public static readonly string TABLE = "inventario_detalle";
         public void Configure(EntityTypeBuilder<InventarioDetalle> builder)
         {
-            builder.ToTable("inventario_detalle", "logistica");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -34,9 +36,7 @@ namespace nest.core.infraestructura.db.Logistica.Transaccional
     public class InventarioDetalleValueGenerator : ValueGenerator<long>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override long Next(EntityEntry entry) =>
-            (entry.Context.Set<InventarioDetalle>().Max(g => (long?)g.Id) ?? 0) + 1;
-        public override async ValueTask<long> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<InventarioDetalle>().MaxAsync(g => (long?)g.Id, cancellationToken) ?? 0) + 1;
+        public override long Next(EntityEntry entry) => GeneradorCorrelativo.GetValue(entry.Context, InventarioDetalleEntityConfig.SCHEMA, InventarioDetalleEntityConfig.TABLE);
+        public override async ValueTask<long> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync(entry.Context, InventarioDetalleEntityConfig.SCHEMA, InventarioDetalleEntityConfig.TABLE, cancellationToken);
     }
 }

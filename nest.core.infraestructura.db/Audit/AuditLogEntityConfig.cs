@@ -29,6 +29,6 @@ namespace nest.core.infraestructura.db.Audit
     {
         public override bool GeneratesTemporaryValues => false;
         public override long Next(EntityEntry entry) => GeneradorCorrelativo.GetValue(entry.Context, AuditLogEntityConfig.SCHEMA, AuditLogEntityConfig.TABLE);
-        public override async ValueTask<long> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync(entry.Context, AuditLogEntityConfig.Schema, AuditLogEntityConfig.Table, cancellationToken);
+        public override async ValueTask<long> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync(entry.Context, AuditLogEntityConfig.SCHEMA, AuditLogEntityConfig.TABLE, cancellationToken);
     }
 }

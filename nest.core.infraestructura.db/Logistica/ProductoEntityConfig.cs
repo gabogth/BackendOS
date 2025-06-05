@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.Logistica
 {
     public class ProductoEntityConfig : IEntityTypeConfiguration<Producto>
     {
+        public static readonly string SCHEMA = "logistica";
+        public static readonly string TABLE = "producto";
         public void Configure(EntityTypeBuilder<Producto> builder)
         {
-            builder.ToTable("producto", "logistica");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -30,9 +32,7 @@ namespace nest.core.infraestructura.db.Logistica
     public class ProductoValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<Producto>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<Producto>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, ProductoEntityConfig.SCHEMA, ProductoEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, ProductoEntityConfig.SCHEMA, ProductoEntityConfig.TABLE, cancellationToken);
     }
 }

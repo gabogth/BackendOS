@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.RRHH
 {
     public class HorarioCabeceraEntityConfig : IEntityTypeConfiguration<HorarioCabecera>
     {
+        public static readonly string SCHEMA = "rrhh";
+        public static readonly string TABLE = "horario_cabecera";
         public void Configure(EntityTypeBuilder<HorarioCabecera> builder)
         {
-            builder.ToTable("horario_cabecera", "rrhh");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -20,9 +22,7 @@ namespace nest.core.infraestructura.db.RRHH
     public class HorarioCabeceraValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<HorarioCabecera>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<HorarioCabecera>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, HorarioCabeceraEntityConfig.SCHEMA, HorarioCabeceraEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, HorarioCabeceraEntityConfig.SCHEMA, HorarioCabeceraEntityConfig.TABLE, cancellationToken);
     }
 }
