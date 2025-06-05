@@ -1,4 +1,6 @@
-﻿namespace nest.core.dominio.Corporativo
+﻿using nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities;
+
+namespace nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities
 {
     public class EstructuraOrganizacional
     {
@@ -13,7 +15,7 @@
         public DateTime FechaRegistro { get; set; }
         public string UsuarioRegistro { get; set; }
         public DateTime? FechaModificacion { get; set; }
-        public string? UsuarioModificacion { get; set; }
+        public string UsuarioModificacion { get; set; }
         public EstructuraOrganizacionalTipo EstructuraOrganizacionalTipo { get; set; }
         public EstructuraOrganizacional Parent { get; set; }
         public ICollection<EstructuraOrganizacional> Children { get; set; }

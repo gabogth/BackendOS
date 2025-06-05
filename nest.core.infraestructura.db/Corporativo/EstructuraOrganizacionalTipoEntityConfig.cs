@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using nest.core.dominio.Corporativo;
+using nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities;
 
 namespace nest.core.infraestructura.db.Corporativo
 {

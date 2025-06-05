@@ -1,4 +1,4 @@
-﻿namespace nest.core.dominio.Corporativo
+﻿namespace nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities
 {
     public class EstructuraOrganizacionalTipo
     {

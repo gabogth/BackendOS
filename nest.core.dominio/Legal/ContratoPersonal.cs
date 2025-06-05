@@ -1,4 +1,4 @@
-﻿using nest.core.dominio.Corporativo;
+﻿using nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 

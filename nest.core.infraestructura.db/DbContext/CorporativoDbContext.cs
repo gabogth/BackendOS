@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.Corporativo;
+using nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities;
+using nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities;
 namespace nest.core.infraestructura.db.DbContext
 {
     public partial class NestDbContext
