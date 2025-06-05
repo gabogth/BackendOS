@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.General;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace nest.core.infraestructura.db.General
 {
@@ -16,7 +14,7 @@ namespace nest.core.infraestructura.db.General
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<LicenciaConducirValueGenerator>();
+                .HasValueGenerator<GenericValueGenerator<byte>>();
             builder.HasData(ObtenerInformacionInicial());
         }
 
@@ -36,12 +34,5 @@ namespace nest.core.infraestructura.db.General
             };
             return roles;
         }
-    }
-
-    public class LicenciaConducirValueGenerator : ValueGenerator<byte>
-    {
-        public override bool GeneratesTemporaryValues => false;
-        public override byte Next(EntityEntry entry) => (byte)GeneradorCorrelativo.GetValue(entry.Context, LicenciaConducirEntityConfig.SCHEMA, LicenciaConducirEntityConfig.TABLE);
-        public override async ValueTask<byte> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (byte)await GeneradorCorrelativo.GetValueAsync(entry.Context, LicenciaConducirEntityConfig.SCHEMA, LicenciaConducirEntityConfig.TABLE, cancellationToken);
     }
 }

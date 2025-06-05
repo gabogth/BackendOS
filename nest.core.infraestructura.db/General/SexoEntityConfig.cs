@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.General.SexoEntities;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace nest.core.infraestructura.db.General
 {
@@ -16,7 +14,7 @@ namespace nest.core.infraestructura.db.General
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<SexoValueGenerator>();
+                .HasValueGenerator<GenericValueGenerator<byte>>();
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
             builder.HasData(ObtenerInformacionInicial());
@@ -24,17 +22,12 @@ namespace nest.core.infraestructura.db.General
 
         public List<Sexo> ObtenerInformacionInicial()
         {
-            List<Sexo> roles = new List<Sexo>()
+            List<Sexo> entidades = new List<Sexo>()
             {
+                new Sexo { Id = 1, Nombre = "Masculino", NombreCorto = "M" },
+                new Sexo { Id = 2, Nombre = "Femenino", NombreCorto = "F" },
             };
-            return roles;
+            return entidades;
         }
-    }
-
-    public class SexoValueGenerator : ValueGenerator<byte>
-    {
-        public override bool GeneratesTemporaryValues => false;
-        public override byte Next(EntityEntry entry) => (byte)GeneradorCorrelativo.GetValue(entry.Context, SexoEntityConfig.SCHEMA, SexoEntityConfig.TABLE);
-        public override async ValueTask<byte> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (byte)await GeneradorCorrelativo.GetValueAsync(entry.Context, SexoEntityConfig.SCHEMA, SexoEntityConfig.TABLE, cancellationToken);
     }
 }

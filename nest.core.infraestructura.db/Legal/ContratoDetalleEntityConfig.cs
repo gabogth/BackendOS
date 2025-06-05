@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using nest.core.dominio.Legal;
 
 namespace nest.core.infraestructura.db.Legal
@@ -16,7 +14,7 @@ namespace nest.core.infraestructura.db.Legal
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<ContratoDetalleValueGenerator>();
+                .HasValueGenerator<GenericValueGenerator<int>>();
             builder.HasOne(x => x.ContratoCabecera)
                 .WithMany()
                 .HasForeignKey(x => x.ContratoCabeceraId)
@@ -26,11 +24,5 @@ namespace nest.core.infraestructura.db.Legal
                 .HasForeignKey(x => x.PersonaId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
-    }
-    public class ContratoDetalleValueGenerator : ValueGenerator<int>
-    {
-        public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, ContratoDetalleEntityConfig.SCHEMA, ContratoDetalleEntityConfig.TABLE);
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, ContratoDetalleEntityConfig.SCHEMA, ContratoDetalleEntityConfig.TABLE, cancellationToken);
     }
 }

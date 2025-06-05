@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using nest.core.dominio.General;
 
 namespace nest.core.infraestructura.db.General
@@ -16,7 +14,7 @@ namespace nest.core.infraestructura.db.General
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<PersonaValueGenerator>();
+                .HasValueGenerator<GenericValueGenerator<int>>();
             builder.Property(x => x.Nombres)
                 .HasMaxLength(120);
             builder.Property(x => x.ApellidoPaterno)
@@ -41,11 +39,5 @@ namespace nest.core.infraestructura.db.General
                 .HasForeignKey(ic => ic.DocumentoIdentidadTipoId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
-    }
-    public class PersonaValueGenerator : ValueGenerator<int>
-    {
-        public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, PersonaEntityConfig.SCHEMA, PersonaEntityConfig.TABLE);
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, PersonaEntityConfig.SCHEMA, PersonaEntityConfig.TABLE, cancellationToken);
     }
 }

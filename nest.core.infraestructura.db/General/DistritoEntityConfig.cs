@@ -1,22 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.General;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace nest.core.infraestructura.db.General
 {
     public class DistritoEntityConfig : IEntityTypeConfiguration<Distrito>
     {
-        public static readonly string SCHEMA = "dbo";
-        public static readonly string TABLE = "distrito";
         public void Configure(EntityTypeBuilder<Distrito> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("distrito", "dbo");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<DistritoValueGenerator>();
+                .HasValueGenerator<GenericValueGenerator<int>>();
             builder.HasData(GetData());
         }
 
@@ -59,12 +55,5 @@ namespace nest.core.infraestructura.db.General
                 new Distrito { Id = 33, Nombre = "Chivay", ProvinciaId = 1 }
             };
         }
-    }
-
-    public class DistritoValueGenerator : ValueGenerator<int>
-    {
-        public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, DistritoEntityConfig.SCHEMA, DistritoEntityConfig.TABLE);
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, DistritoEntityConfig.SCHEMA, DistritoEntityConfig.TABLE, cancellationToken);
     }
 }

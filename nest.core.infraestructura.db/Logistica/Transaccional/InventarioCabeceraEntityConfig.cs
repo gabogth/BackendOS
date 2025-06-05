@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using nest.core.dominio.Logistica.Transaccional;
 
@@ -16,7 +14,7 @@ namespace nest.core.infraestructura.db.Logistica.Transaccional
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<InventarioCabeceraValueGenerator>();
+                .HasValueGenerator<GenericValueGenerator<long>>();
             builder.Property(x => x.Observacion)
                 .HasMaxLength(-1);
             builder.HasOne(ic => ic.DocumentoTipo)
@@ -32,11 +30,5 @@ namespace nest.core.infraestructura.db.Logistica.Transaccional
                 .HasForeignKey(ic => ic.AlmacenId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
-    }
-    public class InventarioCabeceraValueGenerator : ValueGenerator<long>
-    {
-        public override bool GeneratesTemporaryValues => false;
-        public override long Next(EntityEntry entry) => GeneradorCorrelativo.GetValue(entry.Context, InventarioCabeceraEntityConfig.SCHEMA, InventarioCabeceraEntityConfig.TABLE);
-        public override async ValueTask<long> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync(entry.Context, InventarioCabeceraEntityConfig.SCHEMA, InventarioCabeceraEntityConfig.TABLE, cancellationToken);
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.RRHH.CargoEntities;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace nest.core.infraestructura.db.RRHH
 {
@@ -16,7 +14,7 @@ namespace nest.core.infraestructura.db.RRHH
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<CargoValueGenerator>();
+                .HasValueGenerator<GenericValueGenerator<int>>();
             builder.HasData(ObtenerInformacionInicial());
         }
 
@@ -30,12 +28,5 @@ namespace nest.core.infraestructura.db.RRHH
             };
             return roles;
         }
-    }
-
-    public class CargoValueGenerator : ValueGenerator<int>
-    {
-        public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, CargoEntityConfig.SCHEMA, CargoEntityConfig.TABLE);
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, CargoEntityConfig.SCHEMA, CargoEntityConfig.TABLE, cancellationToken);
     }
 }

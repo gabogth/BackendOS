@@ -1,22 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.Finanzas;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 
 namespace nest.core.infraestructura.db.Finanzas
 {
     public class MonedaEntityConfig : IEntityTypeConfiguration<Moneda>
     {
-        public static readonly string SCHEMA = "finanzas";
-        public static readonly string TABLE = "moneda";
         public void Configure(EntityTypeBuilder<Moneda> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("moneda", "finanzas");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<MonedaValueGenerator>();
+                .HasValueGenerator<GenericValueGenerator<int>>();
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
             builder.Property(x => x.Prefix)
@@ -37,11 +33,5 @@ namespace nest.core.infraestructura.db.Finanzas
                 new Moneda { Id = 3, Nombre = "EUROS", NombreCorto = "EUR", Simbolo = "€", Prefix = "€", Sufix = "euros" }
             };
         }
-    }
-    public class MonedaValueGenerator : ValueGenerator<int>
-    {
-        public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, MonedaEntityConfig.SCHEMA, MonedaEntityConfig.TABLE);
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, MonedaEntityConfig.SCHEMA, MonedaEntityConfig.TABLE, cancellationToken);
     }
 }

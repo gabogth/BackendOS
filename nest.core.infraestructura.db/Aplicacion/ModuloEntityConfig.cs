@@ -1,22 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using nest.core.dominio.Aplicacion.Modulo;
 
 namespace nest.core.infraestructura.db.Aplicacion
 {
     public class ModuloEntityConfig : IEntityTypeConfiguration<Modulo>
     {
-        public static readonly string SCHEMA = "aplicacion";
-        public static readonly string TABLE = "modulo";
         public void Configure(EntityTypeBuilder<Modulo> builder)
         {
+            builder.ToTable("modulo", "aplicacion");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<ModuloValueGenerator>();
-            builder.ToTable(TABLE, SCHEMA);
+                .HasValueGenerator<GenericValueGenerator<int>>();
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
             builder.Property(x => x.Descripcion)
@@ -36,11 +32,5 @@ namespace nest.core.infraestructura.db.Aplicacion
             };
             return roles;
         }
-    }
-    public class ModuloValueGenerator : ValueGenerator<int>
-    {
-        public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, ModuloEntityConfig.SCHEMA, ModuloEntityConfig.TABLE);
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, ModuloEntityConfig.SCHEMA, ModuloEntityConfig.TABLE, cancellationToken);
     }
 }

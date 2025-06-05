@@ -1,22 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using nest.core.dominio.Aplicacion.Formulario;
 
 namespace nest.core.infraestructura.db.Aplicacion
 {
     public class FormularioEntityConfig : IEntityTypeConfiguration<Formulario>
     {
-        public static readonly string SCHEMA = "aplicacion";
-        public static readonly string TABLE = "formulario";
         public void Configure(EntityTypeBuilder<Formulario> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("formulario", "aplicacion");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<FormularioValueGenerator>();
+                .HasValueGenerator<GenericValueGenerator<int>>();
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
             builder.Property(x => x.Descripcion)
@@ -47,11 +43,5 @@ namespace nest.core.infraestructura.db.Aplicacion
             };
             return roles;
         }
-    }
-    public class FormularioValueGenerator : ValueGenerator<long>
-    {
-        public override bool GeneratesTemporaryValues => false;
-        public override long Next(EntityEntry entry) => GeneradorCorrelativo.GetValue(entry.Context, FormularioEntityConfig.SCHEMA, FormularioEntityConfig.TABLE);
-        public override async ValueTask<long> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync(entry.Context, FormularioEntityConfig.SCHEMA, FormularioEntityConfig.TABLE, cancellationToken);
     }
 }
