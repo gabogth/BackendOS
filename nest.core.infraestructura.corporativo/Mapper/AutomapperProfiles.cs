@@ -1,5 +1,6 @@
 using AutoMapper;
 using nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities;
+using nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities;
 
 namespace nest.core.infraestructura.corporativo.Mapper
 {
@@ -8,6 +9,7 @@ namespace nest.core.infraestructura.corporativo.Mapper
         public AutomapperProfiles()
         {
             CreateMap<EstructuraOrganizacionalTipoCrearDto, EstructuraOrganizacionalTipo>();
+            CreateMap<EstructuraOrganizacionalCrearDto, EstructuraOrganizacional>();
         }
     }
 }

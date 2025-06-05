@@ -10,6 +10,8 @@ namespace nest.core.corporativo.Extensions
         {
             services.ConfigureInfraestructura(configuration);
             services.AddScoped<EstructuraOrganizacionalTipoService>();
+            services.AddScoped<EstructuraOrganizacionalService>();
+          
             return services;
         }
     }
