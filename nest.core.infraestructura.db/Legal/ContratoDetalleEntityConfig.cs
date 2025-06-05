@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.Legal
 {
     public class ContratoDetalleEntityConfig : IEntityTypeConfiguration<ContratoDetalle>
     {
+        public static readonly string SCHEMA = "legal";
+        public static readonly string TABLE = "contrato_detalle";
         public void Configure(EntityTypeBuilder<ContratoDetalle> builder)
         {
-            builder.ToTable("contrato_detalle", "legal");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -28,9 +30,7 @@ namespace nest.core.infraestructura.db.Legal
     public class ContratoDetalleValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<ContratoDetalle>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<ContratoDetalle>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, ContratoDetalleEntityConfig.SCHEMA, ContratoDetalleEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, ContratoDetalleEntityConfig.SCHEMA, ContratoDetalleEntityConfig.TABLE, cancellationToken);
     }
 }

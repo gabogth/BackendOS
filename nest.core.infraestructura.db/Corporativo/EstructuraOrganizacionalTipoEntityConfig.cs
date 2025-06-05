@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.Corporativo
 {
     public class EstructuraOrganizacionalTipoEntityConfig: IEntityTypeConfiguration<EstructuraOrganizacionalTipo>
     {
+        public static readonly string SCHEMA = "organizacion";
+        public static readonly string TABLE = "estructura_organizacional_tipo";
         public void Configure(EntityTypeBuilder<EstructuraOrganizacionalTipo> builder)
         {
-            builder.ToTable("estructura_organizacional_tipo", "organizacion");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -23,9 +25,7 @@ namespace nest.core.infraestructura.db.Corporativo
     public class EstructuraOrganizacionalTipoValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<EstructuraOrganizacionalTipo>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<EstructuraOrganizacionalTipo>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, EstructuraOrganizacionalTipoEntityConfig.SCHEMA, EstructuraOrganizacionalTipoEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, EstructuraOrganizacionalTipoEntityConfig.SCHEMA, EstructuraOrganizacionalTipoEntityConfig.TABLE, cancellationToken);
     }
 }

@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.General
 {
     public class DistritoEntityConfig : IEntityTypeConfiguration<Distrito>
     {
+        public static readonly string SCHEMA = "dbo";
+        public static readonly string TABLE = "distrito";
         public void Configure(EntityTypeBuilder<Distrito> builder)
         {
-            builder.ToTable("distrito", "dbo");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -62,9 +64,7 @@ namespace nest.core.infraestructura.db.General
     public class DistritoValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<Distrito>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<Distrito>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, DistritoEntityConfig.SCHEMA, DistritoEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, DistritoEntityConfig.SCHEMA, DistritoEntityConfig.TABLE, cancellationToken);
     }
 }

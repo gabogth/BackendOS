@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.General
 {
     public class DocumentoIdentidadTipoEntityConfig : IEntityTypeConfiguration<DocumentoIdentidadTipo>
     {
+        public static readonly string SCHEMA = "dbo";
+        public static readonly string TABLE = "documento_identidad_tipo";
         public void Configure(EntityTypeBuilder<DocumentoIdentidadTipo> builder)
         {
-            builder.ToTable("documento_identidad_tipo", "dbo");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -33,9 +35,7 @@ namespace nest.core.infraestructura.db.General
     public class DocumentoIdentidadTipoValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<DocumentoIdentidadTipo>().Max(g => (byte?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<DocumentoIdentidadTipo>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, DocumentoIdentidadTipoEntityConfig.SCHEMA, DocumentoIdentidadTipoEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, DocumentoIdentidadTipoEntityConfig.SCHEMA, DocumentoIdentidadTipoEntityConfig.TABLE, cancellationToken);
     }
 }

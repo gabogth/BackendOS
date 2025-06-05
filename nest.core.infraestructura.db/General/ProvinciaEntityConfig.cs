@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.General
 {
     public class ProvinciaEntityConfig : IEntityTypeConfiguration<Provincia>
     {
+        public static readonly string SCHEMA = "dbo";
+        public static readonly string TABLE = "provincia";
         public void Configure(EntityTypeBuilder<Provincia> builder)
         {
-            builder.ToTable("provincia", "dbo");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -41,9 +43,7 @@ namespace nest.core.infraestructura.db.General
     public class ProvinciaValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<Provincia>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<Provincia>().MaxAsync(g => (byte?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, ProvinciaEntityConfig.SCHEMA, ProvinciaEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, ProvinciaEntityConfig.SCHEMA, ProvinciaEntityConfig.TABLE, cancellationToken);
     }
 }

@@ -8,9 +8,11 @@ namespace nest.core.infraestructura.db.General
 {
     public class LicenciaConducirEntityConfig : IEntityTypeConfiguration<LicenciaConducir>
     {
+        public static readonly string SCHEMA = "dbo";
+        public static readonly string TABLE = "licencia_conducir";
         public void Configure(EntityTypeBuilder<LicenciaConducir> builder)
         {
-            builder.ToTable("licencia_conducir", "dbo");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -39,9 +41,7 @@ namespace nest.core.infraestructura.db.General
     public class LicenciaConducirValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<LicenciaConducir>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<LicenciaConducir>().MaxAsync(g => (byte?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, LicenciaConducirEntityConfig.SCHEMA, LicenciaConducirEntityConfig.TABLE);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, LicenciaConducirEntityConfig.SCHEMA, LicenciaConducirEntityConfig.TABLE, cancellationToken);
     }
 }
