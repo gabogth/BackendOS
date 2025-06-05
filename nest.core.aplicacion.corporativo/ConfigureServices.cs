@@ -16,6 +16,7 @@ namespace nest.core.aplicacion.corporativo
             services.AddTransient<IConnectionStringService>((provider) => AuthClaim.constructClaimsAuth(provider, configuration));
             services.AddTransient<IEstructuraOrganizacionalTipoRepository, EstructuraOrganizacionalTipoRepository>();
             services.AddTransient<IEstructuraOrganizacionalRepository, EstructuraOrganizacionalRepository>();
+
             return services;
         }
     }
