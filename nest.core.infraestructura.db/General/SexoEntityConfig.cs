@@ -31,10 +31,10 @@ namespace nest.core.infraestructura.db.General
         }
     }
 
-    public class SexoValueGenerator : ValueGenerator<int>
+    public class SexoValueGenerator : ValueGenerator<byte>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, SexoEntityConfig.SCHEMA, SexoEntityConfig.TABLE);
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, SexoEntityConfig.SCHEMA, SexoEntityConfig.TABLE, cancellationToken);
+        public override byte Next(EntityEntry entry) => (byte)GeneradorCorrelativo.GetValue(entry.Context, SexoEntityConfig.SCHEMA, SexoEntityConfig.TABLE);
+        public override async ValueTask<byte> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (byte)await GeneradorCorrelativo.GetValueAsync(entry.Context, SexoEntityConfig.SCHEMA, SexoEntityConfig.TABLE, cancellationToken);
     }
 }

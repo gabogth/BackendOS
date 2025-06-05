@@ -32,10 +32,10 @@ namespace nest.core.infraestructura.db.General
             };
         }
     }
-    public class DocumentoIdentidadTipoValueGenerator : ValueGenerator<int>
+    public class DocumentoIdentidadTipoValueGenerator : ValueGenerator<byte>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) => (int)GeneradorCorrelativo.GetValue(entry.Context, DocumentoIdentidadTipoEntityConfig.SCHEMA, DocumentoIdentidadTipoEntityConfig.TABLE);
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (int)await GeneradorCorrelativo.GetValueAsync(entry.Context, DocumentoIdentidadTipoEntityConfig.SCHEMA, DocumentoIdentidadTipoEntityConfig.TABLE, cancellationToken);
+        public override byte Next(EntityEntry entry) => (byte)GeneradorCorrelativo.GetValue(entry.Context, DocumentoIdentidadTipoEntityConfig.SCHEMA, DocumentoIdentidadTipoEntityConfig.TABLE);
+        public override async ValueTask<byte> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => (byte)await GeneradorCorrelativo.GetValueAsync(entry.Context, DocumentoIdentidadTipoEntityConfig.SCHEMA, DocumentoIdentidadTipoEntityConfig.TABLE, cancellationToken);
     }
 }
