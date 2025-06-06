@@ -17,20 +17,18 @@ namespace nest.core.infraestructura.general
             this.mapper = mapper;
         }
 
-        public async Task<Persona> ObtenerPorId(int id)
-        {
-            return await context.Persona.FirstOrDefaultAsync(p => p.Id == id);
-        }
+        public async Task<Persona> ObtenerPorId(int id) => 
+            await context.Persona
+                .Include(x => x.LicenciaConducir)
+                .Include(x => x.DocumentoIdentidadTipo)
+                .Include(x => x.Sexo)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
-        public async Task<List<Persona>> ObtenerTodos()
-        {
-            return await context.Persona.ToListAsync();
-        }
+        public async Task<List<Persona>> ObtenerTodos() => 
+            await context.Persona.ToListAsync();
 
-        public async Task<List<Persona>> ObtenerActivos()
-        {
-            return await context.Persona.Where(p => p.Estado).ToListAsync();
-        }
+        public async Task<List<Persona>> ObtenerActivos() => 
+            await context.Persona.Where(p => p.Estado).ToListAsync();
 
         public async Task<Persona> Agregar(PersonaCrearDto entry)
         {
