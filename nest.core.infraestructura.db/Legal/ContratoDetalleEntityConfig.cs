@@ -16,7 +16,7 @@ namespace nest.core.infraestructura.db.Legal
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<int>>();
             builder.HasOne(x => x.ContratoCabecera)
-                .WithMany()
+                .WithMany(c => c.Detalles)
                 .HasForeignKey(x => x.ContratoCabeceraId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x => x.Persona)
