@@ -7,7 +7,7 @@ namespace nest.core.dominio.RRHH.PersonalConfiguracionEntities
     public class PersonalConfiguracion
     {
         public int Id { get; set; }
-        public int ContratoCabeceraId { get; set; }
+        public long ContratoCabeceraId { get; set; }
         public bool MarcaAsistencia { get; set; }
         public int HorarioCabeceraId { get; set; }
         public HorarioCabecera HorarioCabecera { get; set; }

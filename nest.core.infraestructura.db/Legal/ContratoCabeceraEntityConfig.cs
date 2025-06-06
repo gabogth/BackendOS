@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using nest.core.dominio.Legal.ContratoCabeceraEntities;
-using nest.core.dominio.Legal.ContratoDetalleEntities;
 using nest.core.dominio.Legal.ContratoPersonalEntities;
 
 namespace nest.core.infraestructura.db.Legal
@@ -16,7 +15,7 @@ namespace nest.core.infraestructura.db.Legal
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<GenericValueGenerator<int>>();
+                .HasValueGenerator<GenericValueGenerator<long>>();
             builder.Property(x => x.Resumen)
                 .HasMaxLength(-1);
             builder.Property(x => x.Descripcion)

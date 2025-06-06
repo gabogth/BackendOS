@@ -6,7 +6,7 @@ namespace nest.core.dominio.Legal.ContratoCabeceraEntities
 {
     public class ContratoCabecera
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public byte ContratoTipoId { get; set; }
         public int Numero { get; set; }
         public DateTime FechaInicial { get; set; }

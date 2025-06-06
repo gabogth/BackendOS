@@ -18,11 +18,15 @@ namespace nest.core.infraestructura.legal
             this.mapper = mapper;
         }
 
-        public async Task<ContratoCabecera> ObtenerPorId(int id) =>
+        public async Task<ContratoCabecera> ObtenerPorId(long id) =>
             await context.ContratoCabecera
                 .Include(c => c.ContratoPersonal)
                 .Include(c => c.Detalles)
                 .FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<ContratoCabecera> ObtenerPorContratoTipoIdAndNumero(byte ContratoTipoId, int Numero) => await context.ContratoCabecera
+                .Include(c => c.ContratoPersonal)
+                .Include(c => c.Detalles)
+                .FirstOrDefaultAsync(x => x.ContratoTipoId == ContratoTipoId && x.Numero == Numero);
 
         public async Task<List<ContratoCabecera>> ObtenerTodos() =>
             await context.ContratoCabecera
@@ -67,7 +71,7 @@ namespace nest.core.infraestructura.legal
             }
         }
 
-        public async Task Eliminar(int id)
+        public async Task Eliminar(long id)
         {
             var existente = await context.ContratoCabecera.FindAsync(id);
             if (existente != null)

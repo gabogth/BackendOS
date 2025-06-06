@@ -12,10 +12,11 @@ namespace nest.core.aplicacion.legal.ContratoServices
             this.repository = repository;
         }
 
-        public Task<ContratoCabecera> ObtenerPorId(int id) => repository.ObtenerPorId(id);
+        public Task<ContratoCabecera> ObtenerPorId(long id) => repository.ObtenerPorId(id);
+        public Task<ContratoCabecera> ObtenerPorId(byte contratoTipoId, int numero) => repository.ObtenerPorContratoTipoIdAndNumero(contratoTipoId, numero);
         public Task<List<ContratoCabecera>> ObtenerTodos() => repository.ObtenerTodos();
         public Task<ContratoCabecera> CrearContratoPersonal(ContratoPersonalDto entry) =>
             repository.CrearContratoPersonal(entry);
-        public Task Eliminar(int id) => repository.Eliminar(id);
+        public Task Eliminar(long id) => repository.Eliminar(id);
     }
 }

@@ -7,7 +7,7 @@ namespace nest.core.dominio.Legal.ContratoPersonalEntities
 {
     public class ContratoPersonal
     {
-        public int ContratoCabeceraId { get; set; }
+        public long ContratoCabeceraId { get; set; }
         public int PersonalId { get; set; }
         public int CargoId { get; set; }
         public int EstructuraOrganizacionalId { get; set; }

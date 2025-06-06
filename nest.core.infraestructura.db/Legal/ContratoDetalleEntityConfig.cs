@@ -14,7 +14,8 @@ namespace nest.core.infraestructura.db.Legal
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<GenericValueGenerator<int>>();
+                .HasValueGenerator<GenericValueGenerator<long>>();
+            builder.HasIndex(x => new { x.ContratoCabeceraId, x.PersonaId }).IsUnique();
             builder.HasOne(x => x.ContratoCabecera)
                 .WithMany(c => c.Detalles)
                 .HasForeignKey(x => x.ContratoCabeceraId)
