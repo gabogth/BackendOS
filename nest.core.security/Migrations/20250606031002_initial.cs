@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace nest.core.security.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -452,6 +452,35 @@ namespace nest.core.security.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "contrato_cabecera",
+                schema: "legal",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    ContratoTipoId = table.Column<byte>(type: "tinyint", nullable: false),
+                    Numero = table.Column<int>(type: "int", nullable: false),
+                    FechaInicial = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaFinal = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Estado = table.Column<bool>(type: "bit", nullable: false),
+                    Observacion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Resumen = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
+                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_contrato_cabecera", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_contrato_cabecera_contrato_tipo_ContratoTipoId",
+                        column: x => x.ContratoTipoId,
+                        principalSchema: "legal",
+                        principalTable: "contrato_tipo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "estructura_organizacional",
                 schema: "organizacion",
                 columns: table => new
@@ -659,6 +688,35 @@ namespace nest.core.security.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "personal_configuracion",
+                schema: "rrhh",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
+                    MarcaAsistencia = table.Column<bool>(type: "bit", nullable: false),
+                    HorarioCabeceraId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_personal_configuracion", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_personal_configuracion_contrato_cabecera_ContratoCabeceraId",
+                        column: x => x.ContratoCabeceraId,
+                        principalSchema: "legal",
+                        principalTable: "contrato_cabecera",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_personal_configuracion_horario_cabecera_HorarioCabeceraId",
+                        column: x => x.HorarioCabeceraId,
+                        principalSchema: "rrhh",
+                        principalTable: "horario_cabecera",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "provincia",
                 schema: "dbo",
                 columns: table => new
@@ -675,6 +733,40 @@ namespace nest.core.security.Migrations
                         column: x => x.DepartamentoId,
                         principalSchema: "dbo",
                         principalTable: "departamento",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "contrato_detalle",
+                schema: "legal",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
+                    PersonaId = table.Column<int>(type: "int", nullable: false),
+                    FechaUltimaNotificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Firmo = table.Column<bool>(type: "bit", nullable: false),
+                    FechaFirma = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Observacion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_contrato_detalle", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_contrato_detalle_contrato_cabecera_ContratoCabeceraId",
+                        column: x => x.ContratoCabeceraId,
+                        principalSchema: "legal",
+                        principalTable: "contrato_cabecera",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_contrato_detalle_persona_PersonaId",
+                        column: x => x.PersonaId,
+                        principalSchema: "dbo",
+                        principalTable: "persona",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -713,6 +805,33 @@ namespace nest.core.security.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "personal",
+                schema: "rrhh",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Nombres = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
+                    ApellidoPaterno = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
+                    ApellidoMaterno = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
+                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DocumentoIdentidad = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
+                    Correo = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
+                    Celular = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
+                    Usuario = table.Column<string>(type: "nvarchar(90)", maxLength: 90, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_personal", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_personal_personal_configuracion_Id",
+                        column: x => x.Id,
+                        principalSchema: "rrhh",
+                        principalTable: "personal_configuracion",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "distrito",
                 schema: "dbo",
                 columns: table => new
@@ -729,6 +848,50 @@ namespace nest.core.security.Migrations
                         column: x => x.ProvinciaId,
                         principalSchema: "dbo",
                         principalTable: "provincia",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "contrato_personal",
+                schema: "legal",
+                columns: table => new
+                {
+                    ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
+                    PersonalId = table.Column<int>(type: "int", nullable: false),
+                    CargoId = table.Column<int>(type: "int", nullable: false),
+                    EstructuraOrganizacionalId = table.Column<int>(type: "int", nullable: false),
+                    MontoBruto = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_contrato_personal", x => x.ContratoCabeceraId);
+                    table.ForeignKey(
+                        name: "FK_contrato_personal_cargo_CargoId",
+                        column: x => x.CargoId,
+                        principalSchema: "rrhh",
+                        principalTable: "cargo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_contrato_personal_contrato_cabecera_ContratoCabeceraId",
+                        column: x => x.ContratoCabeceraId,
+                        principalSchema: "legal",
+                        principalTable: "contrato_cabecera",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_contrato_personal_estructura_organizacional_EstructuraOrganizacionalId",
+                        column: x => x.EstructuraOrganizacionalId,
+                        principalSchema: "organizacion",
+                        principalTable: "estructura_organizacional",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_contrato_personal_personal_PersonalId",
+                        column: x => x.PersonalId,
+                        principalSchema: "rrhh",
+                        principalTable: "personal",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -838,164 +1001,6 @@ namespace nest.core.security.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "contrato_cabecera",
-                schema: "legal",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    ContratoTipoId = table.Column<byte>(type: "tinyint", nullable: false),
-                    Numero = table.Column<int>(type: "int", nullable: false),
-                    FechaInicial = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaFinal = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Estado = table.Column<bool>(type: "bit", nullable: false),
-                    Observacion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Resumen = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UsuarioRegistro = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UsuarioModificacion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_contrato_cabecera", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_contrato_cabecera_contrato_tipo_ContratoTipoId",
-                        column: x => x.ContratoTipoId,
-                        principalSchema: "legal",
-                        principalTable: "contrato_tipo",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "contrato_detalle",
-                schema: "legal",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    ContratoCabeceraId = table.Column<int>(type: "int", nullable: false),
-                    PersonaId = table.Column<int>(type: "int", nullable: false),
-                    FechaUltimaNotificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Firmo = table.Column<bool>(type: "bit", nullable: false),
-                    FechaFirma = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Observacion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_contrato_detalle", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_contrato_detalle_contrato_cabecera_ContratoCabeceraId",
-                        column: x => x.ContratoCabeceraId,
-                        principalSchema: "legal",
-                        principalTable: "contrato_cabecera",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_contrato_detalle_persona_PersonaId",
-                        column: x => x.PersonaId,
-                        principalSchema: "dbo",
-                        principalTable: "persona",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "personal_configuracion",
-                schema: "rrhh",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    ContratoCabeceraId = table.Column<int>(type: "int", nullable: false),
-                    MarcaAsistencia = table.Column<bool>(type: "bit", nullable: false),
-                    HorarioCabeceraId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_personal_configuracion", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_personal_configuracion_contrato_cabecera_ContratoCabeceraId",
-                        column: x => x.ContratoCabeceraId,
-                        principalSchema: "legal",
-                        principalTable: "contrato_cabecera",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_personal_configuracion_horario_cabecera_HorarioCabeceraId",
-                        column: x => x.HorarioCabeceraId,
-                        principalSchema: "rrhh",
-                        principalTable: "horario_cabecera",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "personal",
-                schema: "rrhh",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Nombres = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
-                    ApellidoPaterno = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
-                    ApellidoMaterno = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
-                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DocumentoIdentidad = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
-                    Correo = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
-                    Celular = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
-                    Usuario = table.Column<string>(type: "nvarchar(90)", maxLength: 90, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_personal", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_personal_personal_configuracion_Id",
-                        column: x => x.Id,
-                        principalSchema: "rrhh",
-                        principalTable: "personal_configuracion",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "contrato_personal",
-                schema: "legal",
-                columns: table => new
-                {
-                    ContratoCabeceraId = table.Column<int>(type: "int", nullable: false),
-                    PersonalId = table.Column<int>(type: "int", nullable: false),
-                    CargoId = table.Column<int>(type: "int", nullable: false),
-                    EstructuraOrganizacionalId = table.Column<int>(type: "int", nullable: false),
-                    MontoBruto = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_contrato_personal", x => x.ContratoCabeceraId);
-                    table.ForeignKey(
-                        name: "FK_contrato_personal_cargo_CargoId",
-                        column: x => x.CargoId,
-                        principalSchema: "rrhh",
-                        principalTable: "cargo",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_contrato_personal_estructura_organizacional_EstructuraOrganizacionalId",
-                        column: x => x.EstructuraOrganizacionalId,
-                        principalSchema: "organizacion",
-                        principalTable: "estructura_organizacional",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_contrato_personal_personal_PersonalId",
-                        column: x => x.PersonalId,
-                        principalSchema: "rrhh",
-                        principalTable: "personal",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.InsertData(
                 schema: "security",
                 table: "AspNetRoles",
@@ -1012,8 +1017,8 @@ namespace nest.core.security.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "11b6153d-dcbb-4b83-8425-b1cac36a8f77", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEOy7W0frfY/VBoUTxOg/mBDHztjsDzmunO/J7Oq6w/4cO9QY+mts6sgX44HP7cGNJA==", null, false, "fa53b0e6-8869-4ad1-8a0d-e4834e1f1b12", false, "admin@admin.com" },
-                    { "2", 0, "52e74e13-3367-4353-b2e1-3c7c05c7179a", "superadmin@admin.com", true, false, null, "SUPERADMIN@ADMIN.COM", "SUPERADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEE0dfz/JslSioCULsduMV/+7ABjFLEEvvtPuWaHDVQq9DarTO5FgPL5KLWmu8a66LQ==", null, false, "673d0139-819c-4a03-9722-1dadd64fc66e", false, "superadmin@admin.com" }
+                    { "1", 0, "e49fc34b-b24c-4a1f-9ac1-3a12653ff428", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEOwzgBhMdu5+VowqiPZG3dCPcoG5xgctvBUE53eb8zdMzxRRyoB+P/srHX29J4jR2Q==", null, false, "932c465b-782c-4990-83f1-52283e4e3825", false, "admin@admin.com" },
+                    { "2", 0, "02eaaf2a-dac8-470c-987f-2c0aacbfbdc2", "superadmin@admin.com", true, false, null, "SUPERADMIN@ADMIN.COM", "SUPERADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEAXsO5yj+GNl0nZlblGLXIe8ziE9mT38irDtUmZ4TioMF7hXvneiEwc6bP1ydkpDzQ==", null, false, "6204182a-c874-4eda-9f0b-eb9af3491096", false, "superadmin@admin.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -1092,11 +1097,11 @@ namespace nest.core.security.Migrations
                 columns: new[] { "Id", "Action", "Controlador", "Descripcion", "Estado", "FechaCreacion", "FechaModificacion", "Nombre", "NombreCorto", "RutaImagen" },
                 values: new object[,]
                 {
-                    { 1, "Index", "Seguridad", "Modulo donde se setean los roles, permisos y menús.", true, new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(6807), new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(6810), "Seguridad", "SECURITY", "" },
-                    { 2, "Index", "Logistica", "Modulo de inventarios logistica y transferencias.", true, new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7683), new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7685), "Logistica", "LOGISTIC", "" },
-                    { 3, "Index", "VentasHome", "Modulo de facturacion, ventas, caja.", true, new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7688), new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7688), "Ventas", "VENTAS", "" },
-                    { 4, "Index", "Contabilidad", "Modulo de libro diario, asientos, libro mayor.", true, new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7690), new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7690), "Contabilidad", "CONTABIL", "" },
-                    { 5, "Index", "Produccion", "Modulo de producción, recetas, conversiones.", true, new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7692), new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7692), "Produccion", "PRODUCCI", "" }
+                    { 1, "Index", "Seguridad", "Modulo donde se setean los roles, permisos y menús.", true, new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(7931), new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(7935), "Seguridad", "SECURITY", "" },
+                    { 2, "Index", "Logistica", "Modulo de inventarios logistica y transferencias.", true, new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8872), new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8873), "Logistica", "LOGISTIC", "" },
+                    { 3, "Index", "VentasHome", "Modulo de facturacion, ventas, caja.", true, new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8875), new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8876), "Ventas", "VENTAS", "" },
+                    { 4, "Index", "Contabilidad", "Modulo de libro diario, asientos, libro mayor.", true, new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8877), new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8878), "Contabilidad", "CONTABIL", "" },
+                    { 5, "Index", "Produccion", "Modulo de producción, recetas, conversiones.", true, new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8879), new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8879), "Produccion", "PRODUCCI", "" }
                 });
 
             migrationBuilder.InsertData(
@@ -1217,14 +1222,14 @@ namespace nest.core.security.Migrations
                 columns: new[] { "Id", "Action", "ClaimType", "Controlador", "Descripcion", "Estado", "FechaCreacion", "FechaModificacion", "Icono", "ModuloId", "Nombre", "NombreCorto", "Orden", "ParentId" },
                 values: new object[,]
                 {
-                    { 1, "Index", "aplicacion-home", "Seguridad", "", true, new DateTime(2025, 6, 5, 15, 23, 49, 895, DateTimeKind.Local).AddTicks(631), new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(4919), "home", 1, "Inicio", "INICIO", (short)1, null },
-                    { 2, "", null, "", "", true, new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6479), new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6481), "window-restore", 1, "Aplicacion", "APLICACIO", (short)2, null },
-                    { 4, "", null, "", "", true, new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6489), new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6489), "shield", 1, "Seguridad", "SEGURIDAD", (short)3, null },
-                    { 3, "Formulario", "aplicacion-formulario", "Seguridad", "", true, new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6485), new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6485), "table-list", 1, "Formulario", "FORMULARI", (short)2, 2 },
-                    { 5, "Rol", "seguridad-rol", "Seguridad", "", true, new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6491), new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6491), "users", 1, "Rol", "ROL", (short)1, 4 },
-                    { 6, "RolUsuario", "seguridad-rol-usuario", "Seguridad", "", true, new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6497), new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6498), "users", 1, "Rol Usuarios", "ROLUSER", (short)2, 4 },
-                    { 7, "RolFormulario", "seguridad-rol-formulario", "Seguridad", "", true, new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6500), new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6500), "users", 1, "Rol Formularios", "ROLFORM", (short)3, 4 },
-                    { 8, "Usuario", "seguridad-usuario", "Seguridad", "", true, new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6502), new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6502), "users", 1, "Usuarios", "USER", (short)4, 4 }
+                    { 1, "Index", "aplicacion-home", "Seguridad", "", true, new DateTime(2025, 6, 5, 22, 10, 2, 295, DateTimeKind.Local).AddTicks(5432), new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(7406), "home", 1, "Inicio", "INICIO", (short)1, null },
+                    { 2, "", null, "", "", true, new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8762), new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8763), "window-restore", 1, "Aplicacion", "APLICACIO", (short)2, null },
+                    { 4, "", null, "", "", true, new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8771), new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8771), "shield", 1, "Seguridad", "SEGURIDAD", (short)3, null },
+                    { 3, "Formulario", "aplicacion-formulario", "Seguridad", "", true, new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8767), new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8767), "table-list", 1, "Formulario", "FORMULARI", (short)2, 2 },
+                    { 5, "Rol", "seguridad-rol", "Seguridad", "", true, new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8773), new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8773), "users", 1, "Rol", "ROL", (short)1, 4 },
+                    { 6, "RolUsuario", "seguridad-rol-usuario", "Seguridad", "", true, new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8779), new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8779), "users", 1, "Rol Usuarios", "ROLUSER", (short)2, 4 },
+                    { 7, "RolFormulario", "seguridad-rol-formulario", "Seguridad", "", true, new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8781), new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8781), "users", 1, "Rol Formularios", "ROLFORM", (short)3, 4 },
+                    { 8, "Usuario", "seguridad-usuario", "Seguridad", "", true, new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8783), new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8783), "users", 1, "Usuarios", "USER", (short)4, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -1355,10 +1360,11 @@ namespace nest.core.security.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_contrato_detalle_ContratoCabeceraId",
+                name: "IX_contrato_detalle_ContratoCabeceraId_PersonaId",
                 schema: "legal",
                 table: "contrato_detalle",
-                column: "ContratoCabeceraId");
+                columns: new[] { "ContratoCabeceraId", "PersonaId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_contrato_detalle_PersonaId",
@@ -1535,26 +1541,11 @@ namespace nest.core.security.Migrations
                 schema: "dbo",
                 table: "provincia",
                 column: "DepartamentoId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_contrato_cabecera_contrato_personal_Id",
-                schema: "legal",
-                table: "contrato_cabecera",
-                column: "Id",
-                principalSchema: "legal",
-                principalTable: "contrato_personal",
-                principalColumn: "ContratoCabeceraId",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_contrato_cabecera_contrato_personal_Id",
-                schema: "legal",
-                table: "contrato_cabecera");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims",
                 schema: "security");
@@ -1581,6 +1572,10 @@ namespace nest.core.security.Migrations
 
             migrationBuilder.DropTable(
                 name: "contrato_detalle",
+                schema: "legal");
+
+            migrationBuilder.DropTable(
+                name: "contrato_personal",
                 schema: "legal");
 
             migrationBuilder.DropTable(
@@ -1612,6 +1607,18 @@ namespace nest.core.security.Migrations
                 schema: "dbo");
 
             migrationBuilder.DropTable(
+                name: "cargo",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
+                name: "estructura_organizacional",
+                schema: "organizacion");
+
+            migrationBuilder.DropTable(
+                name: "personal",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
                 name: "modulo",
                 schema: "aplicacion");
 
@@ -1640,6 +1647,14 @@ namespace nest.core.security.Migrations
                 schema: "dbo");
 
             migrationBuilder.DropTable(
+                name: "estructura_organizacional_tipo",
+                schema: "organizacion");
+
+            migrationBuilder.DropTable(
+                name: "personal_configuracion",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
                 name: "almacen",
                 schema: "logistica");
 
@@ -1660,12 +1675,24 @@ namespace nest.core.security.Migrations
                 schema: "logistica");
 
             migrationBuilder.DropTable(
+                name: "contrato_cabecera",
+                schema: "legal");
+
+            migrationBuilder.DropTable(
+                name: "horario_cabecera",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
                 name: "distrito",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
                 name: "unidad_medida",
                 schema: "logistica");
+
+            migrationBuilder.DropTable(
+                name: "contrato_tipo",
+                schema: "legal");
 
             migrationBuilder.DropTable(
                 name: "provincia",
@@ -1678,42 +1705,6 @@ namespace nest.core.security.Migrations
             migrationBuilder.DropTable(
                 name: "pais",
                 schema: "dbo");
-
-            migrationBuilder.DropTable(
-                name: "contrato_personal",
-                schema: "legal");
-
-            migrationBuilder.DropTable(
-                name: "cargo",
-                schema: "rrhh");
-
-            migrationBuilder.DropTable(
-                name: "estructura_organizacional",
-                schema: "organizacion");
-
-            migrationBuilder.DropTable(
-                name: "personal",
-                schema: "rrhh");
-
-            migrationBuilder.DropTable(
-                name: "estructura_organizacional_tipo",
-                schema: "organizacion");
-
-            migrationBuilder.DropTable(
-                name: "personal_configuracion",
-                schema: "rrhh");
-
-            migrationBuilder.DropTable(
-                name: "contrato_cabecera",
-                schema: "legal");
-
-            migrationBuilder.DropTable(
-                name: "horario_cabecera",
-                schema: "rrhh");
-
-            migrationBuilder.DropTable(
-                name: "contrato_tipo",
-                schema: "legal");
         }
     }
 }

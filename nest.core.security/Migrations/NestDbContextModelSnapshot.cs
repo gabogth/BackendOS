@@ -314,8 +314,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 895, DateTimeKind.Local).AddTicks(631),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(4919),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 295, DateTimeKind.Local).AddTicks(5432),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(7406),
                             Icono = "home",
                             ModuloId = 1,
                             Nombre = "Inicio",
@@ -329,8 +329,8 @@ namespace nest.core.security.Migrations
                             Controlador = "",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6479),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6481),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8762),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8763),
                             Icono = "window-restore",
                             ModuloId = 1,
                             Nombre = "Aplicacion",
@@ -345,8 +345,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6485),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6485),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8767),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8767),
                             Icono = "table-list",
                             ModuloId = 1,
                             Nombre = "Formulario",
@@ -361,8 +361,8 @@ namespace nest.core.security.Migrations
                             Controlador = "",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6489),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6489),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8771),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8771),
                             Icono = "shield",
                             ModuloId = 1,
                             Nombre = "Seguridad",
@@ -377,8 +377,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6491),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6491),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8773),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8773),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol",
@@ -394,8 +394,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6497),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6498),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8779),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8779),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol Usuarios",
@@ -411,8 +411,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6500),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6500),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8781),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8781),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol Formularios",
@@ -428,8 +428,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6502),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 896, DateTimeKind.Local).AddTicks(6502),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8783),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 296, DateTimeKind.Local).AddTicks(8783),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Usuarios",
@@ -489,8 +489,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Seguridad",
                             Descripcion = "Modulo donde se setean los roles, permisos y menús.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(6807),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(6810),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(7931),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(7935),
                             Nombre = "Seguridad",
                             NombreCorto = "SECURITY",
                             RutaImagen = ""
@@ -502,8 +502,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Logistica",
                             Descripcion = "Modulo de inventarios logistica y transferencias.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7683),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7685),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8872),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8873),
                             Nombre = "Logistica",
                             NombreCorto = "LOGISTIC",
                             RutaImagen = ""
@@ -515,8 +515,8 @@ namespace nest.core.security.Migrations
                             Controlador = "VentasHome",
                             Descripcion = "Modulo de facturacion, ventas, caja.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7688),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7688),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8875),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8876),
                             Nombre = "Ventas",
                             NombreCorto = "VENTAS",
                             RutaImagen = ""
@@ -528,8 +528,8 @@ namespace nest.core.security.Migrations
                             Controlador = "Contabilidad",
                             Descripcion = "Modulo de libro diario, asientos, libro mayor.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7690),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7690),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8877),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8878),
                             Nombre = "Contabilidad",
                             NombreCorto = "CONTABIL",
                             RutaImagen = ""
@@ -541,15 +541,15 @@ namespace nest.core.security.Migrations
                             Controlador = "Produccion",
                             Descripcion = "Modulo de producción, recetas, conversiones.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7692),
-                            FechaModificacion = new DateTime(2025, 6, 5, 15, 23, 49, 897, DateTimeKind.Local).AddTicks(7692),
+                            FechaCreacion = new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8879),
+                            FechaModificacion = new DateTime(2025, 6, 5, 22, 10, 2, 297, DateTimeKind.Local).AddTicks(8879),
                             Nombre = "Produccion",
                             NombreCorto = "PRODUCCI",
                             RutaImagen = ""
                         });
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacional", b =>
+            modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities.EstructuraOrganizacional", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -602,7 +602,7 @@ namespace nest.core.security.Migrations
                     b.ToTable("estructura_organizacional", "organizacion");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalTipo", b =>
+            modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities.EstructuraOrganizacionalTipo", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -628,7 +628,7 @@ namespace nest.core.security.Migrations
                     b.ToTable("estructura_organizacional_tipo", "organizacion");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Finanzas.Moneda", b =>
+            modelBuilder.Entity("nest.core.dominio.Finanzas.MonedaEntities.Moneda", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -687,7 +687,7 @@ namespace nest.core.security.Migrations
                         });
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Departamento", b =>
+            modelBuilder.Entity("nest.core.dominio.General.DepartamentoEntites.Departamento", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -858,7 +858,7 @@ namespace nest.core.security.Migrations
                         });
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Distrito", b =>
+            modelBuilder.Entity("nest.core.dominio.General.DistritoEntities.Distrito", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -1077,7 +1077,7 @@ namespace nest.core.security.Migrations
                         });
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.DocumentoIdentidadTipo", b =>
+            modelBuilder.Entity("nest.core.dominio.General.DocumentoIdentidadTipoEntities.DocumentoIdentidadTipo", b =>
                 {
                     b.Property<byte>("Id")
                         .HasColumnType("tinyint");
@@ -1121,7 +1121,7 @@ namespace nest.core.security.Migrations
                         });
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.DocumentoTipo", b =>
+            modelBuilder.Entity("nest.core.dominio.General.DocumentoTipoEntities.DocumentoTipo", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -1143,7 +1143,7 @@ namespace nest.core.security.Migrations
                     b.ToTable("documento_tipo", "dbo");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.LicenciaConducir", b =>
+            modelBuilder.Entity("nest.core.dominio.General.LicenciaConducirEntities.LicenciaConducir", b =>
                 {
                     b.Property<byte>("Id")
                         .HasColumnType("tinyint");
@@ -1216,7 +1216,7 @@ namespace nest.core.security.Migrations
                         });
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Pais", b =>
+            modelBuilder.Entity("nest.core.dominio.General.PaisEntities.Pais", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -1380,7 +1380,7 @@ namespace nest.core.security.Migrations
                         });
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Persona", b =>
+            modelBuilder.Entity("nest.core.dominio.General.PersonaEntities.Persona", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -1435,7 +1435,7 @@ namespace nest.core.security.Migrations
                     b.ToTable("persona", "dbo");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Provincia", b =>
+            modelBuilder.Entity("nest.core.dominio.General.ProvinciaEntities.Provincia", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -1536,10 +1536,10 @@ namespace nest.core.security.Migrations
                         });
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Legal.ContratoCabecera", b =>
+            modelBuilder.Entity("nest.core.dominio.Legal.ContratoCabeceraEntities.ContratoCabecera", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
                     b.Property<byte>("ContratoTipoId")
                         .HasColumnType("tinyint");
@@ -1557,7 +1557,7 @@ namespace nest.core.security.Migrations
                     b.Property<DateTime>("FechaInicial")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaModificacion")
+                    b.Property<DateTime?>("FechaModificacion")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaRegistro")
@@ -1574,14 +1574,6 @@ namespace nest.core.security.Migrations
                         .HasMaxLength(-1)
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UsuarioModificacion")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("UsuarioRegistro")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ContratoTipoId", "Numero")
@@ -1590,18 +1582,18 @@ namespace nest.core.security.Migrations
                     b.ToTable("contrato_cabecera", "legal");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Legal.ContratoDetalle", b =>
+            modelBuilder.Entity("nest.core.dominio.Legal.ContratoDetalleEntities.ContratoDetalle", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("ContratoCabeceraId")
-                        .HasColumnType("int");
+                    b.Property<long>("ContratoCabeceraId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("FechaFirma")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaModificacion")
+                    b.Property<DateTime?>("FechaModificacion")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaRegistro")
@@ -1622,17 +1614,18 @@ namespace nest.core.security.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContratoCabeceraId");
-
                     b.HasIndex("PersonaId");
+
+                    b.HasIndex("ContratoCabeceraId", "PersonaId")
+                        .IsUnique();
 
                     b.ToTable("contrato_detalle", "legal");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Legal.ContratoPersonal", b =>
+            modelBuilder.Entity("nest.core.dominio.Legal.ContratoPersonalEntities.ContratoPersonal", b =>
                 {
-                    b.Property<int>("ContratoCabeceraId")
-                        .HasColumnType("int");
+                    b.Property<long>("ContratoCabeceraId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("CargoId")
                         .HasColumnType("int");
@@ -1658,7 +1651,7 @@ namespace nest.core.security.Migrations
                     b.ToTable("contrato_personal", "legal");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Legal.ContratoTipo", b =>
+            modelBuilder.Entity("nest.core.dominio.Legal.ContratoTipoEntities.ContratoTipo", b =>
                 {
                     b.Property<byte>("Id")
                         .HasColumnType("tinyint");
@@ -2180,8 +2173,8 @@ namespace nest.core.security.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("ContratoCabeceraId")
-                        .HasColumnType("int");
+                    b.Property<long>("ContratoCabeceraId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("HorarioCabeceraId")
                         .HasColumnType("int");
@@ -2356,15 +2349,15 @@ namespace nest.core.security.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "11b6153d-dcbb-4b83-8425-b1cac36a8f77",
+                            ConcurrencyStamp = "e49fc34b-b24c-4a1f-9ac1-3a12653ff428",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOy7W0frfY/VBoUTxOg/mBDHztjsDzmunO/J7Oq6w/4cO9QY+mts6sgX44HP7cGNJA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOwzgBhMdu5+VowqiPZG3dCPcoG5xgctvBUE53eb8zdMzxRRyoB+P/srHX29J4jR2Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fa53b0e6-8869-4ad1-8a0d-e4834e1f1b12",
+                            SecurityStamp = "932c465b-782c-4990-83f1-52283e4e3825",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -2372,15 +2365,15 @@ namespace nest.core.security.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "52e74e13-3367-4353-b2e1-3c7c05c7179a",
+                            ConcurrencyStamp = "02eaaf2a-dac8-470c-987f-2c0aacbfbdc2",
                             Email = "superadmin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN@ADMIN.COM",
                             NormalizedUserName = "SUPERADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE0dfz/JslSioCULsduMV/+7ABjFLEEvvtPuWaHDVQq9DarTO5FgPL5KLWmu8a66LQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAXsO5yj+GNl0nZlblGLXIe8ziE9mT38irDtUmZ4TioMF7hXvneiEwc6bP1ydkpDzQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "673d0139-819c-4a03-9722-1dadd64fc66e",
+                            SecurityStamp = "6204182a-c874-4eda-9f0b-eb9af3491096",
                             TwoFactorEnabled = false,
                             UserName = "superadmin@admin.com"
                         });
@@ -2510,15 +2503,15 @@ namespace nest.core.security.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacional", b =>
+            modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities.EstructuraOrganizacional", b =>
                 {
-                    b.HasOne("nest.core.dominio.Corporativo.EstructuraOrganizacionalTipo", "EstructuraOrganizacionalTipo")
+                    b.HasOne("nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities.EstructuraOrganizacionalTipo", "EstructuraOrganizacionalTipo")
                         .WithMany()
                         .HasForeignKey("EstructuraOrganizacionalTipoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("nest.core.dominio.Corporativo.EstructuraOrganizacional", "Parent")
+                    b.HasOne("nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities.EstructuraOrganizacional", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -2528,9 +2521,9 @@ namespace nest.core.security.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Departamento", b =>
+            modelBuilder.Entity("nest.core.dominio.General.DepartamentoEntites.Departamento", b =>
                 {
-                    b.HasOne("nest.core.dominio.General.Pais", "Pais")
+                    b.HasOne("nest.core.dominio.General.PaisEntities.Pais", "Pais")
                         .WithMany("Departamentos")
                         .HasForeignKey("PaisId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -2539,9 +2532,9 @@ namespace nest.core.security.Migrations
                     b.Navigation("Pais");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Distrito", b =>
+            modelBuilder.Entity("nest.core.dominio.General.DistritoEntities.Distrito", b =>
                 {
-                    b.HasOne("nest.core.dominio.General.Provincia", "Provincia")
+                    b.HasOne("nest.core.dominio.General.ProvinciaEntities.Provincia", "Provincia")
                         .WithMany("Distritos")
                         .HasForeignKey("ProvinciaId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -2550,15 +2543,15 @@ namespace nest.core.security.Migrations
                     b.Navigation("Provincia");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Persona", b =>
+            modelBuilder.Entity("nest.core.dominio.General.PersonaEntities.Persona", b =>
                 {
-                    b.HasOne("nest.core.dominio.General.DocumentoIdentidadTipo", "DocumentoIdentidadTipo")
+                    b.HasOne("nest.core.dominio.General.DocumentoIdentidadTipoEntities.DocumentoIdentidadTipo", "DocumentoIdentidadTipo")
                         .WithMany()
                         .HasForeignKey("DocumentoIdentidadTipoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("nest.core.dominio.General.LicenciaConducir", "LicenciaConducir")
+                    b.HasOne("nest.core.dominio.General.LicenciaConducirEntities.LicenciaConducir", "LicenciaConducir")
                         .WithMany()
                         .HasForeignKey("LicenciaConducirId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -2576,9 +2569,9 @@ namespace nest.core.security.Migrations
                     b.Navigation("Sexo");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Provincia", b =>
+            modelBuilder.Entity("nest.core.dominio.General.ProvinciaEntities.Provincia", b =>
                 {
-                    b.HasOne("nest.core.dominio.General.Departamento", "Departamento")
+                    b.HasOne("nest.core.dominio.General.DepartamentoEntites.Departamento", "Departamento")
                         .WithMany("Provincias")
                         .HasForeignKey("DepartamentoId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -2587,32 +2580,26 @@ namespace nest.core.security.Migrations
                     b.Navigation("Departamento");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Legal.ContratoCabecera", b =>
+            modelBuilder.Entity("nest.core.dominio.Legal.ContratoCabeceraEntities.ContratoCabecera", b =>
                 {
-                    b.HasOne("nest.core.dominio.Legal.ContratoTipo", "ContratoTipo")
+                    b.HasOne("nest.core.dominio.Legal.ContratoTipoEntities.ContratoTipo", "ContratoTipo")
                         .WithMany()
                         .HasForeignKey("ContratoTipoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("nest.core.dominio.Legal.ContratoPersonal", null)
-                        .WithOne("ContratoCabecera")
-                        .HasForeignKey("nest.core.dominio.Legal.ContratoCabecera", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("ContratoTipo");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Legal.ContratoDetalle", b =>
+            modelBuilder.Entity("nest.core.dominio.Legal.ContratoDetalleEntities.ContratoDetalle", b =>
                 {
-                    b.HasOne("nest.core.dominio.Legal.ContratoCabecera", "ContratoCabecera")
-                        .WithMany()
+                    b.HasOne("nest.core.dominio.Legal.ContratoCabeceraEntities.ContratoCabecera", "ContratoCabecera")
+                        .WithMany("Detalles")
                         .HasForeignKey("ContratoCabeceraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("nest.core.dominio.General.Persona", "Persona")
+                    b.HasOne("nest.core.dominio.General.PersonaEntities.Persona", "Persona")
                         .WithMany()
                         .HasForeignKey("PersonaId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -2623,7 +2610,7 @@ namespace nest.core.security.Migrations
                     b.Navigation("Persona");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Legal.ContratoPersonal", b =>
+            modelBuilder.Entity("nest.core.dominio.Legal.ContratoPersonalEntities.ContratoPersonal", b =>
                 {
                     b.HasOne("nest.core.dominio.RRHH.CargoEntities.Cargo", "Cargo")
                         .WithMany()
@@ -2631,7 +2618,13 @@ namespace nest.core.security.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("nest.core.dominio.Corporativo.EstructuraOrganizacional", "EstructuraOrganizacional")
+                    b.HasOne("nest.core.dominio.Legal.ContratoCabeceraEntities.ContratoCabecera", "ContratoCabecera")
+                        .WithOne("ContratoPersonal")
+                        .HasForeignKey("nest.core.dominio.Legal.ContratoPersonalEntities.ContratoPersonal", "ContratoCabeceraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities.EstructuraOrganizacional", "EstructuraOrganizacional")
                         .WithMany()
                         .HasForeignKey("EstructuraOrganizacionalId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -2645,6 +2638,8 @@ namespace nest.core.security.Migrations
 
                     b.Navigation("Cargo");
 
+                    b.Navigation("ContratoCabecera");
+
                     b.Navigation("EstructuraOrganizacional");
 
                     b.Navigation("Personal");
@@ -2652,7 +2647,7 @@ namespace nest.core.security.Migrations
 
             modelBuilder.Entity("nest.core.dominio.Logistica.AlmacenEN.Almacen", b =>
                 {
-                    b.HasOne("nest.core.dominio.General.Distrito", "Distrito")
+                    b.HasOne("nest.core.dominio.General.DistritoEntities.Distrito", "Distrito")
                         .WithMany()
                         .HasForeignKey("DistritoId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -2682,7 +2677,7 @@ namespace nest.core.security.Migrations
 
             modelBuilder.Entity("nest.core.dominio.Logistica.ProductoLote", b =>
                 {
-                    b.HasOne("nest.core.dominio.Finanzas.Moneda", "Moneda")
+                    b.HasOne("nest.core.dominio.Finanzas.MonedaEntities.Moneda", "Moneda")
                         .WithMany()
                         .HasForeignKey("MonedaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2707,7 +2702,7 @@ namespace nest.core.security.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("nest.core.dominio.General.DocumentoTipo", "DocumentoTipo")
+                    b.HasOne("nest.core.dominio.General.DocumentoTipoEntities.DocumentoTipo", "DocumentoTipo")
                         .WithMany()
                         .HasForeignKey("DocumentoTipoId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -2774,7 +2769,7 @@ namespace nest.core.security.Migrations
 
             modelBuilder.Entity("nest.core.dominio.RRHH.PersonalConfiguracionEntities.PersonalConfiguracion", b =>
                 {
-                    b.HasOne("nest.core.dominio.Legal.ContratoCabecera", "ContratoCabecera")
+                    b.HasOne("nest.core.dominio.Legal.ContratoCabeceraEntities.ContratoCabecera", "ContratoCabecera")
                         .WithMany()
                         .HasForeignKey("ContratoCabeceraId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -2805,29 +2800,31 @@ namespace nest.core.security.Migrations
                     b.Navigation("Children");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacional", b =>
+            modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities.EstructuraOrganizacional", b =>
                 {
                     b.Navigation("Children");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Departamento", b =>
+            modelBuilder.Entity("nest.core.dominio.General.DepartamentoEntites.Departamento", b =>
                 {
                     b.Navigation("Provincias");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Pais", b =>
+            modelBuilder.Entity("nest.core.dominio.General.PaisEntities.Pais", b =>
                 {
                     b.Navigation("Departamentos");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.Provincia", b =>
+            modelBuilder.Entity("nest.core.dominio.General.ProvinciaEntities.Provincia", b =>
                 {
                     b.Navigation("Distritos");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Legal.ContratoPersonal", b =>
+            modelBuilder.Entity("nest.core.dominio.Legal.ContratoCabeceraEntities.ContratoCabecera", b =>
                 {
-                    b.Navigation("ContratoCabecera");
+                    b.Navigation("ContratoPersonal");
+
+                    b.Navigation("Detalles");
                 });
 
             modelBuilder.Entity("nest.core.dominio.Logistica.Transaccional.InventarioCabecera", b =>
