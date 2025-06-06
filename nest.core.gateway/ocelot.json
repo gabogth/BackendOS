@@ -63,6 +63,18 @@
         }
       ]
     },
+    {
+      "UpstreamPathTemplate": "/general/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8386
+        }
+      ]
+    },
 
     //Start Region [Swagger config]
 
@@ -130,6 +142,19 @@
           "Port": 8385
         }
       ]
+    },
+    {
+      "SwaggerKey": "general",
+      "UpstreamPathTemplate": "/general/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8386
+        }
+      ]
     }
     //End Region [Swagger config]
   ],
@@ -181,6 +206,16 @@
           "Name": "API Legal",
           "Version": "v1",
           "Url": "https://localhost:8385/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "general",
+      "Config": [
+        {
+          "Name": "API General",
+          "Version": "v1",
+          "Url": "https://localhost:8386/swagger/v1/swagger.json"
         }
       ]
     }
