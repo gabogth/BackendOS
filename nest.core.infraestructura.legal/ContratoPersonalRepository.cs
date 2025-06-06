@@ -7,24 +7,30 @@ using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.legal
 {
-    public class ContratoCabeceraRepository : IContratoCabeceraRepository
+    public class ContratoPersonalRepository : IContratoPersonalRepository
     {
         private readonly NestDbContext context;
         private readonly IMapper mapper;
 
-        public ContratoCabeceraRepository(NestDbContext context, IMapper mapper)
+        public ContratoPersonalRepository(NestDbContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;
         }
 
         public async Task<ContratoCabecera> ObtenerPorId(int id) =>
-            await context.ContratoCabecera.FindAsync(id);
+            await context.ContratoCabecera
+                .Include(c => c.ContratoPersonal)
+                .Include(c => c.Detalles)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task<List<ContratoCabecera>> ObtenerTodos() =>
-            await context.ContratoCabecera.ToListAsync();
+            await context.ContratoCabecera
+                .Include(c => c.ContratoPersonal)
+                .Include(c => c.Detalles)
+                .ToListAsync();
 
-        public async Task<ContratoCabecera> Agregar(ContratoCrearDto entry)
+        public async Task<ContratoCabecera> CrearContratoPersonal(ContratoPersonalDto entry)
         {
             using var transaction = await context.Database.BeginTransactionAsync();
             try

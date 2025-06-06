@@ -1,5 +1,7 @@
 ﻿using nest.core.dominio.Corporativo;
 using nest.core.dominio.Legal.ContratoTipoEntities;
+using nest.core.dominio.Legal.ContratoDetalleEntities;
+using nest.core.dominio.Legal.ContratoPersonalEntities;
 using nest.core.dominio.RRHH;
 using System;
 using System.Collections.Generic;
@@ -25,5 +27,7 @@ namespace nest.core.dominio.Legal.ContratoCabeceraEntities
         public DateTime FechaModificacion { get; set; }
         public string UsuarioModificacion { get; set; }
         public ContratoTipo ContratoTipo { get; set; }
+        public ICollection<ContratoDetalle> Detalles { get; set; }
+        public ContratoPersonal ContratoPersonal { get; set; }
     }
 }

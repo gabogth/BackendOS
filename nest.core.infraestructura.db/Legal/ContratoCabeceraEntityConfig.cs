@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using nest.core.dominio.Legal.ContratoCabeceraEntities;
+using nest.core.dominio.Legal.ContratoDetalleEntities;
+using nest.core.dominio.Legal.ContratoPersonalEntities;
 
 namespace nest.core.infraestructura.db.Legal
 {
@@ -24,6 +26,14 @@ namespace nest.core.infraestructura.db.Legal
                 .WithMany()
                 .HasForeignKey(x => x.ContratoTipoId)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.ContratoPersonal)
+                .WithOne(p => p.ContratoCabecera)
+                .HasForeignKey<ContratoPersonal>(p => p.ContratoCabeceraId)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(x => x.Detalles)
+                .WithOne(d => d.ContratoCabecera)
+                .HasForeignKey(d => d.ContratoCabeceraId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

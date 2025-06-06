@@ -15,7 +15,7 @@ namespace nest.core.aplicacion.legal
             services.AddAutoMapper(typeof(infraestructura.legal.Mapper.AutomapperProfiles));
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
             services.AddTransient<IContratoTipoRepository, ContratoTipoRepository>();
-            services.AddTransient<IContratoCabeceraRepository, ContratoCabeceraRepository>();
+            services.AddTransient<IContratoPersonalRepository, ContratoPersonalRepository>();
             return services;
         }
     }

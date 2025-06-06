@@ -28,9 +28,8 @@ namespace nest.core.infraestructura.db.Legal
                 .HasForeignKey(x => x.EstructuraOrganizacionalId)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(p => p.ContratoCabecera)
-                .WithOne()
-                .HasForeignKey<ContratoCabecera>(p => p.Id)
-                .HasPrincipalKey<ContratoPersonal>(p => p.ContratoCabeceraId)
+                .WithOne(c => c.ContratoPersonal)
+                .HasForeignKey<ContratoPersonal>(p => p.ContratoCabeceraId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
