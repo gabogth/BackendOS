@@ -37,7 +37,6 @@ namespace nest.core.infraestructura.legal
             {
                 var cabecera = mapper.Map<ContratoCabecera>(entry.Cabecera);
                 cabecera.FechaRegistro = DateTime.UtcNow;
-                cabecera.FechaModificacion = DateTime.UtcNow;
                 context.ContratoCabecera.Add(cabecera);
                 await context.SaveChangesAsync();
                 await context.Entry(cabecera).ReloadAsync();
@@ -47,7 +46,6 @@ namespace nest.core.infraestructura.legal
                     var detalle = mapper.Map<ContratoDetalle>(detalleDto);
                     detalle.ContratoCabeceraId = cabecera.Id;
                     detalle.FechaRegistro = DateTime.UtcNow;
-                    detalle.FechaModificacion = DateTime.UtcNow;
                     context.ContratoDetalle.Add(detalle);
                 }
 

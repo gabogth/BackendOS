@@ -10,6 +10,5 @@ namespace nest.core.dominio.Legal.ContratoCabeceraEntities
         public string Observacion { get; set; }
         public string Resumen { get; set; }
         public string Descripcion { get; set; }
-        public string UsuarioRegistro { get; set; }
     }
 }

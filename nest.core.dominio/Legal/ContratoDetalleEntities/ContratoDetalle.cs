@@ -13,7 +13,7 @@ namespace nest.core.dominio.Legal.ContratoDetalleEntities
         public DateTime? FechaFirma { get; set; }
         public string Observacion { get; set; }
         public DateTime FechaRegistro { get; set; }
-        public DateTime FechaModificacion { get; set; }
+        public DateTime? FechaModificacion { get; set; }
         public ContratoCabecera ContratoCabecera { get; set; }
         public Persona Persona { get; set; }
     }
