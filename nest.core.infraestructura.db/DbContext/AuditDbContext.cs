@@ -1,94 +1,62 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using MySqlConnector;
 using nest.core.dominio.Security.Audit;
+using Npgsql;
+using System.Reflection;
 
 namespace nest.core.infraestructura.db.DbContext
 {
     public partial class NestDbContext
     {
-        public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<CorrelativoMaestro> CorrelativoMaestro { get; set; }
         public override int SaveChanges()
         {
-            List<AuditEntry> auditEntries = OnBeforeSaveChanges();
-            int result = base.SaveChanges();
-            OnAfterSaveChanges(auditEntries);
-            return result;
-        }
+            var entries = ChangeTracker.Entries().Where(e => e.Entity is IAuditable && e.State != EntityState.Unchanged).ToList();
+            foreach (var e in entries)
+            {
+                var auditEntityName = $"{e.Metadata.ClrType.Name}Audit";
+                var auditRow = new Dictionary<string, object?>();
 
+                foreach (var prop in e.Properties)
+                    auditRow[prop.Metadata.Name] = prop.CurrentValue;
+
+                auditRow["FechaAuditoria"] = DateTime.UtcNow;
+                auditRow["AccionAuditoria"] = e.State.ToString();
+                auditRow["UsuarioAuditoria"] = usuario;
+                Set<Dictionary<string, object>>(auditEntityName).Add(auditRow);
+            }
+            return base.SaveChanges();
+        }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            List<AuditEntry> auditEntries = OnBeforeSaveChanges();
-            int result = await base.SaveChangesAsync(cancellationToken);
-            await OnAfterSaveChangesAsync(auditEntries);
-            return result;
-        }
-
-        private List<AuditEntry> OnBeforeSaveChanges()
-        {
-            ChangeTracker.DetectChanges();
-            var auditEntries = new List<AuditEntry>();
-            IEnumerable<EntityEntry> entries = ChangeTracker.Entries();
-
-            foreach (EntityEntry entry in entries)
+            var entries = ChangeTracker.Entries().Where(e => e.Entity is IAuditable && e.State != EntityState.Unchanged).ToList();
+            string cs = Database.GetConnectionString();
+            string appName = Database.IsSqlServer()
+                ? new SqlConnectionStringBuilder(cs).ApplicationName
+                : Database.IsNpgsql()
+                ? new NpgsqlConnectionStringBuilder(cs).ApplicationName 
+                : Database.IsMySql()
+                ? new MySqlConnectionStringBuilder(cs).ApplicationName
+                : null;
+            foreach (var e in entries)
             {
-                if (entry.Entity is AuditLog || entry.Entity is CorrelativoMaestro || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
-                    continue;
+                var auditEntityName = $"{e.Metadata.ClrType.Name}Audit";
+                var auditRow = new Dictionary<string, object?>();
 
-                var entityType = entry.Entity.GetType();
-                var entityTypeModel = ChangeTracker.Context.Model.FindEntityType(entityType);
-                var schema = entityTypeModel.GetSchema() ?? "dbo";
-                var tableName = entityTypeModel.GetTableName();
+                foreach (var prop in e.Properties)
+                    auditRow[prop.Metadata.Name] = prop.CurrentValue;
 
-                AuditEntry auditEntry = new AuditEntry(entry)
-                {
-                    Tabla = $"{schema}.{tableName}",
-                    Accion = entry.State.ToString(),
-                    Fecha = DateTime.Now,
-                    Usuario = this.usuario
-                };
-
-                foreach (PropertyEntry property in entry.Properties)
-                {
-                    string propertyName = property.Metadata.Name;
-                    if (propertyName == "Id")
-                        auditEntry.EntidadId = property.CurrentValue?.ToString();
-                    if (entry.State == EntityState.Added)
-                        auditEntry.NewValues[propertyName] = property.CurrentValue;
-                    else if (entry.State == EntityState.Deleted)
-                        auditEntry.OldValues[propertyName] = property.OriginalValue;
-                    else if (entry.State == EntityState.Modified)
-                        if (property.IsModified)
-                        {
-                            auditEntry.OldValues[propertyName] = property.OriginalValue;
-                            auditEntry.NewValues[propertyName] = property.CurrentValue;
-                        }
-                }
-                auditEntries.Add(auditEntry);
+                auditRow["FechaAuditoria"] = DateTime.Now;
+                auditRow["AccionAuditoria"] = e.State.ToString();
+                auditRow["UsuarioAuditoria"] = usuario;
+                auditRow["AppVersion"] = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+                auditRow["App"] = appName;
+                auditRow["AssemblyName"] = Assembly.GetExecutingAssembly().GetName().Name?.ToString();
+                Set<Dictionary<string, object>>(auditEntityName).Add(auditRow);
             }
-            return auditEntries;
-        }
-
-        private void OnAfterSaveChanges(List<AuditEntry> auditEntries)
-        {
-            if (auditEntries == null || auditEntries.Count == 0)
-                return;
-
-            foreach (var auditEntry in auditEntries)
-                AuditLogs.Add(auditEntry.ToAuditLog());
-
-            SaveChanges();
-        }
-
-        private async Task OnAfterSaveChangesAsync(List<AuditEntry> auditEntries)
-        {
-            if (auditEntries == null || auditEntries.Count == 0)
-                return;
-
-            foreach (var auditEntry in auditEntries)
-                AuditLogs.Add(auditEntry.ToAuditLog());
-
-            await SaveChangesAsync();
+            return await base.SaveChangesAsync(cancellationToken);
         }
     }
 }

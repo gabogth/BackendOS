@@ -1,9 +1,10 @@
 ﻿using nest.core.dominio.General.PaisEntities;
 using nest.core.dominio.General.ProvinciaEntities;
+using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.General.DepartamentoEntites
 {
-    public class Departamento
+    public class Departamento : IAuditable
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

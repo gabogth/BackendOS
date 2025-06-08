@@ -1,8 +1,9 @@
 ﻿using nest.core.dominio.General.DistritoEntities;
+using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Logistica.AlmacenEN
 {
-    public class Almacen
+    public class Almacen : IAuditable
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

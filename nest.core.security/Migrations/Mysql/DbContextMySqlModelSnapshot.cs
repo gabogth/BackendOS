@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using nest.core.infraestructura.db.DbContext.Provider;
 
 #nullable disable
 
-namespace nest.core.security.Migrations.Mysql
+namespace nest.core.security.Migrations.MySql
 {
     [DbContext(typeof(DbContextMySql))]
     partial class DbContextMySqlModelSnapshot : ModelSnapshot
@@ -242,6 +243,54 @@ namespace nest.core.security.Migrations.Mysql
                     b.ToTable("AspNetUserTokens", "security");
                 });
 
+            modelBuilder.Entity("SexoAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+
+                    b.Property<string>("AccionAuditoria")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("App")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<DateTime>("FechaAuditoria")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<byte>("Id")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("UsuarioAuditoria")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("sexo_audit", "dbo");
+                });
+
             modelBuilder.Entity("nest.core.dominio.Aplicacion.Formulario.Formulario", b =>
                 {
                     b.Property<int>("Id")
@@ -313,8 +362,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 669, DateTimeKind.Local).AddTicks(9565),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 669, DateTimeKind.Local).AddTicks(9576),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(749),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(760),
                             Icono = "home",
                             ModuloId = 1,
                             Nombre = "Inicio",
@@ -328,8 +377,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(673),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(674),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1829),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1829),
                             Icono = "window-restore",
                             ModuloId = 1,
                             Nombre = "Aplicacion",
@@ -344,8 +393,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(677),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(678),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1833),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1833),
                             Icono = "table-list",
                             ModuloId = 1,
                             Nombre = "Formulario",
@@ -360,8 +409,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(681),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(681),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1845),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1847),
                             Icono = "shield",
                             ModuloId = 1,
                             Nombre = "Seguridad",
@@ -376,8 +425,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(684),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(684),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1849),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1849),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol",
@@ -393,8 +442,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(689),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(689),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1853),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1854),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol Usuarios",
@@ -410,8 +459,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(691),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(691),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1855),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1856),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol Formularios",
@@ -427,8 +476,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(693),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(694),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1857),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1858),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Usuarios",
@@ -488,8 +537,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "Seguridad",
                             Descripcion = "Modulo donde se setean los roles, permisos y menús.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(1236),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(1240),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(2257),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(2264),
                             Nombre = "Seguridad",
                             NombreCorto = "SECURITY",
                             RutaImagen = ""
@@ -501,8 +550,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "Logistica",
                             Descripcion = "Modulo de inventarios logistica y transferencias.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(1997),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(1998),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3017),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3017),
                             Nombre = "Logistica",
                             NombreCorto = "LOGISTIC",
                             RutaImagen = ""
@@ -514,8 +563,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "VentasHome",
                             Descripcion = "Modulo de facturacion, ventas, caja.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2001),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2001),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3019),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3020),
                             Nombre = "Ventas",
                             NombreCorto = "VENTAS",
                             RutaImagen = ""
@@ -527,8 +576,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "Contabilidad",
                             Descripcion = "Modulo de libro diario, asientos, libro mayor.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2003),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2003),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3021),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3022),
                             Nombre = "Contabilidad",
                             NombreCorto = "CONTABIL",
                             RutaImagen = ""
@@ -540,8 +589,8 @@ namespace nest.core.security.Migrations.Mysql
                             Controlador = "Produccion",
                             Descripcion = "Modulo de producción, recetas, conversiones.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2004),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2005),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3023),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3023),
                             Nombre = "Produccion",
                             NombreCorto = "PRODUCCI",
                             RutaImagen = ""
@@ -2346,15 +2395,15 @@ namespace nest.core.security.Migrations.Mysql
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "63263fa7-38d1-445d-86fb-f691e75971cf",
+                            ConcurrencyStamp = "a521d0af-5622-4df9-88bc-101b492d46b4",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOrRXGYeUrS1oXvkYLTUH7ktJgS72kNXoumXp6vk9lJW0A2dZLskPwFGQpAP7yzntg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPxeSlm6Mv47d7VpvQ5ew303DAQwmHOTgQ/6WpoHem5D36ovpJWRO0kJM8T1NkZVLA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1ee69003-74b2-45e1-9d99-7fd3bdb92843",
+                            SecurityStamp = "67429410-e6f0-43ba-90fc-449553c79387",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -2362,15 +2411,15 @@ namespace nest.core.security.Migrations.Mysql
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "66fdf390-06fc-4980-bdc3-82a2ca0571b7",
+                            ConcurrencyStamp = "6df0efd3-8cb3-430a-a1dc-3ddc095ab4e2",
                             Email = "superadmin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN@ADMIN.COM",
                             NormalizedUserName = "SUPERADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBLFsBzrVuY3v87gS9Ou4+xnaRktMtv00JpEzlkb7tdazgRowoEc6/qvzCHC0KW23w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHCY11MO0kirckoULv78Cwzcb0Hvm3w41fFMpfTafslx9ngBnXc1Gc8GNKTV89iC6g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ca83c29f-9a88-4459-ba94-a898d5857e78",
+                            SecurityStamp = "eaa14a4e-bb5f-4cf5-b4c3-8a97f824e4f0",
                             TwoFactorEnabled = false,
                             UserName = "superadmin@admin.com"
                         });

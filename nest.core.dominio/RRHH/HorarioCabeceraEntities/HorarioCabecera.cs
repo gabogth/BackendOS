@@ -1,8 +1,9 @@
 ﻿using nest.core.dominio.RRHH.HorarioDetalleEntities;
+using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.HorarioCabeceraEntities
 {
-    public class HorarioCabecera
+    public class HorarioCabecera : IAuditable
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

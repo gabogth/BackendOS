@@ -1,9 +1,10 @@
 ﻿using nest.core.dominio.General.PersonaEntities;
 using nest.core.dominio.Legal.ContratoCabeceraEntities;
+using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Legal.ContratoDetalleEntities
 {
-    public class ContratoDetalle
+    public class ContratoDetalle : IAuditable
     {
         public long Id { get; set; }
         public long ContratoCabeceraId { get; set; }

@@ -1,6 +1,8 @@
-﻿namespace nest.core.dominio.Aplicacion.Formulario
+﻿using nest.core.dominio.Security.Audit;
+
+namespace nest.core.dominio.Aplicacion.Formulario
 {
-    public class Formulario
+    public class Formulario : IAuditable
     {
         public int Id { get; set; }
         public int? ParentId { get; set; }

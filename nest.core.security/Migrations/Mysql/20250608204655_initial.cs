@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace nest.core.security.Migrations.Mysql
+namespace nest.core.security.Migrations.MySql
 {
     /// <inheritdoc />
     public partial class initial : Migration
@@ -393,6 +393,35 @@ namespace nest.core.security.Migrations.Mysql
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_sexo", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "sexo_audit",
+                schema: "dbo",
+                columns: table => new
+                {
+                    AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    AccionAuditoria = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    App = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AppVersion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AssemblyName = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    FechaAuditoria = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Id = table.Column<byte>(type: "tinyint unsigned", nullable: false),
+                    Nombre = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NombreCorto = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    UsuarioAuditoria = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_sexo_audit", x => x.AuditId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -1179,8 +1208,8 @@ namespace nest.core.security.Migrations.Mysql
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "63263fa7-38d1-445d-86fb-f691e75971cf", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEOrRXGYeUrS1oXvkYLTUH7ktJgS72kNXoumXp6vk9lJW0A2dZLskPwFGQpAP7yzntg==", null, false, "1ee69003-74b2-45e1-9d99-7fd3bdb92843", false, "admin@admin.com" },
-                    { "2", 0, "66fdf390-06fc-4980-bdc3-82a2ca0571b7", "superadmin@admin.com", true, false, null, "SUPERADMIN@ADMIN.COM", "SUPERADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEBLFsBzrVuY3v87gS9Ou4+xnaRktMtv00JpEzlkb7tdazgRowoEc6/qvzCHC0KW23w==", null, false, "ca83c29f-9a88-4459-ba94-a898d5857e78", false, "superadmin@admin.com" }
+                    { "1", 0, "a521d0af-5622-4df9-88bc-101b492d46b4", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEPxeSlm6Mv47d7VpvQ5ew303DAQwmHOTgQ/6WpoHem5D36ovpJWRO0kJM8T1NkZVLA==", null, false, "67429410-e6f0-43ba-90fc-449553c79387", false, "admin@admin.com" },
+                    { "2", 0, "6df0efd3-8cb3-430a-a1dc-3ddc095ab4e2", "superadmin@admin.com", true, false, null, "SUPERADMIN@ADMIN.COM", "SUPERADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEHCY11MO0kirckoULv78Cwzcb0Hvm3w41fFMpfTafslx9ngBnXc1Gc8GNKTV89iC6g==", null, false, "eaa14a4e-bb5f-4cf5-b4c3-8a97f824e4f0", false, "superadmin@admin.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -1259,11 +1288,11 @@ namespace nest.core.security.Migrations.Mysql
                 columns: new[] { "Id", "Action", "Controlador", "Descripcion", "Estado", "FechaCreacion", "FechaModificacion", "Nombre", "NombreCorto", "RutaImagen" },
                 values: new object[,]
                 {
-                    { 1, "Index", "Seguridad", "Modulo donde se setean los roles, permisos y menús.", true, new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(1236), new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(1240), "Seguridad", "SECURITY", "" },
-                    { 2, "Index", "Logistica", "Modulo de inventarios logistica y transferencias.", true, new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(1997), new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(1998), "Logistica", "LOGISTIC", "" },
-                    { 3, "Index", "VentasHome", "Modulo de facturacion, ventas, caja.", true, new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2001), new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2001), "Ventas", "VENTAS", "" },
-                    { 4, "Index", "Contabilidad", "Modulo de libro diario, asientos, libro mayor.", true, new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2003), new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2003), "Contabilidad", "CONTABIL", "" },
-                    { 5, "Index", "Produccion", "Modulo de producción, recetas, conversiones.", true, new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2004), new DateTime(2025, 6, 7, 16, 20, 4, 671, DateTimeKind.Local).AddTicks(2005), "Produccion", "PRODUCCI", "" }
+                    { 1, "Index", "Seguridad", "Modulo donde se setean los roles, permisos y menús.", true, new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(2257), new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(2264), "Seguridad", "SECURITY", "" },
+                    { 2, "Index", "Logistica", "Modulo de inventarios logistica y transferencias.", true, new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3017), new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3017), "Logistica", "LOGISTIC", "" },
+                    { 3, "Index", "VentasHome", "Modulo de facturacion, ventas, caja.", true, new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3019), new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3020), "Ventas", "VENTAS", "" },
+                    { 4, "Index", "Contabilidad", "Modulo de libro diario, asientos, libro mayor.", true, new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3021), new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3022), "Contabilidad", "CONTABIL", "" },
+                    { 5, "Index", "Produccion", "Modulo de producción, recetas, conversiones.", true, new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3023), new DateTime(2025, 6, 8, 15, 46, 55, 413, DateTimeKind.Local).AddTicks(3023), "Produccion", "PRODUCCI", "" }
                 });
 
             migrationBuilder.InsertData(
@@ -1384,14 +1413,14 @@ namespace nest.core.security.Migrations.Mysql
                 columns: new[] { "Id", "Action", "ClaimType", "Controlador", "Descripcion", "Estado", "FechaCreacion", "FechaModificacion", "Icono", "ModuloId", "Nombre", "NombreCorto", "Orden", "ParentId" },
                 values: new object[,]
                 {
-                    { 1, "Index", "aplicacion-home", "Seguridad", "", true, new DateTime(2025, 6, 7, 16, 20, 4, 669, DateTimeKind.Local).AddTicks(9565), new DateTime(2025, 6, 7, 16, 20, 4, 669, DateTimeKind.Local).AddTicks(9576), "home", 1, "Inicio", "INICIO", (short)1, null },
-                    { 2, "", null, "", "", true, new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(673), new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(674), "window-restore", 1, "Aplicacion", "APLICACIO", (short)2, null },
-                    { 4, "", null, "", "", true, new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(681), new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(681), "shield", 1, "Seguridad", "SEGURIDAD", (short)3, null },
-                    { 3, "Formulario", "aplicacion-formulario", "Seguridad", "", true, new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(677), new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(678), "table-list", 1, "Formulario", "FORMULARI", (short)2, 2 },
-                    { 5, "Rol", "seguridad-rol", "Seguridad", "", true, new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(684), new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(684), "users", 1, "Rol", "ROL", (short)1, 4 },
-                    { 6, "RolUsuario", "seguridad-rol-usuario", "Seguridad", "", true, new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(689), new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(689), "users", 1, "Rol Usuarios", "ROLUSER", (short)2, 4 },
-                    { 7, "RolFormulario", "seguridad-rol-formulario", "Seguridad", "", true, new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(691), new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(691), "users", 1, "Rol Formularios", "ROLFORM", (short)3, 4 },
-                    { 8, "Usuario", "seguridad-usuario", "Seguridad", "", true, new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(693), new DateTime(2025, 6, 7, 16, 20, 4, 670, DateTimeKind.Local).AddTicks(694), "users", 1, "Usuarios", "USER", (short)4, 4 }
+                    { 1, "Index", "aplicacion-home", "Seguridad", "", true, new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(749), new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(760), "home", 1, "Inicio", "INICIO", (short)1, null },
+                    { 2, "", null, "", "", true, new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1829), new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1829), "window-restore", 1, "Aplicacion", "APLICACIO", (short)2, null },
+                    { 4, "", null, "", "", true, new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1845), new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1847), "shield", 1, "Seguridad", "SEGURIDAD", (short)3, null },
+                    { 3, "Formulario", "aplicacion-formulario", "Seguridad", "", true, new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1833), new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1833), "table-list", 1, "Formulario", "FORMULARI", (short)2, 2 },
+                    { 5, "Rol", "seguridad-rol", "Seguridad", "", true, new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1849), new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1849), "users", 1, "Rol", "ROL", (short)1, 4 },
+                    { 6, "RolUsuario", "seguridad-rol-usuario", "Seguridad", "", true, new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1853), new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1854), "users", 1, "Rol Usuarios", "ROLUSER", (short)2, 4 },
+                    { 7, "RolFormulario", "seguridad-rol-formulario", "Seguridad", "", true, new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1855), new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1856), "users", 1, "Rol Formularios", "ROLFORM", (short)3, 4 },
+                    { 8, "Usuario", "seguridad-usuario", "Seguridad", "", true, new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1857), new DateTime(2025, 6, 8, 15, 46, 55, 412, DateTimeKind.Local).AddTicks(1858), "users", 1, "Usuarios", "USER", (short)4, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -1752,6 +1781,10 @@ namespace nest.core.security.Migrations.Mysql
             migrationBuilder.DropTable(
                 name: "inventario_detalle",
                 schema: "logistica");
+
+            migrationBuilder.DropTable(
+                name: "sexo_audit",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles",

@@ -2,22 +2,22 @@
 ### Generar una migracion
 cd nest.core.security
 Para SQLServer
-dotnet ef migrations add initial -o Migrations/SqlServer --context DbContextMSSQL
-dotnet ef database update --context DbContextMSSQL
+dotnet ef migrations add initial -o Migrations/SqlServer --context DbContextSqlServer -- connection=Connection_Tenant_1
+dotnet ef database update --context DbContextSqlServer -- connection=Connection_Tenant_1
 luego para futuras migraciones omitir -o osea:
-dotnet ef migrations add migrations2 --context DbContextMSSQL
+dotnet ef migrations add migrations2 --context DbContextSqlServer -- connection=Connection_Tenant_1
 
 Para PostgreSql
-dotnet ef migrations add initial -o Migrations/PostgreSql --context DbContextPsSql
-dotnet ef database update --context DbContextPsSql
+dotnet ef migrations add initial -o Migrations/PostgreSql --context DbContextPsSql -- connection=Connection_Tenant_2
+dotnet ef database update --context DbContextPsSql -- connection=Connection_Tenant_2
 luego para futuras migraciones omitir -o osea:
-dotnet ef migrations add migrations2 --context DbContextPsSql
+dotnet ef migrations add migrations2 --context DbContextPsSql -- connection=Connection_Tenant_2
 
 Para Mysql
-dotnet ef migrations add initial -o Migrations/Mysql --context DbContextMySql
-dotnet ef database update --context DbContextMySql
+dotnet ef migrations add initial -o Migrations/Mysql --context DbContextMySql -- connection=Connection_Tenant_3
+dotnet ef database update --context DbContextMySql -- connection=Connection_Tenant_3
 luego para futuras migraciones omitir -o osea:
-dotnet ef migrations add migrations2 --context DbContextMySql
+dotnet ef migrations add migrations2 --context DbContextMySql -- connection=Connection_Tenant_3
 ### Generar bbdd
 ```
 cd nest.core.security

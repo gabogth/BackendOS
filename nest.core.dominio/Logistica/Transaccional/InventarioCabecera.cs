@@ -1,9 +1,10 @@
 ﻿using nest.core.dominio.General.DocumentoTipoEntities;
 using nest.core.dominio.Logistica.AlmacenEN;
+using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Logistica.Transaccional
 {
-    public class InventarioCabecera
+    public class InventarioCabecera : IAuditable
     {
         public long Id { get; set; }
         public int AlmacenId { get; set; }

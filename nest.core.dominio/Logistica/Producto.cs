@@ -1,6 +1,8 @@
-﻿namespace nest.core.dominio.Logistica
+﻿using nest.core.dominio.Security.Audit;
+
+namespace nest.core.dominio.Logistica
 {
-    public class Producto
+    public class Producto : IAuditable
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

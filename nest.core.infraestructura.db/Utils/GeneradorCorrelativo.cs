@@ -6,7 +6,7 @@ namespace nest.core.infraestructura
 {
     public class GeneradorCorrelativo
     {
-        private static int PRIMER_NUMERO_CONTADOR = 1;
+        private static int PRIMER_NUMERO_CONTADOR = 0;
         private static int OFFSET_CONTADOR = 1;
         public static T GetValue<T>(EntityEntry entry, Func<object> maxId = null)
         {
