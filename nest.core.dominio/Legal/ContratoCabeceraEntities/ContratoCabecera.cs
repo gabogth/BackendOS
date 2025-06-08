@@ -1,10 +1,11 @@
 ﻿using nest.core.dominio.Legal.ContratoTipoEntities;
 using nest.core.dominio.Legal.ContratoDetalleEntities;
 using nest.core.dominio.Legal.ContratoPersonalEntities;
+using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Legal.ContratoCabeceraEntities
 {
-    public class ContratoCabecera
+    public class ContratoCabecera : IAuditable
     {
         public long Id { get; set; }
         public byte ContratoTipoId { get; set; }

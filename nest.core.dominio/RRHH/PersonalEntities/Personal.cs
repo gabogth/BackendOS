@@ -1,9 +1,8 @@
-﻿using nest.core.dominio.General;
-using System.ComponentModel.DataAnnotations;
+﻿using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.PersonalEntities
 {
-    public class Personal
+    public class Personal : IAuditable
     {
         public int Id { get; set; }
         public string Nombres { get; set; }

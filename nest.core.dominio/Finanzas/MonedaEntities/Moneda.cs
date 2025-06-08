@@ -1,6 +1,8 @@
-﻿namespace nest.core.dominio.Finanzas.MonedaEntities
+﻿using nest.core.dominio.Security.Audit;
+
+namespace nest.core.dominio.Finanzas.MonedaEntities
 {
-    public class Moneda
+    public class Moneda : IAuditable
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

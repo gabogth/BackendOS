@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using nest.core.aplication.auth;
 using nest.core.dominio.Security;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.security.Extensions;
@@ -18,8 +19,8 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: true)
                      .AddJsonFile($"empresas.json", optional: false, reloadOnChange: true)
                      .AddUserSecrets<Program>()
                      .AddEnvironmentVariables();
-if (MigrationServices.IsMigration())
-    MigrationServices.PickProvider(builder);
+if (MigrationService.IsMigration())
+    MigrationResolver.PickProvider(builder);
 else
 {
     builder.Services.AddDbContext<NestDbContext>();

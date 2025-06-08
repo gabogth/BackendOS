@@ -1,10 +1,11 @@
 ﻿using nest.core.dominio.Legal.ContratoCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
+using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.PersonalConfiguracionEntities
 {
-    public class PersonalConfiguracion
+    public class PersonalConfiguracion : IAuditable
     {
         public int Id { get; set; }
         public long ContratoCabeceraId { get; set; }

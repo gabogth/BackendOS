@@ -7,6 +7,7 @@ namespace nest.core.aplication.auth
 {
     public class ConnectionStringService : IConnectionStringService
     {
+        public string ConnectionTenantKey { get; set; }
         public string ConnectionTenant { get; set; }
         public string Engine { get; set; }
         public string Usuario { get; set; }
@@ -27,8 +28,9 @@ namespace nest.core.aplication.auth
                 throw new Exception("Usuario no logeadox");
             else
             {
-                this.ConnectionTenant = configuration.GetSection("Connections").GetSection(ConnectionTenantClave).GetValue<string>("ConnectionString");
-                this.Engine = configuration.GetSection("Connections").GetSection(ConnectionTenantClave).GetValue<string>("Engine");
+                this.ConnectionTenantKey = ConnectionTenantClave;
+                this.ConnectionTenant = configuration.GetValue<string>($"Connections:{ConnectionTenantClave}:ConnectionString");
+                this.Engine = configuration.GetValue<string>($"Connections:{ConnectionTenantClave}:Engine");
             }
         }
     }

@@ -1,6 +1,8 @@
-﻿namespace nest.core.dominio.Aplicacion.Modulo
+﻿using nest.core.dominio.Security.Audit;
+
+namespace nest.core.dominio.Aplicacion.Modulo
 {
-    public class Modulo
+    public class Modulo : IAuditable
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

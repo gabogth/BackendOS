@@ -5,14 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using nest.core.infraestructura.db.DbContext.Provider;
 
 #nullable disable
 
-namespace nest.core.security.Migrations.SqlServer
+namespace nest.core.security.Migrations.PsSql
 {
-    [DbContext(typeof(DbContextSqlServer))]
-    [Migration("20250607214531_initial")]
+    [DbContext(typeof(DbContextPsSql))]
+    [Migration("20250608204641_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -21,30 +22,30 @@ namespace nest.core.security.Migrations.SqlServer
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.5")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("ClaimValue")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -143,22 +144,22 @@ namespace nest.core.security.Migrations.SqlServer
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("ClaimValue")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -171,20 +172,20 @@ namespace nest.core.security.Migrations.SqlServer
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("ProviderKey")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -197,11 +198,11 @@ namespace nest.core.security.Migrations.SqlServer
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("RoleId")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -226,81 +227,128 @@ namespace nest.core.security.Migrations.SqlServer
                 {
                     b.Property<string>("UserId")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Value")
                         .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", "security");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Aplicacion.Formulario.Formulario", b =>
+            modelBuilder.Entity("SexoAudit", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
-                    b.Property<string>("Action")
+                    b.Property<string>("AccionAuditoria")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
-                    b.Property<string>("ClaimType")
+                    b.Property<string>("App")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
-                    b.Property<string>("Controlador")
+                    b.Property<string>("AppVersion")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
-                    b.Property<string>("Descripcion")
-                        .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Icono")
+                    b.Property<string>("AssemblyName")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
-                    b.Property<int>("ModuloId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("FechaAuditoria")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<byte>("Id")
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("UsuarioAuditoria")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("sexo_audit", "dbo");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Aplicacion.Formulario.Formulario", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Action")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("ClaimType")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Controlador")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(-1)
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("FechaModificacion")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Icono")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<int>("ModuloId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.Property<short>("Orden")
                         .HasColumnType("smallint");
 
                     b.Property<int?>("ParentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClaimType")
-                        .IsUnique()
-                        .HasFilter("[ClaimType] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("ModuloId");
 
@@ -317,8 +365,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 383, DateTimeKind.Local).AddTicks(7876),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(935),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 427, DateTimeKind.Local).AddTicks(2163),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(6407),
                             Icono = "home",
                             ModuloId = 1,
                             Nombre = "Inicio",
@@ -332,8 +380,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2443),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2444),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8249),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8252),
                             Icono = "window-restore",
                             ModuloId = 1,
                             Nombre = "Aplicacion",
@@ -348,8 +396,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2449),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2449),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8257),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8257),
                             Icono = "table-list",
                             ModuloId = 1,
                             Nombre = "Formulario",
@@ -364,8 +412,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2453),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2453),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8262),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8262),
                             Icono = "shield",
                             ModuloId = 1,
                             Nombre = "Seguridad",
@@ -380,8 +428,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2455),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2455),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8264),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8264),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol",
@@ -397,8 +445,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2462),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2462),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8278),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8278),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol Usuarios",
@@ -414,8 +462,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2464),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2465),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8280),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8281),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol Formularios",
@@ -431,8 +479,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2466),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 385, DateTimeKind.Local).AddTicks(2467),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8283),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 428, DateTimeKind.Local).AddTicks(8283),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Usuarios",
@@ -445,40 +493,40 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.Aplicacion.Modulo.Modulo", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Action")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Controlador")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Descripcion")
                         .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.Property<string>("RutaImagen")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -492,8 +540,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "Modulo donde se setean los roles, permisos y menús.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 386, DateTimeKind.Local).AddTicks(2770),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 386, DateTimeKind.Local).AddTicks(2775),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 429, DateTimeKind.Local).AddTicks(9915),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 429, DateTimeKind.Local).AddTicks(9921),
                             Nombre = "Seguridad",
                             NombreCorto = "SECURITY",
                             RutaImagen = ""
@@ -505,8 +553,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Logistica",
                             Descripcion = "Modulo de inventarios logistica y transferencias.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 386, DateTimeKind.Local).AddTicks(3557),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 386, DateTimeKind.Local).AddTicks(3557),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 430, DateTimeKind.Local).AddTicks(725),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 430, DateTimeKind.Local).AddTicks(726),
                             Nombre = "Logistica",
                             NombreCorto = "LOGISTIC",
                             RutaImagen = ""
@@ -518,8 +566,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "VentasHome",
                             Descripcion = "Modulo de facturacion, ventas, caja.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 386, DateTimeKind.Local).AddTicks(3560),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 386, DateTimeKind.Local).AddTicks(3560),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 430, DateTimeKind.Local).AddTicks(728),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 430, DateTimeKind.Local).AddTicks(728),
                             Nombre = "Ventas",
                             NombreCorto = "VENTAS",
                             RutaImagen = ""
@@ -531,8 +579,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Contabilidad",
                             Descripcion = "Modulo de libro diario, asientos, libro mayor.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 386, DateTimeKind.Local).AddTicks(3562),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 386, DateTimeKind.Local).AddTicks(3562),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 430, DateTimeKind.Local).AddTicks(730),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 430, DateTimeKind.Local).AddTicks(731),
                             Nombre = "Contabilidad",
                             NombreCorto = "CONTABIL",
                             RutaImagen = ""
@@ -544,8 +592,8 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Produccion",
                             Descripcion = "Modulo de producción, recetas, conversiones.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 7, 16, 45, 30, 386, DateTimeKind.Local).AddTicks(3564),
-                            FechaModificacion = new DateTime(2025, 6, 7, 16, 45, 30, 386, DateTimeKind.Local).AddTicks(3564),
+                            FechaCreacion = new DateTime(2025, 6, 8, 15, 46, 40, 430, DateTimeKind.Local).AddTicks(732),
+                            FechaModificacion = new DateTime(2025, 6, 8, 15, 46, 40, 430, DateTimeKind.Local).AddTicks(732),
                             Nombre = "Produccion",
                             NombreCorto = "PRODUCCI",
                             RutaImagen = ""
@@ -555,46 +603,46 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities.EstructuraOrganizacional", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("EstructuraOrganizacionalTipoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("FechaModificacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("FechaRegistro")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("Final")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .IsRequired()
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.Property<int?>("ParentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("UsuarioModificacion")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("UsuarioRegistro")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -608,23 +656,23 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities.EstructuraOrganizacionalTipo", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .IsRequired()
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.HasKey("Id");
 
@@ -634,27 +682,27 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.Finanzas.MonedaEntities.Moneda", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.Property<string>("Prefix")
                         .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasColumnType("character varying(3)");
 
                     b.Property<string>("Simbolo")
                         .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasColumnType("character varying(3)");
 
                     b.Property<string>("Sufix")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.HasKey("Id");
 
@@ -693,14 +741,14 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.General.DepartamentoEntites.Departamento", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("PaisId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -864,14 +912,14 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.General.DistritoEntities.Distrito", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("ProvinciaId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -1083,15 +1131,15 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.General.DocumentoIdentidadTipoEntities.DocumentoIdentidadTipo", b =>
                 {
                     b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.HasKey("Id");
 
@@ -1127,19 +1175,19 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.General.DocumentoTipoEntities.DocumentoTipo", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("CodigoEstatal")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.HasKey("Id");
 
@@ -1149,14 +1197,14 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.General.LicenciaConducirEntities.LicenciaConducir", b =>
                 {
                     b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint");
 
                     b.Property<byte>("Nivel")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -1222,19 +1270,19 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.General.PaisEntities.Pais", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("CodigoIso")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("CodigoTelefono")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -1386,46 +1434,46 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.General.PersonaEntities.Persona", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ApellidoMaterno")
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("character varying(120)");
 
                     b.Property<string>("ApellidoPaterno")
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("character varying(120)");
 
                     b.Property<string>("Celular")
                         .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("character varying(25)");
 
                     b.Property<string>("Correo")
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("character varying(120)");
 
                     b.Property<string>("DocumentoIdentidad")
                         .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("character varying(25)");
 
                     b.Property<byte>("DocumentoIdentidadTipoId")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint");
 
                     b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<byte?>("LicenciaConducirId")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Nombres")
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("character varying(120)");
 
                     b.Property<byte>("SexoId")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint");
 
                     b.HasKey("Id");
 
@@ -1441,14 +1489,14 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.General.ProvinciaEntities.Provincia", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("DepartamentoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -1510,15 +1558,15 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.General.SexoEntities.Sexo", b =>
                 {
                     b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.HasKey("Id");
 
@@ -1545,37 +1593,37 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("bigint");
 
                     b.Property<byte>("ContratoTipoId")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Descripcion")
                         .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("FechaFinal")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("FechaInicial")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime?>("FechaModificacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("FechaRegistro")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("Numero")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Observacion")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Resumen")
                         .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -1594,26 +1642,26 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("FechaFirma")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime?>("FechaModificacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("FechaRegistro")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime?>("FechaUltimaNotificacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("Firmo")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Observacion")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("PersonaId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -1631,17 +1679,17 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("bigint");
 
                     b.Property<int>("CargoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("EstructuraOrganizacionalId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("MontoBruto")
                         .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("numeric(18,4)");
 
                     b.Property<int>("PersonalId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("ContratoCabeceraId");
 
@@ -1657,15 +1705,15 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.Legal.ContratoTipoEntities.ContratoTipo", b =>
                 {
                     b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Detalle")
                         .HasMaxLength(800)
-                        .HasColumnType("nvarchar(800)");
+                        .HasColumnType("character varying(800)");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -1701,33 +1749,33 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.Logistica.AlmacenEN.Almacen", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Activo")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Direccion")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<int>("DistritoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Latitud")
                         .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
+                        .HasColumnType("numeric(9,6)");
 
                     b.Property<decimal>("Longitud")
                         .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
+                        .HasColumnType("numeric(9,6)");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.HasKey("Id");
 
@@ -1774,19 +1822,19 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.Logistica.LogisticaTransaccion", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ES")
                         .HasMaxLength(1)
-                        .HasColumnType("nvarchar(1)");
+                        .HasColumnType("character varying(1)");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.HasKey("Id");
 
@@ -1868,31 +1916,31 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.Logistica.Producto", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Activo")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<decimal>("Factor")
                         .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("numeric(18,4)");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("character varying(25)");
 
                     b.Property<bool>("PuedeGenerarNuevosLotes")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("UnidadMedidaCompraId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("UnidadMedidaConsumoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -1909,27 +1957,27 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("FechaVencimiento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<long?>("InventarioDetalleCreacionId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("MonedaId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("PrecioCompra")
                         .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("numeric(18,4)");
 
                     b.Property<decimal>("PrecioConsumo")
                         .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("numeric(18,4)");
 
                     b.Property<int>("ProductoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("SerialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -1946,28 +1994,28 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("bigint");
 
                     b.Property<int>("AlmacenId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("DocumentoNumero")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("DocumentoSerie")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("DocumentoTipoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("LogisticaTransaccionId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Observacion")
                         .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -1986,7 +2034,7 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("bigint");
 
                     b.Property<int>("Cantidad")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<long>("InventarioCabeceraId")
                         .HasColumnType("bigint");
@@ -1996,10 +2044,10 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.Property<string>("Nota")
                         .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
+                        .HasColumnType("character varying(400)");
 
                     b.Property<int>("ProductoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<long>("ProductoLoteId")
                         .HasColumnType("bigint");
@@ -2018,19 +2066,19 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.Logistica.UnidadMedida", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.Property<string>("Prefix")
                         .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
+                        .HasColumnType("character varying(5)");
 
                     b.HasKey("Id");
 
@@ -2040,14 +2088,14 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.RRHH.CargoEntities.Cargo", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -2077,30 +2125,30 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.RRHH.GrupoHorarioEntities.GrupoHorario", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("DiferenciaDia")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime?>("FechaModificacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<TimeOnly>("HoraEntrada")
-                        .HasColumnType("time");
+                        .HasColumnType("time without time zone");
 
                     b.Property<TimeOnly>("HoraSalida")
-                        .HasColumnType("time");
+                        .HasColumnType("time without time zone");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
+                        .HasColumnType("character varying(9)");
 
                     b.HasKey("Id");
 
@@ -2110,24 +2158,24 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.RRHH.HorarioCabeceraEntities.HorarioCabecera", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Activo")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -2137,30 +2185,30 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.RRHH.HorarioDetalleEntities.HorarioDetalle", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<byte>("DiaSemana")
-                        .HasColumnType("tinyint");
+                        .HasColumnType("smallint");
 
                     b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("GrupoHorarioId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("HorarioCabeceraId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("UsuarioCreacion")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("UsuarioModificacion")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -2174,16 +2222,16 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.RRHH.PersonalConfiguracionEntities.PersonalConfiguracion", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<long>("ContratoCabeceraId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("HorarioCabeceraId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("MarcaAsistencia")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -2197,38 +2245,38 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.RRHH.PersonalEntities.Personal", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ApellidoMaterno")
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("character varying(120)");
 
                     b.Property<string>("ApellidoPaterno")
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("character varying(120)");
 
                     b.Property<string>("Celular")
                         .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("character varying(25)");
 
                     b.Property<string>("Correo")
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("character varying(120)");
 
                     b.Property<string>("DocumentoIdentidad")
                         .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasColumnType("character varying(25)");
 
                     b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Nombres")
                         .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
+                        .HasColumnType("character varying(120)");
 
                     b.Property<string>("Usuario")
                         .HasMaxLength(90)
-                        .HasColumnType("nvarchar(90)");
+                        .HasColumnType("character varying(90)");
 
                     b.HasKey("Id");
 
@@ -2239,27 +2287,26 @@ namespace nest.core.security.Migrations.SqlServer
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", "security");
 
@@ -2282,58 +2329,58 @@ namespace nest.core.security.Migrations.SqlServer
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SecurityStamp")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
@@ -2342,8 +2389,7 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", "security");
 
@@ -2352,15 +2398,15 @@ namespace nest.core.security.Migrations.SqlServer
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7c9f3894-d38b-4134-bf58-4c213137a9d9",
+                            ConcurrencyStamp = "c864cc81-a152-4758-af38-c2e2aaa16377",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEg3a4WG/zrXKk6iXzmHKvP+Kze/K/Q0ENHllk6+Gq7UJVvqm+49L9Kw5DdzWzFqMQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECz8vJTau19IBbixk87IQ4Bae6dVKZZ+U7lzsCNKraLctpNE8t+KBuaC1PJi3sa1Ww==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "351f1ad9-9579-4063-99ad-2a46e18f4efa",
+                            SecurityStamp = "aca8ddfa-baba-4432-aca2-0d32a7c5b824",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -2368,15 +2414,15 @@ namespace nest.core.security.Migrations.SqlServer
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9993e23f-8f9a-4976-827e-6c07602b5445",
+                            ConcurrencyStamp = "f37b1d3f-b4cc-4230-b5b9-0b98ccc3f87c",
                             Email = "superadmin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN@ADMIN.COM",
                             NormalizedUserName = "SUPERADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAyknOtX5ZPpVxjNQSzAmKDuBS1tNqN46U3O4zumWMG/EoAP9udf70mktkJoNsKTIw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAhFzcZRCHofp5PL025AgYYEyX/rj9IWlnKqaRsj+Ki7Ns/7DHeBZlf2Efrbu3Fp+g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d117ab05-d265-496a-899e-d04c864a222a",
+                            SecurityStamp = "98909ec8-5f1d-4cb8-9056-af026a07c04b",
                             TwoFactorEnabled = false,
                             UserName = "superadmin@admin.com"
                         });
@@ -2389,30 +2435,30 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.Property<string>("Accion")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("EntidadId")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("EntidadNombre")
                         .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("NewValues")
                         .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("OldValues")
                         .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Usuario")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.HasKey("Id");
 
@@ -2423,11 +2469,11 @@ namespace nest.core.security.Migrations.SqlServer
                 {
                     b.Property<string>("Schema")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Table")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<long>("LastValue")
                         .HasColumnType("bigint");

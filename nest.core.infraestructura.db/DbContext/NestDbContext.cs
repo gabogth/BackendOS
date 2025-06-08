@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using nest.core.dominio.Security;
 using nest.core.dominio.Security.Tenant;
+using nest.core.infraestructura.db.DbContext.Convention;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System.Reflection;
 
@@ -26,14 +27,14 @@ namespace nest.core.infraestructura.db.DbContext
             optionsBuilder.ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning));
             switch (engine)
             {
-                case "SQLSERVER":
+                case "SqlServer":
                     optionsBuilder.UseSqlServer(connectionString);
                     break;
-                case "POSTGRES":
+                case "Npgsql":
                     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
                     optionsBuilder.UseNpgsql(connectionString);
                     break;
-                case "MYSQL":
+                case "MySql":
                     optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), my =>
                     {
                         my.SchemaBehavior(
@@ -61,6 +62,7 @@ namespace nest.core.infraestructura.db.DbContext
             base.ConfigureConventions(configurationBuilder);
             configurationBuilder.Properties<string>().HaveMaxLength(200);
             configurationBuilder.Properties<decimal>().HavePrecision(18, 4);
+            configurationBuilder.Conventions.Add(_ => new AuditConvention());
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using nest.core.dominio.General.DocumentoIdentidadTipoEntities;
 using nest.core.dominio.General.LicenciaConducirEntities;
 using nest.core.dominio.General.SexoEntities;
+using nest.core.dominio.Security.Audit;
 using System.ComponentModel.DataAnnotations;
 
 namespace nest.core.dominio.General.PersonaEntities
 {
-    public class Persona
+    public class Persona : IAuditable
     {
         public int Id { get; set; }
         public string Nombres { get; set; }
