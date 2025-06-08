@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.Finanzas.MonedaEntities;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.Finanzas
 {
@@ -33,5 +36,11 @@ namespace nest.core.infraestructura.db.Finanzas
                 new Moneda { Id = 3, Nombre = "EUROS", NombreCorto = "EUR", Simbolo = "€", Prefix = "€", Sufix = "euros" }
             };
         }
+    }
+    public class MonedaValueGenerator : ValueGenerator<int>
+    {
+        public override bool GeneratesTemporaryValues => false;
+        public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).Moneda.Max(x => x.Id));
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).Moneda.Max(x => x.Id), cancellationToken);
     }
 }

@@ -1,6 +1,6 @@
 using nest.core.dominio.General.PaisEntities;
 
-namespace nest.core.aplicacion.general
+namespace nest.core.aplicacion.general.PaisServices
 {
     public class PaisService
     {

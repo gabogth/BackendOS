@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using nest.core.dominio.Aplicacion.Modulo;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.Aplicacion
 {
@@ -12,7 +15,7 @@ namespace nest.core.infraestructura.db.Aplicacion
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<GenericValueGenerator<int>>();
+                .HasValueGenerator<ModuloValueGenerator>();
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
             builder.Property(x => x.Descripcion)
@@ -31,6 +34,12 @@ namespace nest.core.infraestructura.db.Aplicacion
                 new Modulo { Id = 5, Nombre = "Produccion", NombreCorto = "PRODUCCI", Descripcion = "Modulo de producción, recetas, conversiones.", Controlador = "Produccion", Action = "Index", Estado = true, RutaImagen = "" }
             };
             return roles;
-        }
+        }   
+    }
+    public class ModuloValueGenerator : ValueGenerator<int>
+    {
+        public override bool GeneratesTemporaryValues => false;
+        public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).Modulo.Max(x => x.Id));
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).Modulo.Max(x => x.Id), cancellationToken);
     }
 }

@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.corporativo;
+using nest.core.aplicacion.corporativo.EstructuraOrganizacionalServices;
+using nest.core.aplicacion.corporativo.EstructuraOrganizacionalTipoServices;
 
 namespace nest.core.corporativo.Extensions
 {

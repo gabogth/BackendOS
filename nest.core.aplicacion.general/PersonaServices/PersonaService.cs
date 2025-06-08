@@ -1,6 +1,6 @@
 using nest.core.dominio.General.PersonaEntities;
 
-namespace nest.core.aplicacion.general
+namespace nest.core.aplicacion.general.PersonaServices
 {
     public class PersonaService
     {

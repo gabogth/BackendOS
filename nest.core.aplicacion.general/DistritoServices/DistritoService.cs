@@ -1,6 +1,6 @@
 using nest.core.dominio.General.DistritoEntities;
 
-namespace nest.core.aplicacion.general
+namespace nest.core.aplicacion.general.DistritoServices
 {
     public class DistritoService
     {

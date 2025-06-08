@@ -1,4 +1,5 @@
 ﻿using nest.core.aplicacion.logistica;
+using nest.core.aplicacion.logistica.AlmacenServices;
 
 namespace nest.core.logistica.Extensions
 {

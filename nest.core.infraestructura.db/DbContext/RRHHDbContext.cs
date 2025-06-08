@@ -16,7 +16,6 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<GrupoHorario> GrupoHorarios { get; set; }
         public DbSet<HorarioCabecera> HorarioCabeceras { get; set; }
         public DbSet<HorarioDetalle> HorarioDetalles { get; set; }
-        public DbSet<LicenciaConducir> LicenciasConducir { get; set; }
         public DbSet<PersonalConfiguracion> PersonalesConfiguracion { get; set; }
         public DbSet<Personal> Personales { get; set; }
         public DbSet<Sexo> Sexos { get; set; }

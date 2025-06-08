@@ -1,6 +1,6 @@
 using nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities;
 
-namespace nest.core.aplicacion.corporativo
+namespace nest.core.aplicacion.corporativo.EstructuraOrganizacionalServices
 {
     public class EstructuraOrganizacionalService
     {

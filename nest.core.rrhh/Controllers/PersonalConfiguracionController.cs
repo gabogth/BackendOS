@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.rrhh;
+using nest.core.aplicacion.rrhh.PersonalConfiguracionServices;
 using nest.core.dominio;
 using nest.core.dominio.RRHH.PersonalConfiguracionEntities;
 

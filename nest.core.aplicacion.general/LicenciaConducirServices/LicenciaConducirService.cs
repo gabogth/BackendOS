@@ -1,6 +1,6 @@
 using nest.core.dominio.General.LicenciaConducirEntities;
 
-namespace nest.core.aplicacion.general
+namespace nest.core.aplicacion.general.LicenciaConducirServices
 {
     public class LicenciaConducirService
     {

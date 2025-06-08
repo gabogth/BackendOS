@@ -1,41 +1,45 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Logging;
 using nest.core.dominio.Security;
 using nest.core.dominio.Security.Tenant;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System.Reflection;
 
 namespace nest.core.infraestructura.db.DbContext
 {
     public partial class NestDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
-        private readonly string connectionString;
-        private readonly string usuario;
-        private readonly string engine;
-        public NestDbContext(DbContextOptions<NestDbContext> options, IConnectionStringService connectionStringService)
+        protected readonly string connectionString;
+        protected readonly string usuario;
+        protected readonly string engine;
+        public NestDbContext(DbContextOptions options, IConnectionStringService connectionStringService)
         : base(options)
         {
             connectionStringService.Build();
-            this.connectionString = connectionStringService.ConnectionTenant;
-            this.usuario = connectionStringService.Usuario;
-            this.engine = connectionStringService.Engine;
+            connectionString = connectionStringService.ConnectionTenant;
+            usuario = connectionStringService.Usuario;
+            engine = connectionStringService.Engine;
         }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning));
-            switch (this.engine) {
+            switch (engine)
+            {
                 case "SQLSERVER":
-                    optionsBuilder.UseSqlServer(this.connectionString, b =>
-                    {
-                        b.MigrationsAssembly("nest.core.security");
-                    });
+                    optionsBuilder.UseSqlServer(connectionString);
                     break;
                 case "POSTGRES":
                     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-                    optionsBuilder.UseNpgsql(this.connectionString, b => {
-                        b.MigrationsAssembly("nest.core.security");
+                    optionsBuilder.UseNpgsql(connectionString);
+                    break;
+                case "MYSQL":
+                    optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), my =>
+                    {
+                        my.SchemaBehavior(
+                            MySqlSchemaBehavior.Translate,
+                            (schema, name) => $"{schema}_{name}"
+                        );
                     });
                     break;
                 default: throw new Exception("Engine no soportado");

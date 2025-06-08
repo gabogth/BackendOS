@@ -1,6 +1,6 @@
 using nest.core.dominio.General.DocumentoIdentidadTipoEntities;
 
-namespace nest.core.aplicacion.general
+namespace nest.core.aplicacion.general.DocumentoIdentidadTipoServices
 {
     public class DocumentoIdentidadTipoService
     {

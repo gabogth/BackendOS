@@ -1,6 +1,6 @@
 using nest.core.dominio.General.SexoEntities;
 
-namespace nest.core.aplicacion.general
+namespace nest.core.aplicacion.general.SexoServices
 {
     public class SexoService
     {

@@ -1,6 +1,6 @@
 using nest.core.dominio.General.DepartamentoEntites;
 
-namespace nest.core.aplicacion.general
+namespace nest.core.aplicacion.general.DepartamentoServices
 {
     public class DepartamentoService
     {

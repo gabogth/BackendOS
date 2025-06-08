@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using nest.core.dominio;
-using nest.core.aplicacion.logistica;
 using nest.core.dominio.Logistica.AlmacenEN;
 using Microsoft.AspNetCore.Authorization;
+using nest.core.aplicacion.logistica.AlmacenServices;
 
 namespace nest.core.logistica.Controllers
 {

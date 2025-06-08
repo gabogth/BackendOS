@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.General.ProvinciaEntities;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.General
 {
@@ -14,7 +17,7 @@ namespace nest.core.infraestructura.db.General
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<GenericValueGenerator<int>>();
+                .HasValueGenerator<ProvinciaValueGenerator>();
             builder.HasMany(p => p.Distritos)
                 .WithOne(d => d.Provincia)
                 .HasForeignKey(d => d.ProvinciaId)
@@ -36,5 +39,11 @@ namespace nest.core.infraestructura.db.General
                 new Provincia { Id = 8, Nombre = "La Unión", DepartamentoId = 4 }
             };
         }
+    }
+    public class ProvinciaValueGenerator : ValueGenerator<int>
+    {
+        public override bool GeneratesTemporaryValues => false;
+        public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).Provincia.Max(x => x.Id));
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).Provincia.Max(x => x.Id), cancellationToken);
     }
 }

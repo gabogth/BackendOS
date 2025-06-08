@@ -1,8 +1,8 @@
 ﻿using nest.core.aplicacion.security.Login;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using nest.core.dominio.Security;
 using nest.core.dominio.Security.Auth;
+using nest.core.dominio;
 
 namespace nest.core.security.Controllers
 {
@@ -37,7 +37,7 @@ namespace nest.core.security.Controllers
             catch (Exception ex)
             {
                 this.logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
     }

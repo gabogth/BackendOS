@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.corporativo;
+using nest.core.aplicacion.corporativo.EstructuraOrganizacionalTipoServices;
 using nest.core.dominio;
 using nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities;
 

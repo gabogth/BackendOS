@@ -1,6 +1,6 @@
 using nest.core.dominio.RRHH.PersonalEntities;
 
-namespace nest.core.aplicacion.rrhh
+namespace nest.core.aplicacion.rrhh.PersonalServices
 {
     public class PersonalService
     {

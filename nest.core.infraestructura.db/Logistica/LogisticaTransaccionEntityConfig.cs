@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.Logistica;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.Logistica
 {
@@ -14,7 +17,7 @@ namespace nest.core.infraestructura.db.Logistica
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<GenericValueGenerator<int>>();
+                .HasValueGenerator<LogisticaTransaccionValueGenerator>();
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
             builder.Property(x => x.ES)
@@ -38,5 +41,11 @@ namespace nest.core.infraestructura.db.Logistica
                 new LogisticaTransaccion { Id = 105, Nombre = "SALIDA POR PRODUCCION", NombreCorto = "SPRODUC", ES = "E" },
             };
         }
+    }
+    public class LogisticaTransaccionValueGenerator : ValueGenerator<int>
+    {
+        public override bool GeneratesTemporaryValues => false;
+        public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).LogisticaTransaccion.Max(x => x.Id));
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).LogisticaTransaccion.Max(x => x.Id), cancellationToken);
     }
 }

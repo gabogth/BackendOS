@@ -8,49 +8,7 @@ namespace nest.core.infraestructura
     {
         private static int PRIMER_NUMERO_CONTADOR = 1;
         private static int OFFSET_CONTADOR = 1;
-        public static T GetValue<T>(EntityEntry entry)
-        {
-            return GetNext<T>(entry);
-        }
-        public static async Task<T> GetValueAsync<T>(EntityEntry entry, CancellationToken cancellationToken = default)
-        {
-            return await GetNextAsync<T>(entry);
-        }
-
-        private static async Task<T> GetNextAsync<T>(EntityEntry entry)
-        {
-            string esquema = entry.Metadata.GetSchema() ?? "dbo";
-            string tabla = entry.Metadata.GetTableName();
-            DbContext ctx = entry.Context;
-
-            var correl = ctx.ChangeTracker
-                            .Entries<CorrelativoMaestro>()
-                            .FirstOrDefault(e =>
-                                   e.Entity.Schema == esquema &&
-                                   e.Entity.Table == tabla)?
-                            .Entity;
-            if (correl == null)
-            {
-                correl = await ctx.Set<CorrelativoMaestro>()
-                                  .FirstOrDefaultAsync(c =>c.Schema == esquema && c.Table == tabla);
-                if (correl == null)
-                {
-                    correl = new CorrelativoMaestro
-                    {
-                        Schema = esquema,
-                        Table = tabla,
-                        LastValue = 1
-                    };
-                    await ctx.Set<CorrelativoMaestro>().AddAsync(correl);
-                    return (T)Convert.ChangeType(PRIMER_NUMERO_CONTADOR, typeof(T));
-                }
-            }
-            var id = correl.LastValue + OFFSET_CONTADOR;
-            correl.LastValue = id;
-            return (T)Convert.ChangeType(id, typeof(T));
-        }
-
-        private static T GetNext<T>(EntityEntry entry)
+        public static T GetValue<T>(EntityEntry entry, Func<object> maxId = null)
         {
             string esquema = entry.Metadata.GetSchema() ?? "dbo";
             string tabla = entry.Metadata.GetTableName();
@@ -72,15 +30,42 @@ namespace nest.core.infraestructura
                     {
                         Schema = esquema,
                         Table = tabla,
-                        LastValue = PRIMER_NUMERO_CONTADOR
+                        LastValue = maxId == null ? PRIMER_NUMERO_CONTADOR : (int)maxId()
                     };
-                    ctx.Set<CorrelativoMaestro>().Add(correl);
-                    return (T)Convert.ChangeType(PRIMER_NUMERO_CONTADOR, typeof(T));
+                    correl = ctx.Set<CorrelativoMaestro>().Add(correl).Entity;
                 }
             }
-            var id = correl.LastValue + OFFSET_CONTADOR;
-            correl.LastValue = id;
-            return (T)Convert.ChangeType(id, typeof(T));
+            correl.LastValue = correl.LastValue + OFFSET_CONTADOR;
+            return (T)Convert.ChangeType(correl.LastValue, typeof(T));
+        }
+        public static async Task<T> GetValueAsync<T>(EntityEntry entry, Func<object> maxId = null, CancellationToken cancellationToken = default)
+        {
+            string esquema = entry.Metadata.GetSchema() ?? "dbo";
+            string tabla = entry.Metadata.GetTableName();
+            var ctx = entry.Context;
+            var correl = ctx.ChangeTracker
+                            .Entries<CorrelativoMaestro>()
+                            .FirstOrDefault(e =>
+                                   e.Entity.Schema == esquema &&
+                                   e.Entity.Table == tabla)?
+                            .Entity;
+            if (correl == null)
+            {
+                correl = await ctx.Set<CorrelativoMaestro>()
+                                  .FirstOrDefaultAsync(c => c.Schema == esquema && c.Table == tabla);
+                if (correl == null)
+                {
+                    correl = new CorrelativoMaestro
+                    {
+                        Schema = esquema,
+                        Table = tabla,
+                        LastValue = maxId == null ? PRIMER_NUMERO_CONTADOR : (int)maxId()
+                    };
+                    correl = ctx.Set<CorrelativoMaestro>().Add(correl).Entity;
+                }
+            }
+            correl.LastValue = correl.LastValue + OFFSET_CONTADOR;
+            return (T)Convert.ChangeType(correl.LastValue, typeof(T));
         }
     }
 }

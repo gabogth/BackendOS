@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using nest.core.dominio.Legal.ContratoTipoEntities;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.Legal
 {
@@ -14,7 +17,7 @@ namespace nest.core.infraestructura.db.Legal
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<GenericValueGenerator<byte>>();
+                .HasValueGenerator<ContratoTipoValueGenerator>();
             builder.Property(x => x.Detalle).HasMaxLength(800);
             builder.HasData(ObtenerInformacionInicial());
         }
@@ -30,5 +33,11 @@ namespace nest.core.infraestructura.db.Legal
             };
             return roles;
         }
+    }
+    public class ContratoTipoValueGenerator : ValueGenerator<byte>
+    {
+        public override bool GeneratesTemporaryValues => false;
+        public override byte Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<byte>(entry, object () => (int)((NestDbContext)entry.Context).ContratoTipo.Max(x => x.Id));
+        public override async ValueTask<byte> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<byte>(entry, object () => (int)((NestDbContext)entry.Context).ContratoTipo.Max(x => x.Id), cancellationToken);
     }
 }

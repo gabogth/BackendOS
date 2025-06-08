@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general;
+using nest.core.aplicacion.general.PaisServices;
 using nest.core.dominio;
 using nest.core.dominio.General.PaisEntities;
 

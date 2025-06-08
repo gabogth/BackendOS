@@ -1,6 +1,6 @@
 using nest.core.dominio.General.ProvinciaEntities;
 
-namespace nest.core.aplicacion.general
+namespace nest.core.aplicacion.general.ProvinciaServices
 {
     public class ProvinciaService
     {
