@@ -14,6 +14,7 @@ namespace nest.core.infraestructura.db.DbContext
         protected readonly string connectionString;
         protected readonly string usuario;
         protected readonly string engine;
+        protected readonly RequestParameters requestParameters;
         public NestDbContext(DbContextOptions options, IConnectionStringService connectionStringService)
         : base(options)
         {
@@ -21,6 +22,7 @@ namespace nest.core.infraestructura.db.DbContext
             connectionString = connectionStringService.ConnectionTenant;
             usuario = connectionStringService.Usuario;
             engine = connectionStringService.Engine;
+            requestParameters = connectionStringService.Request;
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

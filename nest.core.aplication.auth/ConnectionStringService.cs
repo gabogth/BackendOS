@@ -11,13 +11,15 @@ namespace nest.core.aplication.auth
         public string ConnectionTenant { get; set; }
         public string Engine { get; set; }
         public string Usuario { get; set; }
+        public RequestParameters Request { get; set; }
 
         private readonly List<Claim> claims;
         private readonly IConfigurationManager configuration;
-        public ConnectionStringService(List<Claim> claims, IConfigurationManager configuration)
+        public ConnectionStringService(List<Claim> claims, IConfigurationManager configuration, RequestParameters request)
         {
             this.claims = claims;
             this.configuration = configuration;
+            this.Request = request;
         }
 
         public void Build()

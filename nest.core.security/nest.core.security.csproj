@@ -9,6 +9,8 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<NoWarn>1591</NoWarn>
 	<AssemblyVersion>1.0.0.16</AssemblyVersion>
+	<Title>$(AssemblyName)</Title>
+	<Description>La $(AssemblyName) permite administrar usuarios y roles dentro del sistema. Incluye operaciones para crear, modificar, eliminar usuarios, así como asignar roles a usuarios y obtener usuarios por roles.\r\n\r\nTodos los endpoints requieren autorización y autenticación.</Description>
   </PropertyGroup>
 
   <ItemGroup>

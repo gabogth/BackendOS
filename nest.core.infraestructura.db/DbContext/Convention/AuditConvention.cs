@@ -12,9 +12,8 @@ namespace nest.core.infraestructura.db.DbContext.Convention
         public void ProcessModelFinalizing(IConventionModelBuilder modelBuilder, IConventionContext<IConventionModelBuilder> _)
         {
             var auditable = modelBuilder.Metadata.GetEntityTypes()
-                           .Where(t => typeof(IAuditable).IsAssignableFrom(t.ClrType))
+                           .Where(t => typeof(IAuditable).IsAssignableFrom(t.ClrType) || t.GetTableName().ToLower().StartsWith("aspnet"))
                            .ToList();
-            
             foreach (var entity in auditable)
             {
                 var auditName = $"{entity.ClrType.Name}Audit";
@@ -35,12 +34,28 @@ namespace nest.core.infraestructura.db.DbContext.Convention
                 foreach (var p in entity.GetProperties())
                     audit.Property(p.ClrType, p.Name);
 
-                audit.Property(typeof(DateTime), "FechaAuditoria");
-                audit.Property(typeof(string), "AccionAuditoria").HasMaxLength(10);
-                audit.Property(typeof(string), "UsuarioAuditoria").HasMaxLength(200);
-                audit.Property(typeof(string), "App").HasMaxLength(100);
-                audit.Property(typeof(string), "AppVersion").HasMaxLength(20);
-                audit.Property(typeof(string), "AssemblyName").HasMaxLength(60);
+                audit.Property(typeof(DateTime), "AuditFecha");
+                audit.Property(typeof(string), "AuditAccion").HasMaxLength(10);
+                audit.Property(typeof(string), "AuditUsuario").HasMaxLength(200);
+                audit.Property(typeof(string), "AuditApp").HasMaxLength(100);
+                audit.Property(typeof(string), "AuditAppVersion").HasMaxLength(20);
+                audit.Property(typeof(string), "AuditAssemblyName").HasMaxLength(100);
+                audit.Property(typeof(string), "AuditRequestId").HasMaxLength(100);
+                audit.Property(typeof(string), "AuditPath").HasMaxLength(-1);
+                audit.Property(typeof(string), "AuditMethod").HasMaxLength(20);
+                audit.Property(typeof(string), "AuditIpRemoteOrigin").HasMaxLength(40);
+                audit.Property(typeof(string), "AuditUserAgent").HasMaxLength(400);
+                audit.Property(typeof(string), "AuditCurrentCulture").HasMaxLength(20);
+                audit.Property(typeof(string), "AuditContentType").HasMaxLength(40);
+                audit.Property(typeof(bool), "AuditIsHttps");
+                audit.Property(typeof(string), "AuditHost").HasMaxLength(200);
+                audit.Property(typeof(string), "AuditProtocol").HasMaxLength(40);
+                audit.Property(typeof(string), "AuditQueryString").HasMaxLength(1000);
+                audit.Property(typeof(string), "AuditAcceptLanguage").HasMaxLength(40);
+                audit.Property(typeof(string), "AuditOrigin").HasMaxLength(400);
+                audit.Property(typeof(string), "AuditReferer").HasMaxLength(1000);
+                audit.Property(typeof(string), "AuditPlatform").HasMaxLength(100);
+                audit.Property(typeof(string), "AuditUa").HasMaxLength(500);
                 audit.ToTable(tableName, schemaName);
             }
         }
