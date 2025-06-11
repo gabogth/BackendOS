@@ -1,43 +1,28 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using nest.core.dominio.Cache;
 using nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities;
+using nest.core.infraestructura.db.Cache;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infrastructura.utils.Excepciones;
 
 namespace nest.core.infraestructura.corporativo
 {
-    public class EstructuraOrganizacionalRepository : IEstructuraOrganizacionalRepository
+    public class EstructuraOrganizacionalRepository : CachedRepositoryBase<EstructuraOrganizacional>, IEstructuraOrganizacionalRepository
     {
-        private readonly NestDbContext context;
         private readonly IMapper mapper;
 
-        public EstructuraOrganizacionalRepository(NestDbContext context, IMapper mapper)
+        public EstructuraOrganizacionalRepository(NestDbContext context, IMapper mapper, ICacheRepository cache) : base(context, cache)
         {
-            this.context = context;
             this.mapper = mapper;
         }
+        protected override IQueryable<EstructuraOrganizacional> Query() =>
+            base.Query().Include(x => x.EstructuraOrganizacionalTipo);
 
-        public async Task<EstructuraOrganizacional> ObtenerPorId(int id)
-        {
-            return await context.EstructuraOrganizacional
-                .Include(x => x.EstructuraOrganizacionalTipo)
-                .FirstOrDefaultAsync(x => x.Id == id);
-        }
 
-        public async Task<List<EstructuraOrganizacional>> ObtenerTodos()
-        {
-            return await context.EstructuraOrganizacional
-                .Include(x => x.EstructuraOrganizacionalTipo)
-                .ToListAsync();
-        }
-
-        public async Task<List<EstructuraOrganizacional>> ObtenerActivos()
-        {
-            return await context.EstructuraOrganizacional
-                .Include(x => x.EstructuraOrganizacionalTipo)
-                .Where(x => x.Estado)
-                .ToListAsync();
-        }
+        public async Task<List<EstructuraOrganizacional>> ObtenerTodos() => await GetCachedListAsync();
+        public async Task<EstructuraOrganizacional> ObtenerPorId(int id) => (await GetCachedListAsync()).FirstOrDefault(x => x.Id == id);
+        public async Task<List<EstructuraOrganizacional>> ObtenerActivos() => (await GetCachedListAsync()).Where(x => x.Estado).ToList();
 
         public async Task<EstructuraOrganizacional> Agregar(EstructuraOrganizacionalCrearDto entry)
         {
@@ -46,6 +31,7 @@ namespace nest.core.infraestructura.corporativo
             context.EstructuraOrganizacional.Add(entidad);
             await context.SaveChangesAsync();
             await context.Entry(entidad).ReloadAsync();
+            await InvalidateCacheAsync();
             return entidad;
         }
 
@@ -58,6 +44,7 @@ namespace nest.core.infraestructura.corporativo
             existente.FechaModificacion = DateTime.UtcNow;
             await context.SaveChangesAsync();
             await context.Entry(existente).ReloadAsync();
+            await InvalidateCacheAsync();
             return existente;
         }
 
@@ -67,7 +54,8 @@ namespace nest.core.infraestructura.corporativo
             if (existente == null)
                 throw new RegistroNoEncontradoException<EstructuraOrganizacional>(id);
             context.EstructuraOrganizacional.Remove(existente);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
+            await InvalidateCacheAsync();
         }
     }
 }

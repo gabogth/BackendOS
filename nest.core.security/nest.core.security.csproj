@@ -11,6 +11,7 @@
 	<AssemblyVersion>1.0.0.16</AssemblyVersion>
 	<Title>$(AssemblyName)</Title>
 	<Description>La $(AssemblyName) permite administrar usuarios y roles dentro del sistema. Incluye operaciones para crear, modificar, eliminar usuarios, así como asignar roles a usuarios y obtener usuarios por roles.\r\n\r\nTodos los endpoints requieren autorización y autenticación.</Description>
+	<Copyright>Nest Corp</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +26,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.2" />
   </ItemGroup>
