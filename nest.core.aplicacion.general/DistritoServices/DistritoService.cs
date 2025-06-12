@@ -11,7 +11,6 @@ namespace nest.core.aplicacion.general.DistritoServices
         }
         public Task<Distrito> ObtenerPorId(int id) => repository.ObtenerPorId(id);
         public Task<List<Distrito>> ObtenerTodos() => repository.ObtenerTodos();
-        public Task<List<Distrito>> ObtenerActivos() => repository.ObtenerActivos();
         public Task<Distrito> Agregar(DistritoCrearDto entry) => repository.Agregar(entry);
         public Task<Distrito> Modificar(int id, DistritoCrearDto entry) => repository.Modificar(id, entry);
         public Task Eliminar(int id) => repository.Eliminar(id);

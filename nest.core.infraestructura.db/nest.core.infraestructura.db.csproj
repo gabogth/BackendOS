@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.5" />
@@ -24,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\nest.core.dominio\nest.core.dominio.csproj" />
+    <ProjectReference Include="..\nest.core.infrastructura.utils\nest.core.infrastructura.utils.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 
 namespace nest.core.dominio.Aplicacion.Formulario
 {
-    public class Formulario : IAuditable
+    public class Formulario : IAuditable, IEntity<int>
     {
         public int Id { get; set; }
         public int? ParentId { get; set; }

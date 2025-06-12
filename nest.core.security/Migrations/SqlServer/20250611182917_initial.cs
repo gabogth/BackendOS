@@ -2022,7 +2022,7 @@ namespace nest.core.security.Migrations.SqlServer
                         principalSchema: "organizacion",
                         principalTable: "estructura_organizacional_tipo",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -2525,8 +2525,8 @@ namespace nest.core.security.Migrations.SqlServer
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "f629bc66-93ac-4d3e-b7d3-4b24b8585a98", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEEI6GwU2Yjuu/MIitk+hXdlwgwxj6AWLNtzNn8Txfk62HnBtPxxFu1Zc3/wnz6rzAQ==", null, false, "6b713394-1b6c-4b75-8877-b2b0510af6de", false, "admin@admin.com" },
-                    { "2", 0, "04924fdb-c7fb-4e11-bc4a-b6c6f9f02c0b", "superadmin@admin.com", true, false, null, "SUPERADMIN@ADMIN.COM", "SUPERADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEE52JP6Ld9/3+RWhSq5QLRWp3vezPk1GTZ7qZEPwyZwWwDCQrVWq+GLzp1m1Ug19/Q==", null, false, "bfe1fdf0-1de3-46fe-b4d0-4e2d5570c6e2", false, "superadmin@admin.com" }
+                    { "1", 0, "91dd6b80-3bb4-426c-a4e6-fd2c0923b1f5", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAED3Jl/HmwN+MFHubgXYyUXrEz9r+YWviS8px6UF/4psOzziH5Bx5yAcOMuq0JPrzQw==", null, false, "f8c9603e-7802-49a4-864b-f74670d66dc6", false, "admin@admin.com" },
+                    { "2", 0, "027e7a8c-7410-4612-98f2-9c296256f1cc", "superadmin@admin.com", true, false, null, "SUPERADMIN@ADMIN.COM", "SUPERADMIN@ADMIN.COM", "AQAAAAIAAYagAAAAEKj6EcbRFINcjFCyRfztUrWXaHRpCUOEe/zv6GdXyW9w6nYx7zZDDPTIfz5/cQI45A==", null, false, "8bf8a49b-bcbc-48cf-98a7-7f1e6b0bc600", false, "superadmin@admin.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -2605,11 +2605,11 @@ namespace nest.core.security.Migrations.SqlServer
                 columns: new[] { "Id", "Action", "Controlador", "Descripcion", "Estado", "FechaCreacion", "FechaModificacion", "Nombre", "NombreCorto", "RutaImagen" },
                 values: new object[,]
                 {
-                    { 1, "Index", "Seguridad", "Modulo donde se setean los roles, permisos y menús.", true, new DateTime(2025, 6, 9, 13, 3, 21, 416, DateTimeKind.Local).AddTicks(5230), new DateTime(2025, 6, 9, 13, 3, 21, 416, DateTimeKind.Local).AddTicks(5236), "Seguridad", "SECURITY", "" },
-                    { 2, "Index", "Logistica", "Modulo de inventarios logistica y transferencias.", true, new DateTime(2025, 6, 9, 13, 3, 21, 416, DateTimeKind.Local).AddTicks(6005), new DateTime(2025, 6, 9, 13, 3, 21, 416, DateTimeKind.Local).AddTicks(6005), "Logistica", "LOGISTIC", "" },
-                    { 3, "Index", "VentasHome", "Modulo de facturacion, ventas, caja.", true, new DateTime(2025, 6, 9, 13, 3, 21, 416, DateTimeKind.Local).AddTicks(6008), new DateTime(2025, 6, 9, 13, 3, 21, 416, DateTimeKind.Local).AddTicks(6008), "Ventas", "VENTAS", "" },
-                    { 4, "Index", "Contabilidad", "Modulo de libro diario, asientos, libro mayor.", true, new DateTime(2025, 6, 9, 13, 3, 21, 416, DateTimeKind.Local).AddTicks(6010), new DateTime(2025, 6, 9, 13, 3, 21, 416, DateTimeKind.Local).AddTicks(6010), "Contabilidad", "CONTABIL", "" },
-                    { 5, "Index", "Produccion", "Modulo de producción, recetas, conversiones.", true, new DateTime(2025, 6, 9, 13, 3, 21, 416, DateTimeKind.Local).AddTicks(6011), new DateTime(2025, 6, 9, 13, 3, 21, 416, DateTimeKind.Local).AddTicks(6012), "Produccion", "PRODUCCI", "" }
+                    { 1, "Index", "Seguridad", "Modulo donde se setean los roles, permisos y menús.", true, new DateTime(2025, 6, 11, 13, 29, 16, 433, DateTimeKind.Local).AddTicks(9417), new DateTime(2025, 6, 11, 13, 29, 16, 433, DateTimeKind.Local).AddTicks(9421), "Seguridad", "SECURITY", "" },
+                    { 2, "Index", "Logistica", "Modulo de inventarios logistica y transferencias.", true, new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(303), new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(304), "Logistica", "LOGISTIC", "" },
+                    { 3, "Index", "VentasHome", "Modulo de facturacion, ventas, caja.", true, new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(306), new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(306), "Ventas", "VENTAS", "" },
+                    { 4, "Index", "Contabilidad", "Modulo de libro diario, asientos, libro mayor.", true, new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(308), new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(308), "Contabilidad", "CONTABIL", "" },
+                    { 5, "Index", "Produccion", "Modulo de producción, recetas, conversiones.", true, new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(310), new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(310), "Produccion", "PRODUCCI", "" }
                 });
 
             migrationBuilder.InsertData(
@@ -2730,14 +2730,14 @@ namespace nest.core.security.Migrations.SqlServer
                 columns: new[] { "Id", "Action", "ClaimType", "Controlador", "Descripcion", "Estado", "FechaCreacion", "FechaModificacion", "Icono", "ModuloId", "Nombre", "NombreCorto", "Orden", "ParentId" },
                 values: new object[,]
                 {
-                    { 1, "Index", "aplicacion-home", "Seguridad", "", true, new DateTime(2025, 6, 9, 13, 3, 21, 413, DateTimeKind.Local).AddTicks(5733), new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(1626), "home", 1, "Inicio", "INICIO", (short)1, null },
-                    { 2, "", null, "", "", true, new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3501), new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3504), "window-restore", 1, "Aplicacion", "APLICACIO", (short)2, null },
-                    { 4, "", null, "", "", true, new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3515), new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3515), "shield", 1, "Seguridad", "SEGURIDAD", (short)3, null },
-                    { 3, "Formulario", "aplicacion-formulario", "Seguridad", "", true, new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3508), new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3508), "table-list", 1, "Formulario", "FORMULARI", (short)2, 2 },
-                    { 5, "Rol", "seguridad-rol", "Seguridad", "", true, new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3517), new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3517), "users", 1, "Rol", "ROL", (short)1, 4 },
-                    { 6, "RolUsuario", "seguridad-rol-usuario", "Seguridad", "", true, new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3525), new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3525), "users", 1, "Rol Usuarios", "ROLUSER", (short)2, 4 },
-                    { 7, "RolFormulario", "seguridad-rol-formulario", "Seguridad", "", true, new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3527), new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3527), "users", 1, "Rol Formularios", "ROLFORM", (short)3, 4 },
-                    { 8, "Usuario", "seguridad-usuario", "Seguridad", "", true, new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3529), new DateTime(2025, 6, 9, 13, 3, 21, 415, DateTimeKind.Local).AddTicks(3529), "users", 1, "Usuarios", "USER", (short)4, 4 }
+                    { 1, "Index", "aplicacion-home", "Seguridad", "", true, new DateTime(2025, 6, 11, 13, 29, 16, 431, DateTimeKind.Local).AddTicks(4640), new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(7581), "home", 1, "Inicio", "INICIO", (short)1, null },
+                    { 2, "", null, "", "", true, new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9122), new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9124), "window-restore", 1, "Aplicacion", "APLICACIO", (short)2, null },
+                    { 4, "", null, "", "", true, new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9132), new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9132), "shield", 1, "Seguridad", "SEGURIDAD", (short)3, null },
+                    { 3, "Formulario", "aplicacion-formulario", "Seguridad", "", true, new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9128), new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9129), "table-list", 1, "Formulario", "FORMULARI", (short)2, 2 },
+                    { 5, "Rol", "seguridad-rol", "Seguridad", "", true, new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9134), new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9134), "users", 1, "Rol", "ROL", (short)1, 4 },
+                    { 6, "RolUsuario", "seguridad-rol-usuario", "Seguridad", "", true, new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9140), new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9140), "users", 1, "Rol Usuarios", "ROLUSER", (short)2, 4 },
+                    { 7, "RolFormulario", "seguridad-rol-formulario", "Seguridad", "", true, new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9142), new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9142), "users", 1, "Rol Formularios", "ROLFORM", (short)3, 4 },
+                    { 8, "Usuario", "seguridad-usuario", "Seguridad", "", true, new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9144), new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9144), "users", 1, "Usuarios", "USER", (short)4, 4 }
                 });
 
             migrationBuilder.InsertData(

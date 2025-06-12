@@ -3,7 +3,7 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities
 {
-    public class EstructuraOrganizacional : IAuditable
+    public class EstructuraOrganizacional : IAuditable, IEntity<int>
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
