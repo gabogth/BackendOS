@@ -1,48 +1,19 @@
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+using nest.core.dominio.Cache;
 using nest.core.dominio.Legal.ContratoTipoEntities;
+using nest.core.infraestructura.db.Cache;
 using nest.core.infraestructura.db.DbContext;
-using nest.core.infrastructura.utils.Excepciones;
 
 namespace nest.core.infraestructura.legal
 {
-    public class ContratoTipoRepository : IContratoTipoRepository
+    public class ContratoTipoRepository : CachedRepositoryBase<ContratoTipo, ContratoTipoCrearDto, byte>, IContratoTipoRepository
     {
-        private readonly NestDbContext context;
-        private readonly IMapper mapper;
-        public ContratoTipoRepository(NestDbContext context, IMapper mapper)
-        {
-            this.context = context;
-            this.mapper = mapper;
-        }
+        public ContratoTipoRepository(NestDbContext context, IMapper mapper, ICacheRepository cache) : base(context, mapper, cache) { }
 
-        public async Task<ContratoTipo> ObtenerPorId(byte id) => await context.ContratoTipo.Where(x => x.Id == id).FirstOrDefaultAsync();
-        public async Task<List<ContratoTipo>> ObtenerTodos() => await context.ContratoTipo.ToListAsync();
-        public async Task<ContratoTipo> Agregar(ContratoTipoCrearDto entry)
-        {
-            var entity = mapper.Map<ContratoTipo>(entry);
-            context.ContratoTipo.Add(entity);
-            await context.SaveChangesAsync();
-            await context.Entry(entity).ReloadAsync();
-            return entity;
-        }
-        public async Task<ContratoTipo> Modificar(byte id, ContratoTipoCrearDto entry)
-        {
-            var existente = await context.ContratoTipo.FindAsync(id);
-            if (existente == null)
-                throw new RegistroNoEncontradoException<ContratoTipo>(id);
-            mapper.Map(entry, existente);
-            await context.SaveChangesAsync();
-            await context.Entry(existente).ReloadAsync();
-            return existente;
-        }
-        public async Task Eliminar(byte id)
-        {
-            var existente = await context.ContratoTipo.FindAsync(id);
-            if (existente == null)
-                throw new RegistroNoEncontradoException<ContratoTipo>(id);
-            context.ContratoTipo.Remove(existente);
-            context.SaveChanges();
-        }
+        public async Task<ContratoTipo> ObtenerPorId(byte id) => await GetByIdAsync(id);
+        public async Task<List<ContratoTipo>> ObtenerTodos() => await GetAllAsync();
+        public Task<ContratoTipo> Agregar(ContratoTipoCrearDto dto) => AddAsync(dto);
+        public Task<ContratoTipo> Modificar(byte id, ContratoTipoCrearDto dto) => UpdateAsync(id, dto);
+        public Task Eliminar(byte id) => DeleteAsync(id);
     }
 }

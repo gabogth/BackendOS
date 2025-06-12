@@ -1,51 +1,22 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using nest.core.dominio.Cache;
 using nest.core.dominio.General;
 using nest.core.dominio.Logistica.AlmacenEN;
 using nest.core.dominio.RRHH.CargoEntities;
+using nest.core.infraestructura.db.Cache;
 using nest.core.infraestructura.db.DbContext;
-using nest.core.infrastructura.utils.Excepciones;
 
 namespace nest.core.infraestructura.logistica
 {
-    public class AlmacenRepository : IAlmacenRepository
+    public class AlmacenRepository : CachedRepositoryBase<Almacen, AlmacenCrearDto, int>, IAlmacenRepository
     {
-        private readonly NestDbContext context;
-        private readonly IMapper mapper;
-        public AlmacenRepository(NestDbContext context, IMapper mapper)
-        {
-            this.context = context;
-            this.mapper = mapper;
-        }
+        public AlmacenRepository(NestDbContext context, IMapper mapper, ICacheRepository cache) : base(context, mapper, cache) { }
 
-        public async Task<Almacen> ObtenerPorId(int id) => await context.Almacen.Where(x => x.Id == id).FirstOrDefaultAsync();
-        public async Task<List<Almacen>> ObtenerTodos() => await context.Almacen.ToListAsync();
-        public async Task<List<Almacen>> ObtenerActivos() => await context.Almacen.Where(x => x.Activo).ToListAsync();
-        public async Task<Almacen> Agregar(AlmacenCrearDto entry)
-        {
-            Almacen entryFine = mapper.Map<Almacen>(entry);
-            await context.Almacen.AddAsync(entryFine);
-            await context.SaveChangesAsync();
-            await context.Entry(entryFine).ReloadAsync();
-            return entryFine;
-        }
-        public async Task<Almacen> Modificar(int id, AlmacenCrearDto entry)
-        {
-            Almacen find = await context.Almacen.FirstOrDefaultAsync(x => x.Id == id);
-            if (find == null)
-                throw new RegistroNoEncontradoException<Almacen>(id);
-            mapper.Map(entry, find);
-            await context.SaveChangesAsync();
-            await context.Entry(find).ReloadAsync();
-            return find;
-        }
-        public async Task Eliminar(int id)
-        {
-            var existente = await context.Almacen.FindAsync(id);
-            if (existente == null)
-                throw new RegistroNoEncontradoException<Cargo>(id);
-            context.Almacen.Remove(existente);
-            context.SaveChanges();
-        }
+        public async Task<Almacen> ObtenerPorId(int id) => await GetByIdAsync(id);
+        public async Task<List<Almacen>> ObtenerTodos() => await GetAllAsync();
+        public async Task<List<Almacen>> ObtenerActivos() => (await GetCachedListAsync()).Where(x => x.Activo).ToList();
+        public Task<Almacen> Agregar(AlmacenCrearDto dto) => AddAsync(dto);
+        public Task<Almacen> Modificar(int id, AlmacenCrearDto dto) => UpdateAsync(id, dto);
+        public Task Eliminar(int id) => DeleteAsync(id);
     }
 }

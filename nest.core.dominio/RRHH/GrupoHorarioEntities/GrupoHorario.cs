@@ -1,8 +1,9 @@
-﻿using nest.core.dominio.Security.Audit;
+using nest.core.dominio.Security.Audit;
+using nest.core.dominio;
 
 namespace nest.core.dominio.RRHH.GrupoHorarioEntities
 {
-    public class GrupoHorario : IAuditable
+    public class GrupoHorario : IAuditable, IEntity<int>
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
