@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace nest.core.dominio.Aplicacion.Formulario
+﻿namespace nest.core.dominio.Aplicacion.Formulario
 {
     public class FormularioCrearDto
     {
-        public int Id { get; set; }
         public int? ParentId { get; set; }
         public int ModuloId { get; set; }
         public string Nombre { get; set; }

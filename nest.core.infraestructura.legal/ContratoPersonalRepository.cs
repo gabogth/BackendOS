@@ -23,7 +23,8 @@ namespace nest.core.infraestructura.legal
                 .Include(c => c.ContratoPersonal)
                 .Include(c => c.Detalles)
                 .FirstOrDefaultAsync(x => x.Id == id);
-        public async Task<ContratoCabecera> ObtenerPorContratoTipoIdAndNumero(byte ContratoTipoId, int Numero) => await context.ContratoCabecera
+        public async Task<ContratoCabecera> ObtenerPorContratoTipoIdAndNumero(byte ContratoTipoId, int Numero) => 
+            await context.ContratoCabecera
                 .Include(c => c.ContratoPersonal)
                 .Include(c => c.Detalles)
                 .FirstOrDefaultAsync(x => x.ContratoTipoId == ContratoTipoId && x.Numero == Numero);
@@ -40,6 +41,9 @@ namespace nest.core.infraestructura.legal
             try
             {
                 var cabecera = mapper.Map<ContratoCabecera>(entry.Cabecera);
+                cabecera.Numero = (await context.ContratoCabecera
+                    .Where(x => x.ContratoTipoId == entry.Cabecera.ContratoTipoId)
+                    .MaxAsync(x => x.Numero)) + 1;
                 cabecera.FechaRegistro = DateTime.UtcNow;
                 context.ContratoCabecera.Add(cabecera);
                 await context.SaveChangesAsync();
