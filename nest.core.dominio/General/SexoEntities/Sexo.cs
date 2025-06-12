@@ -1,8 +1,9 @@
-﻿using nest.core.dominio.Security.Audit;
+using nest.core.dominio.Security.Audit;
+using nest.core.dominio;
 
 namespace nest.core.dominio.General.SexoEntities
 {
-    public class Sexo: IAuditable
+    public class Sexo: IAuditable, IEntity<byte>
     {
         public byte Id { get; set; }
         public string Nombre { get; set; }
