@@ -13,7 +13,7 @@ namespace nest.core.infraestructura.db.DbContext.Provider
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning));
-            optionsBuilder.UseSqlServer(this.connectionString, b =>
+            optionsBuilder.UseSqlServer(connectionString, b =>
             {
                 b.MigrationsAssembly("nest.core.security");
             });

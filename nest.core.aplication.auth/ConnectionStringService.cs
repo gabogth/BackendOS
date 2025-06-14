@@ -30,9 +30,9 @@ namespace nest.core.aplication.auth
                 throw new Exception("Usuario no logeadox");
             else
             {
-                this.ConnectionTenantKey = ConnectionTenantClave;
-                this.ConnectionTenant = configuration.GetValue<string>($"Connections:{ConnectionTenantClave}:ConnectionString");
-                this.Engine = configuration.GetValue<string>($"Connections:{ConnectionTenantClave}:Engine");
+                ConnectionTenantKey = ConnectionTenantClave;
+                ConnectionTenant = configuration.GetValue<string>($"Connections:{ConnectionTenantClave}:ConnectionString");
+                Engine = configuration.GetValue<string>($"Connections:{ConnectionTenantClave}:Engine");
             }
         }
     }

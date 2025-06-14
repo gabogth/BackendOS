@@ -6,17 +6,15 @@ namespace nest.core.infraestructura.db.Legal
 {
     public class ContratoPersonalEntityConfig : IEntityTypeConfiguration<ContratoPersonal>
     {
-        public static readonly string SCHEMA = "legal";
-        public static readonly string TABLE = "contrato_personal";
         public void Configure(EntityTypeBuilder<ContratoPersonal> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("contrato_personal", "legal");
             builder.HasKey(x => x.ContratoCabeceraId);
             builder.Property(x => x.ContratoCabeceraId)
                 .ValueGeneratedNever();
-            builder.HasOne(x => x.Personal)
+            builder.HasOne(x => x.Persona)
                 .WithMany()
-                .HasForeignKey(x => x.PersonalId)
+                .HasForeignKey(x => x.PersonaId)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(x => x.Cargo)
                 .WithMany()

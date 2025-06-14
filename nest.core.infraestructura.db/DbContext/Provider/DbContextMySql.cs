@@ -14,8 +14,7 @@ namespace nest.core.infraestructura.db.DbContext.Provider
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning));
-            var serverVersion = ServerVersion.AutoDetect(connectionString);
-            optionsBuilder.UseMySql(connectionString, serverVersion, my =>
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), my =>
             {
                 my.MigrationsAssembly("nest.core.security");
                 my.SchemaBehavior(

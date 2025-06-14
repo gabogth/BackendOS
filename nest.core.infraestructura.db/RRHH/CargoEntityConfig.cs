@@ -9,11 +9,9 @@ namespace nest.core.infraestructura.db.RRHH
 {
     public class CargoEntityConfig : IEntityTypeConfiguration<Cargo>
     {
-        public static readonly string SCHEMA = "rrhh";
-        public static readonly string TABLE = "cargo";
         public void Configure(EntityTypeBuilder<Cargo> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("cargo", "rrhh");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()

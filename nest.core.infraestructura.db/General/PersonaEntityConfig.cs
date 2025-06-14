@@ -6,11 +6,9 @@ namespace nest.core.infraestructura.db.General
 {
     public class PersonaEntityConfig : IEntityTypeConfiguration<Persona>
     {
-        public static readonly string SCHEMA = "dbo";
-        public static readonly string TABLE = "persona";
         public void Configure(EntityTypeBuilder<Persona> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("persona", "dbo");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -38,6 +36,7 @@ namespace nest.core.infraestructura.db.General
                 .WithMany()
                 .HasForeignKey(ic => ic.DocumentoIdentidadTipoId)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.Ignore(x => x.NombreCompleto);
         }
     }
 }

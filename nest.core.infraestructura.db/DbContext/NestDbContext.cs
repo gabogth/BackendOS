@@ -26,26 +26,29 @@ namespace nest.core.infraestructura.db.DbContext
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning));
-            switch (engine)
+            if (!optionsBuilder.IsConfigured)
             {
-                case "SqlServer":
-                    optionsBuilder.UseSqlServer(connectionString);
-                    break;
-                case "Npgsql":
-                    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-                    optionsBuilder.UseNpgsql(connectionString);
-                    break;
-                case "MySql":
-                    optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), my =>
-                    {
-                        my.SchemaBehavior(
-                            MySqlSchemaBehavior.Translate,
-                            (schema, name) => $"{schema}_{name}"
-                        );
-                    });
-                    break;
-                default: throw new Exception("Engine no soportado");
+                optionsBuilder.ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning));
+                switch (engine)
+                {
+                    case "SqlServer":
+                        optionsBuilder.UseSqlServer(connectionString);
+                        break;
+                    case "Npgsql":
+                        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+                        optionsBuilder.UseNpgsql(connectionString);
+                        break;
+                    case "MySql":
+                        optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), my =>
+                        {
+                            my.SchemaBehavior(
+                                MySqlSchemaBehavior.Translate,
+                                (schema, name) => $"{schema}_{name}"
+                            );
+                        });
+                        break;
+                    default: throw new Exception("Engine no soportado");
+                }
             }
             base.OnConfiguring(optionsBuilder);
         }

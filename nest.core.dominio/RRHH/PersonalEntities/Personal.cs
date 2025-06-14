@@ -1,17 +1,24 @@
-﻿using nest.core.dominio.Security.Audit;
+﻿using nest.core.dominio.General.PersonaEntities;
+using nest.core.dominio.Legal.ContratoCabeceraEntities;
+using nest.core.dominio.RRHH.HorarioCabeceraEntities;
+using nest.core.dominio.RRHH.PersonalEstadoEntities;
+using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.PersonalEntities
 {
-    public class Personal : IAuditable
+    public class Personal : IAuditable, IEntity<int>
     {
         public int Id { get; set; }
-        public string Nombres { get; set; }
-        public string ApellidoPaterno { get; set; }
-        public string ApellidoMaterno { get; set; }
-        public DateTime FechaNacimiento { get; set; }
-        public string DocumentoIdentidad { get; set; }
-        public string Correo { get; set; }
-        public string Celular { get; set; }
-        public string Usuario { get; set; }
+        public bool MarcaAsistencia { get; set; }
+        public long ContratoCabeceraId { get; set; }
+        public int HorarioCabeceraId { get; set; }
+        public int? SuperiorId { get; set; }
+        public byte PersonalEstadoId { get; set; }
+        public HorarioCabecera HorarioCabecera { get; set; }
+        public ContratoCabecera ContratoCabecera { get; set; }
+        public Persona Persona { get; set; }
+        public PersonalEstado PersonalEstado { get; set; }
+        public Personal Superior { get; set; }
+        public List<Personal> Children { get; set; }
     }
 }

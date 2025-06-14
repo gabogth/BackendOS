@@ -13,15 +13,12 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 Push-Location $Path   # entra al directorio del proyecto
-$mig = "migration_{0}" -f (Get-Random -Min 10000000 -Max 99999999)
+
 # Lista de pasos: texto antes de «dotnet» para mostrar y lista real de argumentos a dotnet
 $steps = @(
-    @{ msg = "Add SQL Server migration"; args = "ef migrations add $($mig) --context DbContextSqlServer -- connection=Connection_Tenant_1" },
-    @{ msg = "Add PostgreSQL migration"; args = "ef migrations add $($mig) --context DbContextPsSql -- connection=Connection_Tenant_2" },
-    @{ msg = "Add MySQL migration";  args = "ef migrations add $($mig) --context DbContextMySql -- connection=Connection_Tenant_3" },
-    @{ msg = "Update SQL Server DB"; args = 'ef database update --context DbContextSqlServer -- connection=Connection_Tenant_1' },
-    @{ msg = "Update PostgreSQL DB"; args = 'ef database update --context DbContextPsSql -- connection=Connection_Tenant_2' },
-    @{ msg = "Update MySQL DB"; args = 'ef database update --context DbContextMySql -- connection=Connection_Tenant_3' }
+    @{ msg = "Add SQL Server migration"; args = 'ef migrations add initial -o Migrations/SqlServer --context DbContextSqlServer -- connection=Connection_Tenant_1' },
+    @{ msg = "Add PostgreSQL migration"; args = 'ef migrations add initial -o Migrations/PsSql --context DbContextPsSql -- connection=Connection_Tenant_2' },
+    @{ msg = "Add MySQL migration";  args = 'ef migrations add initial -o Migrations/MySql --context DbContextMySql -- connection=Connection_Tenant_3' }
 )
 
 foreach ($step in $steps) {

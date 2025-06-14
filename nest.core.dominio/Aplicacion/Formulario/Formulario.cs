@@ -16,9 +16,6 @@ namespace nest.core.dominio.Aplicacion.Formulario
         public string ClaimType { get; set; }
         public short Orden { get; set; }
         public bool Estado { get; set; }
-        
-        public DateTime FechaCreacion { get; set; } = DateTime.Now;
-        public DateTime FechaModificacion { get; set; } = DateTime.Now;
         public Formulario Parent { get; set; }
         public Modulo.Modulo Modulo { get; set; }
         public ICollection<Formulario> Children { get; set; } = new List<Formulario>();

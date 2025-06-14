@@ -6,12 +6,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace nest.core.dominio.General.PersonaEntities
 {
-    public class Persona : IAuditable
+    public class Persona : IAuditable, IEntity<int>
     {
         public int Id { get; set; }
         public string Nombres { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
+        public string NombreCompleto => $"{ApellidoPaterno} {ApellidoMaterno}, {Nombres}";
         public DateTime FechaNacimiento { get; set; }
         public string DocumentoIdentidad { get; set; }
         [EmailAddress]

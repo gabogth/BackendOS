@@ -149,6 +149,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("almacen_audit", "logistica");
                 });
 
@@ -264,6 +266,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("AspNetRoles_audit", "security");
                 });
@@ -419,6 +423,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("AspNetUsers_audit", "security");
                 });
 
@@ -528,6 +534,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("cargo_audit", "rrhh");
                 });
@@ -665,6 +673,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("contrato_cabecera_audit", "legal");
                 });
 
@@ -793,6 +803,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("contrato_detalle_audit", "legal");
                 });
 
@@ -904,10 +916,12 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<int>("PersonalId")
+                    b.Property<int>("PersonaId")
                         .HasColumnType("int");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("ContratoCabeceraId");
 
                     b.ToTable("contrato_personal_audit", "legal");
                 });
@@ -1020,6 +1034,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("contrato_tipo_audit", "legal");
                 });
 
@@ -1129,6 +1145,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("int");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("departamento_audit", "dbo");
                 });
@@ -1240,6 +1258,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("distrito_audit", "dbo");
                 });
 
@@ -1350,6 +1370,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("documento_identidad_tipo_audit", "dbo");
                 });
@@ -1465,6 +1487,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("documento_tipo_audit", "dbo");
                 });
@@ -1607,6 +1631,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("estructura_organizacional_audit", "organizacion");
                 });
 
@@ -1725,6 +1751,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("estructura_organizacional_tipo_audit", "organizacion");
                 });
 
@@ -1842,12 +1870,6 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Icono")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -1873,6 +1895,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("int");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("formulario_audit", "aplicacion");
                 });
@@ -2000,6 +2024,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("grupo_horario_audit", "rrhh");
                 });
 
@@ -2119,6 +2145,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("horario_cabecera_audit", "rrhh");
                 });
@@ -2246,6 +2274,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("horario_detalle_audit", "rrhh");
                 });
 
@@ -2361,6 +2391,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("AspNetRoleClaims_audit", "security");
                 });
 
@@ -2475,6 +2507,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("AspNetUserClaims_audit", "security");
                 });
@@ -2592,6 +2626,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("LoginProvider", "ProviderKey");
+
                     b.ToTable("AspNetUserLogins_audit", "security");
                 });
 
@@ -2699,6 +2735,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("UserId", "RoleId");
 
                     b.ToTable("AspNetUserRoles_audit", "security");
                 });
@@ -2815,6 +2853,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens_audit", "security");
                 });
@@ -2943,6 +2983,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("inventario_cabecera_audit", "logistica");
                 });
 
@@ -3065,6 +3107,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("inventario_detalle_audit", "logistica");
                 });
 
@@ -3174,6 +3218,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("licencia_conducir_audit", "dbo");
                 });
@@ -3289,6 +3335,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("logistica_transaccion_audit", "logistica");
                 });
@@ -3623,12 +3671,6 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
@@ -3645,6 +3687,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("modulo_audit", "aplicacion");
                 });
@@ -3769,6 +3813,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("moneda_audit", "finanzas");
                 });
 
@@ -3883,6 +3929,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("pais_audit", "dbo");
                 });
@@ -4026,144 +4074,12 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("persona_audit", "dbo");
                 });
 
             modelBuilder.Entity("PersonalAudit", b =>
-                {
-                    b.Property<long>("AuditId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
-                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
-
-                    b.Property<string>("ApellidoMaterno")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("ApellidoPaterno")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditAccion")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditApp")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditAppVersion")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime>("AuditFecha")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AuditHost")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditIpRemoteOrigin")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<bool>("AuditIsHttps")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("AuditMethod")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditOrigin")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditReferer")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUserAgent")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUsuario")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Celular")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Correo")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("DocumentoIdentidad")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nombres")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Usuario")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("AuditId");
-
-                    b.ToTable("personal_audit", "rrhh");
-                });
-
-            modelBuilder.Entity("PersonalConfiguracionAudit", b =>
                 {
                     b.Property<long>("AuditId")
                         .ValueGeneratedOnAdd()
@@ -4270,9 +4186,17 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<bool>("MarcaAsistencia")
                         .HasColumnType("bit");
 
+                    b.Property<byte>("PersonalEstadoId")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int?>("SuperiorId")
+                        .HasColumnType("int");
+
                     b.HasKey("AuditId");
 
-                    b.ToTable("personal_configuracion_audit", "rrhh");
+                    b.HasIndex("Id");
+
+                    b.ToTable("personal_audit", "rrhh");
                 });
 
             modelBuilder.Entity("ProductoAudit", b =>
@@ -4398,6 +4322,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("int");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("producto_audit", "logistica");
                 });
@@ -4525,6 +4451,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("producto_lote_audit", "logistica");
                 });
 
@@ -4634,6 +4562,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("provincia_audit", "dbo");
                 });
@@ -4745,6 +4675,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("sexo_audit", "dbo");
                 });
@@ -4861,6 +4793,8 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasKey("AuditId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("unidad_medida_audit", "logistica");
                 });
 
@@ -4887,12 +4821,6 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Icono")
                         .HasMaxLength(200)
@@ -4936,8 +4864,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 431, DateTimeKind.Local).AddTicks(4640),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(7581),
                             Icono = "home",
                             ModuloId = 1,
                             Nombre = "Inicio",
@@ -4951,8 +4877,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9122),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9124),
                             Icono = "window-restore",
                             ModuloId = 1,
                             Nombre = "Aplicacion",
@@ -4967,8 +4891,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9128),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9129),
                             Icono = "table-list",
                             ModuloId = 1,
                             Nombre = "Formulario",
@@ -4983,8 +4905,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9132),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9132),
                             Icono = "shield",
                             ModuloId = 1,
                             Nombre = "Seguridad",
@@ -4999,8 +4919,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9134),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9134),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol",
@@ -5016,8 +4934,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9140),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9140),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol Usuarios",
@@ -5033,8 +4949,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9142),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9142),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Rol Formularios",
@@ -5050,8 +4964,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9144),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 432, DateTimeKind.Local).AddTicks(9144),
                             Icono = "users",
                             ModuloId = 1,
                             Nombre = "Usuarios",
@@ -5081,12 +4993,6 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -5111,8 +5017,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Seguridad",
                             Descripcion = "Modulo donde se setean los roles, permisos y menús.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 433, DateTimeKind.Local).AddTicks(9417),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 433, DateTimeKind.Local).AddTicks(9421),
                             Nombre = "Seguridad",
                             NombreCorto = "SECURITY",
                             RutaImagen = ""
@@ -5124,8 +5028,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Logistica",
                             Descripcion = "Modulo de inventarios logistica y transferencias.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(303),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(304),
                             Nombre = "Logistica",
                             NombreCorto = "LOGISTIC",
                             RutaImagen = ""
@@ -5137,8 +5039,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "VentasHome",
                             Descripcion = "Modulo de facturacion, ventas, caja.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(306),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(306),
                             Nombre = "Ventas",
                             NombreCorto = "VENTAS",
                             RutaImagen = ""
@@ -5150,8 +5050,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Contabilidad",
                             Descripcion = "Modulo de libro diario, asientos, libro mayor.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(308),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(308),
                             Nombre = "Contabilidad",
                             NombreCorto = "CONTABIL",
                             RutaImagen = ""
@@ -5163,8 +5061,6 @@ namespace nest.core.security.Migrations.SqlServer
                             Controlador = "Produccion",
                             Descripcion = "Modulo de producción, recetas, conversiones.",
                             Estado = true,
-                            FechaCreacion = new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(310),
-                            FechaModificacion = new DateTime(2025, 6, 11, 13, 29, 16, 434, DateTimeKind.Local).AddTicks(310),
                             Nombre = "Produccion",
                             NombreCorto = "PRODUCCI",
                             RutaImagen = ""
@@ -6259,7 +6155,7 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<int>("PersonalId")
+                    b.Property<int>("PersonaId")
                         .HasColumnType("int");
 
                     b.HasKey("ContratoCabeceraId");
@@ -6268,7 +6164,7 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.HasIndex("EstructuraOrganizacionalId");
 
-                    b.HasIndex("PersonalId");
+                    b.HasIndex("PersonaId");
 
                     b.ToTable("contrato_personal", "legal");
                 });
@@ -6790,7 +6686,7 @@ namespace nest.core.security.Migrations.SqlServer
                     b.ToTable("horario_detalle", "rrhh");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.RRHH.PersonalConfiguracionEntities.PersonalConfiguracion", b =>
+            modelBuilder.Entity("nest.core.dominio.RRHH.PersonalEntities.Personal", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -6804,54 +6700,64 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<bool>("MarcaAsistencia")
                         .HasColumnType("bit");
 
+                    b.Property<byte>("PersonalEstadoId")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int?>("SuperiorId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ContratoCabeceraId");
 
                     b.HasIndex("HorarioCabeceraId");
 
-                    b.ToTable("personal_configuracion", "rrhh");
+                    b.HasIndex("PersonalEstadoId");
+
+                    b.HasIndex("SuperiorId");
+
+                    b.ToTable("personal", "rrhh");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.RRHH.PersonalEntities.Personal", b =>
+            modelBuilder.Entity("nest.core.dominio.RRHH.PersonalEstadoEntities.PersonalEstado", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<byte>("Id")
+                        .HasColumnType("tinyint");
 
-                    b.Property<string>("ApellidoMaterno")
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.Property<string>("ApellidoPaterno")
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.Property<string>("Celular")
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.Property<string>("Correo")
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.Property<string>("DocumentoIdentidad")
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Nombres")
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.Property<string>("Usuario")
-                        .HasMaxLength(90)
-                        .HasColumnType("nvarchar(90)");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("personal", "rrhh");
+                    b.ToTable("personal_estado", "rrhh");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = (byte)1,
+                            Nombre = "ACTIVO"
+                        },
+                        new
+                        {
+                            Id = (byte)2,
+                            Nombre = "RENUNCIA"
+                        },
+                        new
+                        {
+                            Id = (byte)3,
+                            Nombre = "DESPEDIDO"
+                        },
+                        new
+                        {
+                            Id = (byte)4,
+                            Nombre = "ABANDONO"
+                        },
+                        new
+                        {
+                            Id = (byte)5,
+                            Nombre = "SUSPENDIDO"
+                        });
                 });
 
             modelBuilder.Entity("nest.core.dominio.Security.ApplicationRole", b =>
@@ -6971,15 +6877,15 @@ namespace nest.core.security.Migrations.SqlServer
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "91dd6b80-3bb4-426c-a4e6-fd2c0923b1f5",
+                            ConcurrencyStamp = "86354a26-1cc5-4918-9d33-b049f317e4c6",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAED3Jl/HmwN+MFHubgXYyUXrEz9r+YWviS8px6UF/4psOzziH5Bx5yAcOMuq0JPrzQw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEeIExr86pRBXxafhFYbABge03ZqCG07elyWRluknySUeu0QYQn2AbIwIiLjMFraDQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f8c9603e-7802-49a4-864b-f74670d66dc6",
+                            SecurityStamp = "6632853f-901c-4e10-b69e-2a5e3018b060",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -6987,15 +6893,15 @@ namespace nest.core.security.Migrations.SqlServer
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "027e7a8c-7410-4612-98f2-9c296256f1cc",
+                            ConcurrencyStamp = "c0c88fd7-3561-4fdc-a51a-10cd2bce8b2b",
                             Email = "superadmin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN@ADMIN.COM",
                             NormalizedUserName = "SUPERADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKj6EcbRFINcjFCyRfztUrWXaHRpCUOEe/zv6GdXyW9w6nYx7zZDDPTIfz5/cQI45A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKk+GO+B1NIsiNc/9KsK7AcTcO2tYtYYVTAS3O053hE4W+ZIvEw1OF4GAhSMb1X/OA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8bf8a49b-bcbc-48cf-98a7-7f1e6b0bc600",
+                            SecurityStamp = "a25d6514-15b8-4c24-90cd-33de18fc4440",
                             TwoFactorEnabled = false,
                             UserName = "superadmin@admin.com"
                         });
@@ -7215,9 +7121,9 @@ namespace nest.core.security.Migrations.SqlServer
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("nest.core.dominio.RRHH.PersonalEntities.Personal", "Personal")
+                    b.HasOne("nest.core.dominio.General.PersonaEntities.Persona", "Persona")
                         .WithMany()
-                        .HasForeignKey("PersonalId")
+                        .HasForeignKey("PersonaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -7227,7 +7133,7 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.Navigation("EstructuraOrganizacional");
 
-                    b.Navigation("Personal");
+                    b.Navigation("Persona");
                 });
 
             modelBuilder.Entity("nest.core.dominio.Logistica.AlmacenEN.Almacen", b =>
@@ -7352,7 +7258,7 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Navigation("HorarioCabecera");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.RRHH.PersonalConfiguracionEntities.PersonalConfiguracion", b =>
+            modelBuilder.Entity("nest.core.dominio.RRHH.PersonalEntities.Personal", b =>
                 {
                     b.HasOne("nest.core.dominio.Legal.ContratoCabeceraEntities.ContratoCabecera", "ContratoCabecera")
                         .WithMany()
@@ -7366,18 +7272,32 @@ namespace nest.core.security.Migrations.SqlServer
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("nest.core.dominio.General.PersonaEntities.Persona", "Persona")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.RRHH.PersonalEstadoEntities.PersonalEstado", "PersonalEstado")
+                        .WithMany()
+                        .HasForeignKey("PersonalEstadoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.RRHH.PersonalEntities.Personal", "Superior")
+                        .WithMany("Children")
+                        .HasForeignKey("SuperiorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("ContratoCabecera");
 
                     b.Navigation("HorarioCabecera");
-                });
 
-            modelBuilder.Entity("nest.core.dominio.RRHH.PersonalEntities.Personal", b =>
-                {
-                    b.HasOne("nest.core.dominio.RRHH.PersonalConfiguracionEntities.PersonalConfiguracion", null)
-                        .WithOne("Personal")
-                        .HasForeignKey("nest.core.dominio.RRHH.PersonalEntities.Personal", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Persona");
+
+                    b.Navigation("PersonalEstado");
+
+                    b.Navigation("Superior");
                 });
 
             modelBuilder.Entity("nest.core.dominio.Aplicacion.Formulario.Formulario", b =>
@@ -7422,9 +7342,9 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Navigation("HorarioDetalles");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.RRHH.PersonalConfiguracionEntities.PersonalConfiguracion", b =>
+            modelBuilder.Entity("nest.core.dominio.RRHH.PersonalEntities.Personal", b =>
                 {
-                    b.Navigation("Personal");
+                    b.Navigation("Children");
                 });
 #pragma warning restore 612, 618
         }

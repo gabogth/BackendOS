@@ -31,8 +31,14 @@ namespace nest.core.infraestructura.db.DbContext.Convention
                     .HasValueGenerator(typeof(GenericValueGenerator<long>));
                 audit.PrimaryKey(new List<IConventionProperty> { auditId.Metadata });
 
+                List<IConventionProperty> lsPrimaryKey = new List<IConventionProperty>();
                 foreach (var p in entity.GetProperties())
-                    audit.Property(p.ClrType, p.Name);
+                {
+                    var pkItem = audit.Property(p.ClrType, p.Name);
+                    if (p.IsPrimaryKey())
+                        lsPrimaryKey.Add(pkItem.Metadata);
+                }
+                audit.HasIndex(lsPrimaryKey);
 
                 audit.Property(typeof(DateTime), "AuditFecha");
                 audit.Property(typeof(string), "AuditAccion").HasMaxLength(10);

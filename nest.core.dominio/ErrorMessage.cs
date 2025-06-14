@@ -12,9 +12,9 @@
         {
             string message = string.Empty;
             if(exception.InnerException != null && !string.IsNullOrWhiteSpace(exception.InnerException.Message))
-                message = "Inner exception: " + exception.InnerException.Message;
+                message = exception.InnerException.Message;
             if (!string.IsNullOrWhiteSpace(exception.Message))
-                message += " Message: " + exception.Message;
+                message += (message.Length > 0 ? " - " : string.Empty) + exception.Message;
             return new ErrorMessage
             {
                 Message = message,

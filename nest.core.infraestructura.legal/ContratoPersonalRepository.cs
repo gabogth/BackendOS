@@ -4,46 +4,48 @@ using nest.core.dominio.Legal.ContratoCabeceraEntities;
 using nest.core.dominio.Legal.ContratoDetalleEntities;
 using nest.core.dominio.Legal.ContratoPersonalEntities;
 using nest.core.infraestructura.db.DbContext;
+using nest.core.infraestructura.db.Utils;
 
 namespace nest.core.infraestructura.legal
 {
-    public class ContratoPersonalRepository : IContratoPersonalRepository
+    public class ContratoPersonalRepository : CrudRepositoryBase<ContratoCabecera, ContratoPersonalDto, long>, IContratoPersonalRepository
     {
-        private readonly NestDbContext context;
-        private readonly IMapper mapper;
-
-        public ContratoPersonalRepository(NestDbContext context, IMapper mapper)
-        {
-            this.context = context;
-            this.mapper = mapper;
-        }
-
-        public async Task<ContratoCabecera> ObtenerPorId(long id) =>
-            await context.ContratoCabecera
-                .Include(c => c.ContratoPersonal)
-                .Include(c => c.Detalles)
-                .FirstOrDefaultAsync(x => x.Id == id);
+        public ContratoPersonalRepository(NestDbContext context, IMapper mapper): base(context, mapper) { }
+        protected override IQueryable<ContratoCabecera> Query() => context.Set<ContratoCabecera>()
+            .AsNoTracking()
+            .Include(c => c.ContratoPersonal)
+            .Include(c => c.ContratoPersonal).ThenInclude(c => c.Persona)
+            .Include(c => c.ContratoPersonal).ThenInclude(c => c.Cargo)
+            .Include(c => c.ContratoPersonal).ThenInclude(c => c.EstructuraOrganizacional)
+            .Include(c => c.Detalles)
+            .Include(c => c.ContratoTipo);
+        public async Task<ContratoCabecera> ObtenerPorId(long id) => await GetByIdAsync(id);
         public async Task<ContratoCabecera> ObtenerPorContratoTipoIdAndNumero(byte ContratoTipoId, int Numero) => 
-            await context.ContratoCabecera
-                .Include(c => c.ContratoPersonal)
-                .Include(c => c.Detalles)
-                .FirstOrDefaultAsync(x => x.ContratoTipoId == ContratoTipoId && x.Numero == Numero);
-
-        public async Task<List<ContratoCabecera>> ObtenerTodos() =>
-            await context.ContratoCabecera
-                .Include(c => c.ContratoPersonal)
-                .Include(c => c.Detalles)
-                .ToListAsync();
+            await Query()
+            .FirstOrDefaultAsync(x => x.ContratoTipoId == ContratoTipoId && x.Numero == Numero);
+        public async Task<List<ContratoCabecera>> ObtenerTodos() => await GetAllAsync();
 
         public async Task<ContratoCabecera> CrearContratoPersonal(ContratoPersonalDto entry)
         {
+            var personaActual = context.Persona.Where(c => c.Id == entry.Personal.PersonaId).FirstOrDefault();
+            if (entry.Detalles != null && entry.Detalles.Count < 2)
+                throw new Exception($"Un contrato debe tener como minimo 2 personas");
+            if (!entry.Detalles.Where(x => x.PersonaId == entry.Personal.PersonaId).Any())
+                throw new Exception($"[{personaActual.Id}]{personaActual.NombreCompleto}: Debe estar en el detalle del contrato.");
+            if (await context.ContratoCabecera
+                        .Where(c =>
+                            c.ContratoPersonal != null
+                            && c.ContratoPersonal.PersonaId == entry.Personal.PersonaId
+                            && c.Estado)
+                        .AnyAsync())
+                throw new Exception($"[{personaActual.Id}]{personaActual.NombreCompleto}: Ya tiene un contrato activo.");
             using var transaction = await context.Database.BeginTransactionAsync();
             try
             {
                 var cabecera = mapper.Map<ContratoCabecera>(entry.Cabecera);
                 cabecera.Numero = (await context.ContratoCabecera
                     .Where(x => x.ContratoTipoId == entry.Cabecera.ContratoTipoId)
-                    .MaxAsync(x => x.Numero)) + 1;
+                    .MaxAsync(x => (int?)x.Numero) ?? 0) + 1;
                 cabecera.FechaRegistro = DateTime.UtcNow;
                 context.ContratoCabecera.Add(cabecera);
                 await context.SaveChangesAsync();
@@ -66,23 +68,15 @@ namespace nest.core.infraestructura.legal
 
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
-                return cabecera;
+                return await GetByIdAsync(cabecera.Id);
             }
-            catch
+            catch(Exception ex)
             {
                 await transaction.RollbackAsync();
-                throw;
+                throw ex;
             }
         }
 
-        public async Task Eliminar(long id)
-        {
-            var existente = await context.ContratoCabecera.FindAsync(id);
-            if (existente != null)
-            {
-                context.ContratoCabecera.Remove(existente);
-                await context.SaveChangesAsync();
-            }
-        }
+        public async Task Eliminar(long id) => await DeleteAsync(id);
     }
 }
