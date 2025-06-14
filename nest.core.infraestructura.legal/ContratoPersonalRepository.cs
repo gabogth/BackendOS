@@ -5,6 +5,7 @@ using nest.core.dominio.Legal.ContratoDetalleEntities;
 using nest.core.dominio.Legal.ContratoPersonalEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
+using nest.core.infrastructura.utils.Excepciones;
 
 namespace nest.core.infraestructura.legal
 {
@@ -74,6 +75,56 @@ namespace nest.core.infraestructura.legal
             {
                 await transaction.RollbackAsync();
                 throw ex;
+            }
+        }
+
+        public async Task<ContratoCabecera> Modificar(long id, ContratoPersonalDto entry)
+        {
+            var personaActual = context.Persona.FirstOrDefault(c => c.Id == entry.Personal.PersonaId);
+            if (entry.Detalles != null && entry.Detalles.Count < 2)
+                throw new Exception($"Un contrato debe tener como minimo 2 personas");
+            if (!entry.Detalles.Any(x => x.PersonaId == entry.Personal.PersonaId))
+                throw new Exception($"[{personaActual.Id}]{personaActual.NombreCompleto}: Debe estar en el detalle del contrato.");
+
+            using var transaction = await context.Database.BeginTransactionAsync();
+            try
+            {
+                var cabecera = await context.ContratoCabecera
+                    .Include(c => c.ContratoPersonal)
+                    .Include(c => c.Detalles)
+                    .FirstOrDefaultAsync(c => c.Id == id)
+                    ?? throw new RegistroNoEncontradoException<ContratoCabecera>(id.ToString());
+
+                mapper.Map(entry.Cabecera, cabecera);
+                cabecera.FechaModificacion = DateTime.UtcNow;
+
+                context.ContratoDetalle.RemoveRange(cabecera.Detalles);
+                foreach (var detalleDto in entry.Detalles)
+                {
+                    var detalle = mapper.Map<ContratoDetalle>(detalleDto);
+                    detalle.ContratoCabeceraId = cabecera.Id;
+                    detalle.FechaRegistro = DateTime.UtcNow;
+                    context.ContratoDetalle.Add(detalle);
+                }
+
+                if (cabecera.ContratoPersonal != null)
+                    context.ContratoPersonal.Remove(cabecera.ContratoPersonal);
+
+                if (entry.Personal != null)
+                {
+                    var personal = mapper.Map<ContratoPersonal>(entry.Personal);
+                    personal.ContratoCabeceraId = cabecera.Id;
+                    context.ContratoPersonal.Add(personal);
+                }
+
+                await context.SaveChangesAsync();
+                await transaction.CommitAsync();
+                return await GetByIdAsync(cabecera.Id);
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
             }
         }
 
