@@ -6,15 +6,15 @@ namespace nest.core.infraestructura.db.RRHH
 {
     public class HorarioDetalleEntityConfig : IEntityTypeConfiguration<HorarioDetalle>
     {
-        public static readonly string SCHEMA = "rrhh";
-        public static readonly string TABLE = "horario_detalle";
         public void Configure(EntityTypeBuilder<HorarioDetalle> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("horario_detalle", "rrhh");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<int>>();
+            builder.HasIndex(x => new { x.HorarioCabeceraId, x.Item })
+                .IsUnique();
             builder.HasOne(x => x.HorarioCabecera)
                 .WithMany(x => x.HorarioDetalles)
                 .HasForeignKey(x => x.HorarioCabeceraId)
