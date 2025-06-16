@@ -6,11 +6,9 @@ namespace nest.core.infraestructura.db.RRHH
 {
     public class GrupoHorarioEntityConfig : IEntityTypeConfiguration<GrupoHorario>
     {
-        public static readonly string SCHEMA = "rrhh";
-        public static readonly string TABLE = "grupo_horario";
         public void Configure(EntityTypeBuilder<GrupoHorario> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("grupo_horario", "rrhh");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()

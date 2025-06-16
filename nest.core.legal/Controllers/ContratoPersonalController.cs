@@ -84,6 +84,26 @@ namespace nest.core.legal.Controllers
         }
 
         /// <summary>
+        /// Modifica un contrato existente.
+        /// </summary>
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(ContratoCabecera), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<ContratoCabecera>> Modificar(long id, [FromBody] ContratoPersonalDto registro)
+        {
+            try
+            {
+                var data = await service.Modificar(id, registro);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return BadRequest(GenerateMessage.Create(ex));
+            }
+        }
+
+        /// <summary>
         /// Elimina un contrato de un personal
         /// </summary>
         [HttpDelete("{id}")]

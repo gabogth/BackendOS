@@ -31,6 +31,8 @@ namespace nest.core.infraestructura.legal
             var personaActual = context.Persona.Where(c => c.Id == entry.Personal.PersonaId).FirstOrDefault();
             if (entry.Detalles != null && entry.Detalles.Count < 2)
                 throw new Exception($"Un contrato debe tener como minimo 2 personas");
+            if (entry.Personal == null)
+                throw new Exception("El request tiene que tener el campo personal");
             if (!entry.Detalles.Where(x => x.PersonaId == entry.Personal.PersonaId).Any())
                 throw new Exception($"[{personaActual.Id}]{personaActual.NombreCompleto}: Debe estar en el detalle del contrato.");
             if (await context.ContratoCabecera
@@ -71,10 +73,10 @@ namespace nest.core.infraestructura.legal
                 await transaction.CommitAsync();
                 return await GetByIdAsync(cabecera.Id);
             }
-            catch(Exception ex)
+            catch
             {
                 await transaction.RollbackAsync();
-                throw ex;
+                throw;
             }
         }
 
@@ -85,6 +87,8 @@ namespace nest.core.infraestructura.legal
                 throw new Exception($"Un contrato debe tener como minimo 2 personas");
             if (!entry.Detalles.Any(x => x.PersonaId == entry.Personal.PersonaId))
                 throw new Exception($"[{personaActual.Id}]{personaActual.NombreCompleto}: Debe estar en el detalle del contrato.");
+            if (entry.Personal == null)
+                throw new Exception("El request tiene que tener el campo personal");
 
             using var transaction = await context.Database.BeginTransactionAsync();
             try
@@ -106,17 +110,7 @@ namespace nest.core.infraestructura.legal
                     detalle.FechaRegistro = DateTime.UtcNow;
                     context.ContratoDetalle.Add(detalle);
                 }
-
-                if (cabecera.ContratoPersonal != null)
-                    context.ContratoPersonal.Remove(cabecera.ContratoPersonal);
-
-                if (entry.Personal != null)
-                {
-                    var personal = mapper.Map<ContratoPersonal>(entry.Personal);
-                    personal.ContratoCabeceraId = cabecera.Id;
-                    context.ContratoPersonal.Add(personal);
-                }
-
+                mapper.Map(entry.Personal, cabecera.ContratoPersonal);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return await GetByIdAsync(cabecera.Id);
