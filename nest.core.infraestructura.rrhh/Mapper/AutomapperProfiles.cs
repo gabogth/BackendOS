@@ -2,6 +2,7 @@ using AutoMapper;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.GrupoHorarioEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
+using nest.core.dominio.RRHH.PersonalEstadoEntities;
 
 namespace nest.core.infraestructura.rrhh.Mapper
 {
@@ -12,6 +13,7 @@ namespace nest.core.infraestructura.rrhh.Mapper
             CreateMap<CargoCrearDto, Cargo>();
             CreateMap<GrupoHorarioCrearDto, GrupoHorario>();
             CreateMap<PersonalCrearDto, Personal>();
+            CreateMap<PersonalEstadoCrearDto, PersonalEstado>();
         }
     }
 }
