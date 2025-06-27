@@ -21,6 +21,8 @@
 
   <ItemGroup>
     <Folder Include="Excepciones\" />
+    <Folder Include="Mantto\" />
+    <Folder Include="Ventas\TipoDocumento\" />
   </ItemGroup>
 
 </Project>

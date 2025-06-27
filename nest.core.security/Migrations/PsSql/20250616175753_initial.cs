@@ -977,9 +977,7 @@ namespace nest.core.security.Migrations.PsSql
                     NombreCorto = table.Column<string>(type: "character varying(9)", maxLength: 9, nullable: true),
                     HoraEntrada = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     HoraSalida = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
-                    DiferenciaDia = table.Column<int>(type: "integer", nullable: false),
-                    FechaCreacion = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                    DiferenciaDia = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1015,8 +1013,6 @@ namespace nest.core.security.Migrations.PsSql
                     AuditUserAgent = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     DiferenciaDia = table.Column<int>(type: "integer", nullable: false),
-                    FechaCreacion = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     HoraEntrada = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     HoraSalida = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     Id = table.Column<int>(type: "integer", nullable: false),
@@ -1114,13 +1110,10 @@ namespace nest.core.security.Migrations.PsSql
                     AuditUserAgent = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     DiaSemana = table.Column<byte>(type: "smallint", nullable: false),
-                    FechaCreacion = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     GrupoHorarioId = table.Column<int>(type: "integer", nullable: false),
                     HorarioCabeceraId = table.Column<int>(type: "integer", nullable: false),
                     Id = table.Column<int>(type: "integer", nullable: false),
-                    UsuarioCreacion = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true)
+                    Item = table.Column<short>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1585,6 +1578,42 @@ namespace nest.core.security.Migrations.PsSql
                 });
 
             migrationBuilder.CreateTable(
+                name: "personal_estado_audit",
+                schema: "rrhh",
+                columns: table => new
+                {
+                    AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    AuditAcceptLanguage = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditAccion = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditApp = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditAppVersion = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditAssemblyName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditContentType = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditCurrentCulture = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditFecha = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    AuditHost = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditIpRemoteOrigin = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditIsHttps = table.Column<bool>(type: "boolean", nullable: false),
+                    AuditMethod = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditOrigin = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditPath = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditPlatform = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditProtocol = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditQueryString = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditReferer = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditRequestId = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditUa = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditUserAgent = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    AuditUsuario = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    Id = table.Column<byte>(type: "smallint", nullable: false),
+                    Nombre = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_personal_estado_audit", x => x.AuditId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "producto_audit",
                 schema: "logistica",
                 columns: table => new
@@ -1999,12 +2028,9 @@ namespace nest.core.security.Migrations.PsSql
                 {
                     Id = table.Column<int>(type: "integer", nullable: false),
                     HorarioCabeceraId = table.Column<int>(type: "integer", nullable: false),
+                    Item = table.Column<short>(type: "smallint", nullable: false),
                     DiaSemana = table.Column<byte>(type: "smallint", nullable: false),
-                    GrupoHorarioId = table.Column<int>(type: "integer", nullable: false),
-                    UsuarioCreacion = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    UsuarioModificacion = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    FechaCreacion = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    GrupoHorarioId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -3052,10 +3078,11 @@ namespace nest.core.security.Migrations.PsSql
                 column: "GrupoHorarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_horario_detalle_HorarioCabeceraId",
+                name: "IX_horario_detalle_HorarioCabeceraId_Item",
                 schema: "rrhh",
                 table: "horario_detalle",
-                column: "HorarioCabeceraId");
+                columns: new[] { "HorarioCabeceraId", "Item" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_horario_detalle_audit_Id",
@@ -3193,6 +3220,12 @@ namespace nest.core.security.Migrations.PsSql
                 name: "IX_personal_audit_Id",
                 schema: "rrhh",
                 table: "personal_audit",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_personal_estado_audit_Id",
+                schema: "rrhh",
+                table: "personal_estado_audit",
                 column: "Id");
 
             migrationBuilder.CreateIndex(
@@ -3433,6 +3466,10 @@ namespace nest.core.security.Migrations.PsSql
 
             migrationBuilder.DropTable(
                 name: "personal_audit",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
+                name: "personal_estado_audit",
                 schema: "rrhh");
 
             migrationBuilder.DropTable(

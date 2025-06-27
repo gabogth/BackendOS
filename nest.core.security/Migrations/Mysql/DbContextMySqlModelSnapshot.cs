@@ -1999,12 +1999,6 @@ namespace nest.core.security.Migrations.MySql
                     b.Property<int>("DiferenciaDia")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("FechaModificacion")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<TimeOnly>("HoraEntrada")
                         .HasColumnType("time(6)");
 
@@ -2249,12 +2243,6 @@ namespace nest.core.security.Migrations.MySql
                     b.Property<byte>("DiaSemana")
                         .HasColumnType("tinyint unsigned");
 
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<int>("GrupoHorarioId")
                         .HasColumnType("int");
 
@@ -2264,13 +2252,8 @@ namespace nest.core.security.Migrations.MySql
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("UsuarioCreacion")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("UsuarioModificacion")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                    b.Property<short>("Item")
+                        .HasColumnType("smallint");
 
                     b.HasKey("AuditId");
 
@@ -4197,6 +4180,115 @@ namespace nest.core.security.Migrations.MySql
                     b.HasIndex("Id");
 
                     b.ToTable("personal_audit", "rrhh");
+                });
+
+            modelBuilder.Entity("PersonalEstadoAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<byte>("Id")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("personal_estado_audit", "rrhh");
                 });
 
             modelBuilder.Entity("ProductoAudit", b =>
@@ -6596,12 +6688,6 @@ namespace nest.core.security.Migrations.MySql
                     b.Property<int>("DiferenciaDia")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("FechaModificacion")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<TimeOnly>("HoraEntrada")
                         .HasColumnType("time(6)");
 
@@ -6656,31 +6742,21 @@ namespace nest.core.security.Migrations.MySql
                     b.Property<byte>("DiaSemana")
                         .HasColumnType("tinyint unsigned");
 
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<int>("GrupoHorarioId")
                         .HasColumnType("int");
 
                     b.Property<int>("HorarioCabeceraId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UsuarioCreacion")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("UsuarioModificacion")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                    b.Property<short>("Item")
+                        .HasColumnType("smallint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GrupoHorarioId");
 
-                    b.HasIndex("HorarioCabeceraId");
+                    b.HasIndex("HorarioCabeceraId", "Item")
+                        .IsUnique();
 
                     b.ToTable("horario_detalle", "rrhh");
                 });

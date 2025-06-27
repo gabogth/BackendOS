@@ -13,8 +13,6 @@ namespace nest.core.infraestructura.db.RRHH
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<int>>();
-            builder.HasIndex(x => new { x.HorarioCabeceraId, x.Item })
-                .IsUnique();
             builder.HasOne(x => x.HorarioCabecera)
                 .WithMany(x => x.HorarioDetalles)
                 .HasForeignKey(x => x.HorarioCabeceraId)

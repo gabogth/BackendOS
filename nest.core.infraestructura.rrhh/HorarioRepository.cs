@@ -14,7 +14,8 @@ namespace nest.core.infraestructura.rrhh
 
         protected override IQueryable<HorarioCabecera> Query() => context.Set<HorarioCabecera>()
             .AsNoTracking()
-            .Include(h => h.HorarioDetalles);
+            .Include(h => h.HorarioDetalles)
+            .Include(h => h.HorarioDetalles).ThenInclude(h => h.GrupoHorario);
 
         public Task<HorarioCabecera> ObtenerPorId(int id) => GetByIdAsync(id);
         public Task<List<HorarioCabecera>> ObtenerTodos() => GetAllAsync();
@@ -58,13 +59,27 @@ namespace nest.core.infraestructura.rrhh
                     ?? throw new RegistroNoEncontradoException<HorarioCabecera>(id.ToString());
 
                 mapper.Map(entry.Cabecera, cabecera);
-                context.HorarioDetalles.RemoveRange(cabecera.HorarioDetalles);
-                foreach (var detalleDto in entry.Detalles)
+                var detalleDb = cabecera.HorarioDetalles.ToDictionary(x => x.DiaSemana);
+
+                var insert = entry.Detalles.Where(ft => !detalleDb.ContainsKey(ft.DiaSemana));
+                var update = entry.Detalles.Where(ft => detalleDb.ContainsKey(ft.DiaSemana));
+                var delete = cabecera.HorarioDetalles.Where(db => !entry.Detalles.Any(ft => ft.DiaSemana == db.DiaSemana));
+
+                //Insertar nuevos detalles
+                foreach (var detalleDto in insert)
                 {
                     var detalle = mapper.Map<HorarioDetalle>(detalleDto);
                     detalle.HorarioCabeceraId = cabecera.Id;
                     context.HorarioDetalles.Add(detalle);
                 }
+
+                //Modificar detalles existentes
+                foreach (var detalleDto in update) 
+                    mapper.Map(detalleDto, detalleDb[detalleDto.DiaSemana]);
+
+                //Eliminar detalles que ya no existen
+                context.HorarioDetalles.RemoveRange(delete);
+
 
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();

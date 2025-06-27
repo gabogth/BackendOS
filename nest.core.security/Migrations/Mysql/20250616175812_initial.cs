@@ -1497,9 +1497,7 @@ namespace nest.core.security.Migrations.MySql
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     HoraEntrada = table.Column<TimeOnly>(type: "time(6)", nullable: false),
                     HoraSalida = table.Column<TimeOnly>(type: "time(6)", nullable: false),
-                    DiferenciaDia = table.Column<int>(type: "int", nullable: false),
-                    FechaCreacion = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    DiferenciaDia = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1556,8 +1554,6 @@ namespace nest.core.security.Migrations.MySql
                     AuditUsuario = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DiferenciaDia = table.Column<int>(type: "int", nullable: false),
-                    FechaCreacion = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     HoraEntrada = table.Column<TimeOnly>(type: "time(6)", nullable: false),
                     HoraSalida = table.Column<TimeOnly>(type: "time(6)", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -1704,15 +1700,10 @@ namespace nest.core.security.Migrations.MySql
                     AuditUsuario = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DiaSemana = table.Column<byte>(type: "tinyint unsigned", nullable: false),
-                    FechaCreacion = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     GrupoHorarioId = table.Column<int>(type: "int", nullable: false),
                     HorarioCabeceraId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
-                    UsuarioCreacion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    UsuarioModificacion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    Item = table.Column<short>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2420,6 +2411,64 @@ namespace nest.core.security.Migrations.MySql
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "personal_estado_audit",
+                schema: "rrhh",
+                columns: table => new
+                {
+                    AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    AuditAcceptLanguage = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditAccion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditApp = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditAppVersion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditAssemblyName = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditContentType = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditCurrentCulture = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditFecha = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    AuditHost = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditIpRemoteOrigin = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditIsHttps = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    AuditMethod = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditOrigin = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditPath = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditPlatform = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditProtocol = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditQueryString = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditReferer = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditRequestId = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditUa = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditUserAgent = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AuditUsuario = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Id = table.Column<byte>(type: "tinyint unsigned", nullable: false),
+                    Nombre = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_personal_estado_audit", x => x.AuditId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "producto_audit",
                 schema: "logistica",
                 columns: table => new
@@ -2985,14 +3034,9 @@ namespace nest.core.security.Migrations.MySql
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     HorarioCabeceraId = table.Column<int>(type: "int", nullable: false),
+                    Item = table.Column<short>(type: "smallint", nullable: false),
                     DiaSemana = table.Column<byte>(type: "tinyint unsigned", nullable: false),
-                    GrupoHorarioId = table.Column<int>(type: "int", nullable: false),
-                    UsuarioCreacion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    UsuarioModificacion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FechaCreacion = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    FechaModificacion = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    GrupoHorarioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -4080,10 +4124,11 @@ namespace nest.core.security.Migrations.MySql
                 column: "GrupoHorarioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_horario_detalle_HorarioCabeceraId",
+                name: "IX_horario_detalle_HorarioCabeceraId_Item",
                 schema: "rrhh",
                 table: "horario_detalle",
-                column: "HorarioCabeceraId");
+                columns: new[] { "HorarioCabeceraId", "Item" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_horario_detalle_audit_Id",
@@ -4221,6 +4266,12 @@ namespace nest.core.security.Migrations.MySql
                 name: "IX_personal_audit_Id",
                 schema: "rrhh",
                 table: "personal_audit",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_personal_estado_audit_Id",
+                schema: "rrhh",
+                table: "personal_estado_audit",
                 column: "Id");
 
             migrationBuilder.CreateIndex(
@@ -4461,6 +4512,10 @@ namespace nest.core.security.Migrations.MySql
 
             migrationBuilder.DropTable(
                 name: "personal_audit",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
+                name: "personal_estado_audit",
                 schema: "rrhh");
 
             migrationBuilder.DropTable(
