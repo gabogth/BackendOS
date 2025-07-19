@@ -23,6 +23,135 @@ namespace nest.core.security.Migrations.SqlServer
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ActivoAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("CentroDeCostosId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DepreciacionMeses")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ImagenUrl")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long?>("ProductoLoteId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("TerceroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("activo_audit", "patrimonial");
+                });
+
             modelBuilder.Entity("AlmacenAudit", b =>
                 {
                     b.Property<long>("AuditId")
@@ -540,6 +669,130 @@ namespace nest.core.security.Migrations.SqlServer
                     b.ToTable("cargo_audit", "rrhh");
                 });
 
+            modelBuilder.Entity("CentroDeCostosAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Codigo")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("EsFinal")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("PadreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("centro_de_costos_audit", "costos");
+                });
+
             modelBuilder.Entity("ContratoCabeceraAudit", b =>
                 {
                     b.Property<long>("AuditId")
@@ -1039,6 +1292,378 @@ namespace nest.core.security.Migrations.SqlServer
                     b.ToTable("contrato_tipo_audit", "legal");
                 });
 
+            modelBuilder.Entity("CuentaContableAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("CuentaContableTipoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ES")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Nivel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Nombre")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NombreCorto")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PadreId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("PermiteMovimiento")
+                        .HasColumnType("bit");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("cuenta_contable_audit", "contabilidad");
+                });
+
+            modelBuilder.Entity("CuentaContableTipoAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("cuenta_contable_tipo_audit", "contabilidad");
+                });
+
+            modelBuilder.Entity("CuentaCorrienteAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("CuentaContableId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CuentaNumero")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EntidadFinancieraId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("cuenta_corriente_audit", "finanzas");
+                });
+
             modelBuilder.Entity("DepartamentoAudit", b =>
                 {
                     b.Property<long>("AuditId")
@@ -1493,6 +2118,125 @@ namespace nest.core.security.Migrations.SqlServer
                     b.ToTable("documento_tipo_audit", "dbo");
                 });
 
+            modelBuilder.Entity("EntidadFinancieraAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("EsEfectivo")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("entidad_financiera_audit", "finanzas");
+                });
+
             modelBuilder.Entity("EstructuraOrganizacionalAudit", b =>
                 {
                     b.Property<long>("AuditId")
@@ -1754,6 +2498,509 @@ namespace nest.core.security.Migrations.SqlServer
                     b.HasIndex("Id");
 
                     b.ToTable("estructura_organizacional_tipo_audit", "organizacion");
+                });
+
+            modelBuilder.Entity("FinancieroCabeceraAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Comentarios")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("DocumentoTipoGenId")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Estado")
+                        .HasColumnType("tinyint");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NumeroDocumentoGen")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<short>("OrigenFinancieroId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("PuntoFinancieroId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SerieDocumentoGen")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("TerceroGenId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("financiero_cabecera_audit", "finanzas");
+                });
+
+            modelBuilder.Entity("FinancieroDetalleAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Concepto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("CuentaCorrienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DocumentoTipoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ES")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("FechaEmision")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaPago")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaVencimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("FinancieroCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Monto")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("NumeroDocumento")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("SerieDocumento")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("TerceroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("financiero_detalle_audit", "finanzas");
+                });
+
+            modelBuilder.Entity("FinancieroLogisticaAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long>("FinancieroDetalleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("InventarioCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("financiero_logistica_audit", "finanzas");
+                });
+
+            modelBuilder.Entity("FinancieroOrdenServicioAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long>("FinancieroDetalleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("OrdenServicioCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("financiero_orden_servicio_audit", "finanzas");
                 });
 
             modelBuilder.Entity("FormularioAudit", b =>
@@ -2023,6 +3270,234 @@ namespace nest.core.security.Migrations.SqlServer
                     b.ToTable("grupo_horario_audit", "rrhh");
                 });
 
+            modelBuilder.Entity("GrupoTrabajoAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Nombre")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NombreCorto")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("grupo_trabajo_audit", "rrhh");
+                });
+
+            modelBuilder.Entity("GrupoTrabajoPersonaAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("EsLider")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("GrupoTrabajoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("PersonaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("grupo_trabajo_persona_audit", "rrhh");
+                });
+
             modelBuilder.Entity("HorarioCabeceraAudit", b =>
                 {
                     b.Property<long>("AuditId")
@@ -2124,12 +3599,6 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -2251,9 +3720,6 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
-
-                    b.Property<short>("Item")
-                        .HasColumnType("smallint");
 
                     b.HasKey("AuditId");
 
@@ -3095,6 +4561,122 @@ namespace nest.core.security.Migrations.SqlServer
                     b.ToTable("inventario_detalle_audit", "logistica");
                 });
 
+            modelBuilder.Entity("LaborAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("labor_audit", "mantto");
+                });
+
             modelBuilder.Entity("LicenciaConducirAudit", b =>
                 {
                     b.Property<long>("AuditId")
@@ -3322,6 +4904,122 @@ namespace nest.core.security.Migrations.SqlServer
                     b.HasIndex("Id");
 
                     b.ToTable("logistica_transaccion_audit", "logistica");
+                });
+
+            modelBuilder.Entity("MantenimientoTipoAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<short>("Id")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("mantenimiento_tipo_audit", "mantto");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -3801,6 +5499,1052 @@ namespace nest.core.security.Migrations.SqlServer
                     b.ToTable("moneda_audit", "finanzas");
                 });
 
+            modelBuilder.Entity("OrdenServicioCabeceraAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CodigoOrdenInterna")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CodigoReferencial")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("FechaEntrega")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaFinal")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaInicial")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<short>("OrdenServicioTipoId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("orden_servicio_cabecera_audit", "mantto");
+                });
+
+            modelBuilder.Entity("OrdenServicioMantenimientoExternoAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<long>("ActaConformidadId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CPI")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClientePlannerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ClienteSupervisorId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("ContratoCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("CotizacionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaEntregaCorreo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaEntregaInforme")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaFactura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaFianzaFinal")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaFianzaInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaPagoFactura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaRecepcionFactura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaRecepcionHES")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaVencimientoFactura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LicitacionCodigo")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<short>("MantenimientoTipoId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("MonedaId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("MontoBruto")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("MontoFianza")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("MontoNeto")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("NumeroFactura")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("NumeroHES")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReporteCalidad")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ReporteMedicion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal>("ValorFacturadoNeto")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("orden_servicio_mantenimiento_externo_audit", "mantto");
+                });
+
+            modelBuilder.Entity("OrdenServicioTipoAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<short>("Id")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("orden_servicio_tipo_audit", "mantto");
+                });
+
+            modelBuilder.Entity("OrdenTrabajoCabeceraAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<byte>("Estado")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime>("FechaCompromiso")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("GrupoTrabajoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long>("OrdenServicioCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OrdenTrabajoCabeceraPadreId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("orden_trabajo_cabecera_audit", "mantto");
+                });
+
+            modelBuilder.Entity("OrdenTrabajoDetalleActivoAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<long>("ActivoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("orden_trabajo_detalle_activo_audit", "mantto");
+                });
+
+            modelBuilder.Entity("OrdenTrabajoDetalleAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<byte>("Estado")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("HorasEjecutadas")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HorasProyectadas")
+                        .HasColumnType("int");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("LaborId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("OrdenTrabajoCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UbicacionTecnicaId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("orden_trabajo_detalle_audit", "mantto");
+                });
+
+            modelBuilder.Entity("OrdenTrabajoPersonalAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("EsLider")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("OrdenTrabajoCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("PersonaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("orden_trabajo_personal_audit", "mantto");
+                });
+
+            modelBuilder.Entity("OrigenFinancieroAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<short>("Id")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Naturaleza")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("origen_financiero_audit", "finanzas");
+                });
+
             modelBuilder.Entity("PaisAudit", b =>
                 {
                     b.Property<long>("AuditId")
@@ -4028,6 +6772,13 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<string>("Correo")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Direccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("DistritoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("DocumentoIdentidad")
                         .HasMaxLength(200)
@@ -4660,6 +7411,122 @@ namespace nest.core.security.Migrations.SqlServer
                     b.ToTable("provincia_audit", "dbo");
                 });
 
+            modelBuilder.Entity("PuntoFinancieroAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("punto_financiero_audit", "finanzas");
+                });
+
             modelBuilder.Entity("SexoAudit", b =>
                 {
                     b.Property<long>("AuditId")
@@ -4771,6 +7638,374 @@ namespace nest.core.security.Migrations.SqlServer
                     b.HasIndex("Id");
 
                     b.ToTable("sexo_audit", "dbo");
+                });
+
+            modelBuilder.Entity("TerceroAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("CuentaContablePorCobrarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CuentaContablePorPagarId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DireccionFiscal")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("DocumentoIdentidadFinanciero")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<byte>("DocumentoIdentidadTipoFinancieroId")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RazonSocial")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("tercero_audit", "finanzas");
+                });
+
+            modelBuilder.Entity("UbicacionActivoAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<long>("ActivoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Comentario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long?>("ContratoCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("FechaIngreso")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaSalida")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UbicacionTecnicaId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("ubicacion_activo_audit", "patrimonial");
+                });
+
+            modelBuilder.Entity("UbicacionTecnicaAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditAcceptLanguage")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditContentType")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditCurrentCulture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPath")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditPlatform")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditQueryString")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUa")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long?>("PadreId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("TerceroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("ubicacion_tecnica_audit", "patrimonial");
                 });
 
             modelBuilder.Entity("UnidadMedidaAudit", b =>
@@ -5159,6 +8394,67 @@ namespace nest.core.security.Migrations.SqlServer
                         });
                 });
 
+            modelBuilder.Entity("nest.core.dominio.Contabilidad.CuentaContableEntities.CuentaContable", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("CuentaContableTipoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ES")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Nivel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Nombre")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NombreCorto")
+                        .HasMaxLength(9)
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PadreId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("PermiteMovimiento")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CuentaContableTipoId");
+
+                    b.HasIndex("PadreId");
+
+                    b.ToTable("cuenta_contable", "contabilidad");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Contabilidad.CuentaContableTipoEntities.CuentaContableTipo", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("cuenta_contable_tipo", "contabilidad");
+                });
+
             modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities.EstructuraOrganizacional", b =>
                 {
                     b.Property<int>("Id")
@@ -5238,6 +8534,280 @@ namespace nest.core.security.Migrations.SqlServer
                     b.ToTable("estructura_organizacional_tipo", "organizacion");
                 });
 
+            modelBuilder.Entity("nest.core.dominio.Costos.CentroDeCostosEntities.CentroDeCostos", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Codigo")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("EsFinal")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<int>("PadreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PadreId");
+
+                    b.ToTable("centro_de_costos", "costos");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.ClienteEntities.Tercero", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CuentaContablePorCobrarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CuentaContablePorPagarId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DireccionFiscal")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("DocumentoIdentidadFinanciero")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<byte>("DocumentoIdentidadTipoFinancieroId")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("RazonSocial")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CuentaContablePorCobrarId");
+
+                    b.HasIndex("CuentaContablePorPagarId");
+
+                    b.HasIndex("DocumentoIdentidadTipoFinancieroId");
+
+                    b.ToTable("tercero", "finanzas");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.CuentaCorrienteEntities.CuentaCorriente", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("CuentaContableId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CuentaNumero")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EntidadFinancieraId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CuentaContableId");
+
+                    b.HasIndex("EntidadFinancieraId");
+
+                    b.ToTable("cuenta_corriente", "finanzas");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.EntidadFinancieraEntities.EntidadFinanciera", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("EsEfectivo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("entidad_financiera", "finanzas");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.FinancieroCabeceraEntities.FinancieroCabecera", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Comentarios")
+                        .HasMaxLength(-1)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DocumentoTipoGenId")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Estado")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NumeroDocumentoGen")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<short>("OrigenFinancieroId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("PuntoFinancieroId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SerieDocumentoGen")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
+                    b.Property<int>("TerceroGenId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentoTipoGenId");
+
+                    b.HasIndex("OrigenFinancieroId");
+
+                    b.HasIndex("PuntoFinancieroId");
+
+                    b.HasIndex("TerceroGenId");
+
+                    b.ToTable("financiero_cabecera", "finanzas");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.FinancieroDetalleEntities.FinancieroDetalle", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Concepto")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int?>("CuentaCorrienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DocumentoTipoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ES")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("FechaEmision")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaPago")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaVencimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("FinancieroCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Monto")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("NumeroDocumento")
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("SerieDocumento")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
+                    b.Property<int>("TerceroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CuentaCorrienteId");
+
+                    b.HasIndex("DocumentoTipoId");
+
+                    b.HasIndex("FinancieroCabeceraId");
+
+                    b.HasIndex("TerceroId");
+
+                    b.ToTable("financiero_detalle", "finanzas");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.FinancieroLogisticaEntities.FinancieroLogistica", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("FinancieroDetalleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("InventarioCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InventarioCabeceraId");
+
+                    b.HasIndex("FinancieroDetalleId", "InventarioCabeceraId");
+
+                    b.ToTable("financiero_logistica", "finanzas");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.FinancieroOrdenServicioEntities.FinancieroOrdenServicio", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("FinancieroDetalleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("OrdenServicioCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrdenServicioCabeceraId");
+
+                    b.HasIndex("FinancieroDetalleId", "OrdenServicioCabeceraId");
+
+                    b.ToTable("financiero_orden_servicio", "finanzas");
+                });
+
             modelBuilder.Entity("nest.core.dominio.Finanzas.MonedaEntities.Moneda", b =>
                 {
                     b.Property<int>("Id")
@@ -5295,6 +8865,52 @@ namespace nest.core.security.Migrations.SqlServer
                             Simbolo = "€",
                             Sufix = "euros"
                         });
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.OrigenFinancieroEntities.OrigenFinanciero", b =>
+                {
+                    b.Property<short>("Id")
+                        .HasColumnType("smallint");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Naturaleza")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("origen_financiero", "finanzas");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.PuntoFinancieroEntities.PuntoFinanciero", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("punto_financiero", "finanzas");
                 });
 
             modelBuilder.Entity("nest.core.dominio.General.DepartamentoEntites.Departamento", b =>
@@ -6011,6 +9627,13 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasMaxLength(120)
                         .HasColumnType("nvarchar(120)");
 
+                    b.Property<string>("Direccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("DistritoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("DocumentoIdentidad")
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
@@ -6035,6 +9658,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("tinyint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DistritoId");
 
                     b.HasIndex("DocumentoIdentidadTipoId");
 
@@ -6644,6 +10269,445 @@ namespace nest.core.security.Migrations.SqlServer
                     b.ToTable("unidad_medida", "logistica");
                 });
 
+            modelBuilder.Entity("nest.core.dominio.Mantto.LaborEntities.Labor", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("labor", "mantto");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.MantenimientoTipoEntities.MantenimientoTipo", b =>
+                {
+                    b.Property<short>("Id")
+                        .HasColumnType("smallint");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("mantenimiento_tipo", "mantto");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenServicioCabeceraEntities.OrdenServicioCabecera", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CodigoOrdenInterna")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CodigoReferencial")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("FechaEntrega")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaFinal")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaInicial")
+                        .HasColumnType("datetime2");
+
+                    b.Property<short>("OrdenServicioTipoId")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrdenServicioTipoId");
+
+                    b.ToTable("orden_servicio_cabecera", "mantto");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenServicioMantenimientoExternoEntities.OrdenServicioMantenimientoExterno", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ActaConformidadId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CPI")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClientePlannerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ClienteSupervisorId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("ContratoCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("CotizacionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaEntregaCorreo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaEntregaInforme")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaFactura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaFianzaFinal")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaFianzaInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaPagoFactura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaRecepcionFactura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaRecepcionHES")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaVencimientoFactura")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LicitacionCodigo")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<short>("MantenimientoTipoId")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("MonedaId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("MontoBruto")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("MontoFianza")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("MontoNeto")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("NumeroFactura")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("NumeroHES")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReporteCalidad")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ReporteMedicion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal>("ValorFacturadoNeto")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActaConformidadId");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("ClientePlannerId");
+
+                    b.HasIndex("ClienteSupervisorId");
+
+                    b.HasIndex("ContratoCabeceraId");
+
+                    b.HasIndex("MantenimientoTipoId");
+
+                    b.HasIndex("MonedaId");
+
+                    b.ToTable("orden_servicio_mantenimiento_externo", "mantto");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenServicioTipoEntities.OrdenServicioTipo", b =>
+                {
+                    b.Property<short>("Id")
+                        .HasColumnType("smallint");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("orden_servicio_tipo", "mantto");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities.OrdenTrabajoCabecera", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<byte>("Estado")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime>("FechaCompromiso")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("GrupoTrabajoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long>("OrdenServicioCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OrdenTrabajoCabeceraPadreId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GrupoTrabajoId");
+
+                    b.HasIndex("OrdenServicioCabeceraId");
+
+                    b.HasIndex("OrdenTrabajoCabeceraPadreId");
+
+                    b.ToTable("orden_trabajo_cabecera", "mantto");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities.OrdenTrabajoDetalleActivo", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ActivoId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivoId");
+
+                    b.ToTable("orden_trabajo_detalle_activo", "mantto");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities.OrdenTrabajoDetalle", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<byte>("Estado")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("HorasEjecutadas")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HorasProyectadas")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LaborId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("OrdenTrabajoCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UbicacionTecnicaId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LaborId");
+
+                    b.HasIndex("OrdenTrabajoCabeceraId");
+
+                    b.HasIndex("UbicacionTecnicaId");
+
+                    b.ToTable("orden_trabajo_detalle", "mantto");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities.OrdenTrabajoPersonal", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("EsLider")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("OrdenTrabajoCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("PersonaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrdenTrabajoCabeceraId");
+
+                    b.HasIndex("PersonaId");
+
+                    b.ToTable("orden_trabajo_personal", "mantto");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Patrimonial.ActivoEntities.Activo", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("CentroDeCostosId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DepreciacionMeses")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ImagenUrl")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long?>("ProductoLoteId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("TerceroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CentroDeCostosId");
+
+                    b.HasIndex("ProductoLoteId");
+
+                    b.HasIndex("TerceroId");
+
+                    b.ToTable("activo", "patrimonial");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Patrimonial.UbicacionActivoEntities.UbicacionActivo", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ActivoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Comentario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long?>("ContratoCabeceraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("FechaIngreso")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaSalida")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("UbicacionTecnicaId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivoId");
+
+                    b.HasIndex("ContratoCabeceraId");
+
+                    b.HasIndex("UbicacionTecnicaId");
+
+                    b.ToTable("ubicacion_activo", "patrimonial");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Patrimonial.UbicacionTecnicaEntities.UbicacionTecnica", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<long?>("PadreId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("TerceroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PadreId");
+
+                    b.HasIndex("TerceroId");
+
+                    b.ToTable("ubicacion_tecnica", "patrimonial");
+                });
+
             modelBuilder.Entity("nest.core.dominio.RRHH.CargoEntities.Cargo", b =>
                 {
                     b.Property<int>("Id")
@@ -6708,6 +10772,49 @@ namespace nest.core.security.Migrations.SqlServer
                     b.ToTable("grupo_horario", "rrhh");
                 });
 
+            modelBuilder.Entity("nest.core.dominio.RRHH.GrupoTrabajoEntities.GrupoTrabajo", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Nombre")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NombreCorto")
+                        .HasMaxLength(9)
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("grupo_trabajo", "rrhh");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities.GrupoTrabajoPersona", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("EsLider")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("GrupoTrabajoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("PersonaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GrupoTrabajoId");
+
+                    b.HasIndex("PersonaId");
+
+                    b.ToTable("grupo_trabajo_persona", "rrhh");
+                });
+
             modelBuilder.Entity("nest.core.dominio.RRHH.HorarioCabeceraEntities.HorarioCabecera", b =>
                 {
                     b.Property<int>("Id")
@@ -6719,12 +10826,6 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaModificacion")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
@@ -6749,15 +10850,11 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<int>("HorarioCabeceraId")
                         .HasColumnType("int");
 
-                    b.Property<short>("Item")
-                        .HasColumnType("smallint");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GrupoHorarioId");
 
-                    b.HasIndex("HorarioCabeceraId", "Item")
-                        .IsUnique();
+                    b.HasIndex("HorarioCabeceraId");
 
                     b.ToTable("horario_detalle", "rrhh");
                 });
@@ -7070,6 +11167,24 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("nest.core.dominio.Contabilidad.CuentaContableEntities.CuentaContable", b =>
+                {
+                    b.HasOne("nest.core.dominio.Contabilidad.CuentaContableTipoEntities.CuentaContableTipo", "CuentaContableTipo")
+                        .WithMany()
+                        .HasForeignKey("CuentaContableTipoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Contabilidad.CuentaContableEntities.CuentaContable", "Padre")
+                        .WithMany("Children")
+                        .HasForeignKey("PadreId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CuentaContableTipo");
+
+                    b.Navigation("Padre");
+                });
+
             modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities.EstructuraOrganizacional", b =>
                 {
                     b.HasOne("nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities.EstructuraOrganizacionalTipo", "EstructuraOrganizacionalTipo")
@@ -7086,6 +11201,178 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Navigation("EstructuraOrganizacionalTipo");
 
                     b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Costos.CentroDeCostosEntities.CentroDeCostos", b =>
+                {
+                    b.HasOne("nest.core.dominio.Costos.CentroDeCostosEntities.CentroDeCostos", "Padre")
+                        .WithMany("Children")
+                        .HasForeignKey("PadreId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Padre");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.ClienteEntities.Tercero", b =>
+                {
+                    b.HasOne("nest.core.dominio.Contabilidad.CuentaContableEntities.CuentaContable", "CuentaContablePorCobrar")
+                        .WithMany()
+                        .HasForeignKey("CuentaContablePorCobrarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Contabilidad.CuentaContableEntities.CuentaContable", "CuentaContablePorPagar")
+                        .WithMany()
+                        .HasForeignKey("CuentaContablePorPagarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.General.DocumentoIdentidadTipoEntities.DocumentoIdentidadTipo", "DocumentoIdentidadTipoFinanciero")
+                        .WithMany()
+                        .HasForeignKey("DocumentoIdentidadTipoFinancieroId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.General.PersonaEntities.Persona", "Persona")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CuentaContablePorCobrar");
+
+                    b.Navigation("CuentaContablePorPagar");
+
+                    b.Navigation("DocumentoIdentidadTipoFinanciero");
+
+                    b.Navigation("Persona");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.CuentaCorrienteEntities.CuentaCorriente", b =>
+                {
+                    b.HasOne("nest.core.dominio.Contabilidad.CuentaContableEntities.CuentaContable", "CuentaContable")
+                        .WithMany()
+                        .HasForeignKey("CuentaContableId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Finanzas.EntidadFinancieraEntities.EntidadFinanciera", "EntidadFinanciera")
+                        .WithMany()
+                        .HasForeignKey("EntidadFinancieraId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CuentaContable");
+
+                    b.Navigation("EntidadFinanciera");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.FinancieroCabeceraEntities.FinancieroCabecera", b =>
+                {
+                    b.HasOne("nest.core.dominio.General.DocumentoTipoEntities.DocumentoTipo", "DocumentoTipoGen")
+                        .WithMany()
+                        .HasForeignKey("DocumentoTipoGenId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Finanzas.OrigenFinancieroEntities.OrigenFinanciero", "OrigenFinanciero")
+                        .WithMany()
+                        .HasForeignKey("OrigenFinancieroId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Finanzas.PuntoFinancieroEntities.PuntoFinanciero", "PuntoFinanciero")
+                        .WithMany()
+                        .HasForeignKey("PuntoFinancieroId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Finanzas.ClienteEntities.Tercero", "TerceroGen")
+                        .WithMany()
+                        .HasForeignKey("TerceroGenId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("DocumentoTipoGen");
+
+                    b.Navigation("OrigenFinanciero");
+
+                    b.Navigation("PuntoFinanciero");
+
+                    b.Navigation("TerceroGen");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.FinancieroDetalleEntities.FinancieroDetalle", b =>
+                {
+                    b.HasOne("nest.core.dominio.Finanzas.CuentaCorrienteEntities.CuentaCorriente", "CuentaCorriente")
+                        .WithMany()
+                        .HasForeignKey("CuentaCorrienteId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("nest.core.dominio.General.DocumentoTipoEntities.DocumentoTipo", "DocumentoTipo")
+                        .WithMany()
+                        .HasForeignKey("DocumentoTipoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Finanzas.FinancieroCabeceraEntities.FinancieroCabecera", "FinancieroCabecera")
+                        .WithMany("FinancieroDetalles")
+                        .HasForeignKey("FinancieroCabeceraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Finanzas.ClienteEntities.Tercero", "Tercero")
+                        .WithMany()
+                        .HasForeignKey("TerceroId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CuentaCorriente");
+
+                    b.Navigation("DocumentoTipo");
+
+                    b.Navigation("FinancieroCabecera");
+
+                    b.Navigation("Tercero");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.FinancieroLogisticaEntities.FinancieroLogistica", b =>
+                {
+                    b.HasOne("nest.core.dominio.Finanzas.FinancieroDetalleEntities.FinancieroDetalle", "FinancieroDetalle")
+                        .WithMany()
+                        .HasForeignKey("FinancieroDetalleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Logistica.Transaccional.InventarioCabecera", "InventarioCabecera")
+                        .WithMany()
+                        .HasForeignKey("InventarioCabeceraId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("FinancieroDetalle");
+
+                    b.Navigation("InventarioCabecera");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.FinancieroOrdenServicioEntities.FinancieroOrdenServicio", b =>
+                {
+                    b.HasOne("nest.core.dominio.Finanzas.FinancieroDetalleEntities.FinancieroDetalle", "FinancieroDetalle")
+                        .WithMany()
+                        .HasForeignKey("FinancieroDetalleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Mantto.OrdenServicioCabeceraEntities.OrdenServicioCabecera", "OrdenServicioCabecera")
+                        .WithMany()
+                        .HasForeignKey("OrdenServicioCabeceraId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("FinancieroDetalle");
+
+                    b.Navigation("OrdenServicioCabecera");
                 });
 
             modelBuilder.Entity("nest.core.dominio.General.DepartamentoEntites.Departamento", b =>
@@ -7112,6 +11399,12 @@ namespace nest.core.security.Migrations.SqlServer
 
             modelBuilder.Entity("nest.core.dominio.General.PersonaEntities.Persona", b =>
                 {
+                    b.HasOne("nest.core.dominio.General.DistritoEntities.Distrito", "Distrito")
+                        .WithMany()
+                        .HasForeignKey("DistritoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("nest.core.dominio.General.DocumentoIdentidadTipoEntities.DocumentoIdentidadTipo", "DocumentoIdentidadTipo")
                         .WithMany()
                         .HasForeignKey("DocumentoIdentidadTipoId")
@@ -7128,6 +11421,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasForeignKey("SexoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Distrito");
 
                     b.Navigation("DocumentoIdentidadTipo");
 
@@ -7315,6 +11610,258 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Navigation("ProductoLote");
                 });
 
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenServicioCabeceraEntities.OrdenServicioCabecera", b =>
+                {
+                    b.HasOne("nest.core.dominio.Mantto.OrdenServicioTipoEntities.OrdenServicioTipo", "OrdenServicioTipo")
+                        .WithMany()
+                        .HasForeignKey("OrdenServicioTipoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("OrdenServicioTipo");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenServicioMantenimientoExternoEntities.OrdenServicioMantenimientoExterno", b =>
+                {
+                    b.HasOne("nest.core.dominio.Legal.ContratoCabeceraEntities.ContratoCabecera", "ActaConformidad")
+                        .WithMany()
+                        .HasForeignKey("ActaConformidadId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Finanzas.ClienteEntities.Tercero", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.General.PersonaEntities.Persona", "ClientePlanner")
+                        .WithMany()
+                        .HasForeignKey("ClientePlannerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.General.PersonaEntities.Persona", "ClienteSupervisor")
+                        .WithMany()
+                        .HasForeignKey("ClienteSupervisorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("nest.core.dominio.Legal.ContratoCabeceraEntities.ContratoCabecera", "Contrato")
+                        .WithMany()
+                        .HasForeignKey("ContratoCabeceraId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("nest.core.dominio.Mantto.OrdenServicioCabeceraEntities.OrdenServicioCabecera", "OrdenServicioCabecera")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Mantto.MantenimientoTipoEntities.MantenimientoTipo", "MantenimientoTipo")
+                        .WithMany()
+                        .HasForeignKey("MantenimientoTipoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Finanzas.MonedaEntities.Moneda", "Moneda")
+                        .WithMany()
+                        .HasForeignKey("MonedaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ActaConformidad");
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("ClientePlanner");
+
+                    b.Navigation("ClienteSupervisor");
+
+                    b.Navigation("Contrato");
+
+                    b.Navigation("MantenimientoTipo");
+
+                    b.Navigation("Moneda");
+
+                    b.Navigation("OrdenServicioCabecera");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities.OrdenTrabajoCabecera", b =>
+                {
+                    b.HasOne("nest.core.dominio.RRHH.GrupoTrabajoEntities.GrupoTrabajo", "GrupoTrabajo")
+                        .WithMany()
+                        .HasForeignKey("GrupoTrabajoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("nest.core.dominio.Mantto.OrdenServicioCabeceraEntities.OrdenServicioCabecera", "OrdenServicioCabecera")
+                        .WithMany("OrdenTrabajoCabeceras")
+                        .HasForeignKey("OrdenServicioCabeceraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities.OrdenTrabajoCabecera", "OrdenTrabajoCabeceraPadre")
+                        .WithMany("Children")
+                        .HasForeignKey("OrdenTrabajoCabeceraPadreId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("GrupoTrabajo");
+
+                    b.Navigation("OrdenServicioCabecera");
+
+                    b.Navigation("OrdenTrabajoCabeceraPadre");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities.OrdenTrabajoDetalleActivo", b =>
+                {
+                    b.HasOne("nest.core.dominio.Patrimonial.ActivoEntities.Activo", "Activo")
+                        .WithMany()
+                        .HasForeignKey("ActivoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities.OrdenTrabajoDetalle", "OrdenTrabajoDetalle")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Activo");
+
+                    b.Navigation("OrdenTrabajoDetalle");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities.OrdenTrabajoDetalle", b =>
+                {
+                    b.HasOne("nest.core.dominio.Mantto.LaborEntities.Labor", "Labor")
+                        .WithMany()
+                        .HasForeignKey("LaborId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities.OrdenTrabajoCabecera", "OrdenTrabajoCabecera")
+                        .WithMany("OrdenTrabajoDetalles")
+                        .HasForeignKey("OrdenTrabajoCabeceraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Patrimonial.UbicacionTecnicaEntities.UbicacionTecnica", "UbicacionTecnica")
+                        .WithMany()
+                        .HasForeignKey("UbicacionTecnicaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Labor");
+
+                    b.Navigation("OrdenTrabajoCabecera");
+
+                    b.Navigation("UbicacionTecnica");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities.OrdenTrabajoPersonal", b =>
+                {
+                    b.HasOne("nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities.OrdenTrabajoCabecera", "OrdenTrabajoCabecera")
+                        .WithMany()
+                        .HasForeignKey("OrdenTrabajoCabeceraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.General.PersonaEntities.Persona", "Persona")
+                        .WithMany()
+                        .HasForeignKey("PersonaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("OrdenTrabajoCabecera");
+
+                    b.Navigation("Persona");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Patrimonial.ActivoEntities.Activo", b =>
+                {
+                    b.HasOne("nest.core.dominio.Costos.CentroDeCostosEntities.CentroDeCostos", "CentroDeCostos")
+                        .WithMany()
+                        .HasForeignKey("CentroDeCostosId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("nest.core.dominio.Logistica.ProductoLote", "ProductoLote")
+                        .WithMany()
+                        .HasForeignKey("ProductoLoteId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("nest.core.dominio.Finanzas.ClienteEntities.Tercero", "Tercero")
+                        .WithMany()
+                        .HasForeignKey("TerceroId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CentroDeCostos");
+
+                    b.Navigation("ProductoLote");
+
+                    b.Navigation("Tercero");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Patrimonial.UbicacionActivoEntities.UbicacionActivo", b =>
+                {
+                    b.HasOne("nest.core.dominio.Patrimonial.ActivoEntities.Activo", "Activo")
+                        .WithMany()
+                        .HasForeignKey("ActivoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.Legal.ContratoCabeceraEntities.ContratoCabecera", "ContratoCabecera")
+                        .WithMany()
+                        .HasForeignKey("ContratoCabeceraId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("nest.core.dominio.Patrimonial.UbicacionTecnicaEntities.UbicacionTecnica", "UbicacionTecnica")
+                        .WithMany()
+                        .HasForeignKey("UbicacionTecnicaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Activo");
+
+                    b.Navigation("ContratoCabecera");
+
+                    b.Navigation("UbicacionTecnica");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Patrimonial.UbicacionTecnicaEntities.UbicacionTecnica", b =>
+                {
+                    b.HasOne("nest.core.dominio.Patrimonial.UbicacionTecnicaEntities.UbicacionTecnica", "Padre")
+                        .WithMany("Children")
+                        .HasForeignKey("PadreId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("nest.core.dominio.Finanzas.ClienteEntities.Tercero", "Tercero")
+                        .WithMany()
+                        .HasForeignKey("TerceroId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Padre");
+
+                    b.Navigation("Tercero");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities.GrupoTrabajoPersona", b =>
+                {
+                    b.HasOne("nest.core.dominio.RRHH.GrupoTrabajoEntities.GrupoTrabajo", "GrupoTrabajo")
+                        .WithMany("GrupoTrabajoPersonas")
+                        .HasForeignKey("GrupoTrabajoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.General.PersonaEntities.Persona", "Persona")
+                        .WithMany()
+                        .HasForeignKey("PersonaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("GrupoTrabajo");
+
+                    b.Navigation("Persona");
+                });
+
             modelBuilder.Entity("nest.core.dominio.RRHH.HorarioDetalleEntities.HorarioDetalle", b =>
                 {
                     b.HasOne("nest.core.dominio.RRHH.GrupoHorarioEntities.GrupoHorario", "GrupoHorario")
@@ -7381,9 +11928,24 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Navigation("Children");
                 });
 
+            modelBuilder.Entity("nest.core.dominio.Contabilidad.CuentaContableEntities.CuentaContable", b =>
+                {
+                    b.Navigation("Children");
+                });
+
             modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities.EstructuraOrganizacional", b =>
                 {
                     b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Costos.CentroDeCostosEntities.CentroDeCostos", b =>
+                {
+                    b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Finanzas.FinancieroCabeceraEntities.FinancieroCabecera", b =>
+                {
+                    b.Navigation("FinancieroDetalles");
                 });
 
             modelBuilder.Entity("nest.core.dominio.General.DepartamentoEntites.Departamento", b =>
@@ -7411,6 +11973,28 @@ namespace nest.core.security.Migrations.SqlServer
             modelBuilder.Entity("nest.core.dominio.Logistica.Transaccional.InventarioCabecera", b =>
                 {
                     b.Navigation("InventarioDetalles");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenServicioCabeceraEntities.OrdenServicioCabecera", b =>
+                {
+                    b.Navigation("OrdenTrabajoCabeceras");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities.OrdenTrabajoCabecera", b =>
+                {
+                    b.Navigation("Children");
+
+                    b.Navigation("OrdenTrabajoDetalles");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Patrimonial.UbicacionTecnicaEntities.UbicacionTecnica", b =>
+                {
+                    b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.RRHH.GrupoTrabajoEntities.GrupoTrabajo", b =>
+                {
+                    b.Navigation("GrupoTrabajoPersonas");
                 });
 
             modelBuilder.Entity("nest.core.dominio.RRHH.HorarioCabeceraEntities.HorarioCabecera", b =>

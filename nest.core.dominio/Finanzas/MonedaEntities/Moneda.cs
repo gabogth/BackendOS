@@ -2,7 +2,7 @@
 
 namespace nest.core.dominio.Finanzas.MonedaEntities
 {
-    public class Moneda : IAuditable
+    public class Moneda : IAuditable, IEntity<int>
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
