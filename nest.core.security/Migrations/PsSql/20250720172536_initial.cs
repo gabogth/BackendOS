@@ -513,8 +513,9 @@ namespace nest.core.security.Migrations.PsSql
                     Nombre = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "character varying(9)", maxLength: 9, nullable: true),
                     Codigo = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    EsFinal = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    PadreId = table.Column<int>(type: "integer", nullable: false)
+                    EsFinal = table.Column<bool>(type: "boolean", nullable: false),
+                    PadreId = table.Column<int>(type: "integer", nullable: true),
+                    Activo = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -534,6 +535,7 @@ namespace nest.core.security.Migrations.PsSql
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    Activo = table.Column<bool>(type: "boolean", nullable: false),
                     AuditAcceptLanguage = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
@@ -557,11 +559,11 @@ namespace nest.core.security.Migrations.PsSql
                     AuditUserAgent = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     Codigo = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    EsFinal = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    EsFinal = table.Column<bool>(type: "boolean", nullable: false),
                     Id = table.Column<int>(type: "integer", nullable: false),
                     Nombre = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    PadreId = table.Column<int>(type: "integer", nullable: false)
+                    PadreId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {

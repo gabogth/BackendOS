@@ -75,6 +75,18 @@
         }
       ]
     },
+    {
+      "UpstreamPathTemplate": "/costos/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8387
+        }
+      ]
+    },
 
     //Start Region [Swagger config]
 
@@ -155,6 +167,19 @@
           "Port": 8386
         }
       ]
+    },
+    {
+      "SwaggerKey": "costos",
+      "UpstreamPathTemplate": "/costos/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8387
+        }
+      ]
     }
     //End Region [Swagger config]
   ],
@@ -216,6 +241,16 @@
           "Name": "API General",
           "Version": "v1",
           "Url": "https://localhost:8386/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "costos",
+      "Config": [
+        {
+          "Name": "API Costos",
+          "Version": "v1",
+          "Url": "https://localhost:8387/swagger/v1/swagger.json"
         }
       ]
     }

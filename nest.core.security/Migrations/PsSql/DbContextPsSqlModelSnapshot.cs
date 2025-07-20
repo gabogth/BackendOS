@@ -678,6 +678,9 @@ namespace nest.core.security.Migrations.PsSql
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
+                    b.Property<bool>("Activo")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("AuditAcceptLanguage")
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
@@ -768,9 +771,8 @@ namespace nest.core.security.Migrations.PsSql
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<string>("EsFinal")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                    b.Property<bool>("EsFinal")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("Id")
                         .HasColumnType("integer");
@@ -783,7 +785,7 @@ namespace nest.core.security.Migrations.PsSql
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<int>("PadreId")
+                    b.Property<int?>("PadreId")
                         .HasColumnType("integer");
 
                     b.HasKey("AuditId");
@@ -8538,13 +8540,15 @@ namespace nest.core.security.Migrations.PsSql
                     b.Property<int>("Id")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("Activo")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Codigo")
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
-                    b.Property<string>("EsFinal")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                    b.Property<bool>("EsFinal")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
@@ -8554,7 +8558,7 @@ namespace nest.core.security.Migrations.PsSql
                         .HasMaxLength(9)
                         .HasColumnType("character varying(9)");
 
-                    b.Property<int>("PadreId")
+                    b.Property<int?>("PadreId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -11205,8 +11209,7 @@ namespace nest.core.security.Migrations.PsSql
                     b.HasOne("nest.core.dominio.Costos.CentroDeCostosEntities.CentroDeCostos", "Padre")
                         .WithMany("Children")
                         .HasForeignKey("PadreId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Padre");
                 });

@@ -512,8 +512,9 @@ namespace nest.core.security.Migrations.SqlServer
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
                     Codigo = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    EsFinal = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    PadreId = table.Column<int>(type: "int", nullable: false)
+                    EsFinal = table.Column<bool>(type: "bit", nullable: false),
+                    PadreId = table.Column<int>(type: "int", nullable: true),
+                    Activo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -533,6 +534,7 @@ namespace nest.core.security.Migrations.SqlServer
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    Activo = table.Column<bool>(type: "bit", nullable: false),
                     AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -556,11 +558,11 @@ namespace nest.core.security.Migrations.SqlServer
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Codigo = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    EsFinal = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EsFinal = table.Column<bool>(type: "bit", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    PadreId = table.Column<int>(type: "int", nullable: false)
+                    PadreId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -678,6 +678,9 @@ namespace nest.core.security.Migrations.MySql
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
+                    b.Property<bool>("Activo")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("AuditAcceptLanguage")
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
@@ -768,9 +771,8 @@ namespace nest.core.security.Migrations.MySql
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("EsFinal")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                    b.Property<bool>("EsFinal")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -783,7 +785,7 @@ namespace nest.core.security.Migrations.MySql
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
-                    b.Property<int>("PadreId")
+                    b.Property<int?>("PadreId")
                         .HasColumnType("int");
 
                     b.HasKey("AuditId");
@@ -8538,13 +8540,15 @@ namespace nest.core.security.Migrations.MySql
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Activo")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Codigo")
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("EsFinal")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                    b.Property<bool>("EsFinal")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
@@ -8554,7 +8558,7 @@ namespace nest.core.security.Migrations.MySql
                         .HasMaxLength(9)
                         .HasColumnType("varchar(9)");
 
-                    b.Property<int>("PadreId")
+                    b.Property<int?>("PadreId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -11205,8 +11209,7 @@ namespace nest.core.security.Migrations.MySql
                     b.HasOne("nest.core.dominio.Costos.CentroDeCostosEntities.CentroDeCostos", "Padre")
                         .WithMany("Children")
                         .HasForeignKey("PadreId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Padre");
                 });

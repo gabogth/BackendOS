@@ -782,9 +782,9 @@ namespace nest.core.security.Migrations.MySql
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Codigo = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    EsFinal = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PadreId = table.Column<int>(type: "int", nullable: false)
+                    EsFinal = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    PadreId = table.Column<int>(type: "int", nullable: true),
+                    Activo = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -805,6 +805,7 @@ namespace nest.core.security.Migrations.MySql
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    Activo = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     AuditAcceptLanguage = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     AuditAccion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
@@ -849,14 +850,13 @@ namespace nest.core.security.Migrations.MySql
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Codigo = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    EsFinal = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EsFinal = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NombreCorto = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    PadreId = table.Column<int>(type: "int", nullable: false)
+                    PadreId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

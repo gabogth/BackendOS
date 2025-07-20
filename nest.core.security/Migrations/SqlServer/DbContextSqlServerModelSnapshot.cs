@@ -678,6 +678,9 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
                     b.Property<string>("AuditAcceptLanguage")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -768,9 +771,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("EsFinal")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<bool>("EsFinal")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -783,7 +785,7 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("PadreId")
+                    b.Property<int?>("PadreId")
                         .HasColumnType("int");
 
                     b.HasKey("AuditId");
@@ -8539,13 +8541,15 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Codigo")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("EsFinal")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<bool>("EsFinal")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
@@ -8555,7 +8559,7 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasMaxLength(9)
                         .HasColumnType("nvarchar(9)");
 
-                    b.Property<int>("PadreId")
+                    b.Property<int?>("PadreId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -11208,8 +11212,7 @@ namespace nest.core.security.Migrations.SqlServer
                     b.HasOne("nest.core.dominio.Costos.CentroDeCostosEntities.CentroDeCostos", "Padre")
                         .WithMany("Children")
                         .HasForeignKey("PadreId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Padre");
                 });

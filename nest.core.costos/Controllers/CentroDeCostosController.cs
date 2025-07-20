@@ -40,6 +40,23 @@ namespace nest.core.costos.Controllers
             }
         }
 
+        [HttpGet("activos")]
+        [ProducesResponseType(typeof(List<CentroDeCostos>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<List<CentroDeCostos>>> ObtenerActivos()
+        {
+            try
+            {
+                var data = await service.ObtenerActivos();
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return BadRequest(GenerateMessage.Create(ex));
+            }
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(CentroDeCostos), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
