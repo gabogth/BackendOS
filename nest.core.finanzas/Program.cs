@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using nest.core.finanzas.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using nest.core.infraestructura.db.DbContext;
-using nest.core.costos.Extensions;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
@@ -44,7 +44,7 @@ builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo {
         Title = apiName,
         Version = $"v{Assembly.GetExecutingAssembly().GetName().Version}",
-        Description = $"La {apiName} permite gestionar las operaciones financieras basicas del sistema, como cuentas corrientes y monedas.\r\n\r\nTodos los endpoints requieren autorizacion para acceder."
+        Description = $"La {apiName} permite gestionar las operaciones financieras basicas del sistema, como cuentas corrientes y monedas.\r\n\r\nTodos los endpoints requieren autorizacion para acceder.",
         Contact = new OpenApiContact { Email = "gabogth@gmail.com", Name = "Gabriel Rodriguez", Url = new Uri("https://es.stackoverflow.com/users/30423") }
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

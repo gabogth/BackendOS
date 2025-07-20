@@ -87,6 +87,18 @@
         }
       ]
     },
+    {
+      "UpstreamPathTemplate": "/finanzas/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8388
+        }
+      ]
+    },
 
     //Start Region [Swagger config]
 
@@ -180,6 +192,19 @@
           "Port": 8387
         }
       ]
+    },
+    {
+      "SwaggerKey": "finanzas",
+      "UpstreamPathTemplate": "/finanzas/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8388
+        }
+      ]
     }
     //End Region [Swagger config]
   ],
@@ -251,6 +276,16 @@
           "Name": "API Costos",
           "Version": "v1",
           "Url": "https://localhost:8387/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "finanzas",
+      "Config": [
+        {
+          "Name": "API Finanzas",
+          "Version": "v1",
+          "Url": "https://localhost:8388/swagger/v1/swagger.json"
         }
       ]
     }
