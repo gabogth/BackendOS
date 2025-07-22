@@ -10,6 +10,7 @@ namespace nest.core.dominio.Finanzas.FinancieroDetalleEntities
     {
         public long Id { get; set; }
         public long FinancieroCabeceraId { get; set; }
+        public short Item { get; set; }
         public int TerceroId { get; set; }
         public DateTime FechaEmision { get; set; }
         public DateTime FechaVencimiento { get; set; }
