@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using nest.core.dominio.Cache;
 using nest.core.dominio.Contabilidad.CuentaContableEntities;
 using nest.core.infraestructura.db.Cache;
 using nest.core.infraestructura.db.DbContext;

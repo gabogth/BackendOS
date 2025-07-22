@@ -794,8 +794,8 @@ namespace nest.core.security.Migrations.SqlServer
                     ES = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Nivel = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<int>(type: "int", nullable: false),
-                    NombreCorto = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    NombreCorto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     PadreId = table.Column<int>(type: "int", nullable: true),
                     PermiteMovimiento = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -3207,8 +3207,8 @@ namespace nest.core.security.Migrations.SqlServer
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<int>(type: "int", nullable: false),
-                    NombreCorto = table.Column<int>(type: "int", maxLength: 9, nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
                     ES = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CuentaContableTipoId = table.Column<int>(type: "int", nullable: false),

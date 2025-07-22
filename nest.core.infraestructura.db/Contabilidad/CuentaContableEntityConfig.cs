@@ -15,6 +15,8 @@ namespace nest.core.infraestructura.db.Contabilidad
                 .HasValueGenerator<GenericValueGenerator<int>>();
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
+            builder.Property(x => x.ES)
+                .HasMaxLength(1);
             builder.HasOne(x => x.CuentaContableTipo)
                 .WithMany()
                 .HasForeignKey(x => x.CuentaContableTipoId);

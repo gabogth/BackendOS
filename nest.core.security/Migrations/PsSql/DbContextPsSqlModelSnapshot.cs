@@ -1405,11 +1405,13 @@ namespace nest.core.security.Migrations.PsSql
                     b.Property<int>("Nivel")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Nombre")
-                        .HasColumnType("integer");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
-                    b.Property<int>("NombreCorto")
-                        .HasColumnType("integer");
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int?>("PadreId")
                         .HasColumnType("integer");
@@ -8413,12 +8415,13 @@ namespace nest.core.security.Migrations.PsSql
                     b.Property<int>("Nivel")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Nombre")
-                        .HasColumnType("integer");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
-                    b.Property<int>("NombreCorto")
+                    b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("integer");
+                        .HasColumnType("character varying(9)");
 
                     b.Property<int?>("PadreId")
                         .HasColumnType("integer");

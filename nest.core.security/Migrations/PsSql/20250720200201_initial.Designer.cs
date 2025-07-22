@@ -13,7 +13,7 @@ using nest.core.infraestructura.db.DbContext.Provider;
 namespace nest.core.security.Migrations.PsSql
 {
     [DbContext(typeof(DbContextPsSql))]
-    [Migration("20250720172536_initial")]
+    [Migration("20250720200201_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -1408,11 +1408,13 @@ namespace nest.core.security.Migrations.PsSql
                     b.Property<int>("Nivel")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Nombre")
-                        .HasColumnType("integer");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
-                    b.Property<int>("NombreCorto")
-                        .HasColumnType("integer");
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<int?>("PadreId")
                         .HasColumnType("integer");
@@ -8416,12 +8418,13 @@ namespace nest.core.security.Migrations.PsSql
                     b.Property<int>("Nivel")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Nombre")
-                        .HasColumnType("integer");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
-                    b.Property<int>("NombreCorto")
+                    b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("integer");
+                        .HasColumnType("character varying(9)");
 
                     b.Property<int?>("PadreId")
                         .HasColumnType("integer");

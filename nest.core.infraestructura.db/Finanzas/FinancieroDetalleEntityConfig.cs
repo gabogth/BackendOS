@@ -19,6 +19,8 @@ namespace nest.core.infraestructura.db.Finanzas
                 .HasMaxLength(11);
             builder.Property(x => x.Concepto)
                 .HasMaxLength(80);
+            builder.Property(x => x.ES)
+                .HasMaxLength(1);
             builder.HasOne(d => d.FinancieroCabecera)
                .WithMany(c => c.FinancieroDetalles)
                .HasForeignKey(d => d.FinancieroCabeceraId)

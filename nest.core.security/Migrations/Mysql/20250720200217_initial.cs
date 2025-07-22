@@ -1206,8 +1206,10 @@ namespace nest.core.security.Migrations.MySql
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Nivel = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<int>(type: "int", nullable: false),
-                    NombreCorto = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NombreCorto = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     PadreId = table.Column<int>(type: "int", nullable: true),
                     PermiteMovimiento = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
@@ -4830,8 +4832,10 @@ namespace nest.core.security.Migrations.MySql
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<int>(type: "int", nullable: false),
-                    NombreCorto = table.Column<int>(type: "int", maxLength: 9, nullable: false),
+                    Nombre = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    NombreCorto = table.Column<string>(type: "varchar(9)", maxLength: 9, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Activo = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     ES = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),

@@ -1405,11 +1405,13 @@ namespace nest.core.security.Migrations.MySql
                     b.Property<int>("Nivel")
                         .HasColumnType("int");
 
-                    b.Property<int>("Nombre")
-                        .HasColumnType("int");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<int>("NombreCorto")
-                        .HasColumnType("int");
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<int?>("PadreId")
                         .HasColumnType("int");
@@ -8413,12 +8415,13 @@ namespace nest.core.security.Migrations.MySql
                     b.Property<int>("Nivel")
                         .HasColumnType("int");
 
-                    b.Property<int>("Nombre")
-                        .HasColumnType("int");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
-                    b.Property<int>("NombreCorto")
+                    b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("int");
+                        .HasColumnType("varchar(9)");
 
                     b.Property<int?>("PadreId")
                         .HasColumnType("int");

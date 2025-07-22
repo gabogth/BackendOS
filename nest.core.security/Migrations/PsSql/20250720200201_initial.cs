@@ -795,8 +795,8 @@ namespace nest.core.security.Migrations.PsSql
                     ES = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     Id = table.Column<int>(type: "integer", nullable: false),
                     Nivel = table.Column<int>(type: "integer", nullable: false),
-                    Nombre = table.Column<int>(type: "integer", nullable: false),
-                    NombreCorto = table.Column<int>(type: "integer", nullable: false),
+                    Nombre = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    NombreCorto = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     PadreId = table.Column<int>(type: "integer", nullable: true),
                     PermiteMovimiento = table.Column<bool>(type: "boolean", nullable: false)
                 },
@@ -3208,8 +3208,8 @@ namespace nest.core.security.Migrations.PsSql
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false),
-                    Nombre = table.Column<int>(type: "integer", nullable: false),
-                    NombreCorto = table.Column<int>(type: "integer", maxLength: 9, nullable: false),
+                    Nombre = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    NombreCorto = table.Column<string>(type: "character varying(9)", maxLength: 9, nullable: true),
                     Activo = table.Column<bool>(type: "boolean", nullable: false),
                     ES = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     CuentaContableTipoId = table.Column<int>(type: "integer", nullable: false),

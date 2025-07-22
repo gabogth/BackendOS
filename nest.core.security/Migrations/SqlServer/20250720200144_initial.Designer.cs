@@ -13,7 +13,7 @@ using nest.core.infraestructura.db.DbContext.Provider;
 namespace nest.core.security.Migrations.SqlServer
 {
     [DbContext(typeof(DbContextSqlServer))]
-    [Migration("20250720172520_initial")]
+    [Migration("20250720200144_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -1408,11 +1408,13 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<int>("Nivel")
                         .HasColumnType("int");
 
-                    b.Property<int>("Nombre")
-                        .HasColumnType("int");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("NombreCorto")
-                        .HasColumnType("int");
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int?>("PadreId")
                         .HasColumnType("int");
@@ -8417,12 +8419,13 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<int>("Nivel")
                         .HasColumnType("int");
 
-                    b.Property<int>("Nombre")
-                        .HasColumnType("int");
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("NombreCorto")
+                    b.Property<string>("NombreCorto")
                         .HasMaxLength(9)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(9)");
 
                     b.Property<int?>("PadreId")
                         .HasColumnType("int");
