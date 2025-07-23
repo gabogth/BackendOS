@@ -5,6 +5,8 @@ using nest.core.dominio.Finanzas.MonedaEntities;
 using nest.core.dominio.Finanzas.OrigenFinancieroEntities;
 using nest.core.dominio.Finanzas.PuntoFinancieroEntities;
 using nest.core.dominio.Finanzas.ClienteEntities;
+using nest.core.dominio.Finanzas.FinancieroCabeceraEntities;
+using nest.core.dominio.Finanzas.FinancieroDetalleEntities;
 
 namespace nest.core.infraestructura.finanzas.Mapper
 {
@@ -18,6 +20,8 @@ namespace nest.core.infraestructura.finanzas.Mapper
             CreateMap<OrigenFinancieroCrearDto, OrigenFinanciero>();
             CreateMap<PuntoFinancieroCrearDto, PuntoFinanciero>();
             CreateMap<TerceroCrearDto, Tercero>();
+            CreateMap<FinancieroCabeceraCrearDto, FinancieroCabecera>();
+            CreateMap<FinancieroDetalleCrearDto, FinancieroDetalle>();
         }
     }
 }
