@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.Finanzas;
+using nest.core.dominio.Finanzas.MonedaEntities;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.Finanzas
 {
@@ -14,7 +15,7 @@ namespace nest.core.infraestructura.db.Finanzas
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<MonedaValueGenerator>();
+                .HasValueGenerator<GenericValueGenerator<int>>();
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
             builder.Property(x => x.Prefix)
@@ -39,9 +40,7 @@ namespace nest.core.infraestructura.db.Finanzas
     public class MonedaValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<Moneda>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<Moneda>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).Moneda.Max(x => x.Id));
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).Moneda.Max(x => x.Id), cancellationToken);
     }
 }

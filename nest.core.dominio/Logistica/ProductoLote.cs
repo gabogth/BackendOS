@@ -1,8 +1,9 @@
-﻿using nest.core.dominio.Finanzas;
+﻿using nest.core.dominio.Finanzas.MonedaEntities;
+using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Logistica
 {
-    public class ProductoLote
+    public class ProductoLote : IAuditable
     {
         public long Id { get; set; }
         public int ProductoId { get; set; }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using nest.core.dominio.Aplicacion.Formulario;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.Aplicacion
 {
@@ -45,13 +46,12 @@ namespace nest.core.infraestructura.db.Aplicacion
             };
             return roles;
         }
-    }
-    public class FormularioValueGenerator : ValueGenerator<int>
-    {
-        public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<Formulario>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<Formulario>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+
+        public class FormularioValueGenerator : ValueGenerator<int>
+        {
+            public override bool GeneratesTemporaryValues => false;
+            public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).Formulario.Max(x => x.Id));
+            public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).Formulario.Max(x => x.Id), cancellationToken);
+        }
     }
 }

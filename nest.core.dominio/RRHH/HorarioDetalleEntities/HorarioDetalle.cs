@@ -1,18 +1,25 @@
 ﻿using nest.core.dominio.RRHH.GrupoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
+using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.HorarioDetalleEntities
 {
-    public class HorarioDetalle
+    public enum DayOfWeek: byte
+    {
+        Domingo = 0,
+        Lunes = 1,
+        Martes = 2,
+        Miercoles = 3,
+        Jueves = 4,
+        Viernes = 5,
+        Sabado = 6
+    }
+    public class HorarioDetalle : IAuditable, IEntity<int>
     {
         public int Id { get; set; }
         public int HorarioCabeceraId { get; set; }
-        public byte DiaSemana { get; set; }
+        public DayOfWeek DiaSemana { get; set; }
         public int GrupoHorarioId { get; set; }
-        public string UsuarioCreacion { get; set; }
-        public string UsuarioModificacion { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public DateTime FechaModificacion { get; set; }
         public HorarioCabecera HorarioCabecera { get; set; }
         public GrupoHorario GrupoHorario { get; set; }
     }

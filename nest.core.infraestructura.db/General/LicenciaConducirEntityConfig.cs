@@ -1,16 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.General;
+using nest.core.dominio.General.LicenciaConducirEntities;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.General
 {
     public class LicenciaConducirEntityConfig : IEntityTypeConfiguration<LicenciaConducir>
     {
+        public static readonly string SCHEMA = "dbo";
+        public static readonly string TABLE = "licencia_conducir";
         public void Configure(EntityTypeBuilder<LicenciaConducir> builder)
         {
-            builder.ToTable("licencia_conducir", "dbo");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -35,13 +38,10 @@ namespace nest.core.infraestructura.db.General
             return roles;
         }
     }
-
-    public class LicenciaConducirValueGenerator : ValueGenerator<int>
+    public class LicenciaConducirValueGenerator : ValueGenerator<byte>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<LicenciaConducir>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<LicenciaConducir>().MaxAsync(g => (byte?)g.Id, cancellationToken) ?? 0) + 1;
+        public override byte Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<byte>(entry, object () => (int)((NestDbContext)entry.Context).LicenciaConducir.Max(x => x.Id));
+        public override async ValueTask<byte> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<byte>(entry, object () => (int)((NestDbContext)entry.Context).LicenciaConducir.Max(x => x.Id), cancellationToken);
     }
 }

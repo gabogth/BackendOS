@@ -1,6 +1,9 @@
-﻿namespace nest.core.dominio.Aplicacion.Modulo
+using nest.core.dominio.Security.Audit;
+using nest.core.dominio;
+
+namespace nest.core.dominio.Aplicacion.Modulo
 {
-    public class Modulo
+    public class Modulo : IAuditable, IEntity<int>
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -10,7 +13,5 @@
         public string Action { get; set; }
         public string Controlador { get; set; }
         public bool Estado { get; set; }
-        public DateTime FechaCreacion { get; set; } = DateTime.Now;
-        public DateTime FechaModificacion { get; set; } = DateTime.Now;
     }
 }

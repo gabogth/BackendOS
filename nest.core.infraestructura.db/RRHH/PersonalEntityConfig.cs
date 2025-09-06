@@ -12,20 +12,26 @@ namespace nest.core.infraestructura.db.RRHH
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever();
-            builder.Property(x => x.Nombres)
-                .HasMaxLength(120);
-            builder.Property(x => x.ApellidoPaterno)
-                .HasMaxLength(120);
-            builder.Property(x => x.ApellidoMaterno)
-                .HasMaxLength(120);
-            builder.Property(x => x.DocumentoIdentidad)
-                .HasMaxLength(25);
-            builder.Property(x => x.Correo)
-                .HasMaxLength(120);
-            builder.Property(x => x.Celular)
-                .HasMaxLength(25);
-            builder.Property(x => x.Usuario)
-                .HasMaxLength(90);
+            builder.HasOne(x => x.Persona)
+                .WithMany()
+                .HasForeignKey(x => x.Id)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.HorarioCabecera)
+                .WithMany()
+                .HasForeignKey(x => x.HorarioCabeceraId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.ContratoCabecera)
+                .WithMany()
+                .HasForeignKey(x => x.ContratoCabeceraId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.Superior)
+                .WithMany(x => x.Children)
+                .HasForeignKey(x => x.SuperiorId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.PersonalEstado)
+                .WithMany()
+                .HasForeignKey(x => x.PersonalEstadoId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

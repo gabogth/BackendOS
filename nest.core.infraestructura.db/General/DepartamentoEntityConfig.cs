@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.General;
+using nest.core.dominio.General.DepartamentoEntites;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.General
 {
-    internal class DepartamentoEntityConfig : IEntityTypeConfiguration<Departamento>
+    public class DepartamentoEntityConfig : IEntityTypeConfiguration<Departamento>
     {
         public void Configure(EntityTypeBuilder<Departamento> builder)
         {
@@ -56,9 +57,7 @@ namespace nest.core.infraestructura.db.General
     public class DepartamentoValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<Departamento>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<Departamento>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).Departamento.Max(x => x.Id));
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).Departamento.Max(x => x.Id), cancellationToken);
     }
 }

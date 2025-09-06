@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using nest.core.dominio;
-using nest.core.aplicacion.logistica;
 using nest.core.dominio.Logistica.AlmacenEN;
 using Microsoft.AspNetCore.Authorization;
+using nest.core.aplicacion.logistica.AlmacenServices;
 
 namespace nest.core.logistica.Controllers
 {
@@ -49,7 +49,7 @@ namespace nest.core.logistica.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
 
@@ -73,7 +73,7 @@ namespace nest.core.logistica.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
 
@@ -96,7 +96,7 @@ namespace nest.core.logistica.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
 
@@ -120,7 +120,7 @@ namespace nest.core.logistica.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
 
@@ -145,7 +145,7 @@ namespace nest.core.logistica.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
 
@@ -169,7 +169,7 @@ namespace nest.core.logistica.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
     }

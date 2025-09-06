@@ -1,0 +1,6 @@
+@nest.core.finanzas_HostAddress = http://localhost:5117
+
+GET {{nest.core.finanzas_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

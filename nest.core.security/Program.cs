@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using nest.core.aplication.auth;
 using nest.core.dominio.Security;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.security.Extensions;
@@ -20,12 +19,16 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: true)
                      .AddJsonFile($"empresas.json", optional: false, reloadOnChange: true)
                      .AddUserSecrets<Program>()
                      .AddEnvironmentVariables();
-builder.Services.AddDbContext<NestDbContext>();
-builder.Services
-    .AddIdentity<ApplicationUser, ApplicationRole>()
-    .AddEntityFrameworkStores<NestDbContext>()
-    .AddDefaultTokenProviders()
-    .AddApiEndpoints();
+if (MigrationService.IsMigration())
+    MigrationResolver.PickProvider(builder);
+else
+{
+    builder.Services.AddDbContext<NestDbContext>();
+    builder.Services
+        .AddIdentity<ApplicationUser, ApplicationRole>()
+        .AddEntityFrameworkStores<NestDbContext>();
+}
+
 builder.Services.ConfigureAplication(builder.Configuration);
 builder.Services.AddHealthChecks().AddCheck("self", () => HealthCheckResult.Healthy(), ["live"]);
 builder.Services.AddCors(options =>
@@ -102,7 +105,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-//app.MapIdentityApi<ApplicationUser>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

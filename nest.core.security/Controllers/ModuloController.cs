@@ -51,7 +51,7 @@ namespace nest.core.security.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
 
@@ -77,7 +77,7 @@ namespace nest.core.security.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
 
@@ -103,7 +103,7 @@ namespace nest.core.security.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
 
@@ -129,7 +129,7 @@ namespace nest.core.security.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
 
@@ -156,7 +156,7 @@ namespace nest.core.security.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
 
@@ -181,7 +181,7 @@ namespace nest.core.security.Controllers
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
-                return BadRequest(new ErrorMessage { Server = true, Message = ex.Message });
+                return BadRequest(GenerateMessage.Create(ex));
             }
         }
     }

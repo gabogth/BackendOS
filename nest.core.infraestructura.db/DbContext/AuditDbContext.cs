@@ -1,93 +1,84 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using MySqlConnector;
 using nest.core.dominio.Security.Audit;
+using Npgsql;
+using System.Reflection;
 
 namespace nest.core.infraestructura.db.DbContext
 {
     public partial class NestDbContext
     {
-        public DbSet<AuditLog> AuditLogs { get; set; }
+        public DbSet<CorrelativoMaestro> CorrelativoMaestro { get; set; }
+        
         public override int SaveChanges()
         {
-            List<AuditEntry> auditEntries = OnBeforeSaveChanges();
-            int result = base.SaveChanges();
-            OnAfterSaveChanges(auditEntries);
-            return result;
+            MakeAudit();
+            return base.SaveChanges();
         }
-
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            List<AuditEntry> auditEntries = OnBeforeSaveChanges();
-            int result = await base.SaveChangesAsync(cancellationToken);
-            await OnAfterSaveChangesAsync(auditEntries);
-            return result;
+            MakeAudit();
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
-        private List<AuditEntry> OnBeforeSaveChanges()
+        private void MakeAudit()
         {
-            ChangeTracker.DetectChanges();
-            var auditEntries = new List<AuditEntry>();
-            IEnumerable<EntityEntry> entries = ChangeTracker.Entries();
-
-            foreach (EntityEntry entry in entries)
+            var entries = ChangeTracker.Entries().Where(e => e.Entity is IAuditable && e.State != EntityState.Unchanged).ToList();
+            string appName = GetAppName();
+            foreach (var e in entries)
             {
-                if (entry.Entity is AuditLog || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
-                    continue;
-
-                var entityType = entry.Entity.GetType();
-                var entityTypeModel = ChangeTracker.Context.Model.FindEntityType(entityType);
-                var schema = entityTypeModel.GetSchema() ?? "dbo";
-                var tableName = entityTypeModel.GetTableName();
-
-                AuditEntry auditEntry = new AuditEntry(entry)
-                {
-                    Tabla = $"{schema}.{tableName}",
-                    Accion = entry.State.ToString(),
-                    Fecha = DateTime.Now,
-                    Usuario = this.usuario
-                };
-
-                foreach (PropertyEntry property in entry.Properties)
-                {
-                    string propertyName = property.Metadata.Name;
-                    if (propertyName == "Id")
-                        auditEntry.EntidadId = property.CurrentValue?.ToString();
-                    if (entry.State == EntityState.Added)
-                        auditEntry.NewValues[propertyName] = property.CurrentValue;
-                    else if (entry.State == EntityState.Deleted)
-                        auditEntry.OldValues[propertyName] = property.OriginalValue;
-                    else if (entry.State == EntityState.Modified)
-                        if (property.IsModified)
-                        {
-                            auditEntry.OldValues[propertyName] = property.OriginalValue;
-                            auditEntry.NewValues[propertyName] = property.CurrentValue;
-                        }
-                }
-                auditEntries.Add(auditEntry);
+                string auditEntityName = string.Empty;
+                Dictionary<string, object?> entry = GenerateEntityParams(e, appName, ref auditEntityName);
+                Set<Dictionary<string, object>>(auditEntityName).Add(entry);
             }
-            return auditEntries;
         }
 
-        private void OnAfterSaveChanges(List<AuditEntry> auditEntries)
+        private Dictionary<string, object?> GenerateEntityParams(EntityEntry entry, string appName, ref string auditEntityName)
         {
-            if (auditEntries == null || auditEntries.Count == 0)
-                return;
+            auditEntityName = $"{entry.Metadata.ClrType.Name}Audit";
+            var auditRow = new Dictionary<string, object?>();
 
-            foreach (var auditEntry in auditEntries)
-                AuditLogs.Add(auditEntry.ToAuditLog());
+            foreach (var prop in entry.Properties)
+                auditRow[prop.Metadata.Name] = prop.CurrentValue;
 
-            SaveChanges();
+            auditRow["AuditFecha"] = DateTime.Now;
+            auditRow["AuditAccion"] = entry.State.ToString();
+            auditRow["AuditUsuario"] = usuario;
+            auditRow["AuditApp"] = appName;
+            auditRow["AuditAppVersion"] = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+            auditRow["AuditAssemblyName"] = Assembly.GetExecutingAssembly().GetName().Name?.ToString();
+            auditRow["AuditRequestId"] = requestParameters.RequestId;
+            auditRow["AuditPath"] = requestParameters.Path;
+            auditRow["AuditMethod"] = requestParameters.Method;
+            auditRow["AuditIpRemoteOrigin"] = requestParameters.IpRemoteOrigin;
+            auditRow["AuditUserAgent"] = requestParameters.UserAgent;
+            auditRow["AuditCurrentCulture"] = requestParameters.CurrentCulture;
+            auditRow["AuditContentType"] = requestParameters.ContentType;
+            auditRow["AuditIsHttps"] = requestParameters.IsHttps;
+            auditRow["AuditHost"] = requestParameters.Host;
+            auditRow["AuditProtocol"] = requestParameters.Protocol;
+            auditRow["AuditQueryString"] = requestParameters.QueryString;
+            auditRow["AuditAcceptLanguage"] = requestParameters.AcceptLanguage;
+            auditRow["AuditOrigin"] = requestParameters.Origin;
+            auditRow["AuditReferer"] = requestParameters.Referer;
+            auditRow["AuditPlatform"] = requestParameters.Platform;
+            auditRow["AuditUa"] = requestParameters.Ua;
+
+            return auditRow;
         }
 
-        private async Task OnAfterSaveChangesAsync(List<AuditEntry> auditEntries)
+        private string GetAppName()
         {
-            if (auditEntries == null || auditEntries.Count == 0)
-                return;
-
-            foreach (var auditEntry in auditEntries)
-                AuditLogs.Add(auditEntry.ToAuditLog());
-
-            await SaveChangesAsync();
+            string cs = Database.GetConnectionString();
+            return Database.IsSqlServer()
+                ? new SqlConnectionStringBuilder(cs).ApplicationName
+                : Database.IsNpgsql()
+                ? new NpgsqlConnectionStringBuilder(cs).ApplicationName
+                : Database.IsMySql()
+                ? new MySqlConnectionStringBuilder(cs).ApplicationName
+                : null;
         }
     }
 }

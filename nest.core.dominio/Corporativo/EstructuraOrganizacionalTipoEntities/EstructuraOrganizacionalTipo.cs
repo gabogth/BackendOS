@@ -1,0 +1,13 @@
+﻿using nest.core.dominio.Security.Audit;
+
+namespace nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities
+{
+    public class EstructuraOrganizacionalTipo : IAuditable, IEntity<int>
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string NombreCorto { get; set; }
+        public string Descripcion { get; set; }
+        public bool Estado { get; set; }
+    }
+}

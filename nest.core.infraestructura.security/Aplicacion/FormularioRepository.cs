@@ -1,34 +1,22 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.Aplicacion.Modulo;
+using nest.core.dominio.Cache;
 using nest.core.dominio.Aplicacion.Formulario;
-using nest.core.infrastructura.utils.Excepciones;
+using nest.core.infraestructura.db.Cache;
 using nest.core.infraestructura.db.DbContext;
-using nest.core.dominio.RRHH.CargoEntities;
 
 namespace nest.core.infraestructura.security.Aplicacion
 {
-    public class FormularioRepository: IFormularioRepository
+    public class FormularioRepository: CachedRepositoryBase<Formulario, FormularioCrearDto, int>, IFormularioRepository
     {
-        private readonly NestDbContext context;
-        private readonly IMapper mapper;
-        public FormularioRepository(NestDbContext context, IMapper mapper)
-        {
-            this.context = context;
-            this.mapper = mapper;
-        }
-        public async Task<Formulario> ObtenerPorId(int id)
-        {
-            return await context.Formulario.Where(x => x.Id == id).FirstOrDefaultAsync();
-        }
-        public async Task<List<Formulario>> ObtenerPorModuloId(int moduloId)
-        {
-            return await context.Formulario.AsNoTracking().Where(x => x.ModuloId == moduloId).ToListAsync();
-        }
-        public async Task<List<Formulario>> ObtenerTodos()
-        {
-            return await context.Formulario.ToListAsync();
-        }
+        public FormularioRepository(NestDbContext context, IMapper mapper, ICacheRepository cache) : base(context, mapper, cache) { }
+        public async Task<Formulario> ObtenerPorId(int id) => await GetByIdAsync(id);
+        public async Task<List<Formulario>> ObtenerPorModuloId(int moduloId) => 
+            await context.Formulario
+                .AsNoTracking()
+                .Where(x => x.ModuloId == moduloId)
+                .ToListAsync();
+        public async Task<List<Formulario>> ObtenerTodos() => await GetAllAsync();
         public async Task<List<Formulario>> ObtenerPorUnaPropiedad(Dictionary<string, object> filtros)
         {
             IQueryable<Formulario> query = context.Formulario;
@@ -52,30 +40,9 @@ namespace nest.core.infraestructura.security.Aplicacion
         public async Task<Formulario> Agregar(FormularioCrearDto entry)
         {
             entry.ParentId = entry.ParentId == 0 ? null : entry.ParentId;
-            Formulario entryFine = mapper.Map<Formulario>(entry);
-            await context.Formulario.AddAsync(entryFine);
-            await context.SaveChangesAsync();
-            await context.Entry(entryFine).ReloadAsync();
-            return entryFine;
+            return await AddAsync(entry);
         }
-        public async Task<Formulario> Modificar(int id, FormularioCrearDto entry)
-        {
-            Formulario find = await context.Formulario.FirstOrDefaultAsync(x => x.Id == id);
-            if (find == null)
-                throw new RegistroNoEncontradoException<Formulario>(id);
-            mapper.Map(entry, find);
-            find.FechaModificacion = DateTime.Now;
-            await context.SaveChangesAsync();
-            await context.Entry(find).ReloadAsync();
-            return find;
-        }
-        public async Task Eliminar(int id)
-        {
-            var existente = await context.Formulario.FindAsync(id);
-            if (existente == null)
-                throw new RegistroNoEncontradoException<Cargo>(id);
-            context.Formulario.Remove(existente);
-            context.SaveChanges();
-        }
+        public async Task<Formulario> Modificar(int id, FormularioCrearDto entry) => await UpdateAsync(id, entry);
+        public async Task Eliminar(int id) => await DeleteAsync(id);
     }
 }

@@ -39,6 +39,90 @@
         }
       ]
     },
+    {
+      "UpstreamPathTemplate": "/corporativo/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8384
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/legal/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8385
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/general/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8386
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/costos/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8387
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/finanzas/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8388
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/contabilidad/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8389
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/mantto/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8390
+        }
+      ]
+    },
 
     //Start Region [Swagger config]
 
@@ -80,6 +164,97 @@
           "Port": 8383
         }
       ]
+    },
+    {
+      "SwaggerKey": "corporativo",
+      "UpstreamPathTemplate": "/corporativo/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8384
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "legal",
+      "UpstreamPathTemplate": "/legal/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8385
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "general",
+      "UpstreamPathTemplate": "/general/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8386
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "costos",
+      "UpstreamPathTemplate": "/costos/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8387
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "finanzas",
+      "UpstreamPathTemplate": "/finanzas/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8388
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "contabilidad",
+      "UpstreamPathTemplate": "/contabilidad/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8389
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "mantto",
+      "UpstreamPathTemplate": "/mantto/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8390
+        }
+      ]
     }
     //End Region [Swagger config]
   ],
@@ -111,6 +286,76 @@
           "Name": "API RRHH",
           "Version": "v1",
           "Url": "https://localhost:8383/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "corporativo",
+      "Config": [
+        {
+          "Name": "API Corporativo",
+          "Version": "v1",
+          "Url": "https://localhost:8384/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "legal",
+      "Config": [
+        {
+          "Name": "API Legal",
+          "Version": "v1",
+          "Url": "https://localhost:8385/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "general",
+      "Config": [
+        {
+          "Name": "API General",
+          "Version": "v1",
+          "Url": "https://localhost:8386/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "costos",
+      "Config": [
+        {
+          "Name": "API Costos",
+          "Version": "v1",
+          "Url": "https://localhost:8387/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "finanzas",
+      "Config": [
+        {
+          "Name": "API Finanzas",
+          "Version": "v1",
+          "Url": "https://localhost:8388/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "contabilidad",
+      "Config": [
+        {
+          "Name": "API Contabilidad",
+          "Version": "v1",
+          "Url": "https://localhost:8389/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "mantto",
+      "Config": [
+        {
+          "Name": "API Mantto",
+          "Version": "v1",
+          "Url": "https://localhost:8390/swagger/v1/swagger.json"
         }
       ]
     }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.RRHH.CargoEntities;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.RRHH
 {
@@ -29,13 +30,10 @@ namespace nest.core.infraestructura.db.RRHH
             return roles;
         }
     }
-
     public class CargoValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) => 
-            (entry.Context.Set<Cargo>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => 
-            (await entry.Context.Set<Cargo>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).Cargos.Max(x => x.Id));
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).Cargos.Max(x => x.Id), cancellationToken);
     }
 }

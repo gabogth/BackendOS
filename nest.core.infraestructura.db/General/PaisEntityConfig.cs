@@ -1,17 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.General;
+using nest.core.dominio.General.PaisEntities;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.General
 {
     public class PaisEntityConfig : IEntityTypeConfiguration<Pais>
     {
+        public static readonly string SCHEMA = "dbo";
+        public static readonly string TABLE = "pais";
         public void Configure(EntityTypeBuilder<Pais> builder)
         {
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
-            builder.ToTable("pais", "dbo");
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<PaisValueGenerator>();
@@ -50,13 +53,10 @@ namespace nest.core.infraestructura.db.General
         }
 
     }
-
     public class PaisValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<Pais>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<Pais>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).Pais.Max(x => x.Id));
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).Pais.Max(x => x.Id), cancellationToken);
     }
 }

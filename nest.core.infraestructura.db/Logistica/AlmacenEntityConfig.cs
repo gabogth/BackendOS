@@ -3,14 +3,17 @@ using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.Logistica.AlmacenEN;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.Logistica
 {
     public class AlmacenEntityConfig : IEntityTypeConfiguration<Almacen>
     {
+        public static readonly string SCHEMA = "logistica";
+        public static readonly string TABLE = "almacen";
         public void Configure(EntityTypeBuilder<Almacen> builder)
         {
-            builder.ToTable("almacen", "logistica");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -43,9 +46,7 @@ namespace nest.core.infraestructura.db.Logistica
     public class AlmacenValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) =>
-            (entry.Context.Set<Almacen>().Max(g => (int?)g.Id) ?? 0) + 1;
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (await entry.Context.Set<Almacen>().MaxAsync(g => (int?)g.Id, cancellationToken) ?? 0) + 1;
+        public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).Almacen.Max(x => x.Id));
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).Almacen.Max(x => x.Id), cancellationToken);
     }
 }

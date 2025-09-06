@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.General;
 using nest.core.dominio.General.SexoEntities;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.GrupoHorarioEntities;
+using nest.core.dominio.RRHH.GrupoTrabajoEntities;
+using nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
-using nest.core.dominio.RRHH.PersonalConfiguracionEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
+using nest.core.dominio.RRHH.PersonalEstadoEntities;
 
 namespace nest.core.infraestructura.db.DbContext
 {
@@ -14,11 +15,12 @@ namespace nest.core.infraestructura.db.DbContext
     {
         public DbSet<Cargo> Cargos { get; set; }
         public DbSet<GrupoHorario> GrupoHorarios { get; set; }
+        public DbSet<GrupoTrabajo> GrupoTrabajo { get; set; }
+        public DbSet<GrupoTrabajoPersona> GrupoTrabajoPersona { get; set; }
         public DbSet<HorarioCabecera> HorarioCabeceras { get; set; }
         public DbSet<HorarioDetalle> HorarioDetalles { get; set; }
-        public DbSet<LicenciaConducir> LicenciasConducir { get; set; }
-        public DbSet<PersonalConfiguracion> PersonalesConfiguracion { get; set; }
         public DbSet<Personal> Personales { get; set; }
+        public DbSet<PersonalEstado> PersonalEstado { get; set; }
         public DbSet<Sexo> Sexos { get; set; }
     }
 }

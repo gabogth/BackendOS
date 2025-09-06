@@ -1,6 +1,8 @@
-﻿namespace nest.core.dominio.Logistica.Transaccional
+﻿using nest.core.dominio.Security.Audit;
+
+namespace nest.core.dominio.Logistica.Transaccional
 {
-    public class InventarioDetalle
+    public class InventarioDetalle : IAuditable
     {
         public long Id { get; set; }
         public long InventarioCabeceraId { get; set; }

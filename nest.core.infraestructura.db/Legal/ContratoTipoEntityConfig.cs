@@ -1,16 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using nest.core.dominio.Legal;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
+using nest.core.dominio.Legal.ContratoTipoEntities;
+using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.db.Legal
 {
     internal class ContratoTipoEntityConfig : IEntityTypeConfiguration<ContratoTipo>
     {
+        public static readonly string SCHEMA = "legal";
+        public static readonly string TABLE = "contrato_tipo";
         public void Configure(EntityTypeBuilder<ContratoTipo> builder)
         {
-            builder.ToTable("contrato_tipo", "legal");
+            builder.ToTable(TABLE, SCHEMA);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
@@ -34,9 +37,7 @@ namespace nest.core.infraestructura.db.Legal
     public class ContratoTipoValueGenerator : ValueGenerator<byte>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override byte Next(EntityEntry entry) =>
-            (byte)((entry.Context.Set<ContratoTipo>().Max(g => (byte?)g.Id) ?? 0) + 1);
-        public override async ValueTask<byte> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) =>
-            (byte)((await entry.Context.Set<ContratoTipo>().MaxAsync(g => (byte?)g.Id, cancellationToken) ?? 0) + 1);
+        public override byte Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<byte>(entry, object () => (int)((NestDbContext)entry.Context).ContratoTipo.Max(x => x.Id));
+        public override async ValueTask<byte> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<byte>(entry, object () => (int)((NestDbContext)entry.Context).ContratoTipo.Max(x => x.Id), cancellationToken);
     }
 }
