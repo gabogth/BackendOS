@@ -37,4 +37,8 @@
     <ProjectReference Include="..\nest.core.infraestructura.db\nest.core.infraestructura.db.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

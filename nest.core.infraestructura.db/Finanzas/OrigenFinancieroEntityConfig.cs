@@ -23,22 +23,22 @@ namespace nest.core.infraestructura.db.Finanzas
         {
             List<OrigenFinanciero> entities = new List<OrigenFinanciero>()
             {
-                new OrigenFinanciero { Id = 1, Nombre = "Compras nacionales", NombreCorto = "COMP_NAC", Naturaleza = "D", Activo = true },
-                new OrigenFinanciero { Id = 2, Nombre = "Compras internacionales", NombreCorto = "COMP_INT", Naturaleza = "D", Activo = true },
-                new OrigenFinanciero { Id = 3, Nombre = "Compras de servicios", NombreCorto = "COMP_SERV", Naturaleza = "D", Activo = true },
-                new OrigenFinanciero { Id = 4, Nombre = "Ventas de productos", NombreCorto = "VENTA_PROD", Naturaleza = "A", Activo = true },
-                new OrigenFinanciero { Id = 5, Nombre = "Ventas de servicios", NombreCorto = "VENTA_SERV", Naturaleza = "A", Activo = true },
-                new OrigenFinanciero { Id = 6, Nombre = "Planillas y remuneraciones", NombreCorto = "PLANILLA", Naturaleza = "D", Activo = true },
-                new OrigenFinanciero { Id = 7, Nombre = "Nota de crédito emitida", NombreCorto = "NC_EMITIDA", Naturaleza = "D", Activo = true },
-                new OrigenFinanciero { Id = 8, Nombre = "Nota de crédito recibida", NombreCorto = "NC_RECIBIDA", Naturaleza = "A", Activo = true },
-                new OrigenFinanciero { Id = 9, Nombre = "Anticipos de clientes", NombreCorto = "ANT_CLIENTE", Naturaleza = "A", Activo = true },
-                new OrigenFinanciero { Id = 10, Nombre = "Anticipos a proveedores", NombreCorto = "ANT_PROV", Naturaleza = "D", Activo = true },
-                new OrigenFinanciero { Id = 11, Nombre = "Reembolso a trabajadores", NombreCorto = "REEMB_TRAB", Naturaleza = "D", Activo = true },
-                new OrigenFinanciero { Id = 12, Nombre = "Otros ingresos", NombreCorto = "OT_ING", Naturaleza = "A", Activo = true },
-                new OrigenFinanciero { Id = 13, Nombre = "Otros egresos", NombreCorto = "OT_EGR", Naturaleza = "D", Activo = true },
-                new OrigenFinanciero { Id = 14, Nombre = "Intereses y comisiones bancarias", NombreCorto = "GAS_BANC", Naturaleza = "D", Activo = true },
-                new OrigenFinanciero { Id = 15, Nombre = "Devoluciones a clientes", NombreCorto = "DEV_CLI", Naturaleza = "D", Activo = true },
-                new OrigenFinanciero { Id = 16, Nombre = "Devoluciones de proveedores", NombreCorto = "DEV_PROV", Naturaleza = "A", Activo = true }
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.COMPRAS_NACIONALES, Nombre = "Compras nacionales", NombreCorto = "COMP_NAC", Naturaleza = "D", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.COMPRAS_INTERNACIONALES, Nombre = "Compras internacionales", NombreCorto = "COMP_INT", Naturaleza = "D", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.COMPRAS_SERVICIOS, Nombre = "Compras de servicios", NombreCorto = "COMP_SERV", Naturaleza = "D", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.VENTA_PRODUCTOS, Nombre = "Ventas de productos", NombreCorto = "VENTA_PROD", Naturaleza = "A", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.VENTA_SERVICIOS, Nombre = "Ventas de servicios", NombreCorto = "VENTA_SERV", Naturaleza = "A", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.PLANILLA, Nombre = "Planillas y remuneraciones", NombreCorto = "PLANILLA", Naturaleza = "D", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.NOTA_CREDITO_EMITIDA, Nombre = "Nota de crédito emitida", NombreCorto = "NC_EMITIDA", Naturaleza = "D", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.NOTA_CREDITO_RECIBIDA, Nombre = "Nota de crédito recibida", NombreCorto = "NC_RECIBIDA", Naturaleza = "A", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.ANTICIPO_CLIENTE, Nombre = "Anticipos de clientes", NombreCorto = "ANT_CLIENTE", Naturaleza = "A", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.ANTICIPO_PROVEEDOR, Nombre = "Anticipos a proveedores", NombreCorto = "ANT_PROV", Naturaleza = "D", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.REEMBOLSO_TRABAJADOR, Nombre = "Reembolso a trabajadores", NombreCorto = "REEMB_TRAB", Naturaleza = "D", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.OTROS_INGRESOS, Nombre = "Otros ingresos", NombreCorto = "OT_ING", Naturaleza = "A", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.OTROS_EGRESOS, Nombre = "Otros egresos", NombreCorto = "OT_EGR", Naturaleza = "D", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.COMISIONES_BANCARIOS, Nombre = "Intereses y comisiones bancarias", NombreCorto = "GAS_BANC", Naturaleza = "D", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.DEVOLUCIONES_CLIENTES, Nombre = "Devoluciones a clientes", NombreCorto = "DEV_CLI", Naturaleza = "D", Activo = true },
+                new OrigenFinanciero { Id = (short)OrigenFinanciero.OrigenFinancieroEnum.DEVOLUCIONES_PROVEEDORES, Nombre = "Devoluciones de proveedores", NombreCorto = "DEV_PROV", Naturaleza = "A", Activo = true }
             };
             return entities;
         }

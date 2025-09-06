@@ -1,37 +1,30 @@
 version: "3"
 services:
-  sqlserver:
+  sqlserverimage:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+    container_name: sqlserverimage
     restart: always
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=123Lucia01
-      - MSSQL_PID=Express
+      - MSSQL_SA_PASSWORD=4N&XY&d_0y6+
     ports:
-      - "1434:1433"
-    volumes:
-      - sql_data:/var/opt/mssql
-    networks:
-      - nestnetwork
-
-  security:
-    build:
-        context: .
-        dockerfile: security.dockerfile
-        args:
-          ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
-          ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
-    container_name: security
-    restart: on-failure
+      - "1433:1433"
+  postgresimage:
+    image: postgres
+    container_name: postgresimage
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=4N&XY&d_0y6+
     ports:
-      - "8080:8080"
-    env_file:
-      - .env
-    networks:
-      - nestnetwork
-    depends_on:
-      - sqlserver
+      - "5431:5432"
+  mysqlimage:
+    image: mysql
+    container_name: mysqlimage
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+    ports:
+      - "3305:3306"
 
 
 volumes:

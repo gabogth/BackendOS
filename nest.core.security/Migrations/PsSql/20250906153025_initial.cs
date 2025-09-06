@@ -1314,6 +1314,7 @@ namespace nest.core.security.Migrations.PsSql
                     FechaVencimiento = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     FinancieroCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    Item = table.Column<short>(type: "smallint", nullable: false),
                     Monto = table.Column<decimal>(type: "numeric(18,4)", precision: 18, scale: 4, nullable: false),
                     NumeroDocumento = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     SerieDocumento = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
@@ -2420,7 +2421,7 @@ namespace nest.core.security.Migrations.PsSql
                     Id = table.Column<short>(type: "smallint", nullable: false),
                     Nombre = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "character varying(9)", maxLength: 9, nullable: true),
-                    Naturaleza = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    Naturaleza = table.Column<string>(type: "character varying(1)", maxLength: 1, nullable: true),
                     Activo = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -3211,7 +3212,7 @@ namespace nest.core.security.Migrations.PsSql
                     Nombre = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "character varying(9)", maxLength: 9, nullable: true),
                     Activo = table.Column<bool>(type: "boolean", nullable: false),
-                    ES = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    ES = table.Column<string>(type: "character varying(1)", maxLength: 1, nullable: true),
                     CuentaContableTipoId = table.Column<int>(type: "integer", nullable: false),
                     Nivel = table.Column<int>(type: "integer", nullable: false),
                     PadreId = table.Column<int>(type: "integer", nullable: true),
@@ -4182,6 +4183,7 @@ namespace nest.core.security.Migrations.PsSql
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     FinancieroCabeceraId = table.Column<long>(type: "bigint", nullable: false),
+                    Item = table.Column<short>(type: "smallint", nullable: false),
                     TerceroId = table.Column<int>(type: "integer", nullable: false),
                     FechaEmision = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     FechaVencimiento = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -4192,7 +4194,7 @@ namespace nest.core.security.Migrations.PsSql
                     Concepto = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: true),
                     Monto = table.Column<decimal>(type: "numeric(18,4)", precision: 18, scale: 4, nullable: false),
                     CuentaCorrienteId = table.Column<int>(type: "integer", nullable: true),
-                    ES = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true)
+                    ES = table.Column<string>(type: "character varying(1)", maxLength: 1, nullable: true)
                 },
                 constraints: table =>
                 {

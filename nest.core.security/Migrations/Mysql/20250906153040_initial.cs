@@ -2002,6 +2002,7 @@ namespace nest.core.security.Migrations.MySql
                     FechaVencimiento = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     FinancieroCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    Item = table.Column<short>(type: "smallint", nullable: false),
                     Monto = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
                     NumeroDocumento = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -3678,7 +3679,7 @@ namespace nest.core.security.Migrations.MySql
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NombreCorto = table.Column<string>(type: "varchar(9)", maxLength: 9, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Naturaleza = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                    Naturaleza = table.Column<string>(type: "varchar(1)", maxLength: 1, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Activo = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
@@ -4837,7 +4838,7 @@ namespace nest.core.security.Migrations.MySql
                     NombreCorto = table.Column<string>(type: "varchar(9)", maxLength: 9, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Activo = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ES = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                    ES = table.Column<string>(type: "varchar(1)", maxLength: 1, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CuentaContableTipoId = table.Column<int>(type: "int", nullable: false),
                     Nivel = table.Column<int>(type: "int", nullable: false),
@@ -5890,6 +5891,7 @@ namespace nest.core.security.Migrations.MySql
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     FinancieroCabeceraId = table.Column<long>(type: "bigint", nullable: false),
+                    Item = table.Column<short>(type: "smallint", nullable: false),
                     TerceroId = table.Column<int>(type: "int", nullable: false),
                     FechaEmision = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     FechaVencimiento = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -5903,7 +5905,7 @@ namespace nest.core.security.Migrations.MySql
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Monto = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
                     CuentaCorrienteId = table.Column<int>(type: "int", nullable: true),
-                    ES = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true)
+                    ES = table.Column<string>(type: "varchar(1)", maxLength: 1, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>

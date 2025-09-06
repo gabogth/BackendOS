@@ -1313,6 +1313,7 @@ namespace nest.core.security.Migrations.SqlServer
                     FechaVencimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FinancieroCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    Item = table.Column<short>(type: "smallint", nullable: false),
                     Monto = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
                     NumeroDocumento = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     SerieDocumento = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -2419,7 +2420,7 @@ namespace nest.core.security.Migrations.SqlServer
                     Id = table.Column<short>(type: "smallint", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
-                    Naturaleza = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Naturaleza = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: true),
                     Activo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -3210,7 +3211,7 @@ namespace nest.core.security.Migrations.SqlServer
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    ES = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    ES = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: true),
                     CuentaContableTipoId = table.Column<int>(type: "int", nullable: false),
                     Nivel = table.Column<int>(type: "int", nullable: false),
                     PadreId = table.Column<int>(type: "int", nullable: true),
@@ -4181,6 +4182,7 @@ namespace nest.core.security.Migrations.SqlServer
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     FinancieroCabeceraId = table.Column<long>(type: "bigint", nullable: false),
+                    Item = table.Column<short>(type: "smallint", nullable: false),
                     TerceroId = table.Column<int>(type: "int", nullable: false),
                     FechaEmision = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaVencimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -4191,7 +4193,7 @@ namespace nest.core.security.Migrations.SqlServer
                     Concepto = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true),
                     Monto = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
                     CuentaCorrienteId = table.Column<int>(type: "int", nullable: true),
-                    ES = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                    ES = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: true)
                 },
                 constraints: table =>
                 {

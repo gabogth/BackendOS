@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using nest.core.dominio.Finanzas.FinancieroCabeceraEntities;
 using nest.core.dominio.Finanzas.FinancieroDetalleEntities;
 using nest.core.infraestructura.db.DbContext;
@@ -14,14 +15,22 @@ namespace nest.core.infraestructura.finanzas
 
         protected override IQueryable<FinancieroCabecera> Query() => context.Set<FinancieroCabecera>()
             .AsNoTracking()
-            .Include(c => c.FinancieroDetalles);
+            .Include(x => x.PuntoFinanciero)
+            .Include(x => x.OrigenFinanciero)
+            .Include(x => x.TerceroGen)
+            .Include(x => x.DocumentoTipoGen)
+            .Include(c => c.FinancieroDetalles)
+            .Include(c => c.FinancieroDetalles).ThenInclude(c => c.Tercero)
+            .Include(c => c.FinancieroDetalles).ThenInclude(c => c.DocumentoTipo)
+            .Include(c => c.FinancieroDetalles).ThenInclude(c => c.CuentaCorriente);
 
         public Task<FinancieroCabecera> ObtenerPorId(long id) => GetByIdAsync(id);
         public Task<List<FinancieroCabecera>> ObtenerTodos() => GetAllAsync();
 
-        public async Task<FinancieroCabecera> Agregar(FinancieroDto entry)
+        public async Task<FinancieroCabecera> Agregar(FinancieroDto entry, bool transaccional)
         {
-            using var transaction = await context.Database.BeginTransactionAsync();
+            IDbContextTransaction transaction = null;
+            if (transaccional) transaction = await context.Database.BeginTransactionAsync();
             try
             {
                 var cabecera = mapper.Map<FinancieroCabecera>(entry.Cabecera);
@@ -36,19 +45,32 @@ namespace nest.core.infraestructura.finanzas
                     context.FinancieroDetalle.Add(detalle);
                 }
                 await context.SaveChangesAsync();
-                await transaction.CommitAsync();
+                if (transaccional) await transaction.CommitAsync();
                 return await GetByIdAsync(cabecera.Id);
             }
             catch
             {
-                await transaction.RollbackAsync();
+                if (transaccional) await transaction.RollbackAsync();
                 throw;
             }
+            finally
+            {
+                if (transaccional) await transaction.DisposeAsync();
+            }
         }
-
-        public async Task<FinancieroCabecera> Modificar(long id, FinancieroDto entry)
+        public async Task<FinancieroDetalle> AgregarDetalle(long financieroCabeceraId, FinancieroDetalleCrearDto entry)
         {
-            using var transaction = await context.Database.BeginTransactionAsync();
+            var detalle = mapper.Map<FinancieroDetalle>(entry);
+            detalle.FinancieroCabeceraId = financieroCabeceraId;
+            context.FinancieroDetalle.Add(detalle);
+            await context.SaveChangesAsync();
+            await context.Entry(entry).ReloadAsync();
+            return detalle;
+        }
+        public async Task<FinancieroCabecera> Modificar(long id, FinancieroDto entry, bool transaccional)
+        {
+            IDbContextTransaction transaction = null;
+            if (transaccional) transaction = await context.Database.BeginTransactionAsync();
             try
             {
                 var cabecera = await context.FinancieroCabecera
@@ -85,16 +107,31 @@ namespace nest.core.infraestructura.finanzas
                 }
 
                 await context.SaveChangesAsync();
-                await transaction.CommitAsync();
+                if (transaccional) await transaction.CommitAsync();
                 return await GetByIdAsync(cabecera.Id);
             }
             catch
             {
-                await transaction.RollbackAsync();
+                if (transaccional) await transaction.RollbackAsync();
                 throw;
             }
+            finally
+            {
+                if (transaccional) await transaction.DisposeAsync();
+            }
         }
-
+        public async Task<FinancieroDetalle> ModificarDetalle(long id, FinancieroDetalleCrearDto entry)
+        {
+            if (await TieneExtension(id))
+                throw new Exception($"El detalle {id} no puede modificarse por tener extensiones");
+            var detalle = await context.FinancieroDetalle
+                    .FirstOrDefaultAsync(c => c.Id == id)
+                    ?? throw new RegistroNoEncontradoException<FinancieroCabecera>(id.ToString());
+            mapper.Map(entry, detalle);
+            await context.SaveChangesAsync();
+            await context.Entry(detalle).ReloadAsync();
+            return detalle;
+        }
         public async Task Eliminar(long id)
         {
             var cabecera = await context.FinancieroCabecera
@@ -107,6 +144,16 @@ namespace nest.core.infraestructura.finanzas
                     throw new Exception($"No se puede eliminar la cabecera; el detalle {detalle.Item} tiene extensiones");
 
             context.FinancieroCabecera.Remove(cabecera);
+            await context.SaveChangesAsync();
+        }
+        public async Task EliminarDetalle(long id)
+        {
+            if (await TieneExtension(id))
+                throw new Exception($"El detalle {id} no puede eliminarse por tener extensiones");
+            var detalle = await context.FinancieroDetalle
+                    .FirstOrDefaultAsync(c => c.Id == id)
+                    ?? throw new RegistroNoEncontradoException<FinancieroCabecera>(id.ToString());
+            context.FinancieroDetalle.Remove(detalle);
             await context.SaveChangesAsync();
         }
 

@@ -111,6 +111,18 @@
         }
       ]
     },
+    {
+      "UpstreamPathTemplate": "/mantto/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8390
+        }
+      ]
+    },
 
     //Start Region [Swagger config]
 
@@ -230,6 +242,19 @@
           "Port": 8389
         }
       ]
+    },
+    {
+      "SwaggerKey": "mantto",
+      "UpstreamPathTemplate": "/mantto/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8390
+        }
+      ]
     }
     //End Region [Swagger config]
   ],
@@ -321,6 +346,16 @@
           "Name": "API Contabilidad",
           "Version": "v1",
           "Url": "https://localhost:8389/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "mantto",
+      "Config": [
+        {
+          "Name": "API Mantto",
+          "Version": "v1",
+          "Url": "https://localhost:8390/swagger/v1/swagger.json"
         }
       ]
     }

@@ -4,7 +4,7 @@ namespace nest.core.dominio.Finanzas.FinancieroCabeceraEntities
     {
         public int PuntoFinancieroId { get; set; }
         public int Numero { get; set; }
-        public OrigenFinancieroEnum OrigenFinancieroId { get; set; }
+        public short OrigenFinancieroId { get; set; }
         public EstadoFinancieroEnum Estado { get; set; }
         public string Comentarios { get; set; }
         public int TerceroGenId { get; set; }

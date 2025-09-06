@@ -2763,6 +2763,9 @@ namespace nest.core.security.Migrations.SqlServer
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<short>("Item")
+                        .HasColumnType("smallint");
+
                     b.Property<decimal>("Monto")
                         .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
@@ -8410,8 +8413,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("int");
 
                     b.Property<string>("ES")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<int>("Nivel")
                         .HasColumnType("int");
@@ -8732,8 +8735,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("int");
 
                     b.Property<string>("ES")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<DateTime>("FechaEmision")
                         .HasColumnType("datetime2");
@@ -8746,6 +8749,9 @@ namespace nest.core.security.Migrations.SqlServer
 
                     b.Property<long>("FinancieroCabeceraId")
                         .HasColumnType("bigint");
+
+                    b.Property<short>("Item")
+                        .HasColumnType("smallint");
 
                     b.Property<decimal>("Monto")
                         .HasPrecision(18, 4)
@@ -8883,8 +8889,8 @@ namespace nest.core.security.Migrations.SqlServer
                         .HasColumnType("bit");
 
                     b.Property<string>("Naturaleza")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)

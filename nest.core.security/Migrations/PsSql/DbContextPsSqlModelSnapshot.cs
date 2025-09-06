@@ -2763,6 +2763,9 @@ namespace nest.core.security.Migrations.PsSql
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<short>("Item")
+                        .HasColumnType("smallint");
+
                     b.Property<decimal>("Monto")
                         .HasPrecision(18, 4)
                         .HasColumnType("numeric(18,4)");
@@ -8409,8 +8412,8 @@ namespace nest.core.security.Migrations.PsSql
                         .HasColumnType("integer");
 
                     b.Property<string>("ES")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(1)
+                        .HasColumnType("character varying(1)");
 
                     b.Property<int>("Nivel")
                         .HasColumnType("integer");
@@ -8731,8 +8734,8 @@ namespace nest.core.security.Migrations.PsSql
                         .HasColumnType("integer");
 
                     b.Property<string>("ES")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(1)
+                        .HasColumnType("character varying(1)");
 
                     b.Property<DateTime>("FechaEmision")
                         .HasColumnType("timestamp without time zone");
@@ -8745,6 +8748,9 @@ namespace nest.core.security.Migrations.PsSql
 
                     b.Property<long>("FinancieroCabeceraId")
                         .HasColumnType("bigint");
+
+                    b.Property<short>("Item")
+                        .HasColumnType("smallint");
 
                     b.Property<decimal>("Monto")
                         .HasPrecision(18, 4)
@@ -8882,8 +8888,8 @@ namespace nest.core.security.Migrations.PsSql
                         .HasColumnType("boolean");
 
                     b.Property<string>("Naturaleza")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(1)
+                        .HasColumnType("character varying(1)");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
