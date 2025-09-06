@@ -8,8 +8,14 @@
 
   <ItemGroup>
     <Compile Remove="Configuration\**" />
+    <Compile Remove="Excepciones\**" />
+    <Compile Remove="Ventas\**" />
     <EmbeddedResource Remove="Configuration\**" />
+    <EmbeddedResource Remove="Excepciones\**" />
+    <EmbeddedResource Remove="Ventas\**" />
     <None Remove="Configuration\**" />
+    <None Remove="Excepciones\**" />
+    <None Remove="Ventas\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,11 +24,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Excepciones\" />
-    <Folder Include="Ventas\" />
   </ItemGroup>
 
 </Project>
