@@ -8,6 +8,8 @@ namespace nest.core.logistica.Extensions
         {
             services.ConfigureInfraestructura(configuration);
             services.AddScoped<AlmacenService>();
+            services.AddScoped<OrdenServicioCabeceraService>();
+            services.AddScoped<OrdenServicioMantenimientoExternoService>();
             return services;
         }
     }
