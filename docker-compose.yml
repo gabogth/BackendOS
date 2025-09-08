@@ -26,6 +26,12 @@ services:
     ports:
       - "3305:3306"
 
+  pulumiiac:
+    image: pulumi/pulumi-dotnet:latest
+    container_name: pulumiiac
+    restart: always
+
+
 
 volumes:
   sql_data:
