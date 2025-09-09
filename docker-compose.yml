@@ -1,36 +1,47 @@
 version: "3"
 services:
-  sqlserverimage:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserverimage
-    restart: always
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=4N&XY&d_0y6+
-    ports:
-      - "1433:1433"
-  postgresimage:
-    image: postgres
-    container_name: postgresimage
-    restart: always
-    environment:
-      - POSTGRES_PASSWORD=4N&XY&d_0y6+
-    ports:
-      - "5431:5432"
-  mysqlimage:
-    image: mysql
-    container_name: mysqlimage
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=mysql
-    ports:
-      - "3305:3306"
-
+  # sqlserverimage:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   container_name: sqlserverimage
+  #   restart: always
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - MSSQL_SA_PASSWORD=4N&XY&d_0y6+
+  #   ports:
+  #     - "1433:1433"
+  # postgresimage:
+  #   image: postgres
+  #   container_name: postgresimage
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_PASSWORD=4N&XY&d_0y6+
+  #   ports:
+  #     - "5431:5432"
+  # mysqlimage:
+  #   image: mysql
+  #   container_name: mysqlimage
+  #   restart: always
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=mysql
+  #   ports:
+  #     - "3305:3306"
   pulumiiac:
-    image: pulumi/pulumi-dotnet:latest
+    build:
+      context: ./nest.iac.generalinfra
+      dockerfile: Dockerfile
     container_name: pulumiiac
-    restart: always
-
+    #restart: always
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=us-east-1
+      - PULUMI_CONFIG_PASSPHRASE=${PULUMI_CONFIG_PASSPHRASE}
+      - PULUMI_STACK=${PULUMI_STACK}
+      - PULUMI_ACCESS_TOKEN=${PULUMI_ACCESS_TOKEN}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_MASTERUSER=${DATABASE_MASTERUSER}
+      - DATABASE_MASTERPW=${DATABASE_MASTERPW}
+      - DATABASE_PORT=${DATABASE_PORT}
 
 
 volumes:

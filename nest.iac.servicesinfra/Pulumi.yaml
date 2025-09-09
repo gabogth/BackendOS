@@ -1,0 +1,11 @@
+name: nest-servicesinfra
+runtime: dotnet
+description: Proyecto para el despliegue de nest-servicesinfra
+config:
+  cld:vpcId: "vpc-0e4732954a376035b"
+  cld:subnets:
+    - "subnet-0f3d175d481a07575"
+    - "subnet-0e59875b93c69d510"
+    - "subnet-07db2b36ef959844a"
+  cld:securityGroups:
+    - "sg-03a3776a8702f98c7"

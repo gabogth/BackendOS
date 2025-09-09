@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "nest.iac.generalinfra": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

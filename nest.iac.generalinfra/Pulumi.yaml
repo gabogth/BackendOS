@@ -1,0 +1,16 @@
+name: nest-generalinfra
+runtime: dotnet
+description: Proyecto para el despliegue de nest-generalinfra
+config:
+  rds:engine: "postgres"
+  rds:instanceClass: "db.t3.micro"
+  rds:engineVersion: "17.6"
+  rds:storageType: "gp2"
+  rds:allocatedStorage: "20"
+  cld:vpcId: "vpc-0e4732954a376035b"
+  cld:subnets:
+    - "subnet-0f3d175d481a07575"
+    - "subnet-0e59875b93c69d510"
+    - "subnet-07db2b36ef959844a"
+  cld:securityGroups:
+    - "sg-03a3776a8702f98c7"
