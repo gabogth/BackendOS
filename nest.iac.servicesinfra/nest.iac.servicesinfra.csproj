@@ -6,4 +6,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="..\.dockerignore" Link=".dockerignore">
+      <DependentUpon>$(DockerDefaultDockerfile)</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pulumi" Version="3.87.0" />
+    <PackageReference Include="Pulumi.Aws" Version="7.7.0" />
+    <PackageReference Include="Pulumi.Awsx" Version="3.0.0" />
+    <PackageReference Include="Pulumi.Docker" Version="4.8.2" />
+  </ItemGroup>
+
 </Project>

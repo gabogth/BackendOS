@@ -105,6 +105,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iac", "iac", "{02EA681E-C7D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.iac.generalinfra", "nest.iac.generalinfra\nest.iac.generalinfra.csproj", "{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.iac.servicesinfra", "nest.iac.servicesinfra\nest.iac.servicesinfra.csproj", "{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -184,6 +186,8 @@ Global
 		{873AD771-2522-4EF4-9927-1A917681ECD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -226,6 +230,7 @@ Global
 		{71DB6BF3-AFCE-4F0A-8BF9-9640F824A5D0} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 		{873AD771-2522-4EF4-9927-1A917681ECD9} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {651F4B0C-740F-4ABF-8B23-D07A56743FFF}
