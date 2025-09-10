@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using nest.core.infraestructura.db.DbContext;
+using nest.core.aplication.auth;
 using nest.core.rrhh.Extensions;
 using System.Reflection;
 using System.Text;
@@ -16,8 +16,8 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: true)
                      .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
                      .AddUserSecrets<Program>()
                      .AddEnvironmentVariables();
+DbContextSelector.SelectProvider(builder, true);
 builder.Services.ConfigureAplication(builder.Configuration);
-builder.Services.AddDbContext<NestDbContext>();
 builder.Services.AddHealthChecks().AddCheck("self", () => HealthCheckResult.Healthy(), ["live"]);
 builder.Services.AddCors(options =>
 {

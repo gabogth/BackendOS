@@ -34,7 +34,7 @@ namespace nest.core.aplicacion.security
             services.AddTransient<IModuloRepository, ModuloRepository>();
             services.AddTransient<IFormularioRepository, FormularioRepository>();
             services.AddTransient<IEmpresaRepository, EmpresaRepository>();
-            services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
+            services.AddTransient<IConnectionStringService>((services) => AuthClaim.constructClaimsAuth(services, configuration));
             return services;
         }
     }

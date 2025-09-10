@@ -10,11 +10,11 @@ using nest.core.infraestructura.db.DbContext.Provider;
 
 #nullable disable
 
-namespace nest.core.security.Migrations.SqlServer
+namespace nest.core.driver.sqlserver.Migrations
 {
     [DbContext(typeof(DbContextSqlServer))]
-    [Migration("20250906153010_initial")]
-    partial class initial
+    [Migration("20250910011801_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

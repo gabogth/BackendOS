@@ -1,11 +1,13 @@
-﻿namespace nest.core.dominio.Security.Tenant
+﻿using Microsoft.Extensions.Configuration;
+
+namespace nest.core.dominio.Security.Tenant
 {
     public interface IConnectionStringService
     {
-        string ConnectionTenant { get; }
         string Usuario { get; }
         string Engine { get; }
         RequestParameters Request { get; }
-        void Build();
+        IConfigurationManager Configuration { get; set; }
+        string ConnectionString { get; }
     }
 }

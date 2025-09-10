@@ -12,22 +12,14 @@ namespace nest.core.aplication.auth
         public static ConnectionStringService constructClaimsAuth(IServiceProvider serviceProvider, IConfigurationManager configuration)
         {
             List<Claim> claims = new List<Claim>();
-            RequestParameters request = null;
             var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
-            if (!MigrationService.IsMigration())
-            {
-                string tenantConnection = httpContextAccessor.HttpContext.Request.Headers["x-action-login"];
-                if (!string.IsNullOrWhiteSpace(tenantConnection))
-                    claims.Add(new Claim(ClaimTypesCustom.CONNECTION_TENANT, tenantConnection));
-                else
-                    claims = httpContextAccessor.HttpContext.User.Claims.ToList();
-                request = GenerateRequestParameters(httpContextAccessor);
-            }
-            else claims.Add(new Claim(ClaimTypesCustom.CONNECTION_TENANT, MigrationService.MigrationConnection()));
-            return new ConnectionStringService(claims, configuration, request);
+            RequestParameters request = GenerateRequestParameters(httpContextAccessor);
+            if(request != null) claims = httpContextAccessor.HttpContext.User.Claims.ToList();
+            return new ConnectionStringService(claims, request, configuration);            
         }
         private static RequestParameters GenerateRequestParameters(IHttpContextAccessor accesor)
         {
+            if (accesor == null || accesor.HttpContext == null) return null;
             RequestParameters request = null;
             try
             {

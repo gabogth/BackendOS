@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\nest.core.dominio\nest.core.dominio.csproj" />
+    <ProjectReference Include="..\nest.core.infraestructura.db\nest.core.infraestructura.db.csproj" />
   </ItemGroup>
 
 </Project>

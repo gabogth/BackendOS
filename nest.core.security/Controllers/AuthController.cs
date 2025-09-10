@@ -21,13 +21,12 @@ namespace nest.core.security.Controllers
         /// <summary>
         /// Inicia sesión y genera un token de acceso.
         /// </summary>
-        /// <param name="actionLogin">Encabezado que indica el tenant o contexto de acción.</param>
         /// <param name="login">Credenciales del usuario.</param>
         /// <returns>Token de acceso con información del usuario.</returns>
         /// <response code="200">Login exitoso</response>
         /// <response code="400">Error en la solicitud o credenciales incorrectas</response>
         [HttpPost("login")]
-        public async Task<ActionResult<CustomAccessTokenResponse>> Login([FromHeader(Name = "x-action-login")] string? actionLogin, [FromBody] LoginDto login)
+        public async Task<ActionResult<CustomAccessTokenResponse>> Login([FromBody] LoginDto login)
         {
             try
             {

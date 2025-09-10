@@ -10,11 +10,11 @@ using nest.core.infraestructura.db.DbContext.Provider;
 
 #nullable disable
 
-namespace nest.core.security.Migrations.MySql
+namespace nest.core.driver.mysql.Migrations
 {
     [DbContext(typeof(DbContextMySql))]
-    [Migration("20250906153040_initial")]
-    partial class initial
+    [Migration("20250910012153_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

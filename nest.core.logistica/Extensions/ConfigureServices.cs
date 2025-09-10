@@ -12,8 +12,6 @@ namespace nest.core.logistica.Extensions
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
             services.AddScoped<AlmacenService>();
-            services.AddScoped<OrdenServicioCabeceraService>();
-            services.AddScoped<OrdenServicioMantenimientoExternoService>();
             return services;
         }
         private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)

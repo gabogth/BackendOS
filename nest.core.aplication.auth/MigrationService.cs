@@ -20,7 +20,7 @@ namespace nest.core.aplication.auth
 
         public static string GetEngine(IConfigurationManager configuration, string connection)
         {
-            return configuration.GetValue<string>($"Connections:{connection}:Engine");
+            return configuration.GetValue<string>($"Connections:{connection}");
         }
     }
 }

@@ -1,56 +1,23 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using nest.core.dominio.Security;
 using nest.core.dominio.Security.Tenant;
 using nest.core.infraestructura.db.DbContext.Convention;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System.Reflection;
 
 namespace nest.core.infraestructura.db.DbContext
 {
     public partial class NestDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
-        protected readonly string connectionString;
         protected readonly string usuario;
-        protected readonly string engine;
         protected readonly RequestParameters requestParameters;
+        protected readonly IConnectionStringService connectionStringService;
         public NestDbContext(DbContextOptions options, IConnectionStringService connectionStringService)
         : base(options)
         {
-            connectionStringService.Build();
-            connectionString = connectionStringService.ConnectionTenant;
             usuario = connectionStringService.Usuario;
-            engine = connectionStringService.Engine;
             requestParameters = connectionStringService.Request;
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning));
-                switch (engine)
-                {
-                    case "SqlServer":
-                        optionsBuilder.UseSqlServer(connectionString);
-                        break;
-                    case "Npgsql":
-                        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-                        optionsBuilder.UseNpgsql(connectionString);
-                        break;
-                    case "MySql":
-                        optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), my =>
-                        {
-                            my.SchemaBehavior(
-                                MySqlSchemaBehavior.Translate,
-                                (schema, name) => $"{schema}_{name}"
-                            );
-                        });
-                        break;
-                    default: throw new Exception("Engine no soportado");
-                }
-            }
-            base.OnConfiguring(optionsBuilder);
+            this.connectionStringService = connectionStringService;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
