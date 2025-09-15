@@ -1,19 +1,22 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.security.Corporativo;
+using nest.core.aplicacion.corporativo.EmpresaServices;
 using nest.core.dominio;
 using nest.core.dominio.Corporativo.Empresa;
 
-namespace nest.core.security.Controllers
+namespace nest.core.corporativo.Controllers
 {
     /// <summary>
     /// Controlador para la gestión de empresas.
     /// </summary>
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class EmpresaController : Controller
+    public class EmpresaController : ControllerBase
     {
         private readonly EmpresaService service;
         private readonly ILogger<EmpresaController> logger;
+
         public EmpresaController(EmpresaService service, ILogger<EmpresaController> logger)
         {
             this.service = service;
@@ -82,6 +85,79 @@ namespace nest.core.security.Controllers
             {
                 var data = await service.ObtenerActivos();
                 return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return BadRequest(GenerateMessage.Create(ex));
+            }
+        }
+
+        /// <summary>
+        /// Crea una nueva empresa.
+        /// </summary>
+        /// <param name="registro">Datos de la empresa a registrar.</param>
+        /// <returns>Empresa creada.</returns>
+        /// <response code="200">Empresa creada exitosamente.</response>
+        /// <response code="400">Error al crear la empresa.</response>
+        [HttpPost]
+        [ProducesResponseType(typeof(Empresa), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<Empresa>> Agregar([FromBody] EmpresaCrearDto registro)
+        {
+            try
+            {
+                var data = await service.Agregar(registro);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return BadRequest(GenerateMessage.Create(ex));
+            }
+        }
+
+        /// <summary>
+        /// Actualiza los datos de una empresa.
+        /// </summary>
+        /// <param name="id">ID de la empresa a modificar.</param>
+        /// <param name="registro">Datos actualizados de la empresa.</param>
+        /// <returns>Empresa modificada.</returns>
+        /// <response code="200">Empresa modificada exitosamente.</response>
+        /// <response code="400">Error al modificar la empresa.</response>
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(typeof(Empresa), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<Empresa>> Modificar(int id, [FromBody] EmpresaCrearDto registro)
+        {
+            try
+            {
+                var data = await service.Modificar(id, registro);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return BadRequest(GenerateMessage.Create(ex));
+            }
+        }
+
+        /// <summary>
+        /// Elimina una empresa.
+        /// </summary>
+        /// <param name="id">ID de la empresa a eliminar.</param>
+        /// <returns>Resultado de la operación.</returns>
+        /// <response code="200">Empresa eliminada exitosamente.</response>
+        /// <response code="400">Error al eliminar la empresa.</response>
+        [HttpDelete("{id:int}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult> Eliminar(int id)
+        {
+            try
+            {
+                await service.Eliminar(id);
+                return Ok(true);
             }
             catch (Exception ex)
             {
