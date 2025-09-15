@@ -9,8 +9,8 @@ using nest.core.dominio.Aplicacion.Modulo.Repository;
 using nest.core.dominio.Aplicacion.Formulario;
 using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Corporativo.Empresa;
-using nest.core.infraestructura.security.Corporativo;
 using nest.core.aplication.auth;
+using nest.core.dominio.Security.UsuarioEmpresa;
 
 namespace nest.core.aplicacion.security
 {
@@ -33,7 +33,7 @@ namespace nest.core.aplicacion.security
             services.AddTransient<IClaimsGenerator, JwtGenerator>();
             services.AddTransient<IModuloRepository, ModuloRepository>();
             services.AddTransient<IFormularioRepository, FormularioRepository>();
-            services.AddTransient<IEmpresaRepository, EmpresaRepository>();
+            services.AddTransient<IUsuarioEmpresaRepository, UsuarioEmpresaRepository>();
             services.AddTransient<IConnectionStringService>((services) => AuthClaim.constructClaimsAuth(services, configuration));
             return services;
         }

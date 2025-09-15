@@ -1,6 +1,5 @@
 ﻿using nest.core.aplicacion.security;
 using nest.core.aplicacion.security.Aplicacion;
-using nest.core.aplicacion.security.Corporativo;
 using nest.core.aplicacion.security.Login;
 using nest.core.aplicacion.security.Security;
 using nest.core.dominio.Cache;
@@ -17,7 +16,6 @@ namespace nest.core.security.Extensions
             services.AddScoped<LoginUseCase>();
             services.AddScoped<ModuloService>();
             services.AddScoped<FormularioService>();
-            services.AddScoped<EmpresaService>();
             services.AddScoped<RoleService>();
             services.AddScoped<RoleClaimsService>();
             services.AddScoped<UsuarioService>();
