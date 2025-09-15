@@ -1,4 +1,6 @@
 ﻿using nest.core.dominio.Security.UsuarioEmpresa;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace nest.core.aplicacion.security.UsuarioEmpresaServices
 {
@@ -15,6 +17,6 @@ namespace nest.core.aplicacion.security.UsuarioEmpresaServices
         public Task<UsuarioEmpresa> Agregar(UsuarioEmpresaCrearDto entry) => repository.Agregar(entry);
         public Task<UsuarioEmpresa> Modificar(long id, UsuarioEmpresaCrearDto entry) => repository.Modificar(id, entry);
         public Task Eliminar(long id) => repository.Eliminar(id);
-        public Task Seleccionar(int EmpresaId, string UsuarioId) => repository.Seleccionar(EmpresaId, UsuarioId);
+        public Task Seleccionar(UsuarioEmpresaSeleccionarDto entry) => repository.Seleccionar(entry.EmpresaId, entry.UsuarioId);
     }
 }
