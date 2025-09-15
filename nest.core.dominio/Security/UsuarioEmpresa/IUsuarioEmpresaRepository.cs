@@ -1,4 +1,7 @@
-﻿namespace nest.core.dominio.Security.UsuarioEmpresa
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace nest.core.dominio.Security.UsuarioEmpresa
 {
     public interface IUsuarioEmpresaRepository
     {
