@@ -10,6 +10,7 @@ namespace nest.core.infraestructura.db.RRHH
         {
             builder.ToTable("grupo_horario", "rrhh");
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<int>>();

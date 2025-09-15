@@ -1,5 +1,4 @@
 using nest.core.dominio.Security.Audit;
-using nest.core.dominio;
 
 namespace nest.core.dominio.RRHH.CargoEntities
 {

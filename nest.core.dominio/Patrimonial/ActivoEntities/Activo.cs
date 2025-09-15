@@ -5,8 +5,9 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Patrimonial.ActivoEntities
 {
-    public class Activo : IEntity<long>, IAuditable
+    public class Activo : IEntity<long>, IAuditable, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public long Id { get; set; }
         public long? ProductoLoteId { get; set; }
         public string Nombre { get; set; }

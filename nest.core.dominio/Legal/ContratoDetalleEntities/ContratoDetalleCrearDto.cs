@@ -2,6 +2,7 @@ namespace nest.core.dominio.Legal.ContratoDetalleEntities
 {
     public class ContratoDetalleCrearDto
     {
+        public int EmpresaId { get; set; }
         public int PersonaId { get; set; }
         public DateTime? FechaUltimaNotificacion { get; set; }
         public bool Firmo { get; set; }

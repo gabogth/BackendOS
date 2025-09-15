@@ -7,5 +7,9 @@ namespace nest.core.infraestructura.db.DbContext
     {
         public DbSet<EstructuraOrganizacional> EstructuraOrganizacional { get; set; }
         public DbSet<EstructuraOrganizacionalTipo> EstructuraOrganizacionalTipo { get; set; }
+        public void OnModelCreatingCorporativo(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EstructuraOrganizacional>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+        }
     }
 }

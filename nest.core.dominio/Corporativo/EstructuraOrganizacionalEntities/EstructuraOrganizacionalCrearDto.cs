@@ -2,6 +2,7 @@ namespace nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities
 {
     public class EstructuraOrganizacionalCrearDto
     {
+        public int EmpresaId { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public string NombreCorto { get; set; }

@@ -10,9 +10,10 @@ namespace nest.core.infraestructura.db.Contabilidad
         {
             builder.ToTable("cuenta_contable", "contabilidad");
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<GenericValueGenerator<int>>();
+                .HasValueGenerator<GenericValueGenerator<long>>();
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9);
             builder.Property(x => x.ES)

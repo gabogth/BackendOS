@@ -2,6 +2,7 @@
 using nest.core.dominio.Aplicacion.Formulario;
 using nest.core.dominio.Aplicacion.Modulo;
 using nest.core.dominio.Security;
+using nest.core.dominio.Security.UsuarioEmpresa;
 
 namespace nest.core.infraestructura.security.Mapper
 {
@@ -12,6 +13,7 @@ namespace nest.core.infraestructura.security.Mapper
             CreateMap<ModuloCrearDto, Modulo>();
             CreateMap<FormularioCrearDto, Formulario>();
             CreateMap<ApplicationRoleDto, ApplicationRole>();
+            CreateMap<UsuarioEmpresaCrearDto, UsuarioEmpresa>();
         }
     }
 }

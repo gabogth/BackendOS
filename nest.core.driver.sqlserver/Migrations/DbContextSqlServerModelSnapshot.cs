@@ -32,10 +32,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -49,14 +45,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -82,19 +70,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -103,10 +79,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -127,6 +99,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
@@ -164,10 +139,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -181,14 +152,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -214,19 +177,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -235,10 +186,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -255,6 +202,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("DistritoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<int>("Id")
@@ -292,10 +242,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -309,14 +255,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -342,19 +280,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -363,10 +289,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -413,10 +335,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -430,14 +348,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -463,19 +373,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -484,10 +382,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -566,10 +460,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -583,14 +473,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -616,19 +498,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -637,10 +507,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -681,10 +547,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -698,14 +560,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -731,19 +585,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -752,10 +594,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -770,6 +608,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("Codigo")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("EsFinal")
                         .HasColumnType("bit");
@@ -804,10 +645,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -821,14 +658,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -854,19 +683,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -875,10 +692,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -896,6 +709,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
@@ -942,10 +758,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -959,14 +771,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -992,19 +796,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1013,10 +805,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1030,6 +818,9 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.Property<long>("ContratoCabeceraId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("FechaFirma")
                         .HasColumnType("datetime2");
@@ -1072,10 +863,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -1089,14 +876,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1122,19 +901,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1143,10 +910,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1163,6 +926,9 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.Property<long>("ContratoCabeceraId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("EstructuraOrganizacionalId")
                         .HasColumnType("int");
@@ -1190,10 +956,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -1207,14 +969,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1240,19 +994,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1261,10 +1003,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1306,10 +1044,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -1323,14 +1057,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1356,19 +1082,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1377,10 +1091,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1399,8 +1109,11 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Nivel")
                         .HasColumnType("int");
@@ -1413,8 +1126,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int?>("PadreId")
-                        .HasColumnType("int");
+                    b.Property<long?>("PadreId")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("PermiteMovimiento")
                         .HasColumnType("bit");
@@ -1438,10 +1151,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -1455,14 +1164,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1488,19 +1189,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1509,10 +1198,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1554,10 +1239,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -1571,14 +1252,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1604,19 +1277,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1628,10 +1289,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -1640,12 +1297,15 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("CuentaContableId")
-                        .HasColumnType("int");
+                    b.Property<long>("CuentaContableId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("CuentaNumero")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("EntidadFinancieraId")
                         .HasColumnType("int");
@@ -1677,10 +1337,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -1694,14 +1350,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1727,19 +1375,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1748,10 +1384,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1789,10 +1421,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -1806,14 +1434,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1839,19 +1459,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1860,10 +1468,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1901,10 +1505,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -1918,14 +1518,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1951,19 +1543,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1972,10 +1552,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2014,10 +1590,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -2031,14 +1603,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2064,19 +1628,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2085,10 +1637,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2122,7 +1670,7 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.ToTable("documento_tipo_audit", "dbo");
                 });
 
-            modelBuilder.Entity("EntidadFinancieraAudit", b =>
+            modelBuilder.Entity("EmpresaAudit", b =>
                 {
                     b.Property<long>("AuditId")
                         .ValueGeneratedOnAdd()
@@ -2130,13 +1678,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
-
-                    b.Property<bool>("Activo")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
@@ -2151,14 +1692,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2184,19 +1717,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2208,7 +1729,94 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("empresa_audit", "organizacion");
+                });
+
+            modelBuilder.Entity("EntidadFinancieraAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2219,6 +1827,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("AuditUsuario")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("EsEfectivo")
                         .HasColumnType("bit");
@@ -2250,10 +1861,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -2267,14 +1874,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2300,19 +1899,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2321,10 +1908,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2339,6 +1922,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
@@ -2393,10 +1979,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -2410,14 +1992,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2443,19 +2017,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2464,10 +2026,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2513,10 +2071,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -2530,14 +2084,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2563,19 +2109,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2584,10 +2118,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2604,6 +2134,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("DocumentoTipoGenId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Estado")
@@ -2648,10 +2181,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -2665,14 +2194,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2698,19 +2219,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2719,10 +2228,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2747,6 +2252,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("ES")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaEmision")
                         .HasColumnType("datetime2");
@@ -2797,10 +2305,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -2814,14 +2318,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2847,19 +2343,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2871,10 +2355,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -2882,6 +2362,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("AuditUsuario")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<long>("FinancieroDetalleId")
                         .HasColumnType("bigint");
@@ -2908,10 +2391,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -2925,14 +2404,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2958,19 +2429,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -2982,10 +2441,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -2993,6 +2448,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("AuditUsuario")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<long>("FinancieroDetalleId")
                         .HasColumnType("bigint");
@@ -3023,10 +2481,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -3040,14 +2494,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3073,19 +2519,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3094,10 +2528,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3164,10 +2594,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -3181,14 +2607,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3214,19 +2632,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3235,10 +2641,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3251,6 +2653,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("DiferenciaDia")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<TimeOnly>("HoraEntrada")
@@ -3286,10 +2691,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -3303,14 +2704,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3336,19 +2729,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3360,10 +2741,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -3371,6 +2748,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("AuditUsuario")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
@@ -3400,10 +2780,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -3417,14 +2793,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3450,19 +2818,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3474,10 +2830,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -3485,6 +2837,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("AuditUsuario")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("EsLider")
                         .HasColumnType("bit");
@@ -3517,10 +2872,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -3534,14 +2885,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3567,19 +2910,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3588,10 +2919,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3606,6 +2933,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -3630,10 +2960,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -3647,14 +2973,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3680,19 +2998,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3701,10 +3007,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3718,6 +3020,9 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.Property<byte>("DiaSemana")
                         .HasColumnType("tinyint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("GrupoHorarioId")
                         .HasColumnType("int");
@@ -3744,10 +3049,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -3761,14 +3062,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3794,19 +3087,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3815,10 +3096,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3861,10 +3138,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -3878,14 +3151,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3911,19 +3176,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3932,10 +3185,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -3978,10 +3227,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -3995,14 +3240,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4028,19 +3265,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4049,10 +3274,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4096,10 +3317,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -4113,14 +3330,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4146,19 +3355,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4167,10 +3364,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4206,10 +3399,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -4223,14 +3412,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4256,19 +3437,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4277,10 +3446,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4327,10 +3492,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<int>("AlmacenId")
                         .HasColumnType("int");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -4344,14 +3505,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4377,19 +3530,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4398,10 +3539,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4422,6 +3559,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("DocumentoTipoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
@@ -4453,10 +3593,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -4470,14 +3606,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4503,19 +3631,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4524,10 +3640,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4540,6 +3652,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<long>("Id")
@@ -4580,10 +3695,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -4597,14 +3708,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4630,19 +3733,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4651,10 +3742,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4693,10 +3780,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -4710,14 +3793,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4743,19 +3818,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4764,10 +3827,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4805,10 +3864,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -4822,14 +3877,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4855,19 +3902,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4876,10 +3911,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4925,10 +3956,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -4942,14 +3969,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4975,19 +3994,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -4996,10 +4003,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5143,6 +4146,67 @@ namespace nest.core.driver.sqlserver.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IdentityUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -5262,10 +4326,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -5279,14 +4339,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5312,19 +4364,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5333,10 +4373,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5390,10 +4426,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -5407,14 +4439,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5440,19 +4464,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5461,10 +4473,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5518,10 +4526,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -5535,14 +4539,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5568,19 +4564,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5589,10 +4573,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5615,6 +4595,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaEntrega")
                         .HasColumnType("datetime2");
@@ -5650,10 +4633,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<long>("ActaConformidadId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -5667,14 +4646,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5700,19 +4671,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5721,10 +4680,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5753,6 +4708,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<int>("CotizacionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FechaEntregaCorreo")
@@ -5842,10 +4800,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -5859,14 +4813,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5892,19 +4838,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5913,10 +4847,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -5958,10 +4888,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -5975,14 +4901,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6008,19 +4926,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6029,10 +4935,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6047,6 +4949,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<byte>("Estado")
                         .HasColumnType("tinyint");
@@ -6095,10 +5000,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<long>("ActivoId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -6112,14 +5013,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6145,19 +5038,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6169,10 +5050,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -6180,6 +5057,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("AuditUsuario")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
@@ -6200,10 +5080,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -6217,14 +5093,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6250,19 +5118,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6271,10 +5127,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6289,6 +5141,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<byte>("Estado")
                         .HasColumnType("tinyint");
@@ -6327,10 +5182,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -6344,14 +5195,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6377,19 +5220,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6401,10 +5232,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -6412,6 +5239,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("AuditUsuario")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("EsLider")
                         .HasColumnType("bit");
@@ -6444,10 +5274,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -6461,14 +5287,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6494,19 +5312,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6515,10 +5321,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6561,10 +5363,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -6578,14 +5376,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6611,19 +5401,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6632,10 +5410,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6686,10 +5460,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -6703,14 +5473,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6736,19 +5498,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6757,10 +5507,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6793,6 +5539,9 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.Property<byte>("DocumentoIdentidadTipoId")
                         .HasColumnType("tinyint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
@@ -6829,10 +5578,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -6846,14 +5591,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6879,19 +5616,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6900,10 +5625,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6917,6 +5638,9 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.Property<long>("ContratoCabeceraId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("HorarioCabeceraId")
                         .HasColumnType("int");
@@ -6949,10 +5673,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -6966,14 +5686,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -6999,19 +5711,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7020,10 +5720,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7061,10 +5757,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7078,14 +5770,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7111,19 +5795,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7135,10 +5807,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7146,6 +5814,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("AuditUsuario")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Factor")
                         .HasPrecision(18, 4)
@@ -7187,10 +5858,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7204,14 +5871,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7237,19 +5896,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7261,10 +5908,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7272,6 +5915,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("AuditUsuario")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("FechaVencimiento")
                         .HasColumnType("datetime2");
@@ -7315,10 +5961,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7332,14 +5974,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7365,19 +5999,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7386,10 +6008,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7430,10 +6048,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7447,14 +6061,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7480,19 +6086,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7504,10 +6098,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7515,6 +6105,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("AuditUsuario")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -7543,10 +6136,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7560,14 +6149,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7593,19 +6174,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7614,10 +6183,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7656,10 +6221,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7673,14 +6234,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7706,19 +6259,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7730,10 +6271,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7742,11 +6279,11 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("CuentaContablePorCobrarId")
-                        .HasColumnType("int");
+                    b.Property<long>("CuentaContablePorCobrarId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("CuentaContablePorPagarId")
-                        .HasColumnType("int");
+                    b.Property<long>("CuentaContablePorPagarId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("DireccionFiscal")
                         .HasMaxLength(200)
@@ -7758,6 +6295,9 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.Property<byte>("DocumentoIdentidadTipoFinancieroId")
                         .HasColumnType("tinyint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -7785,10 +6325,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<long>("ActivoId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7802,14 +6338,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7835,19 +6363,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7856,10 +6372,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7877,6 +6389,9 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.Property<long?>("ContratoCabeceraId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaIngreso")
                         .HasColumnType("datetime2");
@@ -7909,10 +6424,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7926,14 +6437,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7959,19 +6462,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -7983,10 +6474,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditUa")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditUserAgent")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7994,6 +6481,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("AuditUsuario")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
@@ -8024,10 +6514,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-                    b.Property<string>("AuditAcceptLanguage")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -8041,14 +6527,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditContentType")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditCurrentCulture")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -8074,19 +6552,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("AuditPath")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditPlatform")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditQueryString")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -8095,10 +6561,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUa")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -8130,6 +6592,90 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.HasIndex("Id");
 
                     b.ToTable("unidad_medida_audit", "logistica");
+                });
+
+            modelBuilder.Entity("UsuarioEmpresaAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UsuarioId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("usuario_empresa_audit", "security");
                 });
 
             modelBuilder.Entity("nest.core.dominio.Aplicacion.Formulario.Formulario", b =>
@@ -8403,8 +6949,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
             modelBuilder.Entity("nest.core.dominio.Contabilidad.CuentaContableEntities.CuentaContable", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
@@ -8415,6 +6961,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("ES")
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Nivel")
                         .HasColumnType("int");
@@ -8427,8 +6976,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(9)
                         .HasColumnType("nvarchar(9)");
 
-                    b.Property<int?>("PadreId")
-                        .HasColumnType("int");
+                    b.Property<long?>("PadreId")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("PermiteMovimiento")
                         .HasColumnType("bit");
@@ -8436,6 +6985,8 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CuentaContableTipoId");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("PadreId");
 
@@ -8463,6 +7014,28 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.ToTable("cuenta_contable_tipo", "contabilidad");
                 });
 
+            modelBuilder.Entity("nest.core.dominio.Corporativo.Empresa.Empresa", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Estado")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NombreCorto")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("empresa", "organizacion");
+                });
+
             modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities.EstructuraOrganizacional", b =>
                 {
                     b.Property<int>("Id")
@@ -8471,6 +7044,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
@@ -8508,6 +7084,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("EstructuraOrganizacionalTipoId");
 
@@ -8554,6 +7132,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("EsFinal")
                         .HasColumnType("bit");
 
@@ -8570,6 +7151,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("PadreId");
 
                     b.ToTable("centro_de_costos", "costos");
@@ -8580,11 +7163,11 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("CuentaContablePorCobrarId")
-                        .HasColumnType("int");
+                    b.Property<long>("CuentaContablePorCobrarId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("CuentaContablePorPagarId")
-                        .HasColumnType("int");
+                    b.Property<long>("CuentaContablePorPagarId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("DireccionFiscal")
                         .HasMaxLength(200)
@@ -8596,6 +7179,9 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.Property<byte>("DocumentoIdentidadTipoFinancieroId")
                         .HasColumnType("tinyint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<string>("RazonSocial")
                         .HasMaxLength(200)
@@ -8609,6 +7195,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasIndex("DocumentoIdentidadTipoFinancieroId");
 
+                    b.HasIndex("EmpresaId");
+
                     b.ToTable("tercero", "finanzas");
                 });
 
@@ -8620,12 +7208,15 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
-                    b.Property<int>("CuentaContableId")
-                        .HasColumnType("int");
+                    b.Property<long>("CuentaContableId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("CuentaNumero")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<int>("EntidadFinancieraId")
                         .HasColumnType("int");
@@ -8642,6 +7233,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasIndex("CuentaContableId");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("EntidadFinancieraId");
 
                     b.ToTable("cuenta_corriente", "finanzas");
@@ -8654,6 +7247,9 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("EsEfectivo")
                         .HasColumnType("bit");
@@ -8668,6 +7264,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.ToTable("entidad_financiera", "finanzas");
                 });
 
@@ -8681,6 +7279,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DocumentoTipoGenId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Estado")
@@ -8710,6 +7311,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasIndex("DocumentoTipoGenId");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("OrigenFinancieroId");
 
                     b.HasIndex("PuntoFinancieroId");
@@ -8737,6 +7340,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("ES")
                         .HasMaxLength(1)
                         .HasColumnType("nvarchar(1)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaEmision")
                         .HasColumnType("datetime2");
@@ -8774,6 +7380,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasIndex("DocumentoTipoId");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("FinancieroCabeceraId");
 
                     b.HasIndex("TerceroId");
@@ -8786,6 +7394,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<long>("FinancieroDetalleId")
                         .HasColumnType("bigint");
 
@@ -8793,6 +7404,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("InventarioCabeceraId");
 
@@ -8806,6 +7419,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<long>("FinancieroDetalleId")
                         .HasColumnType("bigint");
 
@@ -8813,6 +7429,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("OrdenServicioCabeceraId");
 
@@ -8913,6 +7531,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -8922,6 +7543,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("nvarchar(9)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.ToTable("punto_financiero", "finanzas");
                 });
@@ -9654,6 +8277,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<byte>("DocumentoIdentidadTipoId")
                         .HasColumnType("tinyint");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
@@ -9675,6 +8301,8 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.HasIndex("DistritoId");
 
                     b.HasIndex("DocumentoIdentidadTipoId");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("LicenciaConducirId");
 
@@ -9796,6 +8424,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(-1)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
 
@@ -9824,6 +8455,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("ContratoTipoId", "Numero")
                         .IsUnique();
 
@@ -9837,6 +8470,9 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.Property<long>("ContratoCabeceraId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("FechaFirma")
                         .HasColumnType("datetime2");
@@ -9862,6 +8498,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("PersonaId");
 
                     b.HasIndex("ContratoCabeceraId", "PersonaId")
@@ -9878,6 +8516,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<int>("CargoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<int>("EstructuraOrganizacionalId")
                         .HasColumnType("int");
 
@@ -9891,6 +8532,8 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.HasKey("ContratoCabeceraId");
 
                     b.HasIndex("CargoId");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("EstructuraOrganizacionalId");
 
@@ -9958,6 +8601,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<int>("DistritoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Latitud")
                         .HasPrecision(9, 6)
                         .HasColumnType("decimal(9,6)");
@@ -9978,6 +8624,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasIndex("DistritoId");
 
+                    b.HasIndex("EmpresaId");
+
                     b.ToTable("almacen", "logistica");
 
                     b.HasData(
@@ -9987,6 +8635,7 @@ namespace nest.core.driver.sqlserver.Migrations
                             Activo = true,
                             Direccion = "Av. Default 1",
                             DistritoId = 1,
+                            EmpresaId = 0,
                             Latitud = 0m,
                             Longitud = 0m,
                             Nombre = "DEFAULT 1",
@@ -9998,6 +8647,7 @@ namespace nest.core.driver.sqlserver.Migrations
                             Activo = true,
                             Direccion = "Av. Default 2",
                             DistritoId = 1,
+                            EmpresaId = 0,
                             Latitud = 0m,
                             Longitud = 0m,
                             Nombre = "DEFAULT 2",
@@ -10009,6 +8659,7 @@ namespace nest.core.driver.sqlserver.Migrations
                             Activo = true,
                             Direccion = "Av. Default 3",
                             DistritoId = 1,
+                            EmpresaId = 0,
                             Latitud = 0m,
                             Longitud = 0m,
                             Nombre = "DEFAULT 3",
@@ -10118,6 +8769,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Factor")
                         .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
@@ -10141,6 +8795,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("UnidadMedidaCompraId");
 
                     b.HasIndex("UnidadMedidaConsumoId");
@@ -10152,6 +8808,9 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("FechaVencimiento")
                         .HasColumnType("datetime2");
@@ -10177,6 +8836,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("MonedaId");
 
@@ -10204,6 +8865,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<int>("DocumentoTipoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
@@ -10220,6 +8884,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasIndex("DocumentoTipoId");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("LogisticaTransaccionId");
 
                     b.ToTable("inventario_cabecera", "logistica");
@@ -10231,6 +8897,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<long>("InventarioCabeceraId")
@@ -10250,6 +8919,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("InventarioCabeceraId");
 
@@ -10344,6 +9015,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("FechaEntrega")
                         .HasColumnType("datetime2");
 
@@ -10357,6 +9031,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("OrdenServicioTipoId");
 
@@ -10388,6 +9064,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<int>("CotizacionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FechaEntregaCorreo")
@@ -10470,6 +9149,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasIndex("ContratoCabeceraId");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("MantenimientoTipoId");
 
                     b.HasIndex("MonedaId");
@@ -10507,6 +9188,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<byte>("Estado")
                         .HasColumnType("tinyint");
 
@@ -10534,6 +9218,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("GrupoTrabajoId");
 
                     b.HasIndex("OrdenServicioCabeceraId");
@@ -10551,9 +9237,14 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<long>("ActivoId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ActivoId");
+
+                    b.HasIndex("EmpresaId");
 
                     b.ToTable("orden_trabajo_detalle_activo", "mantto");
                 });
@@ -10566,6 +9257,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<string>("Descripcion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<byte>("Estado")
                         .HasColumnType("tinyint");
@@ -10587,6 +9281,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("LaborId");
 
                     b.HasIndex("OrdenTrabajoCabeceraId");
@@ -10601,6 +9297,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("EsLider")
                         .HasColumnType("bit");
 
@@ -10611,6 +9310,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("OrdenTrabajoCabeceraId");
 
@@ -10634,6 +9335,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImagenUrl")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -10651,6 +9355,8 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CentroDeCostosId");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("ProductoLoteId");
 
@@ -10674,6 +9380,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<long?>("ContratoCabeceraId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("FechaIngreso")
                         .HasColumnType("datetime2");
 
@@ -10689,6 +9398,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasIndex("ContratoCabeceraId");
 
+                    b.HasIndex("EmpresaId");
+
                     b.HasIndex("UbicacionTecnicaId");
 
                     b.ToTable("ubicacion_activo", "patrimonial");
@@ -10702,6 +9413,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<bool>("Activo")
                         .HasColumnType("bit");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -10713,6 +9427,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("PadreId");
 
@@ -10766,6 +9482,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<int>("DiferenciaDia")
                         .HasColumnType("int");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<TimeOnly>("HoraEntrada")
                         .HasColumnType("time");
 
@@ -10782,6 +9501,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.ToTable("grupo_horario", "rrhh");
                 });
 
@@ -10789,6 +9510,9 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Estado")
                         .HasColumnType("bit");
@@ -10802,6 +9526,8 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmpresaId");
+
                     b.ToTable("grupo_trabajo", "rrhh");
                 });
 
@@ -10809,6 +9535,9 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("EsLider")
                         .HasColumnType("bit");
@@ -10820,6 +9549,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("GrupoTrabajoId");
 
@@ -10840,11 +9571,16 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.ToTable("horario_cabecera", "rrhh");
                 });
@@ -10857,6 +9593,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<byte>("DiaSemana")
                         .HasColumnType("tinyint");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<int>("GrupoHorarioId")
                         .HasColumnType("int");
 
@@ -10864,6 +9603,8 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("GrupoHorarioId");
 
@@ -10880,6 +9621,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<long>("ContratoCabeceraId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<int>("HorarioCabeceraId")
                         .HasColumnType("int");
 
@@ -10895,6 +9639,8 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContratoCabeceraId");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("HorarioCabeceraId");
 
@@ -11109,6 +9855,27 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.HasKey("Schema", "Table");
 
                     b.ToTable("correlativo_maestro", "audit");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Security.UsuarioEmpresa", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsuarioId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("usuario_empresa", "security");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -11933,6 +10700,23 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Navigation("PersonalEstado");
 
                     b.Navigation("Superior");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.Security.UsuarioEmpresa", b =>
+                {
+                    b.HasOne("nest.core.dominio.Corporativo.Empresa.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId");
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("nest.core.dominio.Aplicacion.Formulario.Formulario", b =>

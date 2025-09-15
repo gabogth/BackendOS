@@ -10,5 +10,11 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<Activo> Activo { get; set; }
         public DbSet<UbicacionActivo> UbicacionActivo { get; set; }
         public DbSet<UbicacionTecnica> UbicacionTecnica { get; set; }
+        public void OnModelCreatingPatrimonial(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Activo>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<UbicacionActivo>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<UbicacionTecnica>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+        }
     }
 }

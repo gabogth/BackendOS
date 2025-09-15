@@ -9,6 +9,7 @@ namespace nest.core.aplication.auth
     {
         public string Engine { get; set; }
         public string Usuario { get; set; }
+        public int EmpresaId { get; set; }
         public RequestParameters Request { get; set; }
         public IConfigurationManager Configuration { get; set; }
         public string ConnectionString { get { return Configuration.GetConnectionString("DefaultConnection"); } }

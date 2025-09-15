@@ -2,6 +2,7 @@ namespace nest.core.dominio.Finanzas.FinancieroCabeceraEntities
 {
     public class FinancieroCabeceraCrearDto
     {
+        public int EmpresaId { get; set; }
         public int PuntoFinancieroId { get; set; }
         public int Numero { get; set; }
         public short OrigenFinancieroId { get; set; }

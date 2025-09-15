@@ -10,6 +10,7 @@ namespace nest.core.infraestructura.db.Legal
         {
             builder.ToTable("contrato_personal", "legal");
             builder.HasKey(x => x.ContratoCabeceraId);
+            builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.ContratoCabeceraId)
                 .ValueGeneratedNever();
             builder.HasOne(x => x.Persona)

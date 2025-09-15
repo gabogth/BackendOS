@@ -2,6 +2,7 @@ namespace nest.core.dominio.Costos.CentroDeCostosEntities
 {
     public class CentroDeCostosCrearDto
     {
+        public int EmpresaId { get; set; }
         public string Nombre { get; set; }
         public string NombreCorto { get; set; }
         public string Codigo { get; set; }

@@ -50,21 +50,14 @@ namespace nest.core.infraestructura.db.DbContext
             auditRow["AuditAppVersion"] = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
             auditRow["AuditAssemblyName"] = Assembly.GetExecutingAssembly().GetName().Name?.ToString();
             auditRow["AuditRequestId"] = requestParameters.RequestId;
-            auditRow["AuditPath"] = requestParameters.Path;
             auditRow["AuditMethod"] = requestParameters.Method;
             auditRow["AuditIpRemoteOrigin"] = requestParameters.IpRemoteOrigin;
             auditRow["AuditUserAgent"] = requestParameters.UserAgent;
-            auditRow["AuditCurrentCulture"] = requestParameters.CurrentCulture;
-            auditRow["AuditContentType"] = requestParameters.ContentType;
             auditRow["AuditIsHttps"] = requestParameters.IsHttps;
             auditRow["AuditHost"] = requestParameters.Host;
             auditRow["AuditProtocol"] = requestParameters.Protocol;
-            auditRow["AuditQueryString"] = requestParameters.QueryString;
-            auditRow["AuditAcceptLanguage"] = requestParameters.AcceptLanguage;
             auditRow["AuditOrigin"] = requestParameters.Origin;
             auditRow["AuditReferer"] = requestParameters.Referer;
-            auditRow["AuditPlatform"] = requestParameters.Platform;
-            auditRow["AuditUa"] = requestParameters.Ua;
 
             return auditRow;
         }

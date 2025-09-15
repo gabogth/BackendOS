@@ -2,8 +2,9 @@
 
 namespace nest.core.dominio.Costos.CentroDeCostosEntities
 {
-    public class CentroDeCostos: IEntity<int>, IAuditable
+    public class CentroDeCostos: IEntity<int>, IAuditable, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string NombreCorto { get; set; }

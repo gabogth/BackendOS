@@ -14,8 +14,9 @@ namespace nest.core.dominio.RRHH.HorarioDetalleEntities
         Viernes = 5,
         Sabado = 6
     }
-    public class HorarioDetalle : IAuditable, IEntity<int>
+    public class HorarioDetalle : IAuditable, IEntity<int>, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public int Id { get; set; }
         public int HorarioCabeceraId { get; set; }
         public DayOfWeek DiaSemana { get; set; }

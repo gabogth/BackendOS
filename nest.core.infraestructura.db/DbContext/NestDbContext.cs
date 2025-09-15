@@ -10,6 +10,7 @@ namespace nest.core.infraestructura.db.DbContext
     public partial class NestDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         protected readonly string usuario;
+        protected readonly int EmpresaId;
         protected readonly RequestParameters requestParameters;
         protected readonly IConnectionStringService connectionStringService;
         public NestDbContext(DbContextOptions options, IConnectionStringService connectionStringService)
@@ -18,6 +19,7 @@ namespace nest.core.infraestructura.db.DbContext
             usuario = connectionStringService.Usuario;
             requestParameters = connectionStringService.Request;
             this.connectionStringService = connectionStringService;
+            this.EmpresaId = connectionStringService.EmpresaId;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -27,6 +29,17 @@ namespace nest.core.infraestructura.db.DbContext
             foreach (var entityType in builder.Model.GetEntityTypes())
                 if (entityType.GetTableName().StartsWith("AspNet"))
                     entityType.SetSchema("security");
+            this.OnModelCreatingContabilidad(builder);
+            this.OnModelCreatingCorporativo(builder);
+            this.OnModelCreatingCostos(builder);
+            this.OnModelCreatingFinanzas(builder);
+            this.OnModelCreatingGeneral(builder);
+            this.OnModelCreatingLegal(builder);
+            this.OnModelCreatingLogistica(builder);
+            this.OnModelCreatingMantto(builder);
+            this.OnModelCreatingPatrimonial(builder);
+            this.OnModelCreatingRRHH(builder);
+            this.OnModelCreatingSecurity(builder);
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

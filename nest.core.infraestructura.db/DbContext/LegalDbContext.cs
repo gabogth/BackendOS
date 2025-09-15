@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using nest.core.dominio.General;
 using nest.core.dominio.Legal.ContratoCabeceraEntities;
 using nest.core.dominio.Legal.ContratoDetalleEntities;
 using nest.core.dominio.Legal.ContratoPersonalEntities;
@@ -13,6 +12,12 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<ContratoDetalle> ContratoDetalle { get; set; }
         public DbSet<ContratoPersonal> ContratoPersonal { get; set; }
         public DbSet<ContratoTipo> ContratoTipo { get; set; }
+        public void OnModelCreatingLegal(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ContratoCabecera>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<ContratoDetalle>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<ContratoPersonal>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+        }
 
     }
 }

@@ -58,31 +58,25 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CentroDeCostosId = table.Column<int>(type: "int", nullable: true),
                     DepreciacionMeses = table.Column<int>(type: "int", nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     ImagenUrl = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -101,30 +95,24 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Direccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DistritoId = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Latitud = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
                     Longitud = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
@@ -142,26 +130,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ClaimType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -195,26 +176,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -233,26 +207,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ClaimType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -271,26 +238,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     LoginProvider = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -309,26 +269,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     RoleId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -372,26 +325,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     AccessFailedCount = table.Column<int>(type: "int", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -420,26 +366,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     LoginProvider = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -472,26 +411,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Estado = table.Column<bool>(type: "bit", nullable: false),
@@ -509,6 +441,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
                     Codigo = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -535,29 +468,23 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Codigo = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     EsFinal = table.Column<bool>(type: "bit", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -575,30 +502,24 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ContratoTipoId = table.Column<byte>(type: "tinyint", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<bool>(type: "bit", nullable: false),
                     FechaFinal = table.Column<DateTime>(type: "datetime2", nullable: true),
                     FechaInicial = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -620,29 +541,23 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     FechaFirma = table.Column<DateTime>(type: "datetime2", nullable: true),
                     FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
                     FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -663,30 +578,24 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CargoId = table.Column<int>(type: "int", nullable: false),
                     ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     EstructuraOrganizacionalId = table.Column<int>(type: "int", nullable: false),
                     MontoBruto = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
                     PersonaId = table.Column<int>(type: "int", nullable: false)
@@ -716,26 +625,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Detalle = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -768,35 +670,29 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CuentaContableTipoId = table.Column<int>(type: "int", nullable: false),
                     ES = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
                     Nivel = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    PadreId = table.Column<int>(type: "int", nullable: true),
+                    PadreId = table.Column<long>(type: "bigint", nullable: true),
                     PermiteMovimiento = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -826,26 +722,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -864,30 +753,24 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    CuentaContableId = table.Column<int>(type: "int", nullable: false),
+                    CuentaContableId = table.Column<long>(type: "bigint", nullable: false),
                     CuentaNumero = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     EntidadFinancieraId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -904,26 +787,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -941,26 +817,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -992,26 +861,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<byte>(type: "tinyint", nullable: false),
@@ -1044,26 +906,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CodigoEstatal = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -1077,11 +932,58 @@ namespace nest.core.driver.sqlserver.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "empresa",
+                schema: "organizacion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
+                    Estado = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_empresa", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "empresa_audit",
+                schema: "organizacion",
+                columns: table => new
+                {
+                    AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
+                    AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Estado = table.Column<bool>(type: "bit", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    NombreCorto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_empresa_audit", x => x.AuditId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "entidad_financiera",
                 schema: "finanzas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
@@ -1099,28 +1001,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     EsEfectivo = table.Column<bool>(type: "bit", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -1137,29 +1033,23 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<bool>(type: "bit", nullable: false),
                     EstructuraOrganizacionalTipoId = table.Column<int>(type: "int", nullable: false),
                     FechaModificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -1199,26 +1089,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -1238,30 +1121,24 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Comentarios = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DocumentoTipoGenId = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<byte>(type: "tinyint", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     Numero = table.Column<int>(type: "int", nullable: false),
@@ -1282,32 +1159,26 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Concepto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CuentaCorrienteId = table.Column<int>(type: "int", nullable: true),
                     DocumentoTipoId = table.Column<int>(type: "int", nullable: false),
                     ES = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     FechaEmision = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaPago = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaVencimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -1330,28 +1201,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     FinancieroDetalleId = table.Column<long>(type: "bigint", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     InventarioCabeceraId = table.Column<long>(type: "bigint", nullable: false)
@@ -1367,28 +1232,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     FinancieroDetalleId = table.Column<long>(type: "bigint", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     OrdenServicioCabeceraId = table.Column<long>(type: "bigint", nullable: false)
@@ -1405,26 +1264,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Action = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ClaimType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -1450,6 +1302,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
                     HoraEntrada = table.Column<TimeOnly>(type: "time", nullable: false),
@@ -1467,29 +1320,23 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DiferenciaDia = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     HoraEntrada = table.Column<TimeOnly>(type: "time", nullable: false),
                     HoraSalida = table.Column<TimeOnly>(type: "time", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -1507,6 +1354,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<int>(type: "int", nullable: false),
                     NombreCorto = table.Column<int>(type: "int", maxLength: 9, nullable: false),
                     Estado = table.Column<bool>(type: "bit", nullable: false)
@@ -1522,28 +1370,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<bool>(type: "bit", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     Nombre = table.Column<int>(type: "int", nullable: false),
@@ -1560,28 +1402,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     EsLider = table.Column<bool>(type: "bit", nullable: false),
                     GrupoTrabajoId = table.Column<long>(type: "bigint", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
@@ -1598,6 +1434,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Activo = table.Column<bool>(type: "bit", nullable: false)
@@ -1614,29 +1451,23 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
                 },
@@ -1651,29 +1482,23 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DiaSemana = table.Column<byte>(type: "tinyint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     GrupoHorarioId = table.Column<int>(type: "int", nullable: false),
                     HorarioCabeceraId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1684,37 +1509,56 @@ namespace nest.core.driver.sqlserver.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "IdentityUser",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdentityUser", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "inventario_cabecera_audit",
                 schema: "logistica",
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     AlmacenId = table.Column<int>(type: "int", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DocumentoNumero = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DocumentoSerie = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DocumentoTipoId = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     LogisticaTransaccionId = table.Column<int>(type: "int", nullable: false),
@@ -1731,29 +1575,23 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     InventarioCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     Item = table.Column<short>(type: "smallint", nullable: false),
@@ -1788,26 +1626,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -1839,26 +1670,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<byte>(type: "tinyint", nullable: false),
@@ -1891,26 +1715,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ES = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -1945,26 +1762,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<short>(type: "smallint", nullable: false),
@@ -2002,26 +1812,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Action = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Controlador = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -2060,26 +1863,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -2101,31 +1897,25 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CodigoOrdenInterna = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CodigoReferencial = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     FechaEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaFinal = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaInicial = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -2144,26 +1934,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     ActaConformidadId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CPI = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -2172,6 +1955,7 @@ namespace nest.core.driver.sqlserver.Migrations
                     ClienteSupervisorId = table.Column<int>(type: "int", nullable: true),
                     ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: true),
                     CotizacionId = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     FechaEntregaCorreo = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaEntregaInforme = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaFactura = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -2220,26 +2004,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Estado = table.Column<bool>(type: "bit", nullable: false),
@@ -2258,29 +2035,23 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<byte>(type: "tinyint", nullable: false),
                     FechaCompromiso = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaFin = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -2303,28 +2074,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     ActivoId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -2338,29 +2103,23 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<byte>(type: "tinyint", nullable: false),
                     HorasEjecutadas = table.Column<int>(type: "int", nullable: false),
                     HorasProyectadas = table.Column<int>(type: "int", nullable: false),
@@ -2380,28 +2139,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     EsLider = table.Column<bool>(type: "bit", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     OrdenTrabajoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
@@ -2435,26 +2188,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<short>(type: "smallint", nullable: false),
@@ -2488,26 +2234,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CodigoIso = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -2528,26 +2267,19 @@ namespace nest.core.driver.sqlserver.Migrations
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     ApellidoMaterno = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ApellidoPaterno = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Celular = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -2556,6 +2288,7 @@ namespace nest.core.driver.sqlserver.Migrations
                     DistritoId = table.Column<int>(type: "int", nullable: false),
                     DocumentoIdentidad = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DocumentoIdentidadTipoId = table.Column<byte>(type: "tinyint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Estado = table.Column<bool>(type: "bit", nullable: false),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -2574,29 +2307,23 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     HorarioCabeceraId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     MarcaAsistencia = table.Column<bool>(type: "bit", nullable: false),
@@ -2627,26 +2354,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<byte>(type: "tinyint", nullable: false),
@@ -2664,28 +2384,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Factor = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -2705,28 +2419,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     FechaVencimiento = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     InventarioDetalleCreacionId = table.Column<long>(type: "bigint", nullable: true),
@@ -2747,26 +2455,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DepartamentoId = table.Column<int>(type: "int", nullable: false),
@@ -2784,6 +2485,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
                     Activo = table.Column<bool>(type: "bit", nullable: false)
@@ -2800,28 +2502,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
@@ -2851,26 +2547,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<byte>(type: "tinyint", nullable: false),
@@ -2888,33 +2577,27 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    CuentaContablePorCobrarId = table.Column<int>(type: "int", nullable: false),
-                    CuentaContablePorPagarId = table.Column<int>(type: "int", nullable: false),
+                    CuentaContablePorCobrarId = table.Column<long>(type: "bigint", nullable: false),
+                    CuentaContablePorPagarId = table.Column<long>(type: "bigint", nullable: false),
                     DireccionFiscal = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DocumentoIdentidadFinanciero = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DocumentoIdentidadTipoFinancieroId = table.Column<byte>(type: "tinyint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     RazonSocial = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
                 },
@@ -2930,30 +2613,24 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     ActivoId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Comentario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     FechaIngreso = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaSalida = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Id = table.Column<long>(type: "bigint", nullable: false),
@@ -2971,28 +2648,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     PadreId = table.Column<long>(type: "bigint", nullable: true),
@@ -3024,26 +2695,19 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAcceptLanguage = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditContentType = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditCurrentCulture = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
                     AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPath = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditPlatform = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditQueryString = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUa = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -3054,6 +2718,36 @@ namespace nest.core.driver.sqlserver.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_unidad_medida_audit", x => x.AuditId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "usuario_empresa_audit",
+                schema: "security",
+                columns: table => new
+                {
+                    AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
+                    AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    UsuarioId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_usuario_empresa_audit", x => x.AuditId);
                 });
 
             migrationBuilder.CreateTable(
@@ -3179,6 +2873,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     ContratoTipoId = table.Column<byte>(type: "tinyint", nullable: false),
                     Numero = table.Column<int>(type: "int", nullable: false),
                     FechaInicial = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -3207,14 +2902,15 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "contabilidad",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
                     ES = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: true),
                     CuentaContableTipoId = table.Column<int>(type: "int", nullable: false),
                     Nivel = table.Column<int>(type: "int", nullable: false),
-                    PadreId = table.Column<int>(type: "int", nullable: true),
+                    PadreId = table.Column<long>(type: "bigint", nullable: true),
                     PermiteMovimiento = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -3242,6 +2938,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
@@ -3279,6 +2976,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     HorarioCabeceraId = table.Column<int>(type: "int", nullable: false),
                     DiaSemana = table.Column<byte>(type: "tinyint", nullable: false),
                     GrupoHorarioId = table.Column<int>(type: "int", nullable: false)
@@ -3298,6 +2996,32 @@ namespace nest.core.driver.sqlserver.Migrations
                         column: x => x.HorarioCabeceraId,
                         principalSchema: "rrhh",
                         principalTable: "horario_cabecera",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "usuario_empresa",
+                schema: "security",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    UsuarioId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_usuario_empresa", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_usuario_empresa_IdentityUser_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "IdentityUser",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_usuario_empresa_empresa_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalSchema: "organizacion",
+                        principalTable: "empresa",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -3345,6 +3069,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     OrdenServicioTipoId = table.Column<short>(type: "smallint", nullable: false),
                     CodigoOrdenInterna = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CodigoReferencial = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -3393,6 +3118,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
                     UnidadMedidaCompraId = table.Column<int>(type: "int", nullable: false),
@@ -3426,12 +3152,13 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
                     CuentaNumero = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     EntidadFinancieraId = table.Column<int>(type: "int", nullable: false),
-                    CuentaContableId = table.Column<int>(type: "int", nullable: false)
+                    CuentaContableId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -3458,6 +3185,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     OrdenServicioCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -3521,6 +3249,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     ProductoId = table.Column<int>(type: "int", nullable: false),
                     SerialId = table.Column<int>(type: "int", nullable: false),
                     FechaVencimiento = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -3575,6 +3304,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
                     DistritoId = table.Column<int>(type: "int", nullable: false),
@@ -3601,6 +3331,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombres = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
                     ApellidoPaterno = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
                     ApellidoMaterno = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
@@ -3654,6 +3385,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     AlmacenId = table.Column<int>(type: "int", nullable: false),
                     LogisticaTransaccionId = table.Column<int>(type: "int", nullable: false),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -3694,6 +3426,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     PersonaId = table.Column<int>(type: "int", nullable: false),
                     FechaUltimaNotificacion = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -3728,6 +3461,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     PersonaId = table.Column<int>(type: "int", nullable: false),
                     CargoId = table.Column<int>(type: "int", nullable: false),
                     EstructuraOrganizacionalId = table.Column<int>(type: "int", nullable: false),
@@ -3772,6 +3506,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     GrupoTrabajoId = table.Column<long>(type: "bigint", nullable: false),
                     PersonaId = table.Column<int>(type: "int", nullable: false),
                     EsLider = table.Column<bool>(type: "bit", nullable: false)
@@ -3801,6 +3536,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     OrdenTrabajoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     PersonaId = table.Column<int>(type: "int", nullable: false),
                     EsLider = table.Column<bool>(type: "bit", nullable: false)
@@ -3830,6 +3566,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     MarcaAsistencia = table.Column<bool>(type: "bit", nullable: false),
                     ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     HorarioCabeceraId = table.Column<int>(type: "int", nullable: false),
@@ -3882,12 +3619,13 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     DocumentoIdentidadTipoFinancieroId = table.Column<byte>(type: "tinyint", nullable: false),
                     DocumentoIdentidadFinanciero = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     RazonSocial = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     DireccionFiscal = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    CuentaContablePorCobrarId = table.Column<int>(type: "int", nullable: false),
-                    CuentaContablePorPagarId = table.Column<int>(type: "int", nullable: false)
+                    CuentaContablePorCobrarId = table.Column<long>(type: "bigint", nullable: false),
+                    CuentaContablePorPagarId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -3928,6 +3666,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     InventarioCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     Item = table.Column<short>(type: "smallint", nullable: false),
                     ProductoId = table.Column<int>(type: "int", nullable: false),
@@ -3967,6 +3706,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     ProductoLoteId = table.Column<long>(type: "bigint", nullable: true),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -4007,6 +3747,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     PuntoFinancieroId = table.Column<int>(type: "int", nullable: false),
                     Numero = table.Column<int>(type: "int", nullable: false),
                     OrigenFinancieroId = table.Column<short>(type: "smallint", nullable: false),
@@ -4056,6 +3797,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     ClienteSupervisorId = table.Column<int>(type: "int", nullable: true),
                     ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: true),
@@ -4151,6 +3893,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Activo = table.Column<bool>(type: "bit", nullable: false),
                     TerceroId = table.Column<int>(type: "int", nullable: true),
@@ -4181,6 +3924,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     FinancieroCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     Item = table.Column<short>(type: "smallint", nullable: false),
                     TerceroId = table.Column<int>(type: "int", nullable: false),
@@ -4234,6 +3978,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     OrdenTrabajoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     UbicacionTecnicaId = table.Column<long>(type: "bigint", nullable: false),
                     LaborId = table.Column<int>(type: "int", nullable: false),
@@ -4274,6 +4019,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     ActivoId = table.Column<long>(type: "bigint", nullable: false),
                     UbicacionTecnicaId = table.Column<long>(type: "bigint", nullable: false),
                     Comentario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -4313,6 +4059,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     FinancieroDetalleId = table.Column<long>(type: "bigint", nullable: false),
                     InventarioCabeceraId = table.Column<long>(type: "bigint", nullable: false)
                 },
@@ -4341,6 +4088,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     FinancieroDetalleId = table.Column<long>(type: "bigint", nullable: false),
                     OrdenServicioCabeceraId = table.Column<long>(type: "bigint", nullable: false)
                 },
@@ -4369,6 +4117,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     ActivoId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -4694,12 +4443,12 @@ namespace nest.core.driver.sqlserver.Migrations
             migrationBuilder.InsertData(
                 schema: "logistica",
                 table: "almacen",
-                columns: new[] { "Id", "Activo", "Direccion", "DistritoId", "Latitud", "Longitud", "Nombre", "NombreCorto" },
+                columns: new[] { "Id", "Activo", "Direccion", "DistritoId", "EmpresaId", "Latitud", "Longitud", "Nombre", "NombreCorto" },
                 values: new object[,]
                 {
-                    { 1, true, "Av. Default 1", 1, 0m, 0m, "DEFAULT 1", "DEFAULT1" },
-                    { 2, true, "Av. Default 2", 1, 0m, 0m, "DEFAULT 2", "DEFAULT2" },
-                    { 3, true, "Av. Default 3", 1, 0m, 0m, "DEFAULT 3", "DEFAULT3" }
+                    { 1, true, "Av. Default 1", 1, 0, 0m, 0m, "DEFAULT 1", "DEFAULT1" },
+                    { 2, true, "Av. Default 2", 1, 0, 0m, 0m, "DEFAULT 2", "DEFAULT2" },
+                    { 3, true, "Av. Default 3", 1, 0, 0m, 0m, "DEFAULT 3", "DEFAULT3" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -4707,6 +4456,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "patrimonial",
                 table: "activo",
                 column: "CentroDeCostosId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_activo_EmpresaId",
+                schema: "patrimonial",
+                table: "activo",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_activo_ProductoLoteId",
@@ -4731,6 +4486,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "logistica",
                 table: "almacen",
                 column: "DistritoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_almacen_EmpresaId",
+                schema: "logistica",
+                table: "almacen",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_almacen_audit_Id",
@@ -4833,6 +4594,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_centro_de_costos_EmpresaId",
+                schema: "costos",
+                table: "centro_de_costos",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_centro_de_costos_PadreId",
                 schema: "costos",
                 table: "centro_de_costos",
@@ -4852,6 +4619,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_contrato_cabecera_EmpresaId",
+                schema: "legal",
+                table: "contrato_cabecera",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_contrato_cabecera_audit_Id",
                 schema: "legal",
                 table: "contrato_cabecera_audit",
@@ -4863,6 +4636,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 table: "contrato_detalle",
                 columns: new[] { "ContratoCabeceraId", "PersonaId" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_contrato_detalle_EmpresaId",
+                schema: "legal",
+                table: "contrato_detalle",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_contrato_detalle_PersonaId",
@@ -4881,6 +4660,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "legal",
                 table: "contrato_personal",
                 column: "CargoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_contrato_personal_EmpresaId",
+                schema: "legal",
+                table: "contrato_personal",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_contrato_personal_EstructuraOrganizacionalId",
@@ -4913,6 +4698,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "CuentaContableTipoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_cuenta_contable_EmpresaId",
+                schema: "contabilidad",
+                table: "cuenta_contable",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_cuenta_contable_PadreId",
                 schema: "contabilidad",
                 table: "cuenta_contable",
@@ -4935,6 +4726,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "finanzas",
                 table: "cuenta_corriente",
                 column: "CuentaContableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_cuenta_corriente_EmpresaId",
+                schema: "finanzas",
+                table: "cuenta_corriente",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_cuenta_corriente_EntidadFinancieraId",
@@ -4985,10 +4782,28 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_empresa_audit_Id",
+                schema: "organizacion",
+                table: "empresa_audit",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_entidad_financiera_EmpresaId",
+                schema: "finanzas",
+                table: "entidad_financiera",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_entidad_financiera_audit_Id",
                 schema: "finanzas",
                 table: "entidad_financiera_audit",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_estructura_organizacional_EmpresaId",
+                schema: "organizacion",
+                table: "estructura_organizacional",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_estructura_organizacional_EstructuraOrganizacionalTipoId",
@@ -5019,6 +4834,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "finanzas",
                 table: "financiero_cabecera",
                 column: "DocumentoTipoGenId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_financiero_cabecera_EmpresaId",
+                schema: "finanzas",
+                table: "financiero_cabecera",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_financiero_cabecera_OrigenFinancieroId",
@@ -5057,6 +4878,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "DocumentoTipoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_financiero_detalle_EmpresaId",
+                schema: "finanzas",
+                table: "financiero_detalle",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_financiero_detalle_FinancieroCabeceraId",
                 schema: "finanzas",
                 table: "financiero_detalle",
@@ -5075,6 +4902,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_financiero_logistica_EmpresaId",
+                schema: "finanzas",
+                table: "financiero_logistica",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_financiero_logistica_FinancieroDetalleId_InventarioCabeceraId",
                 schema: "finanzas",
                 table: "financiero_logistica",
@@ -5091,6 +4924,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "finanzas",
                 table: "financiero_logistica_audit",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_financiero_orden_servicio_EmpresaId",
+                schema: "finanzas",
+                table: "financiero_orden_servicio",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_financiero_orden_servicio_FinancieroDetalleId_OrdenServicioCabeceraId",
@@ -5137,16 +4976,34 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_grupo_horario_EmpresaId",
+                schema: "rrhh",
+                table: "grupo_horario",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_grupo_horario_audit_Id",
                 schema: "rrhh",
                 table: "grupo_horario_audit",
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_grupo_trabajo_EmpresaId",
+                schema: "rrhh",
+                table: "grupo_trabajo",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_grupo_trabajo_audit_Id",
                 schema: "rrhh",
                 table: "grupo_trabajo_audit",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_grupo_trabajo_persona_EmpresaId",
+                schema: "rrhh",
+                table: "grupo_trabajo_persona",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_grupo_trabajo_persona_GrupoTrabajoId",
@@ -5167,10 +5024,22 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_horario_cabecera_EmpresaId",
+                schema: "rrhh",
+                table: "horario_cabecera",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_horario_cabecera_audit_Id",
                 schema: "rrhh",
                 table: "horario_cabecera_audit",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_horario_detalle_EmpresaId",
+                schema: "rrhh",
+                table: "horario_detalle",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_horario_detalle_GrupoHorarioId",
@@ -5203,6 +5072,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "DocumentoTipoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_inventario_cabecera_EmpresaId",
+                schema: "logistica",
+                table: "inventario_cabecera",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_inventario_cabecera_LogisticaTransaccionId",
                 schema: "logistica",
                 table: "inventario_cabecera",
@@ -5213,6 +5088,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "logistica",
                 table: "inventario_cabecera_audit",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_inventario_detalle_EmpresaId",
+                schema: "logistica",
+                table: "inventario_detalle",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_inventario_detalle_InventarioCabeceraId",
@@ -5275,6 +5156,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_orden_servicio_cabecera_EmpresaId",
+                schema: "mantto",
+                table: "orden_servicio_cabecera",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_orden_servicio_cabecera_OrdenServicioTipoId",
                 schema: "mantto",
                 table: "orden_servicio_cabecera",
@@ -5317,6 +5204,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "ContratoCabeceraId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_orden_servicio_mantenimiento_externo_EmpresaId",
+                schema: "mantto",
+                table: "orden_servicio_mantenimiento_externo",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_orden_servicio_mantenimiento_externo_MantenimientoTipoId",
                 schema: "mantto",
                 table: "orden_servicio_mantenimiento_externo",
@@ -5339,6 +5232,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "mantto",
                 table: "orden_servicio_tipo_audit",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_orden_trabajo_cabecera_EmpresaId",
+                schema: "mantto",
+                table: "orden_trabajo_cabecera",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_orden_trabajo_cabecera_GrupoTrabajoId",
@@ -5365,6 +5264,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_orden_trabajo_detalle_EmpresaId",
+                schema: "mantto",
+                table: "orden_trabajo_detalle",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_orden_trabajo_detalle_LaborId",
                 schema: "mantto",
                 table: "orden_trabajo_detalle",
@@ -5389,6 +5294,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "ActivoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_orden_trabajo_detalle_activo_EmpresaId",
+                schema: "mantto",
+                table: "orden_trabajo_detalle_activo",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_orden_trabajo_detalle_activo_audit_Id",
                 schema: "mantto",
                 table: "orden_trabajo_detalle_activo_audit",
@@ -5399,6 +5310,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "mantto",
                 table: "orden_trabajo_detalle_audit",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_orden_trabajo_personal_EmpresaId",
+                schema: "mantto",
+                table: "orden_trabajo_personal",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_orden_trabajo_personal_OrdenTrabajoCabeceraId",
@@ -5443,6 +5360,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "DocumentoIdentidadTipoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_persona_EmpresaId",
+                schema: "dbo",
+                table: "persona",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_persona_LicenciaConducirId",
                 schema: "dbo",
                 table: "persona",
@@ -5465,6 +5388,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "rrhh",
                 table: "personal",
                 column: "ContratoCabeceraId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_personal_EmpresaId",
+                schema: "rrhh",
+                table: "personal",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_personal_HorarioCabeceraId",
@@ -5497,6 +5426,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_producto_EmpresaId",
+                schema: "logistica",
+                table: "producto",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_producto_UnidadMedidaCompraId",
                 schema: "logistica",
                 table: "producto",
@@ -5513,6 +5448,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "logistica",
                 table: "producto_audit",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_producto_lote_EmpresaId",
+                schema: "logistica",
+                table: "producto_lote",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_producto_lote_MonedaId",
@@ -5545,6 +5486,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_punto_financiero_EmpresaId",
+                schema: "finanzas",
+                table: "punto_financiero",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_punto_financiero_audit_Id",
                 schema: "finanzas",
                 table: "punto_financiero_audit",
@@ -5575,6 +5522,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "DocumentoIdentidadTipoFinancieroId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tercero_EmpresaId",
+                schema: "finanzas",
+                table: "tercero",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tercero_audit_Id",
                 schema: "finanzas",
                 table: "tercero_audit",
@@ -5593,6 +5546,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "ContratoCabeceraId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ubicacion_activo_EmpresaId",
+                schema: "patrimonial",
+                table: "ubicacion_activo",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ubicacion_activo_UbicacionTecnicaId",
                 schema: "patrimonial",
                 table: "ubicacion_activo",
@@ -5603,6 +5562,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "patrimonial",
                 table: "ubicacion_activo_audit",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ubicacion_tecnica_EmpresaId",
+                schema: "patrimonial",
+                table: "ubicacion_tecnica",
+                column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ubicacion_tecnica_PadreId",
@@ -5626,6 +5591,24 @@ namespace nest.core.driver.sqlserver.Migrations
                 name: "IX_unidad_medida_audit_Id",
                 schema: "logistica",
                 table: "unidad_medida_audit",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_usuario_empresa_EmpresaId",
+                schema: "security",
+                table: "usuario_empresa",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_usuario_empresa_UsuarioId",
+                schema: "security",
+                table: "usuario_empresa",
+                column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_usuario_empresa_audit_Id",
+                schema: "security",
+                table: "usuario_empresa_audit",
                 column: "Id");
         }
 
@@ -5751,6 +5734,10 @@ namespace nest.core.driver.sqlserver.Migrations
             migrationBuilder.DropTable(
                 name: "documento_tipo_audit",
                 schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "empresa_audit",
+                schema: "organizacion");
 
             migrationBuilder.DropTable(
                 name: "entidad_financiera_audit",
@@ -5965,6 +5952,14 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "logistica");
 
             migrationBuilder.DropTable(
+                name: "usuario_empresa",
+                schema: "security");
+
+            migrationBuilder.DropTable(
+                name: "usuario_empresa_audit",
+                schema: "security");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles",
                 schema: "security");
 
@@ -6019,6 +6014,13 @@ namespace nest.core.driver.sqlserver.Migrations
             migrationBuilder.DropTable(
                 name: "contrato_cabecera",
                 schema: "legal");
+
+            migrationBuilder.DropTable(
+                name: "IdentityUser");
+
+            migrationBuilder.DropTable(
+                name: "empresa",
+                schema: "organizacion");
 
             migrationBuilder.DropTable(
                 name: "estructura_organizacional_tipo",

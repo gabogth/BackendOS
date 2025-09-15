@@ -2,6 +2,7 @@ namespace nest.core.dominio.General.PersonaEntities
 {
     public class PersonaCrearDto
     {
+        public int EmpresaId { get; set; }
         public string Nombres { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }

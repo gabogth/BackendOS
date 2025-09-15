@@ -2,7 +2,7 @@
 
 namespace nest.core.dominio.Logistica
 {
-    public class UnidadMedida : IAuditable
+    public class UnidadMedida : IAuditable, IEntity<int>
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

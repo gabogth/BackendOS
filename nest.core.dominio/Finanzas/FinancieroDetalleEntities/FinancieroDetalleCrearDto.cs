@@ -2,6 +2,7 @@ namespace nest.core.dominio.Finanzas.FinancieroDetalleEntities
 {
     public class FinancieroDetalleCrearDto
     {
+        public int EmpresaId { get; set; }
         public short Item { get; set; }
         public int TerceroId { get; set; }
         public DateTime FechaEmision { get; set; }

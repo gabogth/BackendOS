@@ -4,8 +4,9 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities
 {
-    public class OrdenTrabajoDetalleActivo : IEntity<long>, IAuditable
+    public class OrdenTrabajoDetalleActivo : IEntity<long>, IAuditable, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public long Id { get; set; }
         public long ActivoId { get; set; }
         public OrdenTrabajoDetalle OrdenTrabajoDetalle { get; set; }

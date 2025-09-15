@@ -1,11 +1,11 @@
 using nest.core.dominio.General.DistritoEntities;
 using nest.core.dominio.Security.Audit;
-using nest.core.dominio;
 
 namespace nest.core.dominio.Logistica.AlmacenEN
 {
-    public class Almacen : IAuditable, IEntity<int>
+    public class Almacen : IAuditable, IEntity<int>, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string NombreCorto { get; set; }

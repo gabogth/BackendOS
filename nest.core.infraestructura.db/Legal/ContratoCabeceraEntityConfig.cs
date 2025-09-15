@@ -11,6 +11,7 @@ namespace nest.core.infraestructura.db.Legal
         {
             builder.ToTable("contrato_cabecera", "legal");
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<long>>();
