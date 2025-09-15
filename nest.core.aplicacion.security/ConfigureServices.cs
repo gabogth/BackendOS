@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.dominio.Security.Auth;
+using nest.core.dominio.Security.UsuarioEmpresa;
 using nest.core.infraestructura.security;
 using nest.core.infraestructura.security.Security;
 using nest.core.infraestructura.security.Aplicacion;
@@ -33,6 +34,7 @@ namespace nest.core.aplicacion.security
             services.AddTransient<IClaimsGenerator, JwtGenerator>();
             services.AddTransient<IModuloRepository, ModuloRepository>();
             services.AddTransient<IFormularioRepository, FormularioRepository>();
+            services.AddTransient<IEmpresaRepository, EmpresaRepository>();
             services.AddTransient<IUsuarioEmpresaRepository, UsuarioEmpresaRepository>();
             services.AddTransient<IConnectionStringService>((services) => AuthClaim.constructClaimsAuth(services, configuration));
             return services;
