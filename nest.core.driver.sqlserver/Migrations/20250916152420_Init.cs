@@ -161,6 +161,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
@@ -192,6 +193,7 @@ namespace nest.core.driver.sqlserver.Migrations
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
@@ -1509,31 +1511,6 @@ namespace nest.core.driver.sqlserver.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdentityUser",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityUser", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "inventario_cabecera_audit",
                 schema: "logistica",
                 columns: table => new
@@ -2726,6 +2703,7 @@ namespace nest.core.driver.sqlserver.Migrations
                 columns: table => new
                 {
                     AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    Actual = table.Column<bool>(type: "bit", nullable: false),
                     AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
@@ -2933,6 +2911,34 @@ namespace nest.core.driver.sqlserver.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "usuario_empresa",
+                schema: "security",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    UsuarioId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
+                    Actual = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_usuario_empresa", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_usuario_empresa_AspNetUsers_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalSchema: "security",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_usuario_empresa_empresa_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalSchema: "organizacion",
+                        principalTable: "empresa",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "estructura_organizacional",
                 schema: "organizacion",
                 columns: table => new
@@ -2996,32 +3002,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         column: x => x.HorarioCabeceraId,
                         principalSchema: "rrhh",
                         principalTable: "horario_cabecera",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "usuario_empresa",
-                schema: "security",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false),
-                    UsuarioId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    EmpresaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_usuario_empresa", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_usuario_empresa_IdentityUser_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "IdentityUser",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_usuario_empresa_empresa_EmpresaId",
-                        column: x => x.EmpresaId,
-                        principalSchema: "organizacion",
-                        principalTable: "empresa",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -4142,11 +4122,11 @@ namespace nest.core.driver.sqlserver.Migrations
             migrationBuilder.InsertData(
                 schema: "security",
                 table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                columns: new[] { "Id", "ConcurrencyStamp", "EmpresaId", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1", null, "admin", "ADMIN" },
-                    { "2", null, "superadmin", "SUPERADMIN" }
+                    { "1", null, 1, "admin", "ADMIN" },
+                    { "2", null, 1, "superadmin", "SUPERADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -4193,6 +4173,12 @@ namespace nest.core.driver.sqlserver.Migrations
                     { (byte)3, "Pasaporte", "PSX" },
                     { (byte)4, "Permiso temporal de permanencia", "PTP" }
                 });
+
+            migrationBuilder.InsertData(
+                schema: "organizacion",
+                table: "empresa",
+                columns: new[] { "Id", "Estado", "Nombre", "NombreCorto" },
+                values: new object[] { 1, true, "Default", "Def" });
 
             migrationBuilder.InsertData(
                 schema: "dbo",
@@ -4375,7 +4361,25 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     { 1, "Index", "aplicacion-home", "Seguridad", "", true, "home", 1, "Inicio", "INICIO", (short)1, null },
                     { 2, "", null, "", "", true, "window-restore", 1, "Aplicacion", "APLICACIO", (short)2, null },
-                    { 4, "", null, "", "", true, "shield", 1, "Seguridad", "SEGURIDAD", (short)3, null },
+                    { 4, "", null, "", "", true, "shield", 1, "Seguridad", "SEGURIDAD", (short)3, null }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "security",
+                table: "usuario_empresa",
+                columns: new[] { "Id", "Actual", "EmpresaId", "UsuarioId" },
+                values: new object[,]
+                {
+                    { 1L, true, 1, "1" },
+                    { 2L, true, 1, "2" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "aplicacion",
+                table: "formulario",
+                columns: new[] { "Id", "Action", "ClaimType", "Controlador", "Descripcion", "Estado", "Icono", "ModuloId", "Nombre", "NombreCorto", "Orden", "ParentId" },
+                values: new object[,]
+                {
                     { 3, "Formulario", "aplicacion-formulario", "Seguridad", "", true, "table-list", 1, "Formulario", "FORMULARI", (short)2, 2 },
                     { 5, "Rol", "seguridad-rol", "Seguridad", "", true, "users", 1, "Rol", "ROL", (short)1, 4 },
                     { 6, "RolUsuario", "seguridad-rol-usuario", "Seguridad", "", true, "users", 1, "Rol Usuarios", "ROLUSER", (short)2, 4 },
@@ -5600,6 +5604,14 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_usuario_empresa_EmpresaId_UsuarioId",
+                schema: "security",
+                table: "usuario_empresa",
+                columns: new[] { "EmpresaId", "UsuarioId" },
+                unique: true,
+                filter: "[UsuarioId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_usuario_empresa_UsuarioId",
                 schema: "security",
                 table: "usuario_empresa",
@@ -5964,10 +5976,6 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "security");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers",
-                schema: "security");
-
-            migrationBuilder.DropTable(
                 name: "cargo",
                 schema: "rrhh");
 
@@ -6016,7 +6024,8 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "legal");
 
             migrationBuilder.DropTable(
-                name: "IdentityUser");
+                name: "AspNetUsers",
+                schema: "security");
 
             migrationBuilder.DropTable(
                 name: "empresa",

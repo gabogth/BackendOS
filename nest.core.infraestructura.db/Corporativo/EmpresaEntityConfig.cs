@@ -16,14 +16,14 @@ namespace nest.core.infraestructura.db.Corporativo
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(9)
                 .IsRequired();
+            builder.HasData(ObtenerInformacionInicial());
         }
         public List<Empresa> ObtenerInformacionInicial()
         {
-            List<Empresa> entidades = new List<Empresa>()
+            return new List<Empresa>()
             {
                 new Empresa { Id = 1, Nombre = "Default", NombreCorto = "Def", Estado = true }
             };
-            return entidades;
         }
     }
 }

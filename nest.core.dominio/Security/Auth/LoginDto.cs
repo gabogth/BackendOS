@@ -6,6 +6,5 @@
         public required string Password { get; init; }
         public string? TwoFactorCode { get; init; }
         public string? TwoFactorRecoveryCode { get; init; }
-        public required string TenantId { get; init; }
-}
+    }
 }

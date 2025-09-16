@@ -15,8 +15,8 @@ namespace nest.core.infraestructura.db.Security
         {
             return new List<ApplicationRole>()
             {
-                new ApplicationRole { Id = "1", Name = "admin", NormalizedName = "ADMIN" },
-                new ApplicationRole { Id = "2", Name = "superadmin", NormalizedName = "SUPERADMIN" },
+                new ApplicationRole { EmpresaId = 1, Id = "1", Name = "admin", NormalizedName = "ADMIN" },
+                new ApplicationRole { EmpresaId = 1, Id = "2", Name = "superadmin", NormalizedName = "SUPERADMIN" },
             };
         }
     }

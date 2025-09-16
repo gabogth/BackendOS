@@ -304,6 +304,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Id")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -4146,67 +4149,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdentityUser");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -6603,6 +6545,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
+                    b.Property<bool>("Actual")
+                        .HasColumnType("bit");
+
                     b.Property<string>("AuditAccion")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -7034,6 +6979,15 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("empresa", "organizacion");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Estado = true,
+                            Nombre = "Default",
+                            NombreCorto = "Def"
+                        });
                 });
 
             modelBuilder.Entity("nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities.EstructuraOrganizacional", b =>
@@ -9703,6 +9657,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -9724,12 +9681,14 @@ namespace nest.core.driver.sqlserver.Migrations
                         new
                         {
                             Id = "1",
+                            EmpresaId = 1,
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
+                            EmpresaId = 1,
                             Name = "superadmin",
                             NormalizedName = "SUPERADMIN"
                         });
@@ -9857,10 +9816,13 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.ToTable("correlativo_maestro", "audit");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Security.UsuarioEmpresa", b =>
+            modelBuilder.Entity("nest.core.dominio.Security.UsuarioEmpresa.UsuarioEmpresa", b =>
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
+
+                    b.Property<bool>("Actual")
+                        .HasColumnType("bit");
 
                     b.Property<int>("EmpresaId")
                         .HasColumnType("int");
@@ -9875,7 +9837,27 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasIndex("UsuarioId");
 
+                    b.HasIndex("EmpresaId", "UsuarioId")
+                        .IsUnique()
+                        .HasFilter("[UsuarioId] IS NOT NULL");
+
                     b.ToTable("usuario_empresa", "security");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Actual = true,
+                            EmpresaId = 1,
+                            UsuarioId = "1"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Actual = true,
+                            EmpresaId = 1,
+                            UsuarioId = "2"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -10702,7 +10684,7 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Navigation("Superior");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.Security.UsuarioEmpresa", b =>
+            modelBuilder.Entity("nest.core.dominio.Security.UsuarioEmpresa.UsuarioEmpresa", b =>
                 {
                     b.HasOne("nest.core.dominio.Corporativo.Empresa.Empresa", "Empresa")
                         .WithMany()
@@ -10710,7 +10692,7 @@ namespace nest.core.driver.sqlserver.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Usuario")
+                    b.HasOne("nest.core.dominio.Security.ApplicationUser", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId");
 

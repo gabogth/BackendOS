@@ -2,8 +2,8 @@
 
 namespace nest.core.dominio.Security
 {
-    public class ApplicationRole : IdentityRole
+    public class ApplicationRole : IdentityRole, ITenantEntity
     {
-        
+        public int EmpresaId { get; set; }
     }
 }

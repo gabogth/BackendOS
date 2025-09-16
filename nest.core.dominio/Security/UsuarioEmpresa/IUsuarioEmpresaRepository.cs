@@ -12,5 +12,6 @@ namespace nest.core.dominio.Security.UsuarioEmpresa
         Task<UsuarioEmpresa> Modificar(long id, UsuarioEmpresaCrearDto entry);
         Task Eliminar(long id);
         Task Seleccionar(int EmpresaId, string UsuarioId);
+        Task<UsuarioEmpresa> ObtenerSeleccionado(string UsuarioId);
     }
 }
