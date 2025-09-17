@@ -3,8 +3,6 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using nest.core.aplication.auth;
-using nest.core.dominio.Security;
-using nest.core.infraestructura.db.DbContext;
 using nest.core.security.Extensions;
 using System.Reflection;
 using System.Text;
@@ -19,15 +17,8 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: true)
                      .AddJsonFile($"empresas.json", optional: false, reloadOnChange: true)
                      .AddUserSecrets<Program>()
                      .AddEnvironmentVariables();
-if (MigrationService.IsMigration())
-    MigrationResolver.PickProvider(builder);
-else
-{
-    builder.Services.AddDbContext<NestDbContext>();
-    builder.Services
-        .AddIdentity<ApplicationUser, ApplicationRole>()
-        .AddEntityFrameworkStores<NestDbContext>();
-}
+
+DbContextSelector.SelectProvider(builder, !MigrationService.IsMigration());
 
 builder.Services.ConfigureAplication(builder.Configuration);
 builder.Services.AddHealthChecks().AddCheck("self", () => HealthCheckResult.Healthy(), ["live"]);
@@ -100,11 +91,9 @@ builder.Services.AddAuthentication(option =>
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+await MigrationResolver.ExecuteMigration(app);
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

@@ -2,27 +2,13 @@
 ### Generar una migracion
 cd nest.core.security
 Para SQLServer
-dotnet ef migrations add initial -o Migrations/SqlServer --context DbContextSqlServer -- connection=Connection_Tenant_1
-dotnet ef database update --context DbContextSqlServer -- connection=Connection_Tenant_1
-luego para futuras migraciones omitir -o osea:
-dotnet ef migrations add migrations2 --context DbContextSqlServer -- connection=Connection_Tenant_1
+dotnet ef migrations add Init --project nest.core.driver.sqlserver --startup-project nest.core.security --context DbContextSqlServer -- connection=SqlServer
 
 Para PostgreSql
-dotnet ef migrations add initial -o Migrations/PostgreSql --context DbContextPsSql -- connection=Connection_Tenant_2
-dotnet ef database update --context DbContextPsSql -- connection=Connection_Tenant_2
-luego para futuras migraciones omitir -o osea:
-dotnet ef migrations add migrations2 --context DbContextPsSql -- connection=Connection_Tenant_2
+dotnet ef migrations add Init --project nest.core.driver.postgres --startup-project nest.core.security --context DbContextPsSql -- connection=Npgsql
 
 Para Mysql
-dotnet ef migrations add initial -o Migrations/Mysql --context DbContextMySql -- connection=Connection_Tenant_3
-dotnet ef database update --context DbContextMySql -- connection=Connection_Tenant_3
-luego para futuras migraciones omitir -o osea:
-dotnet ef migrations add migrations2 --context DbContextMySql -- connection=Connection_Tenant_3
-### Generar bbdd
-```
-cd nest.core.security
-dotnet ef database update
-```
+dotnet ef migrations add Init --project nest.core.driver.mysql --startup-project nest.core.security --context DbContextMySql -- connection=MySql
 
 ### Iniciar servicios
 Varios proyectos de inicio:
@@ -41,12 +27,4 @@ docker pull postgres
 docker run --name postgresimage -e "POSTGRES_USER=postgres" -e "POSTGRES_PASSWORD=4N&XY&d_0y6+" -p 5431:5432 -d postgres
 docker pull mysql
 docker run --name mysqlimage -e "MYSQL_ROOT_PASSWORD=mysql" -p 3305:3306 -d mysql
-
-
-dotnet ef migrations add initial -o Migrations/SqlServer --context DbContextSqlServer -- connection=Connection_Tenant_1
-dotnet ef migrations add initial -o Migrations/PsSql --context DbContextPsSql -- connection=Connection_Tenant_2
-dotnet ef migrations add initial -o Migrations/MySql --context DbContextMySql -- connection=Connection_Tenant_3
-dotnet ef database update --context DbContextSqlServer -- connection=Connection_Tenant_1
-dotnet ef database update --context DbContextPsSql -- connection=Connection_Tenant_2
-dotnet ef database update --context DbContextMySql -- connection=Connection_Tenant_3
 

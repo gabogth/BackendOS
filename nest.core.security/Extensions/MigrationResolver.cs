@@ -1,37 +1,32 @@
-﻿using nest.core.dominio.Security;
+﻿using Microsoft.EntityFrameworkCore;
 using nest.core.infraestructura.db.DbContext.Provider;
-using nest.core.infraestructura.db.DbContext;
-using nest.core.aplication.auth;
 
 namespace nest.core.security.Extensions
 {
     public static class MigrationResolver
     {
-        public static void PickProvider(WebApplicationBuilder builder) 
+        public static async Task ExecuteMigration(WebApplication app)
         {
-            string connection = MigrationService.MigrationConnection();
-            string engine = MigrationService.GetEngine(builder.Configuration, connection);
-            Console.WriteLine($"Resolviendo proveedor de base de datos para migraciones: {engine}");
-            Console.WriteLine($"Conexion actual: {connection}");
-            switch (engine)
+            string connection = Environment.GetEnvironmentVariable("ENGINE");
+            switch (connection)
             {
                 case "SqlServer":
-                    builder.Services.AddDbContext<NestDbContext, DbContextSqlServer>();
-                    builder.Services
-                        .AddIdentity<ApplicationUser, ApplicationRole>()
-                        .AddEntityFrameworkStores<DbContextSqlServer>();
+                    var applicationSql = app.Services.CreateScope().ServiceProvider.GetRequiredService<DbContextSqlServer>();
+                    var pendingMigrationsSql = await applicationSql.Database.GetPendingMigrationsAsync();
+                    if (pendingMigrationsSql != null)
+                        await applicationSql.Database.MigrateAsync();
                     break;
                 case "Npgsql":
-                    builder.Services.AddDbContext<NestDbContext, DbContextPsSql>();
-                    builder.Services
-                        .AddIdentity<ApplicationUser, ApplicationRole>()
-                        .AddEntityFrameworkStores<DbContextPsSql>();
+                    var applicationPostgres = app.Services.CreateScope().ServiceProvider.GetRequiredService<DbContextPsSql>();
+                    var pendingMigrationsPostgres = await applicationPostgres.Database.GetPendingMigrationsAsync();
+                    if (pendingMigrationsPostgres != null)
+                        await applicationPostgres.Database.MigrateAsync();
                     break;
                 case "MySql":
-                    builder.Services.AddDbContext<NestDbContext, DbContextMySql>();
-                    builder.Services
-                        .AddIdentity<ApplicationUser, ApplicationRole>()
-                        .AddEntityFrameworkStores<DbContextMySql>();
+                    var applicationMySql = app.Services.CreateScope().ServiceProvider.GetRequiredService<DbContextMySql>();
+                    var pendingMigrationsMySql = await applicationMySql.Database.GetPendingMigrationsAsync();
+                    if (pendingMigrationsMySql != null)
+                        await applicationMySql.Database.MigrateAsync();
                     break;
                 default: throw new Exception("Engine no soportado para migraciones");
             }

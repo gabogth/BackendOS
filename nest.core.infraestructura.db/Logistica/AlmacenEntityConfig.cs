@@ -9,12 +9,11 @@ namespace nest.core.infraestructura.db.Logistica
 {
     public class AlmacenEntityConfig : IEntityTypeConfiguration<Almacen>
     {
-        public static readonly string SCHEMA = "logistica";
-        public static readonly string TABLE = "almacen";
         public void Configure(EntityTypeBuilder<Almacen> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("almacen", "logistica");
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<AlmacenValueGenerator>();

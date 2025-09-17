@@ -1,30 +1,26 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using nest.core.dominio.Security;
 using nest.core.dominio.Security.Auth;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace nest.core.infraestructura.security.Security
 {
     public class JwtGenerator : IClaimsGenerator
     {
-        public CustomAccessTokenResponse build(ApplicationUser User, List<Claim> aditionalClaims, string tenantId, string Key, string Issuer, string Audience)
+        public CustomAccessTokenResponse build(ApplicationUser User, List<Claim> aditionalClaims, int? empresaId, string Key, string Issuer, string Audience)
         {
             List<Claim> claims = new List<Claim> 
             {
                 new Claim(JwtRegisteredClaimNames.Sub, User.Id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypesCustom.CONNECTION_TENANT, tenantId),
                 new Claim(ClaimTypes.Name, User.UserName)
             };
-            if(aditionalClaims != null && aditionalClaims.Count > 0)
+            if (empresaId.HasValue)
+                claims.Add(new Claim(ClaimTypesCustom.EMPRESAID, empresaId.ToString()));
+            if (aditionalClaims != null && aditionalClaims.Count > 0)
                 claims.AddRange(aditionalClaims);
             SymmetricSecurityKey simetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
             SigningCredentials creds = new SigningCredentials(simetricKey, SecurityAlgorithms.HmacSha256);

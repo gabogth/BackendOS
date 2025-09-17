@@ -8,5 +8,10 @@ namespace nest.core.infraestructura.db.DbContext
     {
         public DbSet<CuentaContable> CuentaContable { get; set; }
         public DbSet<CuentaContableTipo> CuentaContableTipo { get; set; }
+
+        public void OnModelCreatingContabilidad(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CuentaContable>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+        }
     }
 }

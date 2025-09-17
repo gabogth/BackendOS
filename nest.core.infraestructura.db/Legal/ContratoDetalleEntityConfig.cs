@@ -6,12 +6,11 @@ namespace nest.core.infraestructura.db.Legal
 {
     public class ContratoDetalleEntityConfig : IEntityTypeConfiguration<ContratoDetalle>
     {
-        public static readonly string SCHEMA = "legal";
-        public static readonly string TABLE = "contrato_detalle";
         public void Configure(EntityTypeBuilder<ContratoDetalle> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("contrato_detalle", "legal");
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<long>>();

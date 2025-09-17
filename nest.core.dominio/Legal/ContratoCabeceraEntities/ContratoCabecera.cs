@@ -5,8 +5,9 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Legal.ContratoCabeceraEntities
 {
-    public class ContratoCabecera : IAuditable, IEntity<long>
+    public class ContratoCabecera : IAuditable, IEntity<long>, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public long Id { get; set; }
         public byte ContratoTipoId { get; set; }
         public int Numero { get; set; }

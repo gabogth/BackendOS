@@ -4,8 +4,9 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Finanzas.FinancieroLogisticaEntities
 {
-    public class FinancieroLogistica : IEntity<long>, IAuditable
+    public class FinancieroLogistica : IEntity<long>, IAuditable, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public long Id { get; set; }
         public long FinancieroDetalleId { get; set; }
         public long InventarioCabeceraId { get; set; }

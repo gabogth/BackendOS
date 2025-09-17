@@ -10,6 +10,7 @@ namespace nest.core.infraestructura.db.Patrimonial
         {
             builder.ToTable("ubicacion_activo", "patrimonial");
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<long>>();

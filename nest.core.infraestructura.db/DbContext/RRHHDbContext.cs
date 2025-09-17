@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using nest.core.dominio.Contabilidad.CuentaContableEntities;
 using nest.core.dominio.General.SexoEntities;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.GrupoHorarioEntities;
@@ -22,5 +23,14 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<Personal> Personales { get; set; }
         public DbSet<PersonalEstado> PersonalEstado { get; set; }
         public DbSet<Sexo> Sexos { get; set; }
+        public void OnModelCreatingRRHH(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<GrupoHorario>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<GrupoTrabajo>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<GrupoTrabajoPersona>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<HorarioCabecera>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<HorarioDetalle>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<Personal>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+        }
     }
 }

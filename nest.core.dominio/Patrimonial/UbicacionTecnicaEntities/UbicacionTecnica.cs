@@ -3,8 +3,9 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Patrimonial.UbicacionTecnicaEntities
 {
-    public class UbicacionTecnica : IEntity<long>, IAuditable
+    public class UbicacionTecnica : IEntity<long>, IAuditable, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public long Id { get; set; }
         public string Nombre { get; set; }
         public bool Activo { get; set; }

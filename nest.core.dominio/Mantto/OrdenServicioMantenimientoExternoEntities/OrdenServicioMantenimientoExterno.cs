@@ -8,8 +8,9 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Mantto.OrdenServicioMantenimientoExternoEntities
 {
-    public class OrdenServicioMantenimientoExterno : IEntity<long>, IAuditable
+    public class OrdenServicioMantenimientoExterno : IEntity<long>, IAuditable, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public long Id { get; set; }
         public int ClienteId { get; set; }
         public int? ClienteSupervisorId { get; set; }

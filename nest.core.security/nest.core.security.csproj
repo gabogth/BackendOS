@@ -34,11 +34,10 @@
   <ItemGroup>
     <ProjectReference Include="..\nest.core.aplicacion.security\nest.core.aplicacion.security.csproj" />
     <ProjectReference Include="..\nest.core.dominio\nest.core.dominio.csproj" />
+    <ProjectReference Include="..\nest.core.driver.mysql\nest.core.driver.mysql.csproj" />
+    <ProjectReference Include="..\nest.core.driver.postgres\nest.core.driver.postgres.csproj" />
+    <ProjectReference Include="..\nest.core.driver.sqlserver\nest.core.driver.sqlserver.csproj" />
     <ProjectReference Include="..\nest.core.infraestructura.db\nest.core.infraestructura.db.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

@@ -103,7 +103,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.infraestructura.m
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iac", "iac", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.iac.globalresources", "nest.iac.globalresources\nest.iac.globalresources.csproj", "{FE6F3A90-5E3C-424B-8AF3-7131BADEF343}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.iac.generalinfra", "nest.iac.generalinfra\nest.iac.generalinfra.csproj", "{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.iac.servicesinfra", "nest.iac.servicesinfra\nest.iac.servicesinfra.csproj", "{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "migrations", "migrations", "{7FC3797F-B49D-4CA0-858B-239AE3C16389}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.driver.postgres", "nest.core.driver.postgres\nest.core.driver.postgres.csproj", "{57ABD640-0269-4F2A-9DAB-449DF485FB27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.driver.mysql", "nest.core.driver.mysql\nest.core.driver.mysql.csproj", "{180FFE87-C3EE-4ECC-8E12-2F6C1A298055}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.driver.sqlserver", "nest.core.driver.sqlserver\nest.core.driver.sqlserver.csproj", "{01D453BD-1A3D-4B5F-A4E0-F63E814BA034}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -182,8 +192,16 @@ Global
 		{71DB6BF3-AFCE-4F0A-8BF9-9640F824A5D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{873AD771-2522-4EF4-9927-1A917681ECD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{873AD771-2522-4EF4-9927-1A917681ECD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE6F3A90-5E3C-424B-8AF3-7131BADEF343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE6F3A90-5E3C-424B-8AF3-7131BADEF343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57ABD640-0269-4F2A-9DAB-449DF485FB27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57ABD640-0269-4F2A-9DAB-449DF485FB27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{180FFE87-C3EE-4ECC-8E12-2F6C1A298055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{180FFE87-C3EE-4ECC-8E12-2F6C1A298055}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01D453BD-1A3D-4B5F-A4E0-F63E814BA034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01D453BD-1A3D-4B5F-A4E0-F63E814BA034}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -225,7 +243,11 @@ Global
 		{2D797AE8-F294-4E40-B7F4-BBCF99B1E4F9} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{71DB6BF3-AFCE-4F0A-8BF9-9640F824A5D0} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 		{873AD771-2522-4EF4-9927-1A917681ECD9} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
-		{FE6F3A90-5E3C-424B-8AF3-7131BADEF343} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{57ABD640-0269-4F2A-9DAB-449DF485FB27} = {7FC3797F-B49D-4CA0-858B-239AE3C16389}
+		{180FFE87-C3EE-4ECC-8E12-2F6C1A298055} = {7FC3797F-B49D-4CA0-858B-239AE3C16389}
+		{01D453BD-1A3D-4B5F-A4E0-F63E814BA034} = {7FC3797F-B49D-4CA0-858B-239AE3C16389}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {651F4B0C-740F-4ABF-8B23-D07A56743FFF}

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using nest.core.dominio.Contabilidad.CuentaContableEntities;
 using nest.core.dominio.General.DepartamentoEntites;
 using nest.core.dominio.General.DistritoEntities;
 using nest.core.dominio.General.DocumentoIdentidadTipoEntities;
@@ -20,6 +21,10 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<Provincia> Provincia { get; set; }
         public DbSet<Distrito> Distrito { get; set; }
         public DbSet<Persona> Persona { get; set; }
+        public void OnModelCreatingGeneral(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Persona>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+        }
 
     }
 }

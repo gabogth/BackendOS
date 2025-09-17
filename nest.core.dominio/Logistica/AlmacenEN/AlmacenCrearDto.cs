@@ -2,6 +2,7 @@
 {
     public class AlmacenCrearDto
     {
+        public int EmpresaId { get; set; }
         public string Nombre { get; set; }
         public string NombreCorto { get; set; }
         public int DistritoId { get; set; }

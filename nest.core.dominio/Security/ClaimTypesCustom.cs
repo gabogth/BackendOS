@@ -2,6 +2,6 @@
 {
     public static class ClaimTypesCustom
     {
-        public static string CONNECTION_TENANT = "Connection_Tenant";
+        public static string EMPRESAID = "EmpresaId";
     }
 }

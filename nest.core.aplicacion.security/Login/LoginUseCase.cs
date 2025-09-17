@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using nest.core.dominio.Security;
 using nest.core.dominio.Security.Auth;
+using nest.core.dominio.Security.UsuarioEmpresa;
 using nest.core.infrastructura.utils.Excepciones;
 using System.Security.Claims;
 
@@ -17,7 +17,8 @@ namespace nest.core.aplicacion.security.Login
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<ApplicationRole> roleManager;
         private readonly IEmailSender sender;
-        public LoginUseCase(SignInManager<ApplicationUser> signInManager, IClaimsGenerator claimsGenerator, IConfiguration configuration, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IEmailSender sender) 
+        private readonly IUsuarioEmpresaRepository usuarioEmpresaRepository;
+        public LoginUseCase(SignInManager<ApplicationUser> signInManager, IClaimsGenerator claimsGenerator, IConfiguration configuration, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IEmailSender sender, IUsuarioEmpresaRepository usuarioEmpresaRepository) 
         {
             this.signInManager = signInManager;
             this.claimsGenerator = claimsGenerator;
@@ -25,6 +26,7 @@ namespace nest.core.aplicacion.security.Login
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.sender = sender;
+            this.usuarioEmpresaRepository = usuarioEmpresaRepository;
         }
 
         public async Task<CustomAccessTokenResponse> Execute(LoginDto login) 
@@ -37,7 +39,8 @@ namespace nest.core.aplicacion.security.Login
             if (result.Succeeded)
             {
                 List<Claim> claims = await this.GetRoleClaims(user);
-                CustomAccessTokenResponse response = this.claimsGenerator.build(user, claims, login.TenantId, this.configuration["Jwt:Key"], this.configuration["Jwt:Issuer"], this.configuration["Jwt:Audience"]);
+                UsuarioEmpresa userClaim = await this.usuarioEmpresaRepository.ObtenerSeleccionado(user.Id);
+                CustomAccessTokenResponse response = this.claimsGenerator.build(user, claims, (userClaim == null ? null : userClaim.EmpresaId), this.configuration["Jwt:Key"], this.configuration["Jwt:Issuer"], this.configuration["Jwt:Audience"]);
                 var resultToken = await userManager.SetAuthenticationTokenAsync(user, "onPremises", "AccessToken", response.AccessToken);
                 if(resultToken.Succeeded)
                     await userManager.SetAuthenticationTokenAsync(user, "onPremises", "RefreshToken", response.RefreshToken);
@@ -45,6 +48,19 @@ namespace nest.core.aplicacion.security.Login
             }
             else
                 throw new LoginFailedPasswordException();
+        }
+
+        public async Task<CustomAccessTokenResponse> CambiarEmpresa(CambiarEmpresaDto entity)
+        {
+            signInManager.AuthenticationScheme = IdentityConstants.BearerScheme;
+            ApplicationUser user = await signInManager.UserManager.FindByEmailAsync(entity.Email);
+            List<Claim> claims = await this.GetRoleClaims(user);
+            await this.usuarioEmpresaRepository.Seleccionar(entity.EmpresaId, user.Id);
+            CustomAccessTokenResponse response = this.claimsGenerator.build(user, claims, entity.EmpresaId, this.configuration["Jwt:Key"], this.configuration["Jwt:Issuer"], this.configuration["Jwt:Audience"]);
+            var resultToken = await userManager.SetAuthenticationTokenAsync(user, "onPremises", "AccessToken", response.AccessToken);
+            if (resultToken.Succeeded)
+                await userManager.SetAuthenticationTokenAsync(user, "onPremises", "RefreshToken", response.RefreshToken);
+            return response;
         }
 
         public async Task<List<Claim>> GetRoleClaims(ApplicationUser user)
