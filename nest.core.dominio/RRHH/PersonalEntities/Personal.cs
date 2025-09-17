@@ -6,8 +6,9 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.PersonalEntities
 {
-    public class Personal : IAuditable, IEntity<int>
+    public class Personal : IAuditable, IEntity<int>, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public int Id { get; set; }
         public bool MarcaAsistencia { get; set; }
         public long ContratoCabeceraId { get; set; }

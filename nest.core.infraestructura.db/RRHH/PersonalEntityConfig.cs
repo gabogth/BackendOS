@@ -10,6 +10,7 @@ namespace nest.core.infraestructura.db.RRHH
         {
             builder.ToTable("personal", "rrhh");
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever();
             builder.HasOne(x => x.Persona)

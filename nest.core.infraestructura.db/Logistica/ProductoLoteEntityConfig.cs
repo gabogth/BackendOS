@@ -6,12 +6,11 @@ namespace nest.core.infraestructura.db.Logistica
 {
     public class ProductoLoteEntityConfig : IEntityTypeConfiguration<ProductoLote>
     {
-        public static readonly string SCHEMA = "logistica";
-        public static readonly string TABLE = "producto_lote";
         public void Configure(EntityTypeBuilder<ProductoLote> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("producto_lote", "logistica");
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<long>>();

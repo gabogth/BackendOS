@@ -6,11 +6,10 @@ namespace nest.core.infraestructura.db.Logistica.Transaccional
 {
     public class InventarioDetalleEntityConfig : IEntityTypeConfiguration<InventarioDetalle>
     {
-        public static readonly string SCHEMA = "logistica";
-        public static readonly string TABLE = "inventario_detalle";
         public void Configure(EntityTypeBuilder<InventarioDetalle> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("inventario_detalle", "logistica");
+            builder.HasIndex(x => x.EmpresaId);
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()

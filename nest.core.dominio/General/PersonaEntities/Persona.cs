@@ -7,8 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace nest.core.dominio.General.PersonaEntities
 {
-    public class Persona : IAuditable, IEntity<int>
+    public class Persona : IAuditable, IEntity<int>, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public int Id { get; set; }
         public string Nombres { get; set; }
         public string ApellidoPaterno { get; set; }

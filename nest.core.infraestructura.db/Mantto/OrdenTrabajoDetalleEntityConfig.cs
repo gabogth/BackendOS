@@ -10,6 +10,7 @@ namespace nest.core.infraestructura.db.Mantto
         {
             builder.ToTable("orden_trabajo_detalle", "mantto");
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<long>>();

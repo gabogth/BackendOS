@@ -3,8 +3,9 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Logistica
 {
-    public class ProductoLote : IAuditable
+    public class ProductoLote : IAuditable, IEntity<long>, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public long Id { get; set; }
         public int ProductoId { get; set; }
         public int SerialId { get; set; }

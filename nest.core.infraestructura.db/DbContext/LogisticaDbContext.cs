@@ -2,7 +2,6 @@
 using nest.core.dominio.Logistica;
 using nest.core.dominio.Logistica.AlmacenEN;
 using nest.core.dominio.Logistica.Transaccional;
-using nest.core.dominio.Logistica.OrdenServicio;
 
 namespace nest.core.infraestructura.db.DbContext
 {
@@ -15,7 +14,13 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<UnidadMedida> UnidadMedida { get; set; }
         public DbSet<InventarioCabecera> InventarioCabecera { get; set; }
         public DbSet<InventarioDetalle> InventarioDetalle { get; set; }
-        public DbSet<OrdenServicioCabecera> OrdenServicioCabecera { get; set; }
-        public DbSet<OrdenServicioMantenimientoExterno> OrdenServicioMantenimientoExterno { get; set; }
+        public void OnModelCreatingLogistica(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Almacen>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<Producto>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<ProductoLote>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<InventarioCabecera>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<InventarioDetalle>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+        }
     }
 }

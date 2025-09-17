@@ -9,11 +9,9 @@ namespace nest.core.infraestructura.db.Logistica
 {
     public class LogisticaTransaccionEntityConfig : IEntityTypeConfiguration<LogisticaTransaccion>
     {
-        public static readonly string SCHEMA = "logistica";
-        public static readonly string TABLE = "logistica_transaccion";
         public void Configure(EntityTypeBuilder<LogisticaTransaccion> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("logistica_transaccion", "logistica");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()

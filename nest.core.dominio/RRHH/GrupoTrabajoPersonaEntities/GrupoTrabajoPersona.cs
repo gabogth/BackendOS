@@ -4,8 +4,9 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities
 {
-    public class GrupoTrabajoPersona : IEntity<long>, IAuditable
+    public class GrupoTrabajoPersona : IEntity<long>, IAuditable, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public long Id { get; set; }
         public long GrupoTrabajoId { get; set; }
         public int PersonaId { get; set; }

@@ -22,5 +22,14 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<OrdenTrabajoDetalle> OrdenTrabajoDetalle { get; set; }
         public DbSet<OrdenTrabajoDetalleActivo> OrdenTrabajoDetalleActivo { get; set; }
         public DbSet<OrdenTrabajoPersonal> OrdenTrabajoPersonal { get; set; }
+        public void OnModelCreatingMantto(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<OrdenServicioCabecera>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<OrdenServicioMantenimientoExterno>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<OrdenTrabajoCabecera>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<OrdenTrabajoDetalle>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<OrdenTrabajoDetalleActivo>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<OrdenTrabajoPersonal>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+        }
     }
 }

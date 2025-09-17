@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.corporativo;
 using nest.core.aplicacion.corporativo.EstructuraOrganizacionalServices;
 using nest.core.aplicacion.corporativo.EstructuraOrganizacionalTipoServices;
+using nest.core.aplicacion.corporativo.EmpresaServices;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -16,6 +17,7 @@ namespace nest.core.corporativo.Extensions
             services.ConfigureInfraestructura(configuration);
             services.AddScoped<EstructuraOrganizacionalTipoService>();
             services.AddScoped<EstructuraOrganizacionalService>();
+            services.AddScoped<EmpresaService>();
           
             return services;
         }

@@ -24,5 +24,16 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<OrigenFinanciero> OrigenFinanciero { get; set; }
         public DbSet<PuntoFinanciero> PuntoFinanciero { get; set; }
         public DbSet<Tercero> Tercero { get; set; }
+        public void OnModelCreatingFinanzas(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CuentaCorriente>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<EntidadFinanciera>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<FinancieroCabecera>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<FinancieroDetalle>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<FinancieroLogistica>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<FinancieroOrdenServicio>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<PuntoFinanciero>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<Tercero>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+        }
     }
 }

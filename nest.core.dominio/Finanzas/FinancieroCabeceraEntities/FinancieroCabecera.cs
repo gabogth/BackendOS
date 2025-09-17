@@ -7,8 +7,9 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Finanzas.FinancieroCabeceraEntities
 {
-    public class FinancieroCabecera : IEntity<long>, IAuditable
+    public class FinancieroCabecera : IEntity<long>, IAuditable, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public long Id { get; set; }
         public int PuntoFinancieroId { get; set; }
         public int Numero { get; set; }

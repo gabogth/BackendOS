@@ -2,6 +2,7 @@ namespace nest.core.dominio.RRHH.PersonalEntities
 {
     public class PersonalCrearDto
     {
+        public int EmpresaId { get; set; }
         public int Id { get; set; }
         public bool MarcaAsistencia { get; set; }
         public long ContratoCabeceraId { get; set; }

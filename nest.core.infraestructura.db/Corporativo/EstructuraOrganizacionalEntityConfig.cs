@@ -10,6 +10,7 @@ namespace nest.core.infraestructura.db.Corporativo
         {
             builder.ToTable("estructura_organizacional", "organizacion");
             builder.HasKey(x => x.Id);
+            builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<int>>();

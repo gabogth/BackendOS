@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using nest.core.dominio.Logistica.AlmacenEN;
-using nest.core.dominio.Logistica.OrdenServicio;
 
 namespace nest.core.infraestructura.logistica.Mapper
 {
@@ -9,8 +8,6 @@ namespace nest.core.infraestructura.logistica.Mapper
         public AutomapperProfiles()
         {
             CreateMap<AlmacenCrearDto, Almacen>();
-            CreateMap<OrdenServicioCabeceraCrearDto, OrdenServicioCabecera>();
-            CreateMap<OrdenServicioMantenimientoExternoCrearDto, OrdenServicioMantenimientoExterno>();
         }
     }
 }

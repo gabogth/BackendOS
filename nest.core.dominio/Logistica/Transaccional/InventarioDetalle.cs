@@ -2,8 +2,9 @@
 
 namespace nest.core.dominio.Logistica.Transaccional
 {
-    public class InventarioDetalle : IAuditable
+    public class InventarioDetalle : IAuditable, IEntity<long>, ITenantEntity
     {
+        public int EmpresaId { get; set; }
         public long Id { get; set; }
         public long InventarioCabeceraId { get; set; }
         public short Item { get; set; }
