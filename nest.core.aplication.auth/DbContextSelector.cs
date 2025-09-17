@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.dominio.Security;
 using nest.core.infraestructura.db.DbContext;
+using nest.core.infraestructura.db.DbContext.Convention;
 using nest.core.infraestructura.db.DbContext.Provider;
 
 namespace nest.core.aplication.auth
@@ -16,19 +17,25 @@ namespace nest.core.aplication.auth
             switch (connection)
             {
                 case "SqlServer":
-                    builder.Services.AddDbContext<NestDbContext, DbContextSqlServer>();
+                    builder.Services.AddDbContext<NestDbContext, DbContextSqlServer>((sp) => {
+                        sp.AddInterceptors(new TenantGuardSaveChangesInterceptor());
+                    });
                     builder.Services
                         .AddIdentity<ApplicationUser, ApplicationRole>()
                         .AddEntityFrameworkStores<DbContextSqlServer>();
                     break;
                 case "Npgsql":
-                    builder.Services.AddDbContext<NestDbContext, DbContextPsSql>();
+                    builder.Services.AddDbContext<NestDbContext, DbContextPsSql>((sp) => {
+                        sp.AddInterceptors(new TenantGuardSaveChangesInterceptor());
+                    });
                     builder.Services
                         .AddIdentity<ApplicationUser, ApplicationRole>()
                         .AddEntityFrameworkStores<DbContextPsSql>();
                     break;
                 case "MySql":
-                    builder.Services.AddDbContext<NestDbContext, DbContextMySql>();
+                    builder.Services.AddDbContext<NestDbContext, DbContextMySql>((sp) => {
+                        sp.AddInterceptors(new TenantGuardSaveChangesInterceptor());
+                    });
                     builder.Services
                         .AddIdentity<ApplicationUser, ApplicationRole>()
                         .AddEntityFrameworkStores<DbContextMySql>();
