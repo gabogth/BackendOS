@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -92,12 +93,31 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 await MigrationResolver.ExecuteMigration(app);
+if(!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BASE_URL")))
+    app.UsePathBase(Environment.GetEnvironmentVariable("BASE_URL"));
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors("CorsPolicy");
+app.MapHealthChecks("/health/live", new HealthCheckOptions {
+    ResponseWriter = async (ctx, report) =>
+    {
+        ctx.Response.ContentType = "application/json";
+        var result = JsonSerializer.Serialize(new
+        {
+            status = report.Status.ToString(),
+            results = report.Entries.Select(e => new
+            {
+                key = e.Key,
+                status = e.Value.Status.ToString(),
+                description = e.Value.Description
+            })
+        });
+        await ctx.Response.WriteAsync(result);
+    }
+});
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 app.Run();

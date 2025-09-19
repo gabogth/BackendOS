@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.dominio.Security;
 using nest.core.infraestructura.db.DbContext;
@@ -23,6 +24,8 @@ namespace nest.core.aplication.auth
                     builder.Services
                         .AddIdentity<ApplicationUser, ApplicationRole>()
                         .AddEntityFrameworkStores<DbContextSqlServer>();
+                    builder.Services.AddHealthChecks()
+                        .AddDbContextCheck<DbContextSqlServer>("Users check", customTestQuery: (db, token) => db.Users.AnyAsync(token));
                     break;
                 case "Npgsql":
                     builder.Services.AddDbContext<NestDbContext, DbContextPsSql>((sp) => {
@@ -31,6 +34,8 @@ namespace nest.core.aplication.auth
                     builder.Services
                         .AddIdentity<ApplicationUser, ApplicationRole>()
                         .AddEntityFrameworkStores<DbContextPsSql>();
+                    builder.Services.AddHealthChecks()
+                        .AddDbContextCheck<DbContextPsSql>("Users check", customTestQuery: (db, token) => db.Users.AnyAsync(token));
                     break;
                 case "MySql":
                     builder.Services.AddDbContext<NestDbContext, DbContextMySql>((sp) => {
@@ -39,6 +44,8 @@ namespace nest.core.aplication.auth
                     builder.Services
                         .AddIdentity<ApplicationUser, ApplicationRole>()
                         .AddEntityFrameworkStores<DbContextMySql>();
+                    builder.Services.AddHealthChecks()
+                        .AddDbContextCheck<DbContextMySql>("Users check", customTestQuery: (db, token) => db.Users.AnyAsync(token));
                     break;
                 default: throw new Exception("Engine no soportado para migraciones");
             }

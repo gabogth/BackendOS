@@ -23,4 +23,8 @@
     <ProjectReference Include="..\nest.core.infraestructura.db\nest.core.infraestructura.db.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="..\.dockerignore" Link=".dockerignore" />
+  </ItemGroup>
+
 </Project>
