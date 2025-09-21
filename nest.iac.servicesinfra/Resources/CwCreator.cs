@@ -18,7 +18,7 @@ namespace nest.iac.servicesinfra.Resources
             return new Aws.CloudWatch.LogGroup(name, new Aws.CloudWatch.LogGroupArgs
             {
                 Name = name,
-                RetentionInDays = 3
+                RetentionInDays = 1
             });
         }
     }
