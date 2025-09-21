@@ -1,4 +1,5 @@
-﻿using Aws = Pulumi.Aws;
+﻿using System.Net;
+using Aws = Pulumi.Aws;
 using Awsx = Pulumi.Awsx;
 
 namespace nest.iac.servicesinfra.Resources
@@ -13,6 +14,8 @@ namespace nest.iac.servicesinfra.Resources
         private readonly string targetGroupName;
         private readonly string targetScallingName;
         private readonly string basePath;
+        private readonly string ruleName;
+        private readonly int priority;
         private readonly Aws.Iam.Role executionRole;
         private readonly Aws.Iam.Role taskRole;
         private Awsx.Ecr.Image image;
@@ -23,14 +26,13 @@ namespace nest.iac.servicesinfra.Resources
         private Aws.Ecs.TaskDefinition task = null!;
         private Aws.LB.TargetGroup targetGroup = null!;
         private Aws.LB.Listener listener = null!;
+        private Aws.LB.ListenerRule rule = null!;
         private Aws.Ecs.Service service = null!;
-        public FargateCreator(string prefix, string shortPrefix, Aws.Iam.Role executionRole, Aws.Iam.Role taskRole, Awsx.Ecr.Image image, Aws.CloudWatch.LogGroup logGroup, int port, string basePath)
+        public FargateCreator(string prefix, string shortPrefix, Aws.Iam.Role executionRole, Aws.Iam.Role taskRole, Awsx.Ecr.Image image, Aws.CloudWatch.LogGroup logGroup, Aws.LB.Listener listener, int port, string basePath, string ruleName, int priority)
         {
             this.taskName = $"{prefix}-task";
             this.serviceName = $"{prefix}-svc";
             this.containerName = $"{prefix}-container";
-            this.lbName = $"{shortPrefix}-lb";
-            this.listenerName = $"{prefix}-listener";
             this.targetGroupName = $"{shortPrefix}-tg";
             this.targetScallingName = $"{prefix}-tscalling";
             this.executionRole = executionRole;
@@ -39,15 +41,28 @@ namespace nest.iac.servicesinfra.Resources
             this.logGroup = logGroup;
             this.port = port;
             this.basePath = basePath;
+            this.ruleName = ruleName;
+            this.listener = listener;
+            this.priority = priority;
         }
-        public (Aws.LB.Listener, Aws.Ecs.Service) Build()
+        public FargateCreator(string prefix)
+        {
+            this.lbName = $"{prefix}-lb";
+            this.listenerName = $"{prefix}-listener";
+        }
+        public Aws.Ecs.Service Build()
         {
             this.task = CreateTask();
-            this.loadBalancer = CreateLoadBalancer();
             this.targetGroup = CreateTargetGroup();
-            this.listener = CreateListener();
+            this.rule = CreateRule();
             this.service = this.CreateService();
-            return (this.listener, this.service);
+            return this.service;
+        }
+        public (Aws.LB.Listener, Aws.LB.LoadBalancer) BuildLb()
+        {
+            this.loadBalancer = CreateLoadBalancer();
+            this.listener = CreateListener();
+            return (this.listener, this.loadBalancer);
         }
         public Aws.Ecs.TaskDefinition CreateTask()
         {
@@ -109,7 +124,7 @@ namespace nest.iac.servicesinfra.Resources
                 Subnets = ConfigVariables.AwsSubnets,
                 EnableDeletionProtection = false
             });
-	    }
+        }
 
         private Aws.AppAutoScaling.Target CreateTargetScalling()
         {
@@ -117,10 +132,10 @@ namespace nest.iac.servicesinfra.Resources
                 ServiceNamespace = "ecs",
                 ScalableDimension = "ecs:service:DesiredCount",
                 ResourceId = $"service/{ConfigVariables.AwsClusterName}/{serviceName}",
-			    MinCapacity = 1,
-			    MaxCapacity = 1
+                MinCapacity = 1,
+                MaxCapacity = 1
             });
-	    }
+        }
 
         private Aws.LB.Listener CreateListener()
         {
@@ -128,11 +143,14 @@ namespace nest.iac.servicesinfra.Resources
                 LoadBalancerArn = loadBalancer.Arn,
                 Port = 80,
                 Protocol = "HTTP",
-                DefaultActions = new Pulumi.InputList<Aws.LB.Inputs.ListenerDefaultActionArgs> { 
+                DefaultActions = new Pulumi.InputList<Aws.LB.Inputs.ListenerDefaultActionArgs> {
                     new Aws.LB.Inputs.ListenerDefaultActionArgs {
-                        Type = "forward",
-                        TargetGroupArn = targetGroup.Arn,
-
+                        Type = "fixed-response",
+                        FixedResponse = new Aws.LB.Inputs.ListenerDefaultActionFixedResponseArgs {
+                            ContentType = "text/plain",
+                            MessageBody = "Not Found",
+                            StatusCode = "404"
+                        }
                     }
                 }
             });
@@ -142,11 +160,11 @@ namespace nest.iac.servicesinfra.Resources
         {
             return new Aws.LB.TargetGroup(this.targetGroupName, new Aws.LB.TargetGroupArgs {
                 Name = this.targetGroupName,
-			    Port = this.port,
-			    Protocol = "HTTP",
-			    VpcId = ConfigVariables.AwsVpcId,
-			    TargetType = "ip",
-			    HealthCheck = new Aws.LB.Inputs.TargetGroupHealthCheckArgs {
+                Port = this.port,
+                Protocol = "HTTP",
+                VpcId = ConfigVariables.AwsVpcId,
+                TargetType = "ip",
+                HealthCheck = new Aws.LB.Inputs.TargetGroupHealthCheckArgs {
                     Path = "/health/live",
                     Protocol = "HTTP",
                     Matcher = "200",
@@ -168,13 +186,13 @@ namespace nest.iac.servicesinfra.Resources
                 DesiredCount = 1,
                 ForceNewDeployment = true,
                 HealthCheckGracePeriodSeconds = 480,
-			    NetworkConfiguration = new Aws.Ecs.Inputs.ServiceNetworkConfigurationArgs
+                NetworkConfiguration = new Aws.Ecs.Inputs.ServiceNetworkConfigurationArgs
                 {
                     SecurityGroups = ConfigVariables.AwsSecurityGroups,
-				    Subnets = ConfigVariables.AwsSubnets,
-				    AssignPublicIp = true
-			    },
-			    LoadBalancers = new Pulumi.InputList<Aws.Ecs.Inputs.ServiceLoadBalancerArgs> {
+                    Subnets = ConfigVariables.AwsSubnets,
+                    AssignPublicIp = true
+                },
+                LoadBalancers = new Pulumi.InputList<Aws.Ecs.Inputs.ServiceLoadBalancerArgs> {
                     new Aws.Ecs.Inputs.ServiceLoadBalancerArgs {
                         TargetGroupArn = targetGroup.Arn,
                         ContainerName = this.containerName,
@@ -182,8 +200,30 @@ namespace nest.iac.servicesinfra.Resources
                     }
                 },
                 PropagateTags = "SERVICE"
-		    });
-	    }
+            });
+        }
+
+        private Aws.LB.ListenerRule CreateRule()
+        {
+            return new Aws.LB.ListenerRule(this.ruleName, new()
+            {
+                ListenerArn = this.listener.Arn,
+                Priority = this.priority,
+                Actions = {
+                new Aws.LB.Inputs.ListenerRuleActionArgs {
+                    Type = "forward",
+                    TargetGroupArn = this.targetGroup.Arn
+                }
+            },
+                Conditions = {
+                new Aws.LB.Inputs.ListenerRuleConditionArgs {
+                    PathPattern = new Aws.LB.Inputs.ListenerRuleConditionPathPatternArgs {
+                        Values = { $"{this.basePath}/*" }
+                    }
+                }
+            }
+            });
+        }
 
     }
 }
