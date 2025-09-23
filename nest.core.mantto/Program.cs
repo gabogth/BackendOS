@@ -11,6 +11,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+Console.WriteLine("Iniciando aplicación Mantto...");
+if (Environment.GetEnvironmentVariable("IS_LAMBDA") != null)
+    builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
 // Add services custom
 builder.Configuration.AddJsonFile("appsettings.json", optional: true)

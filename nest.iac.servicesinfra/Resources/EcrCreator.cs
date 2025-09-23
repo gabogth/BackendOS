@@ -9,7 +9,7 @@ namespace nest.iac.servicesinfra.Resources
         private readonly string contextPath;
         private readonly string dockerFile;
         private readonly string versionImage;
-        private Awsx.Ecr.Repository currentRepository = null;
+        private Awsx.Ecr.Repository currentRepository = null!;
         public EcrCreator(string repositoryName, string imageName, string contextPath, string dockerFile, string versionImage)
         {
             this.repositoryName = repositoryName;

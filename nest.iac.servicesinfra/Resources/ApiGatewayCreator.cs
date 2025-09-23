@@ -1,16 +1,5 @@
-﻿using Microsoft.AspNetCore.Routing;
-using Pulumi;
-using Pulumi.Aws.AppAutoScaling;
-using Pulumi.Aws.CloudWatch;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using Pulumi;
 using Aws = Pulumi.Aws;
-using Awsx = Pulumi.Awsx;
 
 namespace nest.iac.servicesinfra.Resources
 {
@@ -23,13 +12,30 @@ namespace nest.iac.servicesinfra.Resources
         private readonly string stageMain;
         private readonly string prefix;
         private readonly string routePath;
+        private readonly string permissionName;
         private Aws.LB.Listener listener;
         private Aws.ApiGatewayV2.VpcLink vpcLink = null!;
         private Aws.ApiGatewayV2.Integration integration = null!;
         private Aws.ApiGatewayV2.Route route = null!;
         private Aws.ApiGatewayV2.Stage stage = null!;
+        private Aws.Lambda.Function lambda = null!;
+        private Aws.Lambda.Permission permission = null!;
         private bool deploy = false;
-
+        public Output<string> ExecutionArn()
+        {
+            Output<Aws.ApiGatewayV2.GetApiResult> currentApi = Aws.ApiGatewayV2.GetApi.Invoke(new Aws.ApiGatewayV2.GetApiInvokeArgs { 
+                ApiId = ConfigVariables.AwsApiId
+            });
+            return currentApi.Apply((x) => x.ExecutionArn);
+        }
+        public Output<string> EndpointUrl()
+        {
+            Output<Aws.ApiGatewayV2.GetApiResult> currentApi = Aws.ApiGatewayV2.GetApi.Invoke(new Aws.ApiGatewayV2.GetApiInvokeArgs
+            {
+                ApiId = ConfigVariables.AwsApiId
+            });
+            return currentApi.Apply((x) => x.ApiEndpoint);
+        }
         public ApiGatewayCreator(string prefix, string stageMain, Aws.LB.Listener listener, string routePath, bool deploy)
         {
             this.prefix = prefix;
@@ -43,12 +49,40 @@ namespace nest.iac.servicesinfra.Resources
             this.deploy = deploy;
         }
 
+        public ApiGatewayCreator(string prefix, string stageMain, Aws.Lambda.Function lambda, string routePath, bool deploy)
+        {
+            this.prefix = prefix;
+            this.nameIntegration = $"{this.prefix}-integration";
+            this.nameRoute = $"{this.prefix}-route";
+            this.nameStage = $"{this.prefix}-stg";
+            this.permissionName = $"{this.prefix}-permission";
+            this.lambda = lambda;
+            this.stageMain = stageMain;
+            this.routePath = routePath;
+            this.deploy = deploy;
+        }
+
+        public ApiGatewayCreator()
+        {
+            
+        }
+
         public Aws.ApiGatewayV2.Route Build()
         {
             this.vpcLink = this.CreateVpcLink();
             this.integration = this.CreateIntegration();
             this.route = this.CreateRoutes();
             if(this.deploy)
+                this.stage = this.CreateStageDeploy();
+            return this.route;
+        }
+
+        public Aws.ApiGatewayV2.Route BuildLambda()
+        {
+            this.permission = this.CreatePermissionLambda();
+            this.integration = this.CreateIntegrationAws();
+            this.route = this.CreateRoutes();
+            if (this.deploy)
                 this.stage = this.CreateStageDeploy();
             return this.route;
         }
@@ -73,13 +107,59 @@ namespace nest.iac.servicesinfra.Resources
             });
         }
 
+        private Aws.ApiGatewayV2.Integration CreateIntegrationAws()
+        {
+            return new Aws.ApiGatewayV2.Integration(nameIntegration, new Aws.ApiGatewayV2.IntegrationArgs
+            {
+                ApiId = ConfigVariables.AwsApiId,
+                IntegrationType = "AWS_PROXY",
+                IntegrationUri = this.lambda.Arn,
+                PayloadFormatVersion = "2.0"
+            });
+        }
+
+        private Aws.Lambda.Permission CreatePermissionLambda()
+        {
+            return new Aws.Lambda.Permission(this.permissionName, new Aws.Lambda.PermissionArgs
+            {
+                Action = "lambda:InvokeFunction",
+                Function = this.lambda.Name,
+                Principal = "apigateway.amazonaws.com",
+                SourceArn = Output.Format($"{this.ExecutionArn()}/*/*{this.routePath}/*")
+            });
+        }
+
         private Aws.ApiGatewayV2.Route CreateRoutes()
         {
+            string mainRute = $"{nameRoute}-main";
+            new Aws.ApiGatewayV2.Route(mainRute, new Aws.ApiGatewayV2.RouteArgs
+            {
+                ApiId = ConfigVariables.AwsApiId,
+                RouteKey = $"ANY {this.routePath}",
+                Target = this.integration.Id.Apply(integrationId => $"integrations/{integrationId}")
+            });
             return new Aws.ApiGatewayV2.Route(nameRoute, new Aws.ApiGatewayV2.RouteArgs {
                 ApiId = ConfigVariables.AwsApiId,
                 RouteKey = $"ANY {this.routePath}/{{proxy+}}",
                 Target = this.integration.Id.Apply(integrationId => $"integrations/{integrationId}") 
 		    });
+        }
+
+        private Aws.ApiGatewayV2.Route CreateMain()
+        {
+            string mainRute = $"{nameRoute}-main";
+            new Aws.ApiGatewayV2.Route(mainRute, new Aws.ApiGatewayV2.RouteArgs
+            {
+                ApiId = ConfigVariables.AwsApiId,
+                RouteKey = $"ANY {this.routePath}",
+                Target = this.integration.Id.Apply(integrationId => $"integrations/{integrationId}")
+            });
+            return new Aws.ApiGatewayV2.Route(nameRoute, new Aws.ApiGatewayV2.RouteArgs
+            {
+                ApiId = ConfigVariables.AwsApiId,
+                RouteKey = $"ANY {this.routePath}/{{proxy+}}",
+                Target = this.integration.Id.Apply(integrationId => $"integrations/{integrationId}")
+            });
         }
 
         private Aws.ApiGatewayV2.Stage CreateStageDeploy()

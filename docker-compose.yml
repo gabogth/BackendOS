@@ -25,23 +25,23 @@
   #   ports:
   #     - "3305:3306"
 
-  # pulumiiac:
-  #   build:
-  #     context: ./nest.iac.generalinfra
-  #     dockerfile: Dockerfile
-  #   container_name: pulumiiac
-  #   #restart: always
-  #   environment:
-  #     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-  #     - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-  #     - AWS_DEFAULT_REGION=us-east-1
-  #     - PULUMI_CONFIG_PASSPHRASE=${PULUMI_CONFIG_PASSPHRASE}
-  #     - PULUMI_STACK=${PULUMI_STACK_GENERAL}
-  #     - PULUMI_ACCESS_TOKEN=${PULUMI_ACCESS_TOKEN}
-  #     - DATABASE_NAME=${DATABASE_NAME}
-  #     - DATABASE_MASTERUSER=${DATABASE_MASTERUSER}
-  #     - DATABASE_MASTERPW=${DATABASE_MASTERPW}
-  #     - DATABASE_PORT=${DATABASE_PORT}
+  pulumiiac:
+    build:
+        context: ./nest.iac.generalinfra
+        dockerfile: Dockerfile
+    container_name: pulumiiac
+    #restart: always
+    environment:
+        - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+        - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+        - AWS_DEFAULT_REGION=us-east-1
+        - PULUMI_CONFIG_PASSPHRASE=${PULUMI_CONFIG_PASSPHRASE}
+        - PULUMI_STACK=${PULUMI_STACK_GENERAL}
+        - PULUMI_ACCESS_TOKEN=${PULUMI_ACCESS_TOKEN}
+        - DATABASE_NAME=${DATABASE_NAME}
+        - DATABASE_MASTERUSER=${DATABASE_MASTERUSER}
+        - DATABASE_MASTERPW=${DATABASE_MASTERPW}
+        - DATABASE_PORT=${DATABASE_PORT}
 
   servicesiac:
     build:

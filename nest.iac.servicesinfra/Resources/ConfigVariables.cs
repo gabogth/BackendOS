@@ -7,6 +7,7 @@ namespace nest.iac.servicesinfra.Resources
     {
         private static Config ConfigAws = new Config("cld");
         public static string ProjectName { get { return Deployment.Instance.ProjectName; } }
+        public static string Region { get { return Pulumi.Aws.Config.Region ?? "us-east-1"; } }
         public static string AwsVpcId { get { return ConfigAws.Require("vpcId"); } }
         public static string[] AwsSubnets { get { return ConfigAws.RequireObject<string[]>("subnets"); } }
         public static string[] AwsSecurityGroups { get { return ConfigAws.RequireObject<string[]>("securityGroups"); } }

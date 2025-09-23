@@ -8,7 +8,8 @@ namespace nest.iac.servicesinfra.Resources
 	{
 		private readonly string roleExecutionName;
 		private readonly string roleTaskName;
-		private readonly string prefix;
+        private readonly string lambdaRoleName;
+        private readonly string prefix;
 		private readonly string project;
 
         public RoleCreator(string roleExecutionName, string roleTaskName, string prefix, string project)
@@ -18,6 +19,12 @@ namespace nest.iac.servicesinfra.Resources
 			this.prefix = prefix;
 			this.project = project;
         }
+        public RoleCreator(string lambdaRoleName, string prefix, string project)
+        {
+            this.lambdaRoleName = lambdaRoleName;
+            this.prefix = prefix;
+            this.project = project;
+        }
 
         public (Aws.Iam.Role, Aws.Iam.Role) Build()
         {
@@ -26,7 +33,13 @@ namespace nest.iac.servicesinfra.Resources
 			return (executionRole, taskRole);
         }
 
-		private string getLoggingPolicy()
+        public Aws.Iam.Role BuildLambda()
+        {
+            Aws.Iam.Role lambdaRole = this.createLambdaRole(this.lambdaRoleName, prefix, project);
+            return lambdaRole;
+        }
+
+        private string getLoggingPolicy()
 		{
 			return JsonSerializer.Serialize(new Dictionary<string, object?>
 			{
@@ -98,6 +111,25 @@ namespace nest.iac.servicesinfra.Resources
                 }
             });
         }
+        private string getPrincipalLambda()
+        {
+            return JsonSerializer.Serialize(new Dictionary<string, object?>
+            {
+                ["Version"] = "2012-10-17",
+                ["Statement"] = new[]
+                {
+                    new Dictionary<string, object?>
+                    {
+                        ["Effect"] = "Allow",
+                        ["Principal"] = new Dictionary<string, object?>
+                        {
+                            ["Service"] = "lambda.amazonaws.com"
+                        },
+                        ["Action"] = "sts:AssumeRole"
+                    }
+                }
+            });
+        }
         private void addPoliciesToRoleTask(Aws.Iam.Role role, string prefix, string project)
 		{
 			string policyForLogging = this.getLoggingPolicy();
@@ -142,6 +174,16 @@ namespace nest.iac.servicesinfra.Resources
 			this.attachPolicyManagedToRole(role, $"{prefix}-et-ASP", $"arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy");
 			this.attachPolicyManagedToRole(role, $"{prefix}-et-ETSK", $"arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy");
 		}
+        private void addPoliciesToRoleLambda(Aws.Iam.Role role, string prefix, string project)
+        {
+            string policyForLogging = this.getLoggingPolicy();
+            string policyForNetwork = this.getNetworkPolicy();
+            string policyForSecret = this.getSecretPolicy();
+            this.attachPolicyToRole(role, $"{prefix}-lambda-secret", policyForSecret, $"Logging policy for the {project}");
+            this.attachPolicyToRole(role, $"{prefix}-lambda-network", policyForNetwork, $"Network policy for the {project}");
+            this.attachPolicyToRole(role, $"{prefix}-lambda-logging", policyForLogging, $"Secret policy for the {project}");
+            this.attachPolicyManagedToRole(role, $"{prefix}-lambda-AWSXray", Aws.Iam.ManagedPolicy.AWSLambdaBasicExecutionRole.ToString());
+        }
         public Aws.Iam.Role createRoleTask(string roleName, string prefix, string project)
         {
             Aws.Iam.Role role = new Aws.Iam.Role(roleName, new Aws.Iam.RoleArgs
@@ -160,6 +202,16 @@ namespace nest.iac.servicesinfra.Resources
                 AssumeRolePolicy = this.getPrincipalPolicy(),
             });
             this.addPoliciesToRoleExecution(role, prefix, project);
+            return role;
+        }
+        public Aws.Iam.Role createLambdaRole(string roleName, string prefix, string project)
+        {
+            Aws.Iam.Role role = new Aws.Iam.Role(roleName, new Aws.Iam.RoleArgs
+            {
+                Name = roleName,
+                AssumeRolePolicy = this.getPrincipalLambda()
+            });
+            this.addPoliciesToRoleLambda(role, prefix, project);
             return role;
         }
     }

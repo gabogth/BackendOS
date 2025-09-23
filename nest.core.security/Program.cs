@@ -12,10 +12,12 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+if (Environment.GetEnvironmentVariable("IS_LAMBDA") != null)
+    builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
+
 // Add services custom
 builder.Configuration.AddJsonFile("appsettings.json", optional: true)
                      .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                     .AddJsonFile($"empresas.json", optional: false, reloadOnChange: true)
                      .AddUserSecrets<Program>()
                      .AddEnvironmentVariables();
 
@@ -69,6 +71,7 @@ builder.Services.AddSwaggerGen(c => {
         new string[] {} }
     });
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+    
 });
 builder.Services.AddAuthentication(option =>
 {
