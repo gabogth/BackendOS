@@ -3036,6 +3036,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<int>("Item")
+                        .HasColumnType("int");
+
                     b.HasKey("AuditId");
 
                     b.HasIndex("Id");
@@ -9554,6 +9557,9 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("HorarioCabeceraId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Item")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

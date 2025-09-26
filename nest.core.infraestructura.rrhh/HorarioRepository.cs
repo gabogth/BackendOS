@@ -59,11 +59,11 @@ namespace nest.core.infraestructura.rrhh
                     ?? throw new RegistroNoEncontradoException<HorarioCabecera>(id.ToString());
 
                 mapper.Map(entry.Cabecera, cabecera);
-                var detalleDb = cabecera.HorarioDetalles.ToDictionary(x => x.DiaSemana);
+                var detalleDb = cabecera.HorarioDetalles.ToDictionary(x => x.Item);
 
-                var insert = entry.Detalles.Where(ft => !detalleDb.ContainsKey(ft.DiaSemana));
-                var update = entry.Detalles.Where(ft => detalleDb.ContainsKey(ft.DiaSemana));
-                var delete = cabecera.HorarioDetalles.Where(db => !entry.Detalles.Any(ft => ft.DiaSemana == db.DiaSemana));
+                var insert = entry.Detalles.Where(ft => !detalleDb.ContainsKey(ft.Item));
+                var update = entry.Detalles.Where(ft => detalleDb.ContainsKey(ft.Item));
+                var delete = cabecera.HorarioDetalles.Where(db => !entry.Detalles.Any(ft => ft.Item == db.Item));
 
                 //Insertar nuevos detalles
                 foreach (var detalleDto in insert)
@@ -75,7 +75,7 @@ namespace nest.core.infraestructura.rrhh
 
                 //Modificar detalles existentes
                 foreach (var detalleDto in update) 
-                    mapper.Map(detalleDto, detalleDb[detalleDto.DiaSemana]);
+                    mapper.Map(detalleDto, detalleDb[detalleDto.Item]);
 
                 //Eliminar detalles que ya no existen
                 context.HorarioDetalles.RemoveRange(delete);
