@@ -13,7 +13,11 @@ namespace nest.core.infraestructura.general
             .AsNoTracking()
             .Include(x => x.LicenciaConducir)
             .Include(x => x.DocumentoIdentidadTipo)
-            .Include(x => x.Sexo);
+            .Include(x => x.Sexo)
+            .Include(x => x.Distrito)
+            .Include(x => x.Distrito).ThenInclude(d => d.Provincia)
+            .Include(x => x.Distrito).ThenInclude(d => d.Provincia).ThenInclude(x => x.Departamento)
+            .Include(x => x.Distrito).ThenInclude(d => d.Provincia).ThenInclude(x => x.Departamento).ThenInclude(x => x.Pais);
         public async Task<Persona> ObtenerPorId(int id) => await GetByIdAsync(id);
         public async Task<List<Persona>> ObtenerTodos() => await GetAllAsync();
         public async Task<List<Persona>> ObtenerActivos() => await Query().Where(p => p.Estado).ToListAsync();

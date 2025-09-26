@@ -12,6 +12,7 @@ namespace nest.core.dominio.General.PersonaEntities
         public string Celular { get; set; }
         public bool Estado { get; set; }
         public byte SexoId { get; set; }
+        public int DistritoId { get; set; }
         public byte? LicenciaConducirId { get; set; }
         public byte DocumentoIdentidadTipoId { get; set; }
     }

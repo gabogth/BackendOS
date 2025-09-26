@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using nest.core.dominio;
+using nest.core.dominio.Security.UsuarioEmpresa;
 
 namespace nest.core.infraestructura.db.DbContext.Convention
 {
@@ -34,6 +35,7 @@ namespace nest.core.infraestructura.db.DbContext.Convention
 
             foreach (var e in entries)
             {
+                if (e.Entity is UsuarioEmpresa) return;
                 var ten = (ITenantEntity)e.Entity;
                 if (ten.EmpresaId != empresaId.Value)
                     throw new InvalidOperationException(ErrorMsg);

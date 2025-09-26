@@ -3,6 +3,7 @@ using nest.core.aplicacion.rrhh.CargoServices;
 using nest.core.aplicacion.rrhh.GrupoHorarioServices;
 using nest.core.aplicacion.rrhh.HorarioServices;
 using nest.core.aplicacion.rrhh.PersonalEstadoServices;
+using nest.core.aplicacion.rrhh.PersonalServices;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -18,6 +19,7 @@ namespace nest.core.rrhh.Extensions
             services.AddScoped<GrupoHorarioService>();
             services.AddScoped<HorarioService>();
             services.AddScoped<PersonalEstadoService>();
+            services.AddScoped<PersonalService>();
             return services;
         }
 
