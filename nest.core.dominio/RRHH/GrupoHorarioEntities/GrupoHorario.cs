@@ -11,5 +11,9 @@ namespace nest.core.dominio.RRHH.GrupoHorarioEntities
         public TimeOnly HoraEntrada { get; set; }
         public TimeOnly HoraSalida { get; set; }
         public int DiferenciaDia { get; set; }
+        public int VenatanaEntradaMin { get; set; }
+        public int VenatanaEntradaMax { get; set; }
+        public int VenatanaSalidaMin { get; set; }
+        public int VenatanaSalidaMax { get; set; }
     }
 }
