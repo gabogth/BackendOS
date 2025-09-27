@@ -5,6 +5,7 @@ using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
+using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 
 namespace nest.core.infraestructura.rrhh.Mapper
 {
@@ -18,6 +19,7 @@ namespace nest.core.infraestructura.rrhh.Mapper
             CreateMap<HorarioDetalleCrearDto, HorarioDetalle>();
             CreateMap<PersonalCrearDto, Personal>();
             CreateMap<PersonalEstadoCrearDto, PersonalEstado>();
+            CreateMap<RegistroAsistenciaCrearDto, RegistroAsistencia>();
         }
     }
 }
