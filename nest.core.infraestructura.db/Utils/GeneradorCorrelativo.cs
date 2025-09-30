@@ -6,8 +6,8 @@ namespace nest.core.infraestructura
 {
     public class GeneradorCorrelativo
     {
-        private static int PRIMER_NUMERO_CONTADOR = 0;
-        private static int OFFSET_CONTADOR = 1;
+        private static long PRIMER_NUMERO_CONTADOR = 0;
+        private static long OFFSET_CONTADOR = 1;
         public static T GetValue<T>(EntityEntry entry, Func<object> maxId = null)
         {
             string esquema = entry.Metadata.GetSchema() ?? "dbo";
@@ -30,7 +30,7 @@ namespace nest.core.infraestructura
                     {
                         Schema = esquema,
                         Table = tabla,
-                        LastValue = maxId == null ? PRIMER_NUMERO_CONTADOR : (long)maxId()
+                        LastValue = maxId == null ? PRIMER_NUMERO_CONTADOR : long.Parse(maxId().ToString())
                     };
                     correl = ctx.Set<CorrelativoMaestro>().Add(correl).Entity;
                 }
@@ -59,7 +59,7 @@ namespace nest.core.infraestructura
                     {
                         Schema = esquema,
                         Table = tabla,
-                        LastValue = maxId == null ? PRIMER_NUMERO_CONTADOR : (long)maxId()
+                        LastValue = maxId == null ? PRIMER_NUMERO_CONTADOR : long.Parse(maxId().ToString())
                     };
                     correl = ctx.Set<CorrelativoMaestro>().Add(correl).Entity;
                 }
