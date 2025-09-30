@@ -8,6 +8,7 @@ using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
+using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
 
 namespace nest.core.infraestructura.db.DbContext
@@ -22,6 +23,7 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<HorarioDetalleEvento> HorarioDetalleEventos { get; set; }
         public DbSet<Personal> Personales { get; set; }
         public DbSet<PersonalEstado> PersonalEstado { get; set; }
+        public DbSet<RegistroAsistencia> RegistroAsistencia { get; set; }
         public DbSet<RegistroAsistenciaPolitica> RegistroAsistenciaPolitica { get; set; }
         public void OnModelCreatingRRHH(ModelBuilder modelBuilder)
         {
@@ -31,6 +33,7 @@ namespace nest.core.infraestructura.db.DbContext
             modelBuilder.Entity<HorarioDetalle>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
             modelBuilder.Entity<HorarioDetalleEvento>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
             modelBuilder.Entity<Personal>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<RegistroAsistencia>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
             modelBuilder.Entity<RegistroAsistenciaPolitica>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
         }
     }

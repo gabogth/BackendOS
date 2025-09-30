@@ -5,8 +5,6 @@ using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Query.ExpressionTranslators.Internal;
-using System.Linq;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
 {
@@ -15,23 +13,29 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
         private readonly IRegistroAsistenciaRepository repository;
         private readonly IHorarioRepository horarioRepository;
         private readonly IPersonalRepository personalRepository;
+        private readonly IHorarioDetalleRepository horarioDetalleRepository;
         private readonly ILogger<RegistroAsistenciaService> logger;
 
-        public RegistroAsistenciaService(IRegistroAsistenciaRepository repository, IHorarioRepository horarioRepository, IPersonalRepository personalRepository, ILogger<RegistroAsistenciaService> logger)
+        public RegistroAsistenciaService(IRegistroAsistenciaRepository repository, IHorarioRepository horarioRepository, IPersonalRepository personalRepository, ILogger<RegistroAsistenciaService> logger, IHorarioDetalleRepository horarioDetalleRepository)
         {
             this.repository = repository;
             this.horarioRepository = horarioRepository;
             this.personalRepository = personalRepository;
             this.logger = logger;
+            this.horarioDetalleRepository = horarioDetalleRepository;
         }
 
         public Task<RegistroAsistencia> ObtenerPorId(long id) => repository.ObtenerPorId(id);
         public Task<List<RegistroAsistencia>> ObtenerTodos() => repository.ObtenerTodos();
         public Task<List<RegistroAsistencia>> BuscarPorRangoFecha(int personalId, DateTime fechaInicio, DateTime fechaFin) => repository.BuscarPorRangoFecha(personalId, fechaInicio, fechaFin);
-        public Task<RegistroAsistencia> Agregar(RegistroAsistenciaCrearDto entry) => repository.Agregar(entry);
+        public async Task<RegistroAsistencia> Agregar(RegistroAsistenciaCrearDto entry)
+        {
+            entry = await GetRegistroAsistencia(entry);
+            return await repository.Agregar(entry);
+        }
         public Task<RegistroAsistencia> Modificar(long id, RegistroAsistenciaCrearDto entry) => repository.Modificar(id, entry);
         public Task Eliminar(long id) => repository.Eliminar(id);
-        public async Task GetGrupoHorario(RegistroAsistenciaCrearDto registro)
+        public async Task<RegistroAsistenciaCrearDto> GetRegistroAsistencia(RegistroAsistenciaCrearDto registro)
         {
             HorarioCabecera horario = await this.horarioRepository.ObtenerPorPersonalId(registro.PersonalId);
             RegistroAsistenciaPolitica politica = (await this.personalRepository.ObtenerPorId(registro.PersonalId)).RegistroAsistenciaPolitica;
@@ -50,33 +54,44 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
                 }
                 else
                 {
-                    
+                    (HorarioDetalleEvento, DateTime)? evento = await GetMarca(entrada.HorarioDetalleEventoId.Value, entrada.FechaJornal, registro.Fecha);
+                    if (evento.HasValue)
+                    {
+                        registro.TipoEvento = evento.Value.Item1.TipoEvento;
+                        registro.FechaJornal = entrada.FechaJornal;
+                        registro.DiferenciaMinutos = registro.Fecha.Subtract(evento.Value.Item2).Minutes;
+                        registro.EsTardanza = false;
+                        registro.HorarioDetalleEventoId = evento.Value.Item1.Id;
+                        registro.RegistroAsistenciaPoliticaId = politica.Id;
+                    }
+                    else
+                    {
+                        registro.TipoEvento = HorarioDetalleEventoTipoEnum.Otros;
+                        registro.FechaJornal = entrada.FechaJornal;
+                        registro.DiferenciaMinutos = 0;
+                        registro.EsTardanza = false;
+                        registro.HorarioDetalleEventoId = null;
+                        registro.RegistroAsistenciaPoliticaId = politica.Id;
+                    }
                 }
-
+                return registro;
             }
             else throw new Exception("FUERA DE HORA");
         }
 
-        //public (DateTime, HorarioDetalleEvento)? GetMarca(HorarioDetalleEvento horario, DateTime fechaJornal, DateTime fechaRegistro)
-        //{
-        //    List<(DateTime, HorarioDetalleEvento)> values = new List<(DateTime, HorarioDetalleEvento)>();
-        //    try
-        //    {
-
-        //        foreach (HorarioDetalleEvento hde in ayer.HorarioDetalleEventos)
-        //        {
-        //            DateTime fecha = fechaAyerErr.AddDays(hde.DiferenciaDia).ToDateTime(hde.Hora);
-        //            values.Add((fecha, hde));
-        //        }
-
-        //        return values.Where(x => FechaEnRango(fechaRegistro, x.Item1, x.Item2.VentanaMin, x.Item2.VentanaMax)).FirstOrDefault();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        this.logger.LogError("No hay un horario asignado");
-        //        return null;
-        //    }
-        //}
+        public async Task<(HorarioDetalleEvento, DateTime)?> GetMarca(long MarcaEntradaId, DateOnly fechaJornal, DateTime fechaRegistro)
+        {
+            HorarioDetalle? detalle = await horarioDetalleRepository.ObtenerPorId(MarcaEntradaId);
+            foreach (HorarioDetalleEvento hde in detalle.HorarioDetalleEventos)
+            {
+                DateTime fecha = fechaJornal.AddDays(hde.DiferenciaDia).ToDateTime(hde.Hora);
+                DateTime fechaVentanaMin = fecha.AddMinutes(hde.VentanaMin);
+                DateTime fechaVentanaMax = fecha.AddMinutes(hde.VentanaMax);
+                if (fechaVentanaMin <= fechaRegistro && fechaVentanaMax >= fechaRegistro)
+                    return (hde, fecha);
+            }
+            return null;
+        }
 
         public JornalParams? GetDiaLaboral(HorarioCabecera horario, DateTime fechaRegistro)
         {

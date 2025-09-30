@@ -9,5 +9,6 @@ namespace nest.core.dominio.RRHH.PersonalEntities
         public int HorarioCabeceraId { get; set; }
         public int? SuperiorId { get; set; }
         public byte PersonalEstadoId { get; set; }
+        public long RegistroAsistenciaPoliticaId { get; set; }
     }
 }

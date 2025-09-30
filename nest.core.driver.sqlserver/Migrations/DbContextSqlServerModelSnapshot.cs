@@ -2588,103 +2588,6 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.ToTable("formulario_audit", "aplicacion");
                 });
 
-            modelBuilder.Entity("GrupoHorarioAudit", b =>
-                {
-                    b.Property<long>("AuditId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
-                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
-
-                    b.Property<string>("AuditAccion")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditApp")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditAppVersion")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime>("AuditFecha")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AuditHost")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditIpRemoteOrigin")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<bool>("AuditIsHttps")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("AuditMethod")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditOrigin")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditReferer")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUserAgent")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("AuditUsuario")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("DiferenciaDia")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmpresaId")
-                        .HasColumnType("int");
-
-                    b.Property<TimeOnly>("HoraEntrada")
-                        .HasColumnType("time");
-
-                    b.Property<TimeOnly>("HoraSalida")
-                        .HasColumnType("time");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nombre")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("NombreCorto")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("AuditId");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("grupo_horario_audit", "rrhh");
-                });
-
             modelBuilder.Entity("GrupoTrabajoAudit", b =>
                 {
                     b.Property<long>("AuditId")
@@ -3021,20 +2924,17 @@ namespace nest.core.driver.sqlserver.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<byte>("DiaSemana")
-                        .HasColumnType("tinyint");
-
-                    b.Property<int>("EmpresaId")
+                    b.Property<int>("DiaSemana")
                         .HasColumnType("int");
 
-                    b.Property<int>("GrupoHorarioId")
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<int>("HorarioCabeceraId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("Item")
                         .HasColumnType("int");
@@ -3044,6 +2944,104 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.HasIndex("Id");
 
                     b.ToTable("horario_detalle_audit", "rrhh");
+                });
+
+            modelBuilder.Entity("HorarioDetalleEventoAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("DiferenciaDia")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeOnly>("Hora")
+                        .HasColumnType("time");
+
+                    b.Property<long>("HorarioDetalleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte>("TipoEvento")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("VentanaMax")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VentanaMin")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("horario_detalle_evento_audit", "rrhh");
                 });
 
             modelBuilder.Entity("IdentityRoleClaim`1Audit", b =>
@@ -5599,6 +5597,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<byte>("PersonalEstadoId")
                         .HasColumnType("tinyint");
 
+                    b.Property<long>("RegistroAsistenciaPoliticaId")
+                        .HasColumnType("bigint");
+
                     b.Property<int?>("SuperiorId")
                         .HasColumnType("int");
 
@@ -6070,6 +6071,202 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.HasIndex("Id");
 
                     b.ToTable("punto_financiero_audit", "finanzas");
+                });
+
+            modelBuilder.Entity("RegistroAsistenciaAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("DiferenciaMinutos")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("EsTardanza")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateOnly>("FechaJornal")
+                        .HasColumnType("date");
+
+                    b.Property<long?>("HorarioDetalleEventoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("PersonalId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("RegistroAsistenciaPoliticaId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte>("TipoEvento")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("registro_asistencia_audit", "rrhh");
+                });
+
+            modelBuilder.Entity("RegistroAsistenciaPoliticaAudit", b =>
+                {
+                    b.Property<long>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None)
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+                    b.Property<string>("AuditAccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditApp")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAppVersion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditAssemblyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("AuditFecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AuditHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditIpRemoteOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("AuditIsHttps")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AuditMethod")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditOrigin")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditProtocol")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditReferer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditRequestId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUserAgent")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("AuditUsuario")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("MinutosExtra")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinutosExtraEntrada")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinutosTardanzaIngreso")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("TieneCompletarHora")
+                        .HasColumnType("bit");
+
+                    b.HasKey("AuditId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("registro_asistencia_politica_audit", "rrhh");
                 });
 
             modelBuilder.Entity("SexoAudit", b =>
@@ -9431,38 +9628,6 @@ namespace nest.core.driver.sqlserver.Migrations
                         });
                 });
 
-            modelBuilder.Entity("nest.core.dominio.RRHH.GrupoHorarioEntities.GrupoHorario", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DiferenciaDia")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmpresaId")
-                        .HasColumnType("int");
-
-                    b.Property<TimeOnly>("HoraEntrada")
-                        .HasColumnType("time");
-
-                    b.Property<TimeOnly>("HoraSalida")
-                        .HasColumnType("time");
-
-                    b.Property<string>("Nombre")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("NombreCorto")
-                        .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmpresaId");
-
-                    b.ToTable("grupo_horario", "rrhh");
-                });
-
             modelBuilder.Entity("nest.core.dominio.RRHH.GrupoTrabajoEntities.GrupoTrabajo", b =>
                 {
                     b.Property<long>("Id")
@@ -9544,16 +9709,13 @@ namespace nest.core.driver.sqlserver.Migrations
 
             modelBuilder.Entity("nest.core.dominio.RRHH.HorarioDetalleEntities.HorarioDetalle", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
-                    b.Property<byte>("DiaSemana")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("DiaSemana")
+                        .HasColumnType("int");
 
                     b.Property<int>("EmpresaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GrupoHorarioId")
                         .HasColumnType("int");
 
                     b.Property<int>("HorarioCabeceraId")
@@ -9566,11 +9728,44 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.HasIndex("EmpresaId");
 
-                    b.HasIndex("GrupoHorarioId");
-
                     b.HasIndex("HorarioCabeceraId");
 
                     b.ToTable("horario_detalle", "rrhh");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.RRHH.HorarioDetalleEventoEntities.HorarioDetalleEvento", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("DiferenciaDia")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeOnly>("Hora")
+                        .HasColumnType("time");
+
+                    b.Property<long>("HorarioDetalleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte>("TipoEvento")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("VentanaMax")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VentanaMin")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.HasIndex("HorarioDetalleId");
+
+                    b.ToTable("horario_detalle_evento", "rrhh");
                 });
 
             modelBuilder.Entity("nest.core.dominio.RRHH.PersonalEntities.Personal", b =>
@@ -9593,6 +9788,9 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.Property<byte>("PersonalEstadoId")
                         .HasColumnType("tinyint");
 
+                    b.Property<long>("RegistroAsistenciaPoliticaId")
+                        .HasColumnType("bigint");
+
                     b.Property<int?>("SuperiorId")
                         .HasColumnType("int");
 
@@ -9605,6 +9803,8 @@ namespace nest.core.driver.sqlserver.Migrations
                     b.HasIndex("HorarioCabeceraId");
 
                     b.HasIndex("PersonalEstadoId");
+
+                    b.HasIndex("RegistroAsistenciaPoliticaId");
 
                     b.HasIndex("SuperiorId");
 
@@ -9650,6 +9850,78 @@ namespace nest.core.driver.sqlserver.Migrations
                             Id = (byte)5,
                             Nombre = "SUSPENDIDO"
                         });
+                });
+
+            modelBuilder.Entity("nest.core.dominio.RRHH.RegistroAsistenciaEntities.RegistroAsistencia", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("DiferenciaMinutos")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("EsTardanza")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateOnly>("FechaJornal")
+                        .HasColumnType("date");
+
+                    b.Property<long?>("HorarioDetalleEventoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("PersonalId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("RegistroAsistenciaPoliticaId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte>("TipoEvento")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.HasIndex("HorarioDetalleEventoId");
+
+                    b.HasIndex("PersonalId");
+
+                    b.HasIndex("RegistroAsistenciaPoliticaId");
+
+                    b.ToTable("registro_asistencia", "rrhh");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities.RegistroAsistenciaPolitica", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("EmpresaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinutosExtra")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinutosExtraEntrada")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinutosTardanzaIngreso")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("TieneCompletarHora")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.ToTable("registro_asistencia_politica", "rrhh");
                 });
 
             modelBuilder.Entity("nest.core.dominio.Security.ApplicationRole", b =>
@@ -10631,21 +10903,24 @@ namespace nest.core.driver.sqlserver.Migrations
 
             modelBuilder.Entity("nest.core.dominio.RRHH.HorarioDetalleEntities.HorarioDetalle", b =>
                 {
-                    b.HasOne("nest.core.dominio.RRHH.GrupoHorarioEntities.GrupoHorario", "GrupoHorario")
-                        .WithMany()
-                        .HasForeignKey("GrupoHorarioId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("nest.core.dominio.RRHH.HorarioCabeceraEntities.HorarioCabecera", "HorarioCabecera")
                         .WithMany("HorarioDetalles")
                         .HasForeignKey("HorarioCabeceraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("GrupoHorario");
-
                     b.Navigation("HorarioCabecera");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.RRHH.HorarioDetalleEventoEntities.HorarioDetalleEvento", b =>
+                {
+                    b.HasOne("nest.core.dominio.RRHH.HorarioDetalleEntities.HorarioDetalle", "HorarioDetalle")
+                        .WithMany("HorarioDetalleEventos")
+                        .HasForeignKey("HorarioDetalleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HorarioDetalle");
                 });
 
             modelBuilder.Entity("nest.core.dominio.RRHH.PersonalEntities.Personal", b =>
@@ -10674,6 +10949,12 @@ namespace nest.core.driver.sqlserver.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities.RegistroAsistenciaPolitica", "RegistroAsistenciaPolitica")
+                        .WithMany()
+                        .HasForeignKey("RegistroAsistenciaPoliticaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("nest.core.dominio.RRHH.PersonalEntities.Personal", "Superior")
                         .WithMany("Children")
                         .HasForeignKey("SuperiorId")
@@ -10687,7 +10968,34 @@ namespace nest.core.driver.sqlserver.Migrations
 
                     b.Navigation("PersonalEstado");
 
+                    b.Navigation("RegistroAsistenciaPolitica");
+
                     b.Navigation("Superior");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.RRHH.RegistroAsistenciaEntities.RegistroAsistencia", b =>
+                {
+                    b.HasOne("nest.core.dominio.RRHH.HorarioDetalleEventoEntities.HorarioDetalleEvento", "HorarioDetalleEvento")
+                        .WithMany()
+                        .HasForeignKey("HorarioDetalleEventoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("nest.core.dominio.RRHH.PersonalEntities.Personal", "Personal")
+                        .WithMany()
+                        .HasForeignKey("PersonalId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities.RegistroAsistenciaPolitica", "RegistroAsistenciaPolitica")
+                        .WithMany()
+                        .HasForeignKey("RegistroAsistenciaPoliticaId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("HorarioDetalleEvento");
+
+                    b.Navigation("Personal");
+
+                    b.Navigation("RegistroAsistenciaPolitica");
                 });
 
             modelBuilder.Entity("nest.core.dominio.Security.UsuarioEmpresa.UsuarioEmpresa", b =>
@@ -10784,6 +11092,11 @@ namespace nest.core.driver.sqlserver.Migrations
             modelBuilder.Entity("nest.core.dominio.RRHH.HorarioCabeceraEntities.HorarioCabecera", b =>
                 {
                     b.Navigation("HorarioDetalles");
+                });
+
+            modelBuilder.Entity("nest.core.dominio.RRHH.HorarioDetalleEntities.HorarioDetalle", b =>
+                {
+                    b.Navigation("HorarioDetalleEventos");
                 });
 
             modelBuilder.Entity("nest.core.dominio.RRHH.PersonalEntities.Personal", b =>

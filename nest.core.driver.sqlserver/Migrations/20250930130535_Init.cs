@@ -1299,58 +1299,6 @@ namespace nest.core.driver.sqlserver.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "grupo_horario",
-                schema: "rrhh",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    EmpresaId = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
-                    HoraEntrada = table.Column<TimeOnly>(type: "time", nullable: false),
-                    HoraSalida = table.Column<TimeOnly>(type: "time", nullable: false),
-                    DiferenciaDia = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_grupo_horario", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "grupo_horario_audit",
-                schema: "rrhh",
-                columns: table => new
-                {
-                    AuditId = table.Column<long>(type: "bigint", nullable: false),
-                    AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
-                    AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    DiferenciaDia = table.Column<int>(type: "int", nullable: false),
-                    EmpresaId = table.Column<int>(type: "int", nullable: false),
-                    HoraEntrada = table.Column<TimeOnly>(type: "time", nullable: false),
-                    HoraSalida = table.Column<TimeOnly>(type: "time", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    NombreCorto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_grupo_horario_audit", x => x.AuditId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "grupo_trabajo",
                 schema: "rrhh",
                 columns: table => new
@@ -1499,15 +1447,50 @@ namespace nest.core.driver.sqlserver.Migrations
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    DiaSemana = table.Column<byte>(type: "tinyint", nullable: false),
+                    DiaSemana = table.Column<int>(type: "int", nullable: false),
                     EmpresaId = table.Column<int>(type: "int", nullable: false),
-                    GrupoHorarioId = table.Column<int>(type: "int", nullable: false),
                     HorarioCabeceraId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    Item = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_horario_detalle_audit", x => x.AuditId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "horario_detalle_evento_audit",
+                schema: "rrhh",
+                columns: table => new
+                {
+                    AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
+                    AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    DiferenciaDia = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
+                    Hora = table.Column<TimeOnly>(type: "time", nullable: false),
+                    HorarioDetalleId = table.Column<long>(type: "bigint", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    TipoEvento = table.Column<byte>(type: "tinyint", nullable: false),
+                    VentanaMax = table.Column<int>(type: "int", nullable: false),
+                    VentanaMin = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_horario_detalle_evento_audit", x => x.AuditId);
                 });
 
             migrationBuilder.CreateTable(
@@ -2305,6 +2288,7 @@ namespace nest.core.driver.sqlserver.Migrations
                     Id = table.Column<int>(type: "int", nullable: false),
                     MarcaAsistencia = table.Column<bool>(type: "bit", nullable: false),
                     PersonalEstadoId = table.Column<byte>(type: "tinyint", nullable: false),
+                    RegistroAsistenciaPoliticaId = table.Column<long>(type: "bigint", nullable: false),
                     SuperiorId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -2502,6 +2486,93 @@ namespace nest.core.driver.sqlserver.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_punto_financiero_audit", x => x.AuditId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "registro_asistencia_audit",
+                schema: "rrhh",
+                columns: table => new
+                {
+                    AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
+                    AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    DiferenciaMinutos = table.Column<int>(type: "int", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
+                    EsTardanza = table.Column<bool>(type: "bit", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaJornal = table.Column<DateOnly>(type: "date", nullable: false),
+                    HorarioDetalleEventoId = table.Column<long>(type: "bigint", nullable: true),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    PersonalId = table.Column<int>(type: "int", nullable: false),
+                    RegistroAsistenciaPoliticaId = table.Column<long>(type: "bigint", nullable: true),
+                    TipoEvento = table.Column<byte>(type: "tinyint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_registro_asistencia_audit", x => x.AuditId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "registro_asistencia_politica",
+                schema: "rrhh",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
+                    MinutosTardanzaIngreso = table.Column<int>(type: "int", nullable: false),
+                    MinutosExtra = table.Column<int>(type: "int", nullable: false),
+                    MinutosExtraEntrada = table.Column<int>(type: "int", nullable: false),
+                    TieneCompletarHora = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_registro_asistencia_politica", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "registro_asistencia_politica_audit",
+                schema: "rrhh",
+                columns: table => new
+                {
+                    AuditId = table.Column<long>(type: "bigint", nullable: false),
+                    AuditAccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditApp = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditAppVersion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditAssemblyName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditFecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AuditHost = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditIpRemoteOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditIsHttps = table.Column<bool>(type: "bit", nullable: false),
+                    AuditMethod = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditOrigin = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditProtocol = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditReferer = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    MinutosExtra = table.Column<int>(type: "int", nullable: false),
+                    MinutosExtraEntrada = table.Column<int>(type: "int", nullable: false),
+                    MinutosTardanzaIngreso = table.Column<int>(type: "int", nullable: false),
+                    TieneCompletarHora = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_registro_asistencia_politica_audit", x => x.AuditId);
                 });
 
             migrationBuilder.CreateTable(
@@ -2981,22 +3052,15 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "rrhh",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
                     EmpresaId = table.Column<int>(type: "int", nullable: false),
+                    Item = table.Column<int>(type: "int", nullable: false),
                     HorarioCabeceraId = table.Column<int>(type: "int", nullable: false),
-                    DiaSemana = table.Column<byte>(type: "tinyint", nullable: false),
-                    GrupoHorarioId = table.Column<int>(type: "int", nullable: false)
+                    DiaSemana = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_horario_detalle", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_horario_detalle_grupo_horario_GrupoHorarioId",
-                        column: x => x.GrupoHorarioId,
-                        principalSchema: "rrhh",
-                        principalTable: "grupo_horario",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_horario_detalle_horario_cabecera_HorarioCabeceraId",
                         column: x => x.HorarioCabeceraId,
@@ -3157,6 +3221,32 @@ namespace nest.core.driver.sqlserver.Migrations
                         principalTable: "entidad_financiera",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "horario_detalle_evento",
+                schema: "rrhh",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
+                    HorarioDetalleId = table.Column<long>(type: "bigint", nullable: false),
+                    TipoEvento = table.Column<byte>(type: "tinyint", nullable: false),
+                    Hora = table.Column<TimeOnly>(type: "time", nullable: false),
+                    DiferenciaDia = table.Column<int>(type: "int", nullable: false),
+                    VentanaMin = table.Column<int>(type: "int", nullable: false),
+                    VentanaMax = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_horario_detalle_evento", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_horario_detalle_evento_horario_detalle_HorarioDetalleId",
+                        column: x => x.HorarioDetalleId,
+                        principalSchema: "rrhh",
+                        principalTable: "horario_detalle",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -3551,7 +3641,8 @@ namespace nest.core.driver.sqlserver.Migrations
                     ContratoCabeceraId = table.Column<long>(type: "bigint", nullable: false),
                     HorarioCabeceraId = table.Column<int>(type: "int", nullable: false),
                     SuperiorId = table.Column<int>(type: "int", nullable: true),
-                    PersonalEstadoId = table.Column<byte>(type: "tinyint", nullable: false)
+                    PersonalEstadoId = table.Column<byte>(type: "tinyint", nullable: false),
+                    RegistroAsistenciaPoliticaId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -3589,6 +3680,13 @@ namespace nest.core.driver.sqlserver.Migrations
                         column: x => x.PersonalEstadoId,
                         principalSchema: "rrhh",
                         principalTable: "personal_estado",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_personal_registro_asistencia_politica_RegistroAsistenciaPoliticaId",
+                        column: x => x.RegistroAsistenciaPoliticaId,
+                        principalSchema: "rrhh",
+                        principalTable: "registro_asistencia_politica",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -3676,6 +3774,48 @@ namespace nest.core.driver.sqlserver.Migrations
                         column: x => x.ProductoLoteId,
                         principalSchema: "logistica",
                         principalTable: "producto_lote",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "registro_asistencia",
+                schema: "rrhh",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    EmpresaId = table.Column<int>(type: "int", nullable: false),
+                    PersonalId = table.Column<int>(type: "int", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaJornal = table.Column<DateOnly>(type: "date", nullable: false),
+                    TipoEvento = table.Column<byte>(type: "tinyint", nullable: false),
+                    EsTardanza = table.Column<bool>(type: "bit", nullable: false),
+                    DiferenciaMinutos = table.Column<int>(type: "int", nullable: false),
+                    HorarioDetalleEventoId = table.Column<long>(type: "bigint", nullable: true),
+                    RegistroAsistenciaPoliticaId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_registro_asistencia", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_registro_asistencia_horario_detalle_evento_HorarioDetalleEventoId",
+                        column: x => x.HorarioDetalleEventoId,
+                        principalSchema: "rrhh",
+                        principalTable: "horario_detalle_evento",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_registro_asistencia_personal_PersonalId",
+                        column: x => x.PersonalId,
+                        principalSchema: "rrhh",
+                        principalTable: "personal",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_registro_asistencia_registro_asistencia_politica_RegistroAsistenciaPoliticaId",
+                        column: x => x.RegistroAsistenciaPoliticaId,
+                        principalSchema: "rrhh",
+                        principalTable: "registro_asistencia_politica",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -4980,18 +5120,6 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_grupo_horario_EmpresaId",
-                schema: "rrhh",
-                table: "grupo_horario",
-                column: "EmpresaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_grupo_horario_audit_Id",
-                schema: "rrhh",
-                table: "grupo_horario_audit",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_grupo_trabajo_EmpresaId",
                 schema: "rrhh",
                 table: "grupo_trabajo",
@@ -5046,12 +5174,6 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_horario_detalle_GrupoHorarioId",
-                schema: "rrhh",
-                table: "horario_detalle",
-                column: "GrupoHorarioId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_horario_detalle_HorarioCabeceraId",
                 schema: "rrhh",
                 table: "horario_detalle",
@@ -5061,6 +5183,24 @@ namespace nest.core.driver.sqlserver.Migrations
                 name: "IX_horario_detalle_audit_Id",
                 schema: "rrhh",
                 table: "horario_detalle_audit",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_horario_detalle_evento_EmpresaId",
+                schema: "rrhh",
+                table: "horario_detalle_evento",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_horario_detalle_evento_HorarioDetalleId",
+                schema: "rrhh",
+                table: "horario_detalle_evento",
+                column: "HorarioDetalleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_horario_detalle_evento_audit_Id",
+                schema: "rrhh",
+                table: "horario_detalle_evento_audit",
                 column: "Id");
 
             migrationBuilder.CreateIndex(
@@ -5412,6 +5552,12 @@ namespace nest.core.driver.sqlserver.Migrations
                 column: "PersonalEstadoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_personal_RegistroAsistenciaPoliticaId",
+                schema: "rrhh",
+                table: "personal",
+                column: "RegistroAsistenciaPoliticaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_personal_SuperiorId",
                 schema: "rrhh",
                 table: "personal",
@@ -5499,6 +5645,48 @@ namespace nest.core.driver.sqlserver.Migrations
                 name: "IX_punto_financiero_audit_Id",
                 schema: "finanzas",
                 table: "punto_financiero_audit",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_registro_asistencia_EmpresaId",
+                schema: "rrhh",
+                table: "registro_asistencia",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_registro_asistencia_HorarioDetalleEventoId",
+                schema: "rrhh",
+                table: "registro_asistencia",
+                column: "HorarioDetalleEventoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_registro_asistencia_PersonalId",
+                schema: "rrhh",
+                table: "registro_asistencia",
+                column: "PersonalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_registro_asistencia_RegistroAsistenciaPoliticaId",
+                schema: "rrhh",
+                table: "registro_asistencia",
+                column: "RegistroAsistenciaPoliticaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_registro_asistencia_audit_Id",
+                schema: "rrhh",
+                table: "registro_asistencia_audit",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_registro_asistencia_politica_EmpresaId",
+                schema: "rrhh",
+                table: "registro_asistencia_politica",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_registro_asistencia_politica_audit_Id",
+                schema: "rrhh",
+                table: "registro_asistencia_politica_audit",
                 column: "Id");
 
             migrationBuilder.CreateIndex(
@@ -5796,10 +5984,6 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "aplicacion");
 
             migrationBuilder.DropTable(
-                name: "grupo_horario_audit",
-                schema: "rrhh");
-
-            migrationBuilder.DropTable(
                 name: "grupo_trabajo_audit",
                 schema: "rrhh");
 
@@ -5816,11 +6000,11 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "rrhh");
 
             migrationBuilder.DropTable(
-                name: "horario_detalle",
+                name: "horario_detalle_audit",
                 schema: "rrhh");
 
             migrationBuilder.DropTable(
-                name: "horario_detalle_audit",
+                name: "horario_detalle_evento_audit",
                 schema: "rrhh");
 
             migrationBuilder.DropTable(
@@ -5912,10 +6096,6 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "personal",
-                schema: "rrhh");
-
-            migrationBuilder.DropTable(
                 name: "personal_audit",
                 schema: "rrhh");
 
@@ -5938,6 +6118,18 @@ namespace nest.core.driver.sqlserver.Migrations
             migrationBuilder.DropTable(
                 name: "punto_financiero_audit",
                 schema: "finanzas");
+
+            migrationBuilder.DropTable(
+                name: "registro_asistencia",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
+                name: "registro_asistencia_audit",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
+                name: "registro_asistencia_politica_audit",
+                schema: "rrhh");
 
             migrationBuilder.DropTable(
                 name: "sexo_audit",
@@ -5992,10 +6184,6 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "aplicacion");
 
             migrationBuilder.DropTable(
-                name: "grupo_horario",
-                schema: "rrhh");
-
-            migrationBuilder.DropTable(
                 name: "inventario_cabecera",
                 schema: "logistica");
 
@@ -6008,20 +6196,16 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "mantto");
 
             migrationBuilder.DropTable(
-                name: "horario_cabecera",
+                name: "horario_detalle_evento",
                 schema: "rrhh");
 
             migrationBuilder.DropTable(
-                name: "personal_estado",
+                name: "personal",
                 schema: "rrhh");
 
             migrationBuilder.DropTable(
                 name: "activo",
                 schema: "patrimonial");
-
-            migrationBuilder.DropTable(
-                name: "contrato_cabecera",
-                schema: "legal");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers",
@@ -6064,16 +6248,28 @@ namespace nest.core.driver.sqlserver.Migrations
                 schema: "patrimonial");
 
             migrationBuilder.DropTable(
+                name: "horario_detalle",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
+                name: "contrato_cabecera",
+                schema: "legal");
+
+            migrationBuilder.DropTable(
+                name: "personal_estado",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
+                name: "registro_asistencia_politica",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
                 name: "centro_de_costos",
                 schema: "costos");
 
             migrationBuilder.DropTable(
                 name: "producto_lote",
                 schema: "logistica");
-
-            migrationBuilder.DropTable(
-                name: "contrato_tipo",
-                schema: "legal");
 
             migrationBuilder.DropTable(
                 name: "entidad_financiera",
@@ -6102,6 +6298,14 @@ namespace nest.core.driver.sqlserver.Migrations
             migrationBuilder.DropTable(
                 name: "tercero",
                 schema: "finanzas");
+
+            migrationBuilder.DropTable(
+                name: "horario_cabecera",
+                schema: "rrhh");
+
+            migrationBuilder.DropTable(
+                name: "contrato_tipo",
+                schema: "legal");
 
             migrationBuilder.DropTable(
                 name: "moneda",
