@@ -38,10 +38,13 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
         public async Task<RegistroAsistenciaCrearDto> GetRegistroAsistencia(RegistroAsistenciaCrearDto registro)
         {
             RegistroAsistencia ultimaMarca = await this.repository.BuscarUltimaMarca(registro.PersonalId);
-            double minutosUltimaMarca = registro.Fecha.Subtract(ultimaMarca.Fecha).TotalMinutes;
-            double minutosThreshold = 10;
-            if (minutosUltimaMarca <= minutosThreshold)
-                throw new Exception($"Marca reciente, puedes volverlo a intentar en {Math.Round(minutosThreshold - minutosUltimaMarca, 2)} minutos.");
+            if (ultimaMarca != null)
+            {
+                double minutosUltimaMarca = registro.Fecha.Subtract(ultimaMarca.Fecha).TotalMinutes;
+                double minutosThreshold = 10;
+                if (minutosUltimaMarca <= minutosThreshold)
+                    throw new Exception($"Marca reciente, puedes volverlo a intentar en {Math.Round(minutosThreshold - minutosUltimaMarca, 2)} minutos.");
+            }
             HorarioCabecera horario = await this.horarioRepository.ObtenerPorPersonalId(registro.PersonalId);
             RegistroAsistenciaPolitica politica = (await this.personalRepository.ObtenerPorId(registro.PersonalId)).RegistroAsistenciaPolitica;
             JornalParams? jornalActual = GetDiaLaboral(horario, registro.Fecha);
