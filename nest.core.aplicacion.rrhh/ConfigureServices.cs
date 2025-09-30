@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplication.auth;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
+using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
@@ -19,6 +20,7 @@ namespace nest.core.aplicacion.rrhh
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
             services.AddTransient<ICargoRepository, CargoRepository>();
             services.AddTransient<IHorarioRepository, HorarioRepository>();
+            services.AddTransient<IHorarioDetalleRepository, HorarioDetalleRepository>();
             services.AddTransient<IPersonalRepository, PersonalRepository>();
             services.AddTransient<IPersonalEstadoRepository, PersonalEstadoRepository>();
             services.AddTransient<IRegistroAsistenciaRepository, RegistroAsistenciaRepository>();
