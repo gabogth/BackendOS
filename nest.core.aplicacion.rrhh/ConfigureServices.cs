@@ -7,6 +7,7 @@ using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
+using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
 using nest.core.dominio.Security.Tenant;
 using nest.core.infraestructura.rrhh;
 
@@ -24,6 +25,7 @@ namespace nest.core.aplicacion.rrhh
             services.AddTransient<IPersonalRepository, PersonalRepository>();
             services.AddTransient<IPersonalEstadoRepository, PersonalEstadoRepository>();
             services.AddTransient<IRegistroAsistenciaRepository, RegistroAsistenciaRepository>();
+            services.AddTransient<IRegistroAsistenciaPoliticaRepository, RegistroAsistenciaPoliticaRepository>();
             return services;
         }
     }
