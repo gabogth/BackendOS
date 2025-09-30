@@ -115,6 +115,8 @@ namespace nest.core.infraestructura.rrhh
                     var eventosEliminar = detalle.HorarioDetalleEventos
                         .Where(e => !eventosDto.Any(dto => dto.Id.HasValue && dto.Id.Value == e.Id));
 
+                    context.HorarioDetalleEventos.RemoveRange(eventosEliminar);
+
                     foreach (var eventoDto in eventosInsertar)
                     {
                         var evento = mapper.Map<HorarioDetalleEvento>(eventoDto);
@@ -126,7 +128,7 @@ namespace nest.core.infraestructura.rrhh
                     foreach (var eventoDto in eventosActualizar)
                         mapper.Map(eventoDto, eventosActuales[eventoDto.Id!.Value]);
 
-                    context.HorarioDetalleEventos.RemoveRange(eventosEliminar);
+                    
                 }
 
                 //Eliminar detalles que ya no existen

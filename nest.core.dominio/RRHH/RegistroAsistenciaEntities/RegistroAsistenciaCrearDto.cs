@@ -4,6 +4,7 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
 {
     public class RegistroAsistenciaCrearDto
     {
+        public int EmpresaId { get; set; }
         public int PersonalId { get; set; }
         public DateTime Fecha { get; set; }
         public DateOnly FechaJornal { get; set; }

@@ -46,6 +46,13 @@ namespace nest.core.infraestructura.rrhh
                 .OrderByDescending(x => x.Fecha)
                 .FirstOrDefaultAsync();
         }
+        public async Task<RegistroAsistencia> BuscarUltimaMarca(int personalId)
+        {
+            return await Query()
+                .Where(x => x.PersonalId == personalId)
+                .OrderByDescending(x => x.Fecha)
+                .FirstOrDefaultAsync();
+        }
 
         public async Task<RegistroAsistencia> Agregar(RegistroAsistenciaCrearDto entry)
         {

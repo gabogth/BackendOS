@@ -37,6 +37,11 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
         public Task Eliminar(long id) => repository.Eliminar(id);
         public async Task<RegistroAsistenciaCrearDto> GetRegistroAsistencia(RegistroAsistenciaCrearDto registro)
         {
+            RegistroAsistencia ultimaMarca = await this.repository.BuscarUltimaMarca(registro.PersonalId);
+            double minutosUltimaMarca = registro.Fecha.Subtract(ultimaMarca.Fecha).TotalMinutes;
+            double minutosThreshold = 10;
+            if (minutosUltimaMarca <= minutosThreshold)
+                throw new Exception($"Marca reciente, puedes volverlo a intentar en {Math.Round(minutosThreshold - minutosUltimaMarca, 2)} minutos.");
             HorarioCabecera horario = await this.horarioRepository.ObtenerPorPersonalId(registro.PersonalId);
             RegistroAsistenciaPolitica politica = (await this.personalRepository.ObtenerPorId(registro.PersonalId)).RegistroAsistenciaPolitica;
             JornalParams? jornalActual = GetDiaLaboral(horario, registro.Fecha);
@@ -47,7 +52,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
                 {
                     registro.TipoEvento = HorarioDetalleEventoTipoEnum.Entrada;
                     registro.FechaJornal = DateOnly.FromDateTime(jornalActual.FechaEntrada);
-                    registro.DiferenciaMinutos = registro.Fecha.Subtract(jornalActual.FechaEntrada).Minutes;
+                    registro.DiferenciaMinutos = (int)Math.Ceiling(registro.Fecha.Subtract(jornalActual.FechaEntrada).TotalMinutes);
                     registro.EsTardanza = registro.DiferenciaMinutos > politica.MinutosTardanzaIngreso;
                     registro.HorarioDetalleEventoId = jornalActual.Evento.Id;
                     registro.RegistroAsistenciaPoliticaId = politica.Id;
@@ -59,7 +64,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
                     {
                         registro.TipoEvento = evento.Value.Item1.TipoEvento;
                         registro.FechaJornal = entrada.FechaJornal;
-                        registro.DiferenciaMinutos = registro.Fecha.Subtract(evento.Value.Item2).Minutes;
+                        registro.DiferenciaMinutos = (int)Math.Ceiling(registro.Fecha.Subtract(evento.Value.Item2).TotalMinutes);
                         registro.EsTardanza = false;
                         registro.HorarioDetalleEventoId = evento.Value.Item1.Id;
                         registro.RegistroAsistenciaPoliticaId = politica.Id;
@@ -110,17 +115,17 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
         public JornalParams GetParamsJornal(HorarioCabecera horario, DayOfWeek Dia, DateTime fecha)
         {
             HorarioDetalle? horarioDetalle = horario.HorarioDetalles.Where(x => x.DiaSemana == Dia).FirstOrDefault();
-            DateOnly fechaErr = DateOnly.FromDateTime(fecha.AddDays(-1));
+            DateOnly fechaErr = DateOnly.FromDateTime(fecha);
             (HorarioDetalleEvento?, HorarioDetalleEvento?) jornal = (
                 horarioDetalle.HorarioDetalleEventos.Where(x => x.TipoEvento == HorarioDetalleEventoTipoEnum.Entrada).FirstOrDefault(),
                 horarioDetalle.HorarioDetalleEventos.Where(x => x.TipoEvento == HorarioDetalleEventoTipoEnum.Salida).FirstOrDefault()
             );
             return new JornalParams
             {
-                FechaEntrada = fechaErr.AddDays(jornal.Item1.DiferenciaDia).ToDateTime(jornal.Item1.Hora),
-                FechaSalida = fechaErr.AddDays(jornal.Item2.DiferenciaDia).ToDateTime(jornal.Item2.Hora),
-                FechaEntradaConRango = fechaErr.AddDays(jornal.Item1.DiferenciaDia).ToDateTime(jornal.Item1.Hora).AddMinutes(jornal.Item1.VentanaMin),
-                FechaSalidaConRango = fechaErr.AddDays(jornal.Item2.DiferenciaDia).ToDateTime(jornal.Item2.Hora).AddMinutes(jornal.Item1.VentanaMax),
+                FechaEntrada = fechaErr.AddDays(jornal.Item1.DiferenciaDia).ToDateTime(jornal.Item1.Hora, DateTimeKind.Local),
+                FechaSalida = fechaErr.AddDays(jornal.Item2.DiferenciaDia).ToDateTime(jornal.Item2.Hora, DateTimeKind.Local),
+                FechaEntradaConRango = fechaErr.AddDays(jornal.Item1.DiferenciaDia).ToDateTime(jornal.Item1.Hora, DateTimeKind.Local).AddMinutes(-Math.Abs(jornal.Item1.VentanaMin)),
+                FechaSalidaConRango = fechaErr.AddDays(jornal.Item2.DiferenciaDia).ToDateTime(jornal.Item2.Hora, DateTimeKind.Local).AddMinutes(Math.Abs(jornal.Item1.VentanaMax)),
                 Evento = jornal.Item1
             };
         }

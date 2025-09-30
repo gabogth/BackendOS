@@ -2532,6 +2532,9 @@ namespace nest.core.driver.sqlserver.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     EmpresaId = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    NombreCorto = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: true),
+                    Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     MinutosTardanzaIngreso = table.Column<int>(type: "int", nullable: false),
                     MinutosExtra = table.Column<int>(type: "int", nullable: false),
                     MinutosExtraEntrada = table.Column<int>(type: "int", nullable: false),
@@ -2563,11 +2566,14 @@ namespace nest.core.driver.sqlserver.Migrations
                     AuditRequestId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUserAgent = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     AuditUsuario = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Descripcion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     EmpresaId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     MinutosExtra = table.Column<int>(type: "int", nullable: false),
                     MinutosExtraEntrada = table.Column<int>(type: "int", nullable: false),
                     MinutosTardanzaIngreso = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    NombreCorto = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     TieneCompletarHora = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
