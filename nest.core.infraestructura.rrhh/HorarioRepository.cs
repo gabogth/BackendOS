@@ -24,9 +24,8 @@ namespace nest.core.infraestructura.rrhh
         public Task<HorarioCabecera> ObtenerPorPersonalId(int personalId) =>
             context.Personales
                 .AsNoTracking()
-                .Include(p => p.HorarioCabecera)
-                    .ThenInclude(c => c.HorarioDetalles)
-                        .ThenInclude(d => d.HorarioDetalleEventos)
+                .Include(p => p.HorarioCabecera).ThenInclude(c => c.HorarioDetalles)
+                .Include(p => p.HorarioCabecera).ThenInclude(c => c.HorarioDetalles).ThenInclude(d => d.HorarioDetalleEventos)
                 .Where(p => p.Id == personalId)
                 .Select(p => p.HorarioCabecera)
                 .FirstOrDefaultAsync();

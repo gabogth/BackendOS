@@ -10,7 +10,6 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
         public int EmpresaId { get; set; }
         public long Id { get; set; }
         public int PersonalId { get; set; }
-        public int? GrupoHorarioId { get; set; }
         public DateTime Fecha { get; set; }
         public DateOnly FechaJornal { get; set; }
         public HorarioDetalleEventoTipoEnum TipoEvento { get; set; }
