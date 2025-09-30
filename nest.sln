@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.genera
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.infraestructura.general", "nest.core.infraestructura.general\nest.core.infraestructura.general.csproj", "{65163C72-679F-4432-A80D-D6B26A8E2735}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.infraestructura.patrimonial", "nest.core.infraestructura.patrimonial\nest.core.infraestructura.patrimonial.csproj", "{BEF7E734-D586-4826-8928-C4D2042325C5}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.general", "nest.core.general\nest.core.general.csproj", "{9CF72613-82B7-4E29-8EB8-0C96C17E5453}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.infraestructura.finanzas", "nest.core.infraestructura.finanzas\nest.core.infraestructura.finanzas.csproj", "{671EFF2E-E5BB-4D7F-BC8C-976064590869}"
@@ -100,6 +102,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.aplicacion.mantto", "nest.core.aplicacion.mantto\nest.core.aplicacion.mantto.csproj", "{71DB6BF3-AFCE-4F0A-8BF9-9640F824A5D0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.infraestructura.mantto", "nest.core.infraestructura.mantto\nest.core.infraestructura.mantto.csproj", "{873AD771-2522-4EF4-9927-1A917681ECD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.patrimonial", "nest.core.aplicacion.patrimonial\nest.core.aplicacion.patrimonial.csproj", "{8AE68B5D-804D-4B49-A599-824CB7F27BF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.patrimonial", "nest.core.patrimonial\nest.core.patrimonial.csproj", "{A42EFDBC-68EF-465D-A3C4-5A57587F9669}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iac", "iac", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -190,10 +196,16 @@ Global
 		{2D797AE8-F294-4E40-B7F4-BBCF99B1E4F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71DB6BF3-AFCE-4F0A-8BF9-9640F824A5D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71DB6BF3-AFCE-4F0A-8BF9-9640F824A5D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{873AD771-2522-4EF4-9927-1A917681ECD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{873AD771-2522-4EF4-9927-1A917681ECD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {873AD771-2522-4EF4-9927-1A917681ECD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+                {873AD771-2522-4EF4-9927-1A917681ECD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {BEF7E734-D586-4826-8928-C4D2042325C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+                {BEF7E734-D586-4826-8928-C4D2042325C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {8AE68B5D-804D-4B49-A599-824CB7F27BF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+                {8AE68B5D-804D-4B49-A599-824CB7F27BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {A42EFDBC-68EF-465D-A3C4-5A57587F9669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+                {A42EFDBC-68EF-465D-A3C4-5A57587F9669}.Debug|Any CPU.Build.0 = Debug|Any CPU
+                {8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+                {8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57ABD640-0269-4F2A-9DAB-449DF485FB27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -242,8 +254,11 @@ Global
 		{BAC84888-4510-4C02-AAF1-EA40D4160D84} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{2D797AE8-F294-4E40-B7F4-BBCF99B1E4F9} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{71DB6BF3-AFCE-4F0A-8BF9-9640F824A5D0} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
-		{873AD771-2522-4EF4-9927-1A917681ECD9} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
-		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+                {873AD771-2522-4EF4-9927-1A917681ECD9} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
+                {BEF7E734-D586-4826-8928-C4D2042325C5} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
+                {8AE68B5D-804D-4B49-A599-824CB7F27BF7} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
+                {A42EFDBC-68EF-465D-A3C4-5A57587F9669} = {ADCC3ECF-AF23-4BD7-AA42-A2517216AF12}
+                {8666BE1C-00D5-49D1-8C2E-DA69E39B1B62} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{57ABD640-0269-4F2A-9DAB-449DF485FB27} = {7FC3797F-B49D-4CA0-858B-239AE3C16389}
 		{180FFE87-C3EE-4ECC-8E12-2F6C1A298055} = {7FC3797F-B49D-4CA0-858B-239AE3C16389}
