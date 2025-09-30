@@ -1,7 +1,10 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
+using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
 using nest.core.infrastructura.utils.Excepciones;
@@ -14,11 +17,19 @@ namespace nest.core.infraestructura.rrhh
 
         protected override IQueryable<HorarioCabecera> Query() => context.Set<HorarioCabecera>()
             .AsNoTracking()
-            .Include(h => h.HorarioDetalles);
+            .Include(h => h.HorarioDetalles)
+                .ThenInclude(d => d.HorarioDetalleEventos);
 
         public Task<HorarioCabecera> ObtenerPorId(int id) => GetByIdAsync(id);
-        public Task<HorarioCabecera> ObtenerPorPersonalId(int personalId) => 
-            this.context.Personales.Where(p => p.Id == personalId).Select(p => p.HorarioCabecera).FirstOrDefaultAsync();
+        public Task<HorarioCabecera> ObtenerPorPersonalId(int personalId) =>
+            context.Personales
+                .AsNoTracking()
+                .Include(p => p.HorarioCabecera)
+                    .ThenInclude(c => c.HorarioDetalles)
+                        .ThenInclude(d => d.HorarioDetalleEventos)
+                .Where(p => p.Id == personalId)
+                .Select(p => p.HorarioCabecera)
+                .FirstOrDefaultAsync();
         public Task<List<HorarioCabecera>> ObtenerTodos() => GetAllAsync();
 
         public async Task<HorarioCabecera> Agregar(HorarioDto entry)
@@ -36,6 +47,13 @@ namespace nest.core.infraestructura.rrhh
                     var detalle = mapper.Map<HorarioDetalle>(detalleDto);
                     detalle.HorarioCabeceraId = cabecera.Id;
                     context.HorarioDetalles.Add(detalle);
+
+                    foreach (var eventoDto in detalleDto.Eventos ?? Enumerable.Empty<HorarioDetalleEventoCrearDto>())
+                    {
+                        var evento = mapper.Map<HorarioDetalleEvento>(eventoDto);
+                        evento.HorarioDetalle = detalle;
+                        context.HorarioDetalleEventos.Add(evento);
+                    }
                 }
 
                 await context.SaveChangesAsync();
@@ -56,6 +74,7 @@ namespace nest.core.infraestructura.rrhh
             {
                 var cabecera = await context.HorarioCabeceras
                     .Include(h => h.HorarioDetalles)
+                        .ThenInclude(d => d.HorarioDetalleEventos)
                     .FirstOrDefaultAsync(h => h.Id == id)
                     ?? throw new RegistroNoEncontradoException<HorarioCabecera>(id.ToString());
 
@@ -72,11 +91,44 @@ namespace nest.core.infraestructura.rrhh
                     var detalle = mapper.Map<HorarioDetalle>(detalleDto);
                     detalle.HorarioCabeceraId = cabecera.Id;
                     context.HorarioDetalles.Add(detalle);
+
+                    foreach (var eventoDto in detalleDto.Eventos ?? Enumerable.Empty<HorarioDetalleEventoCrearDto>())
+                    {
+                        var evento = mapper.Map<HorarioDetalleEvento>(eventoDto);
+                        evento.HorarioDetalle = detalle;
+                        context.HorarioDetalleEventos.Add(evento);
+                    }
                 }
 
                 //Modificar detalles existentes
-                foreach (var detalleDto in update) 
-                    mapper.Map(detalleDto, detalleDb[detalleDto.Item]);
+                foreach (var detalleDto in update)
+                {
+                    var detalle = detalleDb[detalleDto.Item];
+                    mapper.Map(detalleDto, detalle);
+
+                    var eventosActuales = detalle.HorarioDetalleEventos.ToDictionary(e => e.Id);
+                    var eventosDto = (detalleDto.Eventos ?? new List<HorarioDetalleEventoCrearDto>()).ToList();
+
+                    var eventosInsertar = eventosDto
+                        .Where(e => !e.Id.HasValue || !eventosActuales.ContainsKey(e.Id.Value));
+                    var eventosActualizar = eventosDto
+                        .Where(e => e.Id.HasValue && eventosActuales.ContainsKey(e.Id.Value));
+                    var eventosEliminar = detalle.HorarioDetalleEventos
+                        .Where(e => !eventosDto.Any(dto => dto.Id.HasValue && dto.Id.Value == e.Id));
+
+                    foreach (var eventoDto in eventosInsertar)
+                    {
+                        var evento = mapper.Map<HorarioDetalleEvento>(eventoDto);
+                        evento.HorarioDetalleId = detalle.Id;
+                        evento.HorarioDetalle = detalle;
+                        context.HorarioDetalleEventos.Add(evento);
+                    }
+
+                    foreach (var eventoDto in eventosActualizar)
+                        mapper.Map(eventoDto, eventosActuales[eventoDto.Id!.Value]);
+
+                    context.HorarioDetalleEventos.RemoveRange(eventosEliminar);
+                }
 
                 //Eliminar detalles que ya no existen
                 context.HorarioDetalles.RemoveRange(delete);

@@ -2,6 +2,7 @@ using AutoMapper;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
+using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
@@ -14,7 +15,9 @@ namespace nest.core.infraestructura.rrhh.Mapper
         {
             CreateMap<CargoCrearDto, Cargo>();
             CreateMap<HorarioCabeceraCrearDto, HorarioCabecera>();
-            CreateMap<HorarioDetalleCrearDto, HorarioDetalle>();
+            CreateMap<HorarioDetalleCrearDto, HorarioDetalle>()
+                .ForMember(dest => dest.HorarioDetalleEventos, opt => opt.Ignore());
+            CreateMap<HorarioDetalleEventoCrearDto, HorarioDetalleEvento>();
             CreateMap<PersonalCrearDto, Personal>();
             CreateMap<PersonalEstadoCrearDto, PersonalEstado>();
             CreateMap<RegistroAsistenciaCrearDto, RegistroAsistencia>();
