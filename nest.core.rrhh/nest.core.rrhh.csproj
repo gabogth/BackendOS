@@ -8,6 +8,7 @@
 	<FileVersion></FileVersion>
 	<AssemblyVersion>1.0.0.16</AssemblyVersion>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<UserSecretsId>b28aaedb-ded9-4b02-8d66-3f5434f7f2a3</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

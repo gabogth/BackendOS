@@ -14,7 +14,8 @@
       "commandName": "Project",
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ENGINE": "Npgsql"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:8381;http://localhost:8281"
