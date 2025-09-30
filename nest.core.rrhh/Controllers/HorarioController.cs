@@ -8,7 +8,7 @@ namespace nest.core.rrhh.Controllers
 {
     /// <summary>
     /// Controlador para la gestión de horarios.
-    /// Permite realizar operaciones CRUD sobre la cabecera de horarios.
+    /// Permite realizar operaciones CRUD sobre la cabecera de horarios y sus detalles jerárquicos.
     /// Requiere autorización para acceder.
     /// </summary>
     [Authorize]
@@ -80,7 +80,7 @@ namespace nest.core.rrhh.Controllers
         /// <summary>
         /// Agrega un nuevo horario.
         /// </summary>
-        /// <param name="registro">DTO con la información del horario a crear.</param>
+        /// <param name="registro">DTO con la información del horario a crear (cabecera, detalles y eventos).</param>
         /// <returns>Horario creado.</returns>
         /// <response code="200">Horario agregado exitosamente.</response>
         /// <response code="400">Error en la solicitud.</response>
@@ -105,7 +105,7 @@ namespace nest.core.rrhh.Controllers
         /// Modifica un horario existente.
         /// </summary>
         /// <param name="id">ID del horario a modificar.</param>
-        /// <param name="registro">DTO con la información actualizada del horario.</param>
+        /// <param name="registro">DTO con la información actualizada del horario (cabecera, detalles y eventos).</param>
         /// <returns>Horario modificado.</returns>
         /// <response code="200">Horario modificado exitosamente.</response>
         /// <response code="400">Error en la solicitud.</response>
