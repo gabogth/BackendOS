@@ -2,6 +2,7 @@
 using nest.core.dominio.Legal.ContratoCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
+using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
 using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.PersonalEntities
@@ -15,7 +16,9 @@ namespace nest.core.dominio.RRHH.PersonalEntities
         public int HorarioCabeceraId { get; set; }
         public int? SuperiorId { get; set; }
         public byte PersonalEstadoId { get; set; }
+        public long RegistroAsistenciaPoliticaId { get; set; }
         public HorarioCabecera HorarioCabecera { get; set; }
+        public RegistroAsistenciaPolitica RegistroAsistenciaPolitica { get; set; }
         public ContratoCabecera ContratoCabecera { get; set; }
         public Persona Persona { get; set; }
         public PersonalEstado PersonalEstado { get; set; }

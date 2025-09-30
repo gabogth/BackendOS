@@ -7,5 +7,6 @@ namespace nest.core.dominio.RRHH.HorarioCabeceraEntities
         Task<HorarioCabecera> Agregar(HorarioDto entidad);
         Task<HorarioCabecera> Modificar(int id, HorarioDto entidad);
         Task Eliminar(int id);
+        Task<HorarioCabecera> ObtenerPorPersonalId(int personalId);
     }
 }

@@ -1,6 +1,6 @@
-﻿using nest.core.dominio.RRHH.GrupoHorarioEntities;
-using nest.core.dominio.RRHH.HorarioDetalleEntities;
+﻿using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
+using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
 using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
@@ -10,12 +10,16 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
         public int EmpresaId { get; set; }
         public long Id { get; set; }
         public int PersonalId { get; set; }
-        public int GrupoHorarioId { get; set; }
+        public int? GrupoHorarioId { get; set; }
         public DateTime Fecha { get; set; }
+        public DateOnly FechaJornal { get; set; }
+        public HorarioDetalleEventoTipoEnum TipoEvento { get; set; }
+        public bool EsTardanza { get; set; }
         public int DiferenciaMinutos { get; set; }
-        public long HorarioDetalleId { get; set; }
-        public GrupoHorario GrupoHorario { get; set; }
+        public long? HorarioDetalleEventoId { get; set; }
+        public long? RegistroAsistenciaPoliticaId { get; set; }
+        public RegistroAsistenciaPolitica RegistroAsistenciaPolitica { get; set; }
         public Personal Personal { get; set; }
-        public HorarioDetalle HorarioDetalle { get; set; }
+        public HorarioDetalleEvento HorarioDetalleEvento { get; set; }
     }
 }

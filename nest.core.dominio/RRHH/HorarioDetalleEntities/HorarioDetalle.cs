@@ -1,28 +1,30 @@
-﻿using nest.core.dominio.RRHH.GrupoHorarioEntities;
-using nest.core.dominio.RRHH.HorarioCabeceraEntities;
+﻿using nest.core.dominio.RRHH.HorarioCabeceraEntities;
+using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.HorarioDetalleEntities
 {
-    public enum DayOfWeek: byte
+    public static class DayOfWeekUtils
     {
-        Domingo = 0,
-        Lunes = 1,
-        Martes = 2,
-        Miercoles = 3,
-        Jueves = 4,
-        Viernes = 5,
-        Sabado = 6
+        public static DayOfWeek Ayer(DayOfWeek now)
+        {
+            if (now == DayOfWeek.Sunday) return DayOfWeek.Saturday;
+            return now - 1;
+        }
+        public static DayOfWeek Manana(DayOfWeek now)
+        {
+            if (now == DayOfWeek.Saturday) return DayOfWeek.Sunday;
+            return now + 1;
+        }
     }
-    public class HorarioDetalle : IAuditable, IEntity<int>, ITenantEntity
+    public class HorarioDetalle : IAuditable, IEntity<long>, ITenantEntity
     {
         public int EmpresaId { get; set; }
-        public int Id { get; set; }
+        public long Id { get; set; }
         public int Item { get; set; }
         public int HorarioCabeceraId { get; set; }
         public DayOfWeek DiaSemana { get; set; }
-        public int GrupoHorarioId { get; set; }
         public HorarioCabecera HorarioCabecera { get; set; }
-        public GrupoHorario GrupoHorario { get; set; }
+        public List<HorarioDetalleEvento> HorarioDetalleEventos { get; set; }
     }
 }

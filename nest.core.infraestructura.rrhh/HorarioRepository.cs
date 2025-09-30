@@ -14,10 +14,11 @@ namespace nest.core.infraestructura.rrhh
 
         protected override IQueryable<HorarioCabecera> Query() => context.Set<HorarioCabecera>()
             .AsNoTracking()
-            .Include(h => h.HorarioDetalles)
-            .Include(h => h.HorarioDetalles).ThenInclude(h => h.GrupoHorario);
+            .Include(h => h.HorarioDetalles);
 
         public Task<HorarioCabecera> ObtenerPorId(int id) => GetByIdAsync(id);
+        public Task<HorarioCabecera> ObtenerPorPersonalId(int personalId) => 
+            this.context.Personales.Where(p => p.Id == personalId).Select(p => p.HorarioCabecera).FirstOrDefaultAsync();
         public Task<List<HorarioCabecera>> ObtenerTodos() => GetAllAsync();
 
         public async Task<HorarioCabecera> Agregar(HorarioDto entry)

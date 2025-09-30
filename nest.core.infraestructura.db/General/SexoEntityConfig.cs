@@ -9,11 +9,9 @@ namespace nest.core.infraestructura.db.General
 {
     public class SexoEntityConfig : IEntityTypeConfiguration<Sexo>
     {
-        public static readonly string SCHEMA = "dbo";
-        public static readonly string TABLE = "sexo";
         public void Configure(EntityTypeBuilder<Sexo> builder)
         {
-            builder.ToTable(TABLE, SCHEMA);
+            builder.ToTable("sexo", "dbo");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()

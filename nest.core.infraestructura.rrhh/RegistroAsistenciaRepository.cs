@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
@@ -20,8 +17,8 @@ namespace nest.core.infraestructura.rrhh
         protected override IQueryable<RegistroAsistencia> Query() => context.Set<RegistroAsistencia>()
             .AsNoTracking()
             .Include(x => x.Personal)
-            .Include(x => x.GrupoHorario)
-            .Include(x => x.HorarioDetalle);
+            .Include(x => x.RegistroAsistenciaPolitica)
+            .Include(x => x.HorarioDetalleEvento);
 
         public async Task<RegistroAsistencia> ObtenerPorId(long id) =>
             await GetByIdAsync(id) ?? throw new RegistroNoEncontradoException<RegistroAsistencia>(id.ToString());
@@ -39,11 +36,21 @@ namespace nest.core.infraestructura.rrhh
                 .OrderBy(x => x.Fecha)
                 .ToListAsync();
         }
+        public async Task<RegistroAsistencia> BuscarPorRangoFecha(int personalId, DateTime fechaInicio, DateTime fechaFin, HorarioDetalleEventoTipoEnum tipoMarca)
+        {
+            if (fechaFin < fechaInicio)
+                (fechaInicio, fechaFin) = (fechaFin, fechaInicio);
+
+            return await Query()
+                .Where(x => x.PersonalId == personalId && x.Fecha >= fechaInicio && x.Fecha <= fechaFin && x.TipoEvento == tipoMarca)
+                .OrderByDescending(x => x.Fecha)
+                .FirstOrDefaultAsync();
+        }
 
         public async Task<RegistroAsistencia> Agregar(RegistroAsistenciaCrearDto entry)
         {
-            await AddAsync(entry);
-            return await ObtenerPorId(entry.Id);
+            var registro = await AddAsync(entry);
+            return await ObtenerPorId(registro.Id);
         }
 
         public async Task<RegistroAsistencia> Modificar(long id, RegistroAsistenciaCrearDto entry)

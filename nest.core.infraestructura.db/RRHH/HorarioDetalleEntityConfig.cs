@@ -13,15 +13,11 @@ namespace nest.core.infraestructura.db.RRHH
             builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<GenericValueGenerator<int>>();
+                .HasValueGenerator<GenericValueGenerator<long>>();
             builder.HasOne(x => x.HorarioCabecera)
                 .WithMany(x => x.HorarioDetalles)
                 .HasForeignKey(x => x.HorarioCabeceraId)
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(x => x.GrupoHorario)
-                .WithMany()
-                .HasForeignKey(x => x.GrupoHorarioId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

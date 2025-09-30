@@ -17,13 +17,13 @@ namespace nest.core.infraestructura.db.RRHH
                 .WithMany()
                 .HasForeignKey(x => x.PersonalId)
                 .OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(x => x.GrupoHorario)
+            builder.HasOne(x => x.HorarioDetalleEvento)
                 .WithMany()
-                .HasForeignKey(x => x.GrupoHorarioId)
+                .HasForeignKey(x => x.HorarioDetalleEventoId)
                 .OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(x => x.HorarioDetalle)
+            builder.HasOne(x => x.RegistroAsistenciaPolitica)
                 .WithMany()
-                .HasForeignKey(x => x.HorarioDetalleId)
+                .HasForeignKey(x => x.RegistroAsistenciaPoliticaId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

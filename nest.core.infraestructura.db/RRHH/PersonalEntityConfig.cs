@@ -25,6 +25,10 @@ namespace nest.core.infraestructura.db.RRHH
                 .WithMany()
                 .HasForeignKey(x => x.ContratoCabeceraId)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.RegistroAsistenciaPolitica)
+                .WithMany()
+                .HasForeignKey(x => x.RegistroAsistenciaPoliticaId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(x => x.Superior)
                 .WithMany(x => x.Children)
                 .HasForeignKey(x => x.SuperiorId)
