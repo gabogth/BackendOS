@@ -1,4 +1,5 @@
-﻿using nest.core.dominio.Legal.ContratoCabeceraEntities;
+using System;
+using nest.core.dominio.Legal.ContratoCabeceraEntities;
 using nest.core.dominio.Patrimonial.ActivoEntities;
 using nest.core.dominio.Patrimonial.UbicacionTecnicaEntities;
 using nest.core.dominio.Security.Audit;
@@ -11,7 +12,7 @@ namespace nest.core.dominio.Patrimonial.UbicacionActivoEntities
         public long Id { get; set; }
         public long ActivoId { get; set; }
         public long UbicacionTecnicaId { get; set; }
-        public string Comentario { get; set; }
+        public string? Comentario { get; set; }
         public long? ContratoCabeceraId { get; set; }
         public DateTime FechaIngreso { get; set; }
         public DateTime? FechaSalida { get; set; }
