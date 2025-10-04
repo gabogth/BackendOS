@@ -1,4 +1,5 @@
-﻿using nest.core.dominio.Finanzas.ClienteEntities;
+using System.Collections.Generic;
+using nest.core.dominio.Finanzas.ClienteEntities;
 using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.Patrimonial.UbicacionTecnicaEntities
