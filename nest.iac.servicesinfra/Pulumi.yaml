@@ -62,3 +62,8 @@ config:
       contextDocker: "../"
       pathProject: "../nest.core.contabilidad/lambda.Dockerfile"
       port: 8080
+    - serviceName: "patrimonial"  
+      routepath: "/patrimonial"
+      contextDocker: "../"
+      pathProject: "../nest.core.patrimonial/lambda.Dockerfile"
+      port: 8080

@@ -7,7 +7,7 @@
     <NoWarn>1591</NoWarn>
     <FileVersion></FileVersion>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <UserSecretsId>c9338795-fdbc-4359-a139-d65032d00b28</UserSecretsId>
+    <UserSecretsId>d9a145ed-e245-4d4b-a57f-ee1caeb9d575</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer.Hosting" Version="1.9.0" />
