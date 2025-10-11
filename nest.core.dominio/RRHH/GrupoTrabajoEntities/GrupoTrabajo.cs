@@ -1,4 +1,5 @@
-﻿using nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities;
+using System.Collections.Generic;
+using nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities;
 using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.GrupoTrabajoEntities
@@ -7,9 +8,9 @@ namespace nest.core.dominio.RRHH.GrupoTrabajoEntities
     {
         public int EmpresaId { get; set; }
         public long Id { get; set; }
-        public int Nombre { get; set; }
-        public int NombreCorto { get; set; }
+        public string Nombre { get; set; }
+        public string NombreCorto { get; set; }
         public bool Estado { get; set; }
-        public List<GrupoTrabajoPersona> GrupoTrabajoPersonas { get; set; }
+        public List<GrupoTrabajoPersona> GrupoTrabajoPersonas { get; set; } = new();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using nest.core.aplicacion.rrhh;
 using nest.core.aplicacion.rrhh.CargoServices;
+using nest.core.aplicacion.rrhh.GrupoTrabajoServices;
 using nest.core.aplicacion.rrhh.HorarioDetalleServices;
 using nest.core.aplicacion.rrhh.HorarioServices;
 using nest.core.aplicacion.rrhh.PersonalEstadoServices;
@@ -18,6 +19,7 @@ namespace nest.core.rrhh.Extensions
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
             services.AddScoped<CargoService>();
+            services.AddScoped<GrupoTrabajoService>();
             services.AddScoped<HorarioService>();
             services.AddScoped<HorarioDetalleService>();
             services.AddScoped<PersonalEstadoService>();
