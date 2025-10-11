@@ -2,6 +2,10 @@ using nest.core.aplicacion.mantto;
 using nest.core.aplicacion.mantto.LaborServices;
 using nest.core.aplicacion.mantto.MantenimientoTipoServices;
 using nest.core.aplicacion.mantto.OrdenServicioTipoServices;
+using nest.core.aplicacion.mantto.OrdenTrabajoCabeceraServices;
+using nest.core.aplicacion.mantto.OrdenTrabajoDetalleActivoServices;
+using nest.core.aplicacion.mantto.OrdenTrabajoDetalleServices;
+using nest.core.aplicacion.mantto.OrdenTrabajoPersonalServices;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -16,6 +20,10 @@ namespace nest.core.mantto.Extensions
             services.AddScoped<LaborService>();
             services.AddScoped<MantenimientoTipoService>();
             services.AddScoped<OrdenServicioTipoService>();
+            services.AddScoped<OrdenTrabajoCabeceraService>();
+            services.AddScoped<OrdenTrabajoDetalleService>();
+            services.AddScoped<OrdenTrabajoPersonalService>();
+            services.AddScoped<OrdenTrabajoDetalleActivoService>();
             return services;
         }
         private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)
