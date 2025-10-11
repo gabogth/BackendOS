@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using nest.core.dominio.Security;
 using nest.core.dominio.Security.Tenant;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace nest.core.aplication.auth
@@ -9,6 +10,7 @@ namespace nest.core.aplication.auth
     {
         public string Engine { get; set; }
         public string Usuario { get; set; }
+        public string UserId { get; set; }
         public int? EmpresaId { get; set; }
         public RequestParameters Request { get; set; }
         public IConfigurationManager Configuration { get; set; }
@@ -25,6 +27,7 @@ namespace nest.core.aplication.auth
                 Claim EmpresaClaim = this.Claims.SingleOrDefault(x => x.Type == ClaimTypesCustom.EMPRESAID);
                 this.Usuario = this.Claims.SingleOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
                 this.EmpresaId = EmpresaClaim == null ? null : string.IsNullOrWhiteSpace(EmpresaClaim.Value) ? null : int.Parse(EmpresaClaim.Value);
+                this.UserId = this.Claims.SingleOrDefault(x => x.Type == JwtRegisteredClaimNames.Sub)?.Value;
             }
             catch (Exception ex)
             {

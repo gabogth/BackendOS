@@ -5,6 +5,8 @@ using nest.core.dominio.Patrimonial.ActivoEntities;
 using nest.core.dominio.Patrimonial.UbicacionActivoEntities;
 using nest.core.dominio.Patrimonial.UbicacionTecnicaEntities;
 using nest.core.dominio.Security.Tenant;
+using nest.core.dominio.Transaccional;
+using nest.core.infraestructura.db.Transaccional;
 using nest.core.infraestructura.patrimonial;
 
 namespace nest.core.aplicacion.patrimonial
@@ -14,6 +16,7 @@ namespace nest.core.aplicacion.patrimonial
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddAutoMapper(typeof(infraestructura.patrimonial.Mapper.AutomapperProfiles));
+            services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));
             services.AddTransient<IActivoRepository, ActivoRepository>();
             services.AddTransient<IUbicacionActivoRepository, UbicacionActivoRepository>();

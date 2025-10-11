@@ -1,14 +1,16 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplication.auth;
+using nest.core.dominio.Finanzas.ClienteEntities;
 using nest.core.dominio.Finanzas.CuentaCorrienteEntities;
 using nest.core.dominio.Finanzas.EntidadFinancieraEntities;
+using nest.core.dominio.Finanzas.FinancieroCabeceraEntities;
 using nest.core.dominio.Finanzas.MonedaEntities;
 using nest.core.dominio.Finanzas.OrigenFinancieroEntities;
 using nest.core.dominio.Finanzas.PuntoFinancieroEntities;
-using nest.core.dominio.Finanzas.ClienteEntities;
-using nest.core.dominio.Finanzas.FinancieroCabeceraEntities;
 using nest.core.dominio.Security.Tenant;
+using nest.core.dominio.Transaccional;
+using nest.core.infraestructura.db.Transaccional;
 using nest.core.infraestructura.finanzas;
 
 namespace nest.core.aplicacion.finanzas
@@ -18,6 +20,7 @@ namespace nest.core.aplicacion.finanzas
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddAutoMapper(typeof(infraestructura.finanzas.Mapper.AutomapperProfiles));
+            services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));
             services.AddTransient<ICuentaCorrienteRepository, CuentaCorrienteRepository>();
             services.AddTransient<IEntidadFinancieraRepository, EntidadFinancieraRepository>();

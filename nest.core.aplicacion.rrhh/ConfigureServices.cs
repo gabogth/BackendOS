@@ -9,6 +9,8 @@ using nest.core.dominio.RRHH.PersonalEstadoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
 using nest.core.dominio.Security.Tenant;
+using nest.core.dominio.Transaccional;
+using nest.core.infraestructura.db.Transaccional;
 using nest.core.infraestructura.rrhh;
 
 namespace nest.core.aplicacion.rrhh
@@ -19,6 +21,7 @@ namespace nest.core.aplicacion.rrhh
         {
             services.AddAutoMapper(typeof(infraestructura.rrhh.Mapper.AutomapperProfiles));
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
+            services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<ICargoRepository, CargoRepository>();
             services.AddTransient<IHorarioRepository, HorarioRepository>();
             services.AddTransient<IHorarioDetalleRepository, HorarioDetalleRepository>();

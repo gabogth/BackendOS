@@ -21,8 +21,7 @@ namespace nest.iac.servicesinfra.Resources
         public Awsx.Ecr.Image Build()
         {
             this.currentRepository = Create();
-            Awsx.Ecr.Image currentImage = CreateImage();
-            return currentImage;
+            return this.CreateImage();
         }
         private Awsx.Ecr.Repository Create()
         {

@@ -13,24 +13,17 @@ namespace nest.core.infraestructura.corporativo
             : base(context, mapper, cache)
         {
         }
-
         protected override IQueryable<Empresa> Query()
         {
             return context.Set<Empresa>()
                 .AsNoTracking()
                 .OrderBy(x => x.Nombre);
         }
-
         public async Task<Empresa?> ObtenerPorId(int id) => await GetByIdAsync(id);
-
         public async Task<List<Empresa>> ObtenerTodos() => await GetAllAsync();
-
         public async Task<List<Empresa>> ObtenerActivos() => (await GetCachedListAsync()).Where(x => x.Estado).ToList();
-
         public async Task<Empresa> Agregar(EmpresaCrearDto entry) => await AddAsync(entry);
-
         public async Task<Empresa> Modificar(int id, EmpresaCrearDto entry) => await UpdateAsync(id, entry);
-
         public async Task Eliminar(int id)
         {
             await DeleteAsync(id);

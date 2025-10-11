@@ -7,6 +7,7 @@ namespace nest.core.dominio.Security.Tenant
         string Usuario { get; }
         string Engine { get; }
         int? EmpresaId { get; }
+        string UserId { get; }
         RequestParameters Request { get; }
         IConfigurationManager Configuration { get; set; }
         string ConnectionString { get; }

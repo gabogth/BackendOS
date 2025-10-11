@@ -1,11 +1,15 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplication.auth;
-using nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities;
-using nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities;
 using nest.core.dominio.Corporativo.Empresa;
+using nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities;
+using nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities;
 using nest.core.dominio.Security.Tenant;
+using nest.core.dominio.Security.UsuarioEmpresa;
+using nest.core.dominio.Transaccional;
 using nest.core.infraestructura.corporativo;
+using nest.core.infraestructura.db.Transaccional;
+using nest.core.infraestructura.security.Security;
 
 namespace nest.core.aplicacion.corporativo
 {
@@ -14,10 +18,12 @@ namespace nest.core.aplicacion.corporativo
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddAutoMapper(typeof(infraestructura.corporativo.Mapper.AutomapperProfiles));
+            services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((provider) => AuthClaim.constructClaimsAuth(provider, configuration));
             services.AddTransient<IEstructuraOrganizacionalTipoRepository, EstructuraOrganizacionalTipoRepository>();
             services.AddTransient<IEstructuraOrganizacionalRepository, EstructuraOrganizacionalRepository>();
             services.AddTransient<IEmpresaRepository, EmpresaRepository>();
+            services.AddTransient<IUsuarioEmpresaRepository, UsuarioEmpresaRepository>();
 
             return services;
         }

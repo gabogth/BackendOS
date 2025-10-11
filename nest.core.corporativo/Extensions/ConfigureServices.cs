@@ -18,7 +18,7 @@ namespace nest.core.corporativo.Extensions
             services.AddScoped<EstructuraOrganizacionalTipoService>();
             services.AddScoped<EstructuraOrganizacionalService>();
             services.AddScoped<EmpresaService>();
-          
+
             return services;
         }
         private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)
