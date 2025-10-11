@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplication.auth;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.GrupoTrabajoEntities;
+using nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
@@ -25,6 +26,7 @@ namespace nest.core.aplicacion.rrhh
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<ICargoRepository, CargoRepository>();
             services.AddTransient<IGrupoTrabajoRepository, GrupoTrabajoRepository>();
+            services.AddTransient<IGrupoTrabajoPersonaRepository, GrupoTrabajoPersonaRepository>();
             services.AddTransient<IHorarioRepository, HorarioRepository>();
             services.AddTransient<IHorarioDetalleRepository, HorarioDetalleRepository>();
             services.AddTransient<IPersonalRepository, PersonalRepository>();
