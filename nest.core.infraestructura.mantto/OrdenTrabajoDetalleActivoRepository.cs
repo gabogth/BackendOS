@@ -26,6 +26,8 @@ namespace nest.core.infraestructura.mantto
 
         public async Task<OrdenTrabajoDetalleActivo> ObtenerPorId(long id) => await GetByIdAsync(id);
 
+        public Task<List<OrdenTrabajoDetalleActivo>> ObtenerPorIds(List<long> ids) => GetByIdsAsync(ids);
+
         public async Task<List<OrdenTrabajoDetalleActivo>> ObtenerPorDetalle(long ordenTrabajoDetalleId)
         {
             return await Query()
@@ -35,8 +37,31 @@ namespace nest.core.infraestructura.mantto
 
         public Task<OrdenTrabajoDetalleActivo> Agregar(OrdenTrabajoDetalleActivoCrearDto dto) => AddAsync(dto);
 
+        public async Task<OrdenTrabajoDetalleActivo[]> AgregarRange(OrdenTrabajoDetalleActivoCrearDto[] dto)
+        {
+            OrdenTrabajoDetalleActivo[] results = await AddRangeAsync(dto);
+            List<OrdenTrabajoDetalleActivo> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
+            return GetOrderedArrayFrom(completed, results);
+        }
+
         public Task<OrdenTrabajoDetalleActivo> Modificar(long id, OrdenTrabajoDetalleActivoCrearDto dto) => UpdateAsync(id, dto);
 
+        public async Task<OrdenTrabajoDetalleActivo[]> ModificarRange((long id, OrdenTrabajoDetalleActivoCrearDto dto)[] dto)
+        {
+            OrdenTrabajoDetalleActivo[] results = await UpdateRangeAsync(dto);
+            List<OrdenTrabajoDetalleActivo> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
+            return GetOrderedArrayFrom(completed, results);
+        }
+
         public Task Eliminar(long id) => DeleteAsync(id);
+
+        public Task EliminarRange(long[] ids) => DeleteRangeAsync(ids);
+
+        public async Task<OrdenTrabajoDetalleActivo[]> FusionarRange(OrdenTrabajoDetalleActivo[] originalEntities, (long id, OrdenTrabajoDetalleActivoCrearDto dto)[] dto)
+        {
+            OrdenTrabajoDetalleActivo[] results = await MergeRangeAsync(originalEntities, dto);
+            List<OrdenTrabajoDetalleActivo> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
+            return GetOrderedArrayFrom(completed, results);
+        }
     }
 }
