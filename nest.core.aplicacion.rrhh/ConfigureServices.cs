@@ -28,7 +28,6 @@ namespace nest.core.aplicacion.rrhh
             services.AddTransient<IGrupoTrabajoRepository, GrupoTrabajoRepository>();
             services.AddTransient<IGrupoTrabajoPersonaRepository, GrupoTrabajoPersonaRepository>();
             services.AddTransient<IHorarioRepository, HorarioRepository>();
-            services.AddTransient<IHorarioDetalleRepository, HorarioDetalleRepository>();
             services.AddTransient<IPersonalRepository, PersonalRepository>();
             services.AddTransient<IPersonalEstadoRepository, PersonalEstadoRepository>();
             services.AddTransient<IRegistroAsistenciaRepository, RegistroAsistenciaRepository>();
