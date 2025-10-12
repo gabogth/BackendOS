@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplication.auth;
 using nest.core.dominio.Mantto.LaborEntities;
 using nest.core.dominio.Mantto.MantenimientoTipoEntities;
+using nest.core.dominio.Mantto.OrdenServicioCabeceraEntities;
+using nest.core.dominio.Mantto.OrdenServicioMantenimientoExternoEntities;
 using nest.core.dominio.Mantto.OrdenServicioTipoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
@@ -24,6 +26,8 @@ namespace nest.core.aplicacion.mantto
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
             services.AddTransient<ILaborRepository, LaborRepository>();
             services.AddTransient<IMantenimientoTipoRepository, MantenimientoTipoRepository>();
+            services.AddTransient<IOrdenServicioCabeceraRepository, OrdenServicioCabeceraRepository>();
+            services.AddTransient<IOrdenServicioMantenimientoExternoRepository, OrdenServicioMantenimientoExternoRepository>();
             services.AddTransient<IOrdenServicioTipoRepository, OrdenServicioTipoRepository>();
             services.AddTransient<IOrdenTrabajoCabeceraRepository, OrdenTrabajoCabeceraRepository>();
             services.AddTransient<IOrdenTrabajoDetalleRepository, OrdenTrabajoDetalleRepository>();
