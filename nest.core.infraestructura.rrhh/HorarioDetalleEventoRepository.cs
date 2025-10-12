@@ -1,66 +1,37 @@
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.infraestructura.db.DbContext;
-using nest.core.infrastructura.utils.Excepciones;
+using nest.core.infraestructura.db.Utils;
 
 namespace nest.core.infraestructura.rrhh
 {
-    public class HorarioDetalleEventoRepository : IHorarioDetalleEventoRepository
+    public class HorarioDetalleEventoRepository : CrudRepositoryBase<HorarioDetalleEvento, HorarioDetalleEventoCrearDto, long>, IHorarioDetalleEventoRepository
     {
-        private readonly NestDbContext context;
-        private readonly IMapper mapper;
-
-        public HorarioDetalleEventoRepository(NestDbContext context, IMapper mapper)
+        public HorarioDetalleEventoRepository(NestDbContext context, IMapper mapper) : base(context, mapper) { }
+        public Task<HorarioDetalleEvento> ObtenerPorId(long id) => GetByIdAsync(id);
+        public Task<List<HorarioDetalleEvento>> ObtenerPorIds(List<long> ids) => GetByIdsAsync(ids);
+        public Task<List<HorarioDetalleEvento>> ObtenerTodos() => GetAllAsync();
+        public async Task<HorarioDetalleEvento> Agregar(HorarioDetalleEventoCrearDto entidad) => await this.AddAsync(entidad);
+        public async Task<HorarioDetalleEvento[]> AgregarRange(HorarioDetalleEventoCrearDto[] entidad)
         {
-            this.context = context;
-            this.mapper = mapper;
+            HorarioDetalleEvento[] results = await this.AddRangeAsync(entidad);
+            List<HorarioDetalleEvento> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
+            return GetOrderedArrayFrom(completed, results);
         }
-
-        private IQueryable<HorarioDetalleEvento> Query() => context.HorarioDetalleEventos
-            .AsNoTracking();
-
-        public Task<HorarioDetalleEvento?> ObtenerPorId(long id) => Query()
-            .FirstOrDefaultAsync(x => x.Id == id);
-
-        public Task<List<HorarioDetalleEvento>> ObtenerPorHorarioDetalleId(long horarioDetalleId) => Query()
-            .Where(x => x.HorarioDetalleId == horarioDetalleId)
-            .OrderBy(x => x.Hora)
-            .ToListAsync();
-
-        public Task<List<HorarioDetalleEvento>> ObtenerTodos() => Query()
-            .OrderBy(x => x.HorarioDetalleId)
-            .ThenBy(x => x.Hora)
-            .ToListAsync();
-
-        public async Task<HorarioDetalleEvento> Agregar(long horarioDetalleId, HorarioDetalleEventoCrearDto entidad)
+        public async Task<HorarioDetalleEvento> Modificar(long id, HorarioDetalleEventoCrearDto entidad) => await this.UpdateAsync(id, entidad);
+        public async Task<HorarioDetalleEvento[]> ModificarRange((long id, HorarioDetalleEventoCrearDto entidad)[] entidad)
         {
-            var evento = mapper.Map<HorarioDetalleEvento>(entidad);
-            evento.HorarioDetalleId = horarioDetalleId;
-            context.HorarioDetalleEventos.Add(evento);
-            await context.SaveChangesAsync();
-            await context.Entry(evento).ReloadAsync();
-            return evento;
+            HorarioDetalleEvento[] results = await this.UpdateRangeAsync(entidad);
+            List<HorarioDetalleEvento> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
+            return GetOrderedArrayFrom(completed, results);
         }
-
-        public async Task<HorarioDetalleEvento> Modificar(long id, HorarioDetalleEventoCrearDto entidad)
+        public async Task<HorarioDetalleEvento[]> FusionarRange(HorarioDetalleEvento[] originalEntities, (long id, HorarioDetalleEventoCrearDto entidad)[] entidad)
         {
-            var evento = await context.HorarioDetalleEventos.FindAsync(id)
-                ?? throw new RegistroNoEncontradoException<HorarioDetalleEvento>(id.ToString());
-
-            mapper.Map(entidad, evento);
-            await context.SaveChangesAsync();
-            await context.Entry(evento).ReloadAsync();
-            return evento;
+            HorarioDetalleEvento[] results = await this.MergeRangeAsync(originalEntities, entidad);
+            List<HorarioDetalleEvento> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
+            return GetOrderedArrayFrom(completed, results);
         }
-
-        public async Task Eliminar(long id)
-        {
-            var evento = await context.HorarioDetalleEventos.FindAsync(id)
-                ?? throw new RegistroNoEncontradoException<HorarioDetalleEvento>(id.ToString());
-
-            context.HorarioDetalleEventos.Remove(evento);
-            await context.SaveChangesAsync();
-        }
+        public async Task Eliminar(long id) => await this.DeleteAsync(id);
+        public async Task EliminarRange(long[] ids) => await this.DeleteRangeAsync(ids);
     }
 }

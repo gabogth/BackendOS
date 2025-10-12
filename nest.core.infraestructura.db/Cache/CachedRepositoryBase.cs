@@ -4,7 +4,6 @@ using nest.core.dominio;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
-using nest.core.infrastructura.utils.Excepciones;
 
 namespace nest.core.infraestructura.db.Cache
 {
@@ -43,9 +42,9 @@ namespace nest.core.infraestructura.db.Cache
             await InvalidateCacheAsync();
             return response;
         }
-        protected override async Task<IEnumerable<TEntity>> AddRangeAsync(List<TCreateDto> dtos)
+        protected override async Task<TEntity[]> AddRangeAsync(TCreateDto[] dtos)
         {
-            IEnumerable<TEntity> response = await base.AddRangeAsync(dtos);
+            TEntity[] response = await base.AddRangeAsync(dtos);
             await InvalidateCacheAsync();
             return response;
         }
@@ -55,9 +54,9 @@ namespace nest.core.infraestructura.db.Cache
             await InvalidateCacheAsync();
             return response;
         }
-        protected override async Task<IEnumerable<TEntity>> UpdateRangeAsync(List<(TKey key, TCreateDto dto)> entries)
+        protected override async Task<TEntity[]> UpdateRangeAsync((TKey key, TCreateDto dto)[] entries)
         {
-            IEnumerable<TEntity> response = await base.UpdateRangeAsync(entries);
+            TEntity[] response = await base.UpdateRangeAsync(entries);
             await InvalidateCacheAsync();
             return response;
         }
@@ -66,12 +65,17 @@ namespace nest.core.infraestructura.db.Cache
             await base.DeleteAsync(id);
             await InvalidateCacheAsync();
         }
-        protected override async Task DeleteRangeAsync(List<TKey> ids)
+        protected override async Task DeleteRangeAsync(TKey[] ids)
         {
             await base.DeleteRangeAsync(ids);
             await InvalidateCacheAsync();
         }
-
+        protected override async Task<TEntity[]> MergeRangeAsync(TEntity[] originalEntities, (TKey key, TCreateDto dto)[] entries)
+        {
+            TEntity[] response = await base.MergeRangeAsync(originalEntities, entries);
+            await InvalidateCacheAsync();
+            return response;
+        }
         protected virtual Task InvalidateCacheAsync() => cache.RemoveAsync(cacheKey);
     }
 }

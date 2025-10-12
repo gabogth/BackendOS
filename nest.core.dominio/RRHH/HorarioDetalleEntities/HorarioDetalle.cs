@@ -21,7 +21,6 @@ namespace nest.core.dominio.RRHH.HorarioDetalleEntities
     {
         public int EmpresaId { get; set; }
         public long Id { get; set; }
-        public int Item { get; set; }
         public int HorarioCabeceraId { get; set; }
         public DayOfWeek DiaSemana { get; set; }
         public HorarioCabecera HorarioCabecera { get; set; }

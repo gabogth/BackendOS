@@ -1,6 +1,5 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
@@ -25,7 +24,7 @@ namespace nest.core.infraestructura.rrhh
                 ?? throw new RegistroNoEncontradoException<GrupoTrabajoPersona>(id.ToString());
         }
 
-        private async Task<List<GrupoTrabajoPersona>> ObtenerPorIdRange(List<long> ids)
+        private async Task<List<GrupoTrabajoPersona>> ObtenerPorIds(List<long> ids)
         {
             return await Query().Where(p => ids.Contains(p.Id)).ToListAsync();
         }
@@ -41,10 +40,11 @@ namespace nest.core.infraestructura.rrhh
             return await ObtenerPorId(persona.Id);
         }
 
-        public async Task<List<GrupoTrabajoPersona>> AgregarRange(List<GrupoTrabajoPersonaCrearDto> entries)
+        public async Task<GrupoTrabajoPersona[]> AgregarRange(GrupoTrabajoPersonaCrearDto[] entries)
         {
             var registros = await AddRangeAsync(entries);
-            return await ObtenerPorIdRange(registros.Select(x => x.Id).ToList());
+            List<GrupoTrabajoPersona> returnValues = await ObtenerPorIds(registros.Select(x => x.Id).ToList());
+            return GetOrderedArrayFrom(returnValues, registros);
         }
 
         public async Task<GrupoTrabajoPersona> Modificar(long id, GrupoTrabajoPersonaCrearDto entry)
@@ -53,19 +53,21 @@ namespace nest.core.infraestructura.rrhh
             return await ObtenerPorId(id);
         }
 
-        public async Task<List<GrupoTrabajoPersona>> ModificarRange(List<(long id, GrupoTrabajoPersonaCrearDto entry)> entries)
+        public async Task<GrupoTrabajoPersona[]> ModificarRange((long id, GrupoTrabajoPersonaCrearDto entry)[] entries)
         {
             var registros = await UpdateRangeAsync(entries);
-            return await ObtenerPorIdRange(registros.Select(x => x.Id).ToList());
+            List<GrupoTrabajoPersona> returnValues = await ObtenerPorIds(registros.Select(x => x.Id).ToList());
+            return GetOrderedArrayFrom(returnValues, registros);
         }
 
-        public async Task<List<GrupoTrabajoPersona>> FusionarRange(List<GrupoTrabajoPersona> original, List<(long id, GrupoTrabajoPersonaCrearDto entry)> entries)
+        public async Task<GrupoTrabajoPersona[]> FusionarRange(GrupoTrabajoPersona[] original, (long id, GrupoTrabajoPersonaCrearDto entry)[] entries)
         {
             var registros = await MergeRangeAsync(original, entries);
-            return await ObtenerPorIdRange(registros.Select(x => x.Id).ToList());
+            List<GrupoTrabajoPersona> returnValues = await ObtenerPorIds(registros.Select(x => x.Id).ToList());
+            return GetOrderedArrayFrom(returnValues, registros);
         }
 
         public Task Eliminar(long id) => DeleteAsync(id);
-        public Task EliminarRange(List<long> ids) => DeleteRangeAsync(ids);
+        public Task EliminarRange(long[] ids) => DeleteRangeAsync(ids);
     }
 }

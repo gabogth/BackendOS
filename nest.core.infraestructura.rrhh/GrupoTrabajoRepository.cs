@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.RRHH.GrupoTrabajoEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
-using nest.core.infrastructura.utils.Excepciones;
 
 namespace nest.core.infraestructura.rrhh
 {
@@ -18,17 +17,9 @@ namespace nest.core.infraestructura.rrhh
             .Include(g => g.GrupoTrabajoPersonas)
                 .ThenInclude(p => p.Persona);
 
-        public async Task<GrupoTrabajo> ObtenerPorId(long id)
-        {
-            return await Query().FirstOrDefaultAsync(g => g.Id == id)
-                ?? throw new RegistroNoEncontradoException<GrupoTrabajo>(id.ToString());
-        }
-
+        public Task<GrupoTrabajo> ObtenerPorId(long id) => GetByIdAsync(id);
         public Task<List<GrupoTrabajo>> ObtenerTodos() => GetAllAsync();
-
-        public Task<List<GrupoTrabajo>> ObtenerActivos() =>
-            Query().Where(g => g.Estado).ToListAsync();
-
+        public Task<List<GrupoTrabajo>> ObtenerActivos() => Query().Where(g => g.Estado).ToListAsync();
         public async Task<GrupoTrabajo> Agregar(GrupoTrabajoCrearDto entry) => await AddAsync(entry);
         public async Task<GrupoTrabajo> Modificar(long id, GrupoTrabajoCrearDto entry) => await UpdateAsync(id, entry);
         public Task Eliminar(long id) => DeleteAsync(id);

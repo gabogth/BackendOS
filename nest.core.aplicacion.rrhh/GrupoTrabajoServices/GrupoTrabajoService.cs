@@ -32,7 +32,7 @@ namespace nest.core.aplicacion.rrhh.GrupoTrabajoServices
                     p.GrupoTrabajoId = grupoTrabajo.Id;
                     p.EmpresaId = grupoTrabajo.EmpresaId;
                 });
-                await this.grupoTrabajoPersonaRepository.AgregarRange(entry.Personas);
+                await this.grupoTrabajoPersonaRepository.AgregarRange(entry.Personas.ToArray());
                 await unitOfWork.CommitAsync();
                 return await repository.ObtenerPorId(grupoTrabajo.Id);
             }
@@ -60,7 +60,7 @@ namespace nest.core.aplicacion.rrhh.GrupoTrabajoServices
                     p.EmpresaId = grupoTrabajo.EmpresaId;
                 });
                 var entries = entry.Personas.Select(p => (p.Id.HasValue ? p.Id.Value : 0, p)).ToList();
-                await this.grupoTrabajoPersonaRepository.FusionarRange(grupoTrabajoFull.GrupoTrabajoPersonas, entries);
+                await this.grupoTrabajoPersonaRepository.FusionarRange(grupoTrabajoFull.GrupoTrabajoPersonas.ToArray(), entries.ToArray());
                 await unitOfWork.CommitAsync();
                 return await repository.ObtenerPorId(grupoTrabajo.Id);
             }
