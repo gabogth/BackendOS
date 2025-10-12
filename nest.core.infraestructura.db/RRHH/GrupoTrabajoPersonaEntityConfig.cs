@@ -11,6 +11,8 @@ namespace nest.core.infraestructura.db.RRHH
             builder.ToTable("grupo_trabajo_persona", "rrhh");
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.EmpresaId);
+            builder.HasIndex(x => new { x.GrupoTrabajoId, x.PersonaId })
+                .IsUnique();
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<long>>();

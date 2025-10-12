@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using nest.core.dominio.RRHH.GrupoTrabajoEntities;
+using nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities;
 using nest.core.dominio.Transaccional;
 
 namespace nest.core.aplicacion.rrhh.GrupoTrabajoServices
@@ -7,12 +7,14 @@ namespace nest.core.aplicacion.rrhh.GrupoTrabajoServices
     public class GrupoTrabajoService
     {
         private readonly IGrupoTrabajoRepository repository;
+        private readonly IGrupoTrabajoPersonaRepository grupoTrabajoPersonaRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public GrupoTrabajoService(IGrupoTrabajoRepository repository, IUnitOfWork unitOfWork)
+        public GrupoTrabajoService(IGrupoTrabajoRepository repository, IUnitOfWork unitOfWork, IGrupoTrabajoPersonaRepository grupoTrabajoPersonaRepository)
         {
             this.repository = repository;
             this.unitOfWork = unitOfWork;
+            this.grupoTrabajoPersonaRepository = grupoTrabajoPersonaRepository;
         }
 
         public Task<GrupoTrabajo> ObtenerPorId(long id) => repository.ObtenerPorId(id);
@@ -24,9 +26,15 @@ namespace nest.core.aplicacion.rrhh.GrupoTrabajoServices
             await unitOfWork.BeginTransactionAsync();
             try
             {
-                var grupoTrabajo = await repository.Agregar(entry);
+                var grupoTrabajo = await repository.Agregar(entry.Cabecera);
+                entry.Personas.ForEach(p =>
+                {
+                    p.GrupoTrabajoId = grupoTrabajo.Id;
+                    p.EmpresaId = grupoTrabajo.EmpresaId;
+                });
+                await this.grupoTrabajoPersonaRepository.AgregarRange(entry.Personas);
                 await unitOfWork.CommitAsync();
-                return grupoTrabajo;
+                return await repository.ObtenerPorId(grupoTrabajo.Id);
             }
             catch
             {
@@ -44,9 +52,17 @@ namespace nest.core.aplicacion.rrhh.GrupoTrabajoServices
             await unitOfWork.BeginTransactionAsync();
             try
             {
-                var grupoTrabajo = await repository.Modificar(id, entry);
+                var grupoTrabajo = await repository.Modificar(id, entry.Cabecera);
+                var grupoTrabajoFull = await repository.ObtenerPorId(grupoTrabajo.Id);
+                entry.Personas.ForEach(p =>
+                {
+                    p.GrupoTrabajoId = grupoTrabajo.Id;
+                    p.EmpresaId = grupoTrabajo.EmpresaId;
+                });
+                var entries = entry.Personas.Select(p => (p.Id.HasValue ? p.Id.Value : 0, p)).ToList();
+                await this.grupoTrabajoPersonaRepository.FusionarRange(grupoTrabajoFull.GrupoTrabajoPersonas, entries);
                 await unitOfWork.CommitAsync();
-                return grupoTrabajo;
+                return await repository.ObtenerPorId(grupoTrabajo.Id);
             }
             catch
             {

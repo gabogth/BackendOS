@@ -7,8 +7,8 @@ namespace nest.core.dominio.RRHH.GrupoTrabajoEntities
         Task<GrupoTrabajo> ObtenerPorId(long id);
         Task<List<GrupoTrabajo>> ObtenerTodos();
         Task<List<GrupoTrabajo>> ObtenerActivos();
-        Task<GrupoTrabajo> Agregar(GrupoTrabajoDto entidad);
-        Task<GrupoTrabajo> Modificar(long id, GrupoTrabajoDto entidad);
+        Task<GrupoTrabajo> Agregar(GrupoTrabajoCrearDto entry);
+        Task<GrupoTrabajo> Modificar(long id, GrupoTrabajoCrearDto entidad);
         Task Eliminar(long id);
     }
 }

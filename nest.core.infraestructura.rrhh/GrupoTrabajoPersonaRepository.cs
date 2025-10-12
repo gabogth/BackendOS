@@ -25,6 +25,11 @@ namespace nest.core.infraestructura.rrhh
                 ?? throw new RegistroNoEncontradoException<GrupoTrabajoPersona>(id.ToString());
         }
 
+        private async Task<List<GrupoTrabajoPersona>> ObtenerPorIdRange(List<long> ids)
+        {
+            return await Query().Where(p => ids.Contains(p.Id)).ToListAsync();
+        }
+
         public Task<List<GrupoTrabajoPersona>> ObtenerTodos() => GetAllAsync();
 
         public Task<List<GrupoTrabajoPersona>> ObtenerPorGrupoTrabajo(long grupoTrabajoId) =>
@@ -36,12 +41,31 @@ namespace nest.core.infraestructura.rrhh
             return await ObtenerPorId(persona.Id);
         }
 
+        public async Task<List<GrupoTrabajoPersona>> AgregarRange(List<GrupoTrabajoPersonaCrearDto> entries)
+        {
+            var registros = await AddRangeAsync(entries);
+            return await ObtenerPorIdRange(registros.Select(x => x.Id).ToList());
+        }
+
         public async Task<GrupoTrabajoPersona> Modificar(long id, GrupoTrabajoPersonaCrearDto entry)
         {
             await UpdateAsync(id, entry);
             return await ObtenerPorId(id);
         }
 
+        public async Task<List<GrupoTrabajoPersona>> ModificarRange(List<(long id, GrupoTrabajoPersonaCrearDto entry)> entries)
+        {
+            var registros = await UpdateRangeAsync(entries);
+            return await ObtenerPorIdRange(registros.Select(x => x.Id).ToList());
+        }
+
+        public async Task<List<GrupoTrabajoPersona>> FusionarRange(List<GrupoTrabajoPersona> original, List<(long id, GrupoTrabajoPersonaCrearDto entry)> entries)
+        {
+            var registros = await MergeRangeAsync(original, entries);
+            return await ObtenerPorIdRange(registros.Select(x => x.Id).ToList());
+        }
+
         public Task Eliminar(long id) => DeleteAsync(id);
+        public Task EliminarRange(List<long> ids) => DeleteRangeAsync(ids);
     }
 }

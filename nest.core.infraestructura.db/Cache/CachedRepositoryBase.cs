@@ -39,31 +39,37 @@ namespace nest.core.infraestructura.db.Cache
         protected override async Task<List<TEntity>> GetAllAsync() => await GetCachedListAsync();
         protected override async Task<TEntity> AddAsync(TCreateDto dto)
         {
-            var entity = mapper.Map<TEntity>(dto);
-            context.Set<TEntity>().Add(entity);
-            await context.SaveChangesAsync();
-            await context.Entry(entity).ReloadAsync();
+            TEntity response = await base.AddAsync(dto);
             await InvalidateCacheAsync();
-            return entity;
+            return response;
         }
-        public override async Task<TEntity> UpdateAsync(TKey id, TCreateDto dto)
+        protected override async Task<IEnumerable<TEntity>> AddRangeAsync(List<TCreateDto> dtos)
         {
-            var entity = await context.Set<TEntity>().FindAsync(id)
-                         ?? throw new RegistroNoEncontradoException<TEntity>(id!.ToString()!);
-
-            mapper.Map(dto, entity);
-            await context.SaveChangesAsync();
-            await context.Entry(entity).ReloadAsync();
+            IEnumerable<TEntity> response = await base.AddRangeAsync(dtos);
             await InvalidateCacheAsync();
-            return entity;
+            return response;
         }
-        public override async Task DeleteAsync(TKey id)
+        protected override async Task<TEntity> UpdateAsync(TKey id, TCreateDto dto)
         {
-            var entity = await context.Set<TEntity>().FindAsync(id)
-                         ?? throw new RegistroNoEncontradoException<TEntity>(id!.ToString()!);
-
-            context.Set<TEntity>().Remove(entity);
-            await context.SaveChangesAsync();
+            TEntity response = await base.UpdateAsync(id, dto);
+            await InvalidateCacheAsync();
+            return response;
+        }
+        protected override async Task<IEnumerable<TEntity>> UpdateRangeAsync(List<(TKey key, TCreateDto dto)> entries)
+        {
+            IEnumerable<TEntity> response = await base.UpdateRangeAsync(entries);
+            await InvalidateCacheAsync();
+            return response;
+        }
+        protected override async Task DeleteAsync(TKey id)
+        {
+            await base.DeleteAsync(id);
+            await InvalidateCacheAsync();
+        }
+        protected override async Task DeleteRangeAsync(List<TKey> ids)
+        {
+            await base.DeleteRangeAsync(ids);
+            await InvalidateCacheAsync();
         }
 
         protected virtual Task InvalidateCacheAsync() => cache.RemoveAsync(cacheKey);
