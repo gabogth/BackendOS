@@ -27,6 +27,7 @@ namespace nest.core.aplicacion.mantto.OrdenServicio
             try
             {
                 OrdenServicioCabecera cabecera = await this.repository.Agregar(dto.Cabecera);
+                dto.Externo.Id = cabecera.Id;
                 OrdenServicioMantenimientoExterno externo = await this.ordenServicioMantenimientoExternoRepository.Agregar(dto.Externo);
                 await this.unitOfWork.CommitAsync();
                 return await this.repository.ObtenerPorId(cabecera.Id);
@@ -48,6 +49,7 @@ namespace nest.core.aplicacion.mantto.OrdenServicio
             try
             {
                 OrdenServicioCabecera cabecera = await this.repository.Modificar(id, dto.Cabecera);
+                dto.Externo.Id = id;
                 OrdenServicioMantenimientoExterno externo = await this.ordenServicioMantenimientoExternoRepository.Modificar(id, dto.Externo);
                 await this.unitOfWork.CommitAsync();
                 return await this.repository.ObtenerPorId(cabecera.Id);

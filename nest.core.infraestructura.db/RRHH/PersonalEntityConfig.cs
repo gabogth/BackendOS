@@ -13,9 +13,9 @@ namespace nest.core.infraestructura.db.RRHH
             builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever();
-            builder.HasOne(x => x.Persona)
-                .WithMany()
-                .HasForeignKey(x => x.Id)
+            builder.HasOne(p => p.Persona)
+                .WithOne(c => c.Personal)
+                .HasForeignKey<Personal>(p => p.Id)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x => x.HorarioCabecera)
                 .WithMany()

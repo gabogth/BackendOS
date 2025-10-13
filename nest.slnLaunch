@@ -18,6 +18,11 @@
         "DebugTarget": "https"
       },
       {
+        "Path": "nest.core.finanzas\\nest.core.finanzas.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
         "Path": "nest.core.rrhh\\nest.core.rrhh.csproj",
         "Action": "Start",
         "DebugTarget": "https"
@@ -34,6 +39,11 @@
       },
       {
         "Path": "nest.core.mantto\\nest.core.mantto.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "nest.core.contabilidad\\nest.core.contabilidad.csproj",
         "Action": "Start",
         "DebugTarget": "https"
       }

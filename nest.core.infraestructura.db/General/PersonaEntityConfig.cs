@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using nest.core.dominio.Finanzas.ClienteEntities;
 using nest.core.dominio.General.PersonaEntities;
+using nest.core.dominio.RRHH.PersonalEntities;
 
 namespace nest.core.infraestructura.db.General
 {
@@ -38,6 +40,14 @@ namespace nest.core.infraestructura.db.General
                 .HasForeignKey(ic => ic.DocumentoIdentidadTipoId)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.Ignore(x => x.NombreCompleto);
+            builder.HasOne(x => x.Tercero)
+                .WithOne(p => p.Persona)
+                .HasForeignKey<Tercero>(p => p.Id)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Personal)
+                .WithOne(p => p.Persona)
+                .HasForeignKey<Personal>(p => p.Id)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

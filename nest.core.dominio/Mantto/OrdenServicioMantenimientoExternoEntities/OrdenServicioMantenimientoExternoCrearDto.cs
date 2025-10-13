@@ -4,6 +4,7 @@ namespace nest.core.dominio.Mantto.OrdenServicioMantenimientoExternoEntities
 {
     public class OrdenServicioMantenimientoExternoCrearDto
     {
+        public long Id { get; set; }
         [Required]
         public int EmpresaId { get; set; }
 

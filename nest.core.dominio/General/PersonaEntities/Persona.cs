@@ -1,7 +1,9 @@
-﻿using nest.core.dominio.General.DistritoEntities;
+﻿using nest.core.dominio.Finanzas.ClienteEntities;
+using nest.core.dominio.General.DistritoEntities;
 using nest.core.dominio.General.DocumentoIdentidadTipoEntities;
 using nest.core.dominio.General.LicenciaConducirEntities;
 using nest.core.dominio.General.SexoEntities;
+using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.Security.Audit;
 using System.ComponentModel.DataAnnotations;
 
@@ -31,5 +33,7 @@ namespace nest.core.dominio.General.PersonaEntities
         public DocumentoIdentidadTipo DocumentoIdentidadTipo { get; set; }
         public LicenciaConducir LicenciaConducir { get; set; }
         public Sexo Sexo { get; set; }
+        public Tercero Tercero { get; set; }
+        public Personal Personal { get; set; }
     }
 }

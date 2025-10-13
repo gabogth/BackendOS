@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using nest.core.dominio.Finanzas.ClienteEntities;
+using nest.core.dominio.RRHH.PersonalEntities;
 
 namespace nest.core.infraestructura.db.Finanzas
 {
@@ -26,9 +27,9 @@ namespace nest.core.infraestructura.db.Finanzas
                 .WithMany()
                 .HasForeignKey(x => x.CuentaContablePorPagarId)
                 .OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(x => x.Persona)
-                .WithMany()
-                .HasForeignKey(x => x.Id)
+            builder.HasOne(p => p.Persona)
+                .WithOne(c => c.Tercero)
+                .HasForeignKey<Tercero>(p => p.Id)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

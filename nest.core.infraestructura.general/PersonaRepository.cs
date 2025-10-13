@@ -14,6 +14,8 @@ namespace nest.core.infraestructura.general
             .Include(x => x.LicenciaConducir)
             .Include(x => x.DocumentoIdentidadTipo)
             .Include(x => x.Sexo)
+            .Include(x => x.Personal)
+            .Include(x => x.Tercero)
             .Include(x => x.Distrito)
             .Include(x => x.Distrito).ThenInclude(d => d.Provincia)
             .Include(x => x.Distrito).ThenInclude(d => d.Provincia).ThenInclude(x => x.Departamento)
