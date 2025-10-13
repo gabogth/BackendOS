@@ -5,6 +5,7 @@ using nest.core.aplicacion.mantto.OrdenServicio;
 using nest.core.aplicacion.mantto.OrdenServicioCabeceraServices;
 using nest.core.aplicacion.mantto.OrdenServicioMantenimientoExternoServices;
 using nest.core.aplicacion.mantto.OrdenServicioTipoServices;
+using nest.core.aplicacion.mantto.OrdenTrabajo;
 using nest.core.aplicacion.mantto.OrdenTrabajoCabeceraServices;
 using nest.core.aplicacion.mantto.OrdenTrabajoDetalleActivoServices;
 using nest.core.aplicacion.mantto.OrdenTrabajoDetalleServices;
@@ -26,6 +27,7 @@ namespace nest.core.mantto.Extensions
             services.AddScoped<MantenimientoExternoService>();
             services.AddScoped<OrdenServicioMantenimientoExternoService>();
             services.AddScoped<OrdenServicioTipoService>();
+            services.AddScoped<OrdenTrabajoMantenimientoExternoService>();
             services.AddScoped<OrdenTrabajoCabeceraService>();
             services.AddScoped<OrdenTrabajoDetalleService>();
             services.AddScoped<OrdenTrabajoPersonalService>();
