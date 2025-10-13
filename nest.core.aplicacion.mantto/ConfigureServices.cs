@@ -14,6 +14,7 @@ using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Transaccional;
 using nest.core.infraestructura.db.Transaccional;
 using nest.core.infraestructura.mantto;
+using nest.core.infraestructura.mantto.Extensiones;
 
 namespace nest.core.aplicacion.mantto
 {
@@ -33,6 +34,7 @@ namespace nest.core.aplicacion.mantto
             services.AddTransient<IOrdenTrabajoDetalleRepository, OrdenTrabajoDetalleRepository>();
             services.AddTransient<IOrdenTrabajoPersonalRepository, OrdenTrabajoPersonalRepository>();
             services.AddTransient<IOrdenTrabajoDetalleActivoRepository, OrdenTrabajoDetalleActivoRepository>();
+            services.AddTransient<IOrdenServicioCabecera_MantenimientoExternoRepository, OrdenServicioCabecera_MantenimientoExternoRepository>();
             return services;
         }
     }

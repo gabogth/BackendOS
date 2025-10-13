@@ -1,4 +1,5 @@
-﻿using nest.core.dominio.Mantto.OrdenServicioTipoEntities;
+﻿using nest.core.dominio.Mantto.OrdenServicioMantenimientoExternoEntities;
+using nest.core.dominio.Mantto.OrdenServicioTipoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Security.Audit;
 
@@ -17,6 +18,7 @@ namespace nest.core.dominio.Mantto.OrdenServicioCabeceraEntities
         public DateTime FechaFinal { get; set; }
         public DateTime FechaEntrega { get; set; }
         public OrdenServicioTipo OrdenServicioTipo { get; set; }
+        public OrdenServicioMantenimientoExterno OrdenServicioMantenimientoExterno { get; set; }
         public List<OrdenTrabajoCabecera> OrdenTrabajoCabeceras { get; set; }
 
     }
