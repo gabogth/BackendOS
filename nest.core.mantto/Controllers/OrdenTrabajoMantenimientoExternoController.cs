@@ -1,0 +1,167 @@
+using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using nest.core.aplicacion.mantto.OrdenTrabajo;
+using nest.core.dominio;
+using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities;
+
+namespace nest.core.mantto.Controllers
+{
+    /// <summary>
+    /// Controlador para gestionar órdenes de trabajo de mantenimiento externo
+    /// junto con sus detalles y activos asociados.
+    /// </summary>
+    [Authorize]
+    [Route("OrdenTrabajo/MantenimientoExterno")]
+    [ApiController]
+    public class OrdenTrabajoMantenimientoExternoController : ControllerBase
+    {
+        private readonly OrdenTrabajoMantenimientoExternoService service;
+        private readonly ILogger<OrdenTrabajoMantenimientoExternoController> logger;
+
+        /// <summary>
+        /// Inicializa una nueva instancia del controlador.
+        /// </summary>
+        /// <param name="service">Servicio de negocio de órdenes de trabajo de mantenimiento externo.</param>
+        /// <param name="logger">Logger para auditoría y trazabilidad.</param>
+        public OrdenTrabajoMantenimientoExternoController(OrdenTrabajoMantenimientoExternoService service, ILogger<OrdenTrabajoMantenimientoExternoController> logger)
+        {
+            this.service = service;
+            this.logger = logger;
+        }
+
+        /// <summary>
+        /// Obtiene todas las órdenes de trabajo de mantenimiento externo.
+        /// </summary>
+        /// <returns>Listado de órdenes de trabajo.</returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(List<OrdenTrabajoCabecera>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<List<OrdenTrabajoCabecera>>> ObtenerTodos()
+        {
+            try
+            {
+                var data = await service.ObtenerTodos();
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error al obtener las órdenes de trabajo de mantenimiento externo");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene una orden de trabajo de mantenimiento externo por su identificador.
+        /// </summary>
+        /// <param name="id">Identificador de la orden de trabajo.</param>
+        /// <returns>Orden de trabajo encontrada.</returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(OrdenTrabajoCabecera), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<OrdenTrabajoCabecera>> ObtenerPorId(long id)
+        {
+            try
+            {
+                var data = await service.ObtenerPorId(id);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error al obtener la orden de trabajo {OrdenTrabajoId}", id);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene las órdenes de trabajo de mantenimiento externo asociadas a una orden de servicio.
+        /// </summary>
+        /// <param name="ordenServicioCabeceraId">Identificador de la orden de servicio.</param>
+        /// <returns>Listado de órdenes de trabajo asociadas.</returns>
+        [HttpGet("orden-servicio/{ordenServicioCabeceraId}")]
+        [ProducesResponseType(typeof(List<OrdenTrabajoCabecera>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<List<OrdenTrabajoCabecera>>> ObtenerPorOrdenServicio(long ordenServicioCabeceraId)
+        {
+            try
+            {
+                var data = await service.ObtenerPorOrdenServicio(ordenServicioCabeceraId);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error al obtener las órdenes de trabajo para la orden de servicio {OrdenServicioId}", ordenServicioCabeceraId);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Crea una nueva orden de trabajo de mantenimiento externo con sus detalles y activos.
+        /// </summary>
+        /// <param name="registro">Información de cabecera y detalle a registrar.</param>
+        /// <returns>Orden de trabajo creada.</returns>
+        [HttpPost]
+        [ProducesResponseType(typeof(OrdenTrabajoCabecera), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<OrdenTrabajoCabecera>> Agregar([FromBody] OrdenTrabajoCabecera_MantenimientoExternoCrearDto registro)
+        {
+            try
+            {
+                var data = await service.Agregar(registro);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error al crear la orden de trabajo de mantenimiento externo");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Modifica una orden de trabajo de mantenimiento externo existente.
+        /// </summary>
+        /// <param name="id">Identificador de la orden de trabajo.</param>
+        /// <param name="registro">Información actualizada de cabecera y detalle.</param>
+        /// <returns>Orden de trabajo actualizada.</returns>
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(OrdenTrabajoCabecera), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<OrdenTrabajoCabecera>> Modificar(long id, [FromBody] OrdenTrabajoCabecera_MantenimientoExternoCrearDto registro)
+        {
+            try
+            {
+                var data = await service.Modificar(id, registro);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error al modificar la orden de trabajo {OrdenTrabajoId}", id);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Elimina una orden de trabajo de mantenimiento externo.
+        /// </summary>
+        /// <param name="id">Identificador de la orden de trabajo.</param>
+        /// <returns>Resultado de la operación.</returns>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult> Eliminar(long id)
+        {
+            try
+            {
+                await service.Eliminar(id);
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error al eliminar la orden de trabajo {OrdenTrabajoId}", id);
+                throw;
+            }
+        }
+    }
+}
