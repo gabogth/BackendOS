@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 
 namespace nest.core.infraestructura.db.Mantto
@@ -22,6 +22,10 @@ namespace nest.core.infraestructura.db.Mantto
                 .WithMany()
                 .HasForeignKey(x => x.ActivoId)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(p => p.OrdenTrabajoDetalle)
+                .WithOne(c => c.OrdenTrabajoDetalleActivo)
+                .HasForeignKey<OrdenTrabajoDetalleActivo>(p => p.Id)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

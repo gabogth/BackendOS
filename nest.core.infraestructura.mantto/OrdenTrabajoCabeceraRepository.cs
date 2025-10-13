@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
-using System.Linq;
 
 namespace nest.core.infraestructura.mantto
 {
@@ -18,7 +17,10 @@ namespace nest.core.infraestructura.mantto
             return base.Query()
                 .Include(x => x.OrdenServicioCabecera)
                 .Include(x => x.OrdenTrabajoCabeceraPadre)
-                .Include(x => x.GrupoTrabajo);
+                .Include(x => x.GrupoTrabajo)
+                .Include(x => x.OrdenTrabajoDetalles)
+                .Include(x => x.OrdenTrabajoDetalles).ThenInclude(x => x.Labor)
+                .Include(x => x.OrdenTrabajoDetalles).ThenInclude(x => x.UbicacionTecnica);
         }
 
         public async Task<OrdenTrabajoCabecera> ObtenerPorId(long id) => await GetByIdAsync(id);

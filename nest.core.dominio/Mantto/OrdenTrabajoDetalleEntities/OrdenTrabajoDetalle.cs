@@ -1,5 +1,6 @@
 ﻿using nest.core.dominio.Mantto.LaborEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 using nest.core.dominio.Patrimonial.UbicacionTecnicaEntities;
 using nest.core.dominio.Security.Audit;
 
@@ -19,6 +20,7 @@ namespace nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities
         public OrdenTrabajoCabecera OrdenTrabajoCabecera { get; set; }
         public UbicacionTecnica UbicacionTecnica { get; set; }
         public Labor Labor { get; set; }
+        public OrdenTrabajoDetalleActivo OrdenTrabajoDetalleActivo { get; set; }
     }
 
     public enum OrdenTrabajoDetalleEstado : byte

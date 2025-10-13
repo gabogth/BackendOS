@@ -9,6 +9,7 @@ using nest.core.dominio.Mantto.OrdenServicioTipoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities;
 using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Transaccional;
@@ -35,6 +36,7 @@ namespace nest.core.aplicacion.mantto
             services.AddTransient<IOrdenTrabajoPersonalRepository, OrdenTrabajoPersonalRepository>();
             services.AddTransient<IOrdenTrabajoDetalleActivoRepository, OrdenTrabajoDetalleActivoRepository>();
             services.AddTransient<IOrdenServicioCabecera_MantenimientoExternoRepository, OrdenServicioCabecera_MantenimientoExternoRepository>();
+            services.AddTransient<IOrdenTrabajoCabecera_MantenimientoExternoRepository, OrdenTrabajoCabecera_MantenimientoExternoRepository>();
             return services;
         }
     }
