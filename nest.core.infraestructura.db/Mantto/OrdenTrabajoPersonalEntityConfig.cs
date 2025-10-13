@@ -15,7 +15,7 @@ namespace nest.core.infraestructura.db.Mantto
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<long>>();
             builder.HasOne(x => x.OrdenTrabajoCabecera)
-                .WithMany()
+                .WithMany(p => p.Personales)
                 .HasForeignKey(x => x.OrdenTrabajoCabeceraId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x => x.Persona)

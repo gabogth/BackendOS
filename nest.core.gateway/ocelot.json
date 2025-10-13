@@ -123,6 +123,18 @@
         }
       ]
     },
+    {
+      "UpstreamPathTemplate": "/patrimonial/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8391
+        }
+      ]
+    },
 
     //Start Region [Swagger config]
 
@@ -255,6 +267,19 @@
           "Port": 8390
         }
       ]
+    },
+    {
+      "SwaggerKey": "patrimonial",
+      "UpstreamPathTemplate": "/patrimonial/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8391
+        }
+      ]
     }
     //End Region [Swagger config]
   ],
@@ -356,6 +381,16 @@
           "Name": "API Mantto",
           "Version": "v1",
           "Url": "https://localhost:8390/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "patrimonial",
+      "Config": [
+        {
+          "Name": "API Patrimonial",
+          "Version": "v1",
+          "Url": "https://localhost:8391/swagger/v1/swagger.json"
         }
       ]
     }

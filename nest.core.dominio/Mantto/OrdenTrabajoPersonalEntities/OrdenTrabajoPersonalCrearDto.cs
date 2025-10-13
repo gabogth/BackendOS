@@ -5,6 +5,8 @@ namespace nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities
     public class OrdenTrabajoPersonalCrearDto
     {
         [Required]
+        public long Id { get; set; }
+        [Required]
         public int EmpresaId { get; set; }
         [Required]
         public long OrdenTrabajoCabeceraId { get; set; }

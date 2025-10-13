@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities;
 using nest.core.dominio.Transaccional;
 
 namespace nest.core.aplicacion.mantto.OrdenTrabajo
@@ -14,17 +12,20 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
         private readonly IOrdenTrabajoCabecera_MantenimientoExternoRepository repository;
         private readonly IOrdenTrabajoDetalleRepository detalleRepository;
         private readonly IOrdenTrabajoDetalleActivoRepository detalleActivoRepository;
+        private readonly IOrdenTrabajoPersonalRepository ordenTrabajoPersonalRepository;
         private readonly IUnitOfWork unitOfWork;
 
         public OrdenTrabajoMantenimientoExternoService(
             IOrdenTrabajoCabecera_MantenimientoExternoRepository repository,
             IOrdenTrabajoDetalleRepository detalleRepository,
             IOrdenTrabajoDetalleActivoRepository detalleActivoRepository,
+            IOrdenTrabajoPersonalRepository ordenTrabajoPersonalRepository,
             IUnitOfWork unitOfWork)
         {
             this.repository = repository;
             this.detalleRepository = detalleRepository;
             this.detalleActivoRepository = detalleActivoRepository;
+            this.ordenTrabajoPersonalRepository = ordenTrabajoPersonalRepository;
             this.unitOfWork = unitOfWork;
         }
 
@@ -40,34 +41,36 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
             try
             {
                 OrdenTrabajoCabecera cabecera = await repository.Agregar(dto.Cabecera);
-                List<OrdenTrabajoDetalle_MantenimientoExternoCrearDto> detallesEntrada = dto.Detalles ?? new();
-                if (detallesEntrada.Count > 0)
+                List<OrdenTrabajoDetalle_MantenimientoExternoCrearDto> detallesEntrada = dto.Detalles;
+
+                OrdenTrabajoPersonalCrearDto[] personasDtoArray = dto.Personas.ToArray();
+                for (int i = 0; i < personasDtoArray.Length; i++)
                 {
-                    OrdenTrabajoDetalleCrearDto[] detallesDtoArray = new OrdenTrabajoDetalleCrearDto[detallesEntrada.Count];
-                    for (int i = 0; i < detallesEntrada.Count; i++)
-                    {
-                        OrdenTrabajoDetalleCrearDto currentDetalle = detallesEntrada[i].Detalle;
-                        currentDetalle.EmpresaId = cabecera.EmpresaId;
-                        currentDetalle.OrdenTrabajoCabeceraId = cabecera.Id;
-                        detallesDtoArray[i] = currentDetalle;
-                    }
-
-                    OrdenTrabajoDetalle[] detalles = await detalleRepository.AgregarRange(detallesDtoArray);
-                    List<OrdenTrabajoDetalleActivoCrearDto> activosCrear = new();
-                    for (int i = 0; i < detallesEntrada.Count; i++)
-                    {
-                        OrdenTrabajoDetalleActivoCrearDto? activo = detallesEntrada[i].Activo;
-                        if (activo != null)
-                        {
-                            activo.EmpresaId = cabecera.EmpresaId;
-                            activo.OrdenTrabajoDetalleId = detalles[i].Id;
-                            activosCrear.Add(activo);
-                        }
-                    }
-
-                    if (activosCrear.Count > 0)
-                        await detalleActivoRepository.AgregarRange(activosCrear.ToArray());
+                    personasDtoArray[i].EmpresaId = cabecera.EmpresaId;
+                    personasDtoArray[i].OrdenTrabajoCabeceraId = cabecera.Id;
                 }
+                await ordenTrabajoPersonalRepository.AgregarRange(personasDtoArray);
+
+                OrdenTrabajoDetalleCrearDto[] detallesDtoArray = new OrdenTrabajoDetalleCrearDto[detallesEntrada.Count];
+                for (int i = 0; i < detallesEntrada.Count; i++)
+                {
+                    OrdenTrabajoDetalleCrearDto currentDetalle = detallesEntrada[i].Detalle;
+                    currentDetalle.EmpresaId = cabecera.EmpresaId;
+                    currentDetalle.OrdenTrabajoCabeceraId = cabecera.Id;
+                    detallesDtoArray[i] = currentDetalle;
+                }
+
+                OrdenTrabajoDetalle[] detalles = await detalleRepository.AgregarRange(detallesDtoArray);
+                OrdenTrabajoDetalleActivoCrearDto[] activosCrear = new OrdenTrabajoDetalleActivoCrearDto[detallesEntrada.Count];
+                for (int i = 0; i < detallesEntrada.Count; i++)
+                {
+                    OrdenTrabajoDetalleActivoCrearDto activo = detallesEntrada[i].Activo;
+                    activo.EmpresaId = cabecera.EmpresaId;
+                    activo.OrdenTrabajoDetalleId = detalles[i].Id;
+                    activosCrear[i] = activo;
+                        
+                }
+                await detalleActivoRepository.AgregarRange(activosCrear);
 
                 await unitOfWork.CommitAsync();
                 return await repository.ObtenerPorId(cabecera.Id);
@@ -91,48 +94,43 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
                 OrdenTrabajoCabecera cabecera = await repository.Modificar(id, dto.Cabecera);
                 cabecera = await repository.ObtenerPorId(cabecera.Id);
 
-                OrdenTrabajoDetalle[] originalesDetalles = cabecera.OrdenTrabajoDetalles?.ToArray() ?? Array.Empty<OrdenTrabajoDetalle>();
-                OrdenTrabajoDetalleActivo[] originalesActivos = cabecera.OrdenTrabajoDetalles?
-                    .Where(x => x.OrdenTrabajoDetalleActivo != null)
+                OrdenTrabajoPersonal[] originalesPersonas = cabecera.Personales.ToArray();
+                OrdenTrabajoDetalle[] originalesDetalles = cabecera.OrdenTrabajoDetalles.ToArray();
+                OrdenTrabajoDetalleActivo[] originalesActivos = originalesDetalles
                     .Select(x => x.OrdenTrabajoDetalleActivo)
-                    .ToArray() ?? Array.Empty<OrdenTrabajoDetalleActivo>();
+                    .ToArray();
 
-                List<OrdenTrabajoDetalle_MantenimientoExternoCrearDto> detallesEntrada = dto.Detalles ?? new();
-                (long id, OrdenTrabajoDetalleCrearDto entry)[] detallesConIdDto = new (long, OrdenTrabajoDetalleCrearDto)[detallesEntrada.Count];
-                for (int i = 0; i < detallesEntrada.Count; i++)
+                OrdenTrabajoPersonalCrearDto[] personasEntrada = dto.Personas.ToArray();
+                (long id, OrdenTrabajoPersonalCrearDto entry)[] personasConIdDto = new (long, OrdenTrabajoPersonalCrearDto)[dto.Personas.Count];
+                for (int i = 0; i < personasConIdDto.Length; i++)
                 {
-                    OrdenTrabajoDetalle_MantenimientoExternoCrearDto current = detallesEntrada[i];
-                    OrdenTrabajoDetalleCrearDto currentDetalle = current.Detalle;
+                    OrdenTrabajoPersonalCrearDto currentPersona = personasEntrada[i];
+                    currentPersona.EmpresaId = cabecera.EmpresaId;
+                    currentPersona.OrdenTrabajoCabeceraId = cabecera.Id;
+                    personasConIdDto[i] = (currentPersona.Id, currentPersona);
+                }
+                await ordenTrabajoPersonalRepository.FusionarRange(originalesPersonas, personasConIdDto);
+
+                OrdenTrabajoDetalle_MantenimientoExternoCrearDto[] detallesEntrada = dto.Detalles.ToArray();
+                (long id, OrdenTrabajoDetalleCrearDto entry)[] detallesConIdDto = new (long, OrdenTrabajoDetalleCrearDto)[detallesEntrada.Length];
+                for (int i = 0; i < detallesEntrada.Length; i++)
+                {
+                    OrdenTrabajoDetalleCrearDto currentDetalle = detallesEntrada[i].Detalle;
                     currentDetalle.EmpresaId = cabecera.EmpresaId;
                     currentDetalle.OrdenTrabajoCabeceraId = cabecera.Id;
-                    long detalleId = current.DetalleId ?? 0;
-                    detallesConIdDto[i] = (detalleId, currentDetalle);
+                    detallesConIdDto[i] = (currentDetalle.Id, currentDetalle);
                 }
-
                 OrdenTrabajoDetalle[] detalles = await detalleRepository.FusionarRange(originalesDetalles, detallesConIdDto);
 
-                List<(long id, OrdenTrabajoDetalleActivoCrearDto entry)> activosEntries = new();
-                for (int i = 0; i < detallesEntrada.Count; i++)
+                (long id, OrdenTrabajoDetalleActivoCrearDto entry)[] activosEntries = new (long, OrdenTrabajoDetalleActivoCrearDto)[detallesEntrada.Length];
+                for (int i = 0; i < detallesEntrada.Length; i++)
                 {
-                    OrdenTrabajoDetalleActivoCrearDto? activo = detallesEntrada[i].Activo;
-                    if (activo != null)
-                    {
-                        activo.EmpresaId = cabecera.EmpresaId;
-                        activo.OrdenTrabajoDetalleId = detalles[i].Id;
-                        long activoId = detallesEntrada[i].DetalleActivoId ?? 0;
-                        activosEntries.Add((activoId, activo));
-                    }
+                    OrdenTrabajoDetalleActivoCrearDto activo = detallesEntrada[i].Activo;
+                    activo.EmpresaId = cabecera.EmpresaId;
+                    activo.OrdenTrabajoDetalleId = detalles[i].Id;
+                    activosEntries[i] = (activo.Id, activo);
                 }
-
-                if (activosEntries.Count > 0)
-                {
-                    await detalleActivoRepository.FusionarRange(originalesActivos, activosEntries.ToArray());
-                }
-                else if (originalesActivos.Length > 0)
-                {
-                    long[] idsEliminar = originalesActivos.Select(x => x.Id).ToArray();
-                    await detalleActivoRepository.EliminarRange(idsEliminar);
-                }
+                await detalleActivoRepository.FusionarRange(originalesActivos, activosEntries.ToArray());
 
                 await unitOfWork.CommitAsync();
                 return await repository.ObtenerPorId(cabecera.Id);

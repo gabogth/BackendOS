@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities;
 
 namespace nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities
 {
@@ -18,6 +18,13 @@ namespace nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities
         /// <summary>
         /// Lista de detalles asociados a la orden de trabajo.
         /// </summary>
+        [MinLength(1)]
         public List<OrdenTrabajoDetalle_MantenimientoExternoCrearDto> Detalles { get; set; } = new();
+
+        /// <summary>
+        /// Lista de personas asignadas a la orden de trabajo.
+        /// </summary>
+        [MinLength(1)]
+        public List<OrdenTrabajoPersonalCrearDto> Personas { get; set; } = new();
     }
 }

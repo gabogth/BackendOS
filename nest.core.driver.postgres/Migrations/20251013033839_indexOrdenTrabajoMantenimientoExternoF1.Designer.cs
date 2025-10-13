@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using nest.core.infraestructura.db.DbContext.Provider;
@@ -12,9 +13,11 @@ using nest.core.infraestructura.db.DbContext.Provider;
 namespace nest.core.driver.postgres.Migrations
 {
     [DbContext(typeof(DbContextPsSql))]
-    partial class DbContextPsSqlModelSnapshot : ModelSnapshot
+    [Migration("20251013033839_indexOrdenTrabajoMantenimientoExternoF1")]
+    partial class indexOrdenTrabajoMantenimientoExternoF1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -10825,7 +10828,7 @@ namespace nest.core.driver.postgres.Migrations
             modelBuilder.Entity("nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities.OrdenTrabajoPersonal", b =>
                 {
                     b.HasOne("nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities.OrdenTrabajoCabecera", "OrdenTrabajoCabecera")
-                        .WithMany("Personales")
+                        .WithMany()
                         .HasForeignKey("OrdenTrabajoCabeceraId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -11112,8 +11115,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.Navigation("Children");
 
                     b.Navigation("OrdenTrabajoDetalles");
-
-                    b.Navigation("Personales");
                 });
 
             modelBuilder.Entity("nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities.OrdenTrabajoDetalle", b =>

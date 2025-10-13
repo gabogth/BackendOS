@@ -1,5 +1,6 @@
 ﻿using nest.core.dominio.Mantto.OrdenServicioCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities;
 using nest.core.dominio.RRHH.GrupoTrabajoEntities;
 using nest.core.dominio.Security.Audit;
 
@@ -23,6 +24,7 @@ namespace nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities
         public GrupoTrabajo GrupoTrabajo { get; set; }
         public List<OrdenTrabajoCabecera> Children { get; set; }
         public List<OrdenTrabajoDetalle> OrdenTrabajoDetalles { get; set; }
+        public List<OrdenTrabajoPersonal> Personales { get; set; }
     }
 
     public enum OrdenTrabajoEstado : byte

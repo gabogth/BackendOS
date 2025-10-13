@@ -46,6 +46,11 @@
         "Path": "nest.core.contabilidad\\nest.core.contabilidad.csproj",
         "Action": "Start",
         "DebugTarget": "https"
+      },
+      {
+        "Path": "nest.core.patrimonial\\nest.core.patrimonial.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
       }
     ]
   }

@@ -8,17 +8,17 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:8290"
+      "applicationUrl": "http://localhost:8291"
     },
     "https": {
       "commandName": "Project",
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ENGINE": "SqlServer"
+        "ENGINE": "Npgsql"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:8390"
+      "applicationUrl": "https://localhost:8391"
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json"
