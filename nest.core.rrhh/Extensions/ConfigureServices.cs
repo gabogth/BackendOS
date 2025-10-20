@@ -8,6 +8,7 @@ using nest.core.aplicacion.rrhh.HorarioDetalleServices;
 using nest.core.aplicacion.rrhh.PersonalEstadoServices;
 using nest.core.aplicacion.rrhh.PersonalServices;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaServices;
+using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajoServices;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaPoliticaServices;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
@@ -29,6 +30,7 @@ namespace nest.core.rrhh.Extensions
             services.AddScoped<PersonalEstadoService>();
             services.AddScoped<PersonalService>();
             services.AddScoped<RegistroAsistenciaService>();
+            services.AddScoped<RegistroAsistenciaOrdenTrabajoService>();
             services.AddScoped<RegistroAsistenciaPoliticaService>();
             return services;
         }
