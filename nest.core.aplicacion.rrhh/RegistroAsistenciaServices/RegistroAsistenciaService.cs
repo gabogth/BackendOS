@@ -5,6 +5,7 @@ using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
+using nest.core.dominio.Security.Tenant;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
 {
@@ -14,20 +15,31 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
         private readonly IHorarioRepository horarioRepository;
         private readonly IPersonalRepository personalRepository;
         private readonly IHorarioDetalleRepository horarioDetalleRepository;
+        private readonly IConnectionStringService connectionStringService;
         private readonly ILogger<RegistroAsistenciaService> logger;
 
-        public RegistroAsistenciaService(IRegistroAsistenciaRepository repository, IHorarioRepository horarioRepository, IPersonalRepository personalRepository, ILogger<RegistroAsistenciaService> logger, IHorarioDetalleRepository horarioDetalleRepository)
+        public RegistroAsistenciaService(IRegistroAsistenciaRepository repository, IHorarioRepository horarioRepository, IPersonalRepository personalRepository, ILogger<RegistroAsistenciaService> logger, IHorarioDetalleRepository horarioDetalleRepository, IConnectionStringService connectionStringService)
         {
             this.repository = repository;
             this.horarioRepository = horarioRepository;
             this.personalRepository = personalRepository;
             this.logger = logger;
             this.horarioDetalleRepository = horarioDetalleRepository;
+            this.connectionStringService = connectionStringService;
         }
 
         public Task<RegistroAsistencia> ObtenerPorId(long id) => repository.ObtenerPorId(id);
         public Task<List<RegistroAsistencia>> ObtenerTodos() => repository.ObtenerTodos();
         public Task<List<RegistroAsistencia>> BuscarPorRangoFecha(int personalId, DateTime fechaInicio, DateTime fechaFin) => repository.BuscarPorRangoFecha(personalId, fechaInicio, fechaFin);
+        public async Task<RegistroAsistencia> AgregarUsuarioActual()
+        {
+            RegistroAsistenciaCrearDto entry = new RegistroAsistenciaCrearDto();
+            entry.EmpresaId = connectionStringService.EmpresaId.HasValue ? connectionStringService.EmpresaId.Value : throw new Exception("Usuario no autenticado");
+            entry.PersonalId = int.Parse(connectionStringService.UserId);
+            entry.Fecha = DateTime.Now;
+            entry = await GetRegistroAsistencia(entry);
+            return await repository.Agregar(entry);
+        }
         public async Task<RegistroAsistencia> Agregar(RegistroAsistenciaCrearDto entry)
         {
             entry = await GetRegistroAsistencia(entry);

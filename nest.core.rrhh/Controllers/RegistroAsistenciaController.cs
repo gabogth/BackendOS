@@ -155,6 +155,30 @@ namespace nest.core.rrhh.Controllers
         }
 
         /// <summary>
+        /// Crea un nuevo registro de asistencia.
+        /// </summary>
+        /// <param name="registro">Datos del registro de asistencia a crear.</param>
+        /// <returns>Registro de asistencia creado.</returns>
+        /// <response code="200">Registro creado correctamente.</response>
+        /// <response code="400">Error en la solicitud.</response>
+        [HttpPost("current_user")]
+        [ProducesResponseType(typeof(RegistroAsistencia), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<RegistroAsistencia>> AgregarUsuarioActual()
+        {
+            try
+            {
+                var data = await service.AgregarUsuarioActual();
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Actualiza un registro de asistencia existente.
         /// </summary>
         /// <param name="id">Identificador del registro que se desea actualizar.</param>
