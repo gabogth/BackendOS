@@ -32,7 +32,7 @@ namespace nest.core.infraestructura.db.Utils
             return entity;
         }
 
-        // El orden de los entities estan garantizados
+        // El orden de los entities estan garantizados, osea regresan con el mismo indice con el que fueron enviados los dtos
         protected virtual async Task<TEntity[]> AddRangeAsync(TCreateDto[] dtos)
         {
             if (dtos.Length == 0)
@@ -55,6 +55,7 @@ namespace nest.core.infraestructura.db.Utils
             return entity;
         }
 
+        // El orden de los entities estan garantizados, osea regresan con el mismo indice con el que fueron enviados los dtos
         protected virtual async Task<TEntity[]> UpdateRangeAsync((TKey key, TCreateDto dto)[] entries)
         {
             if (entries.Length == 0)
