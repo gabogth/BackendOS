@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.general;
+using nest.core.aplicacion.general.AdjuntoConfigProviderServices;
+using nest.core.aplicacion.general.AdjuntoServices;
 using nest.core.aplicacion.general.DepartamentoServices;
 using nest.core.aplicacion.general.DistritoServices;
 using nest.core.aplicacion.general.DocumentoIdentidadTipoServices;
@@ -30,6 +32,8 @@ namespace nest.core.general.Extensions
             services.AddScoped<PersonaService>();
             services.AddScoped<ProvinciaService>();
             services.AddScoped<SexoService>();
+            services.AddScoped<AdjuntoService>();
+            services.AddScoped<AdjuntoConfigProviderService>();
             return services;
         }
         private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)
