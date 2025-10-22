@@ -32,6 +32,7 @@ namespace nest.core.aplicacion.general
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));
             services.Configure<AmazonS3StorageOptions>(configuration.GetSection("AdjuntoStorage:AmazonS3"));
+            services.Configure<LocalFileStorageOptions>(configuration.GetSection("AdjuntoStorage:Local"));
             services.AddSingleton<IAmazonS3>(provider =>
             {
                 var options = provider.GetRequiredService<IOptions<AmazonS3StorageOptions>>().Value;
@@ -53,6 +54,7 @@ namespace nest.core.aplicacion.general
                 return new AmazonS3Client(credentials, configAmazon);
             });
             services.AddSingleton<IAdjuntoStorageService, AmazonS3AdjuntoStorageService>();
+            services.AddSingleton<IAdjuntoStorageService, LocalFileAdjuntoStorageService>();
             services.AddTransient<IPersonaRepository, PersonaRepository>();
             services.AddTransient<IDepartamentoRepository, DepartamentoRepository>();
             services.AddTransient<IProvinciaRepository, ProvinciaRepository>();
