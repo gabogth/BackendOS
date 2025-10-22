@@ -12,7 +12,7 @@ namespace nest.core.aplication.auth
     {
         public static void SelectProvider(WebApplicationBuilder builder, bool IsRun)
         {
-            string connection = IsRun ? Environment.GetEnvironmentVariable("ENGINE") : MigrationService.MigrationConnection();
+            string connection = IsRun ? ConfigVariables.Engine : MigrationService.MigrationConnection();
             Console.WriteLine($"Resolviendo proveedor de base de datos para migraciones: {connection}");
             Console.WriteLine($"Conexion actual: {connection}");
             switch (connection)

@@ -14,7 +14,7 @@ namespace nest.core.infraestructura.security.Security
         {
             List<Claim> claims = new List<Claim> 
             {
-                new Claim(JwtRegisteredClaimNames.Sub, User.Id),
+                new Claim(ClaimTypes.NameIdentifier, User.Id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.Name, User.UserName)
             };

@@ -12,7 +12,8 @@ namespace nest.core.infraestructura.db.RRHH
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
-                .ValueGeneratedNever();
+                .ValueGeneratedNever()
+                .HasValueGenerator<GenericValueGenerator<long>>();
             builder.HasOne(x => x.Personal)
                 .WithMany()
                 .HasForeignKey(x => x.PersonalId)

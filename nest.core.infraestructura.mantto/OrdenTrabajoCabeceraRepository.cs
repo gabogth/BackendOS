@@ -16,6 +16,8 @@ namespace nest.core.infraestructura.mantto
         {
             return base.Query()
                 .Include(x => x.OrdenServicioCabecera)
+                .Include(x => x.Personales)
+                .Include(x => x.Personales).ThenInclude(x => x.Persona)
                 .Include(x => x.OrdenTrabajoCabeceraPadre)
                 .Include(x => x.GrupoTrabajo)
                 .Include(x => x.OrdenTrabajoDetalles)
@@ -24,6 +26,20 @@ namespace nest.core.infraestructura.mantto
         }
 
         public async Task<OrdenTrabajoCabecera> ObtenerPorId(long id) => await GetByIdAsync(id);
+
+        public async Task<OrdenTrabajoCabecera> ObtenerPorPersonaFechaInicialFechaFinal(int personaId, DateTime fecha)
+        {
+            int offsetRangeHours = 2;
+            var estadosActivo = new[] { OrdenTrabajoEstado.Activo, OrdenTrabajoEstado.EnProceso };
+            return await Query()
+                .Where(o => estadosActivo.Contains(o.Estado)) // que esten activos
+                .Where(o => o.Personales.Any(p => p.PersonaId == personaId)) // que contengan a la persona
+                .Where(o => o.FechaInicio.AddHours(-offsetRangeHours) <= fecha // que la fecha este despues de la fecha inicio menos el offset
+                        && (!o.FechaFin.HasValue // No tiene fecha fin
+                        || (o.FechaFin.HasValue && o.FechaFin.Value.AddHours(offsetRangeHours) >= fecha) // O tiene fecha fin y esta dentro del rango
+                    )
+                ).OrderByDescending(o => o.FechaInicio).FirstOrDefaultAsync();
+        }
 
         public async Task<List<OrdenTrabajoCabecera>> ObtenerTodos() => await GetAllAsync();
 

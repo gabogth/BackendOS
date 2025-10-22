@@ -13,7 +13,9 @@ namespace nest.iac.servicesinfra.Resources
         public static string[] AwsSecurityGroups { get { return ConfigAws.RequireObject<string[]>("securityGroups"); } }
         public static string AwsClusterArn { get { return ConfigAws.Require("clusterArn"); } }
         public static string AwsApiId { get { return ConfigAws.Require("apiId"); } }
+        public static string AwsBucketName { get { return ConfigAws.Require("bucketName"); } }
         public static string AwsClusterName { get { return AwsClusterArn.Split('/')[1]; } }
+        public static string ConnectionString { get { return Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? ""; } }
         public static ServiceConfig[] AwsServices { get { return ConfigAws.RequireObject<ServiceConfig[]>("services"); } }
     }
 }

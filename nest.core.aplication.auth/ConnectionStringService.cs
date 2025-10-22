@@ -27,7 +27,7 @@ namespace nest.core.aplication.auth
                 Claim EmpresaClaim = this.Claims.SingleOrDefault(x => x.Type == ClaimTypesCustom.EMPRESAID);
                 this.Usuario = this.Claims.SingleOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
                 this.EmpresaId = EmpresaClaim == null ? null : string.IsNullOrWhiteSpace(EmpresaClaim.Value) ? null : int.Parse(EmpresaClaim.Value);
-                this.UserId = this.Claims.SingleOrDefault(x => x.Type == JwtRegisteredClaimNames.Sub)?.Value;
+                this.UserId = this.Claims.SingleOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
             }
             catch (Exception ex)
             {

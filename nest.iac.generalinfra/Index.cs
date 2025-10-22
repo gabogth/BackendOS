@@ -10,6 +10,7 @@ namespace nest.iac.generalinfra
         [Output("rdsEndPoint")] public Output<string> RdsEndPoint { get; set; }
         [Output("apiEndpoint")] public Output<string> ApiEndpoint { get; set; }
         [Output("apiId")] public Output<string> ApiId { get; set; }
+        [Output("bucketName")] public Output<string> BucketName { get; set; }
 
         public Index()
         {
@@ -19,11 +20,13 @@ namespace nest.iac.generalinfra
             string subnetGroupName = $"{Deployment.Instance.ProjectName}-rdssubnetgroup";
             string rdsInstanceName = $"{Deployment.Instance.ProjectName}-instance";
             string apiGatewayName = $"{Deployment.Instance.ProjectName}-api";
+            string bucketName = $"{Deployment.Instance.ProjectName}-bucket";
 
             //Recursos
             //var ecsCluster = new EcsCreator(ecsName, ecsCapacityName).Build();
             var rdsInstance = new RdsCreator(subnetGroupName, rdsInstanceName).Build();
             var apiGateway = new ApiGatewayCreator(apiGatewayName).Build();
+            var bucket = new BucketCreator(bucketName).Build();
 
             //Outputs
             //EcsArn = ecsCluster.Arn;
@@ -31,6 +34,7 @@ namespace nest.iac.generalinfra
             RdsEndPoint = rdsInstance.Endpoint;
             ApiEndpoint = apiGateway.ApiEndpoint;
             ApiId = apiGateway.Id;
+            BucketName = bucket.BucketName;
         }
 
     }

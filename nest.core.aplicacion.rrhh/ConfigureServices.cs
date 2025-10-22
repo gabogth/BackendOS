@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplication.auth;
+using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.GrupoTrabajoEntities;
 using nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities;
@@ -15,7 +16,9 @@ using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
 using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Transaccional;
 using nest.core.infraestructura.db.Transaccional;
+using nest.core.infraestructura.mantto;
 using nest.core.infraestructura.rrhh;
+using nest.core.infraestructura.rrhh.Extensiones;
 
 namespace nest.core.aplicacion.rrhh
 {
@@ -37,6 +40,9 @@ namespace nest.core.aplicacion.rrhh
             services.AddTransient<IRegistroAsistenciaRepository, RegistroAsistenciaRepository>();
             services.AddTransient<IRegistroAsistenciaOrdenTrabajoRepository, RegistroAsistenciaOrdenTrabajoRepository>();
             services.AddTransient<IRegistroAsistenciaPoliticaRepository, RegistroAsistenciaPoliticaRepository>();
+            services.AddTransient<IOrdenTrabajoCabeceraRepository, OrdenTrabajoCabeceraRepository>();
+            services.AddTransient<IRegistroAsistencia_OrdenTrabajoRepository, RegistroAsistencia_OrdenTrabajoRepository>();
+            
             return services;
         }
     }

@@ -11,19 +11,17 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
 {
     public class RegistroAsistenciaService
     {
-        private readonly IRegistroAsistenciaRepository repository;
-        private readonly IHorarioRepository horarioRepository;
-        private readonly IPersonalRepository personalRepository;
-        private readonly IHorarioDetalleRepository horarioDetalleRepository;
-        private readonly IConnectionStringService connectionStringService;
-        private readonly ILogger<RegistroAsistenciaService> logger;
+        protected readonly IRegistroAsistenciaRepository repository;
+        protected readonly IHorarioRepository horarioRepository;
+        protected readonly IPersonalRepository personalRepository;
+        protected readonly IHorarioDetalleRepository horarioDetalleRepository;
+        protected readonly IConnectionStringService connectionStringService;
 
-        public RegistroAsistenciaService(IRegistroAsistenciaRepository repository, IHorarioRepository horarioRepository, IPersonalRepository personalRepository, ILogger<RegistroAsistenciaService> logger, IHorarioDetalleRepository horarioDetalleRepository, IConnectionStringService connectionStringService)
+        public RegistroAsistenciaService(IRegistroAsistenciaRepository repository, IHorarioRepository horarioRepository, IPersonalRepository personalRepository, IHorarioDetalleRepository horarioDetalleRepository, IConnectionStringService connectionStringService)
         {
             this.repository = repository;
             this.horarioRepository = horarioRepository;
             this.personalRepository = personalRepository;
-            this.logger = logger;
             this.horarioDetalleRepository = horarioDetalleRepository;
             this.connectionStringService = connectionStringService;
         }
@@ -31,23 +29,22 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
         public Task<RegistroAsistencia> ObtenerPorId(long id) => repository.ObtenerPorId(id);
         public Task<List<RegistroAsistencia>> ObtenerTodos() => repository.ObtenerTodos();
         public Task<List<RegistroAsistencia>> BuscarPorRangoFecha(int personalId, DateTime fechaInicio, DateTime fechaFin) => repository.BuscarPorRangoFecha(personalId, fechaInicio, fechaFin);
-        public async Task<RegistroAsistencia> AgregarUsuarioActual()
+        public virtual async Task<RegistroAsistencia> AgregarUsuarioActual()
         {
             RegistroAsistenciaCrearDto entry = new RegistroAsistenciaCrearDto();
             entry.EmpresaId = connectionStringService.EmpresaId.HasValue ? connectionStringService.EmpresaId.Value : throw new Exception("Usuario no autenticado");
             entry.PersonalId = int.Parse(connectionStringService.UserId);
             entry.Fecha = DateTime.Now;
-            entry = await GetRegistroAsistencia(entry);
-            return await repository.Agregar(entry);
+            return await Agregar(entry);
         }
-        public async Task<RegistroAsistencia> Agregar(RegistroAsistenciaCrearDto entry)
+        public virtual async Task<RegistroAsistencia> Agregar(RegistroAsistenciaCrearDto entry)
         {
             entry = await GetRegistroAsistencia(entry);
             return await repository.Agregar(entry);
         }
-        public Task<RegistroAsistencia> Modificar(long id, RegistroAsistenciaCrearDto entry) => repository.Modificar(id, entry);
-        public Task Eliminar(long id) => repository.Eliminar(id);
-        public async Task<RegistroAsistenciaCrearDto> GetRegistroAsistencia(RegistroAsistenciaCrearDto registro)
+        public virtual Task<RegistroAsistencia> Modificar(long id, RegistroAsistenciaCrearDto entry) => repository.Modificar(id, entry);
+        public virtual Task Eliminar(long id) => repository.Eliminar(id);
+        protected virtual async Task<RegistroAsistenciaCrearDto> GetRegistroAsistencia(RegistroAsistenciaCrearDto registro)
         {
             RegistroAsistencia ultimaMarca = await this.repository.BuscarUltimaMarca(registro.PersonalId);
             if (ultimaMarca != null)
@@ -99,7 +96,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
             else throw new Exception("FUERA DE HORA");
         }
 
-        public async Task<(HorarioDetalleEvento, DateTime)?> GetMarca(long MarcaEntradaId, DateOnly fechaJornal, DateTime fechaRegistro)
+        public virtual async Task<(HorarioDetalleEvento, DateTime)?> GetMarca(long MarcaEntradaId, DateOnly fechaJornal, DateTime fechaRegistro)
         {
             HorarioDetalle? detalle = await horarioDetalleRepository.ObtenerPorId(MarcaEntradaId);
             foreach (HorarioDetalleEvento hde in detalle.HorarioDetalleEventos)
@@ -113,7 +110,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
             return null;
         }
 
-        public JornalParams? GetDiaLaboral(HorarioCabecera horario, DateTime fechaRegistro)
+        private JornalParams? GetDiaLaboral(HorarioCabecera horario, DateTime fechaRegistro)
         {
             List<JornalParams> paramsx = new List<JornalParams>();
             paramsx.Add(GetParamsJornal(horario, DayOfWeekUtils.Ayer(fechaRegistro.DayOfWeek), fechaRegistro.AddDays(-1)));
@@ -127,7 +124,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
             return null;
         }
 
-        public JornalParams GetParamsJornal(HorarioCabecera horario, DayOfWeek Dia, DateTime fecha)
+        private JornalParams GetParamsJornal(HorarioCabecera horario, DayOfWeek Dia, DateTime fecha)
         {
             HorarioDetalle? horarioDetalle = horario.HorarioDetalles.Where(x => x.DiaSemana == Dia).FirstOrDefault();
             DateOnly fechaErr = DateOnly.FromDateTime(fecha);
@@ -145,17 +142,17 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
             };
         }
 
-        public bool FechaEnRango(DateTime FechaRef, DateTime RangeMin, DateTime RangeMax)
+        private bool FechaEnRango(DateTime FechaRef, DateTime RangeMin, DateTime RangeMax)
         {
             return RangeMin <= FechaRef && FechaRef <= RangeMax;
         }
 
-        public bool FechaEnRango(DateTime FechaRef, DateTime FechaBase, int VentanaMin, int VentanaMax)
+        private bool FechaEnRango(DateTime FechaRef, DateTime FechaBase, int VentanaMin, int VentanaMax)
         {
             return FechaEnRango(FechaRef, FechaBase.AddMinutes(-Math.Abs(VentanaMin)), FechaBase.AddMinutes(Math.Abs(VentanaMax)));
         }
 
-        public class JornalParams
+        private class JornalParams
         {
             public DateTime FechaEntrada { get; set; }
             public DateTime FechaSalida { get; set; }

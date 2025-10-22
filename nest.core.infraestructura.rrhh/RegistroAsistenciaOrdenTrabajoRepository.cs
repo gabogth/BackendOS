@@ -13,7 +13,7 @@ namespace nest.core.infraestructura.rrhh
         {
         }
 
-        protected override IQueryable<RegistroAsistenciaOrdenTrabajo> Query() => context.Set<RegistroAsistenciaOrdenTrabajo>()
+        protected override IQueryable<RegistroAsistenciaOrdenTrabajo> Query() => context.RegistroAsistenciaOrdenTrabajo
             .AsNoTracking()
             .Include(x => x.RegistroAsistencia)
             .Include(x => x.OrdenTrabajoCabecera);

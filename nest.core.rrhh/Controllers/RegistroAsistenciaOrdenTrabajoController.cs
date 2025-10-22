@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajoServices;
 using nest.core.dominio;
+using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities;
 
 namespace nest.core.rrhh.Controllers
@@ -38,7 +39,7 @@ namespace nest.core.rrhh.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<RegistroAsistenciaOrdenTrabajo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<RegistroAsistenciaOrdenTrabajo>>> ObtenerTodos()
+        public async Task<ActionResult<List<RegistroAsistencia>>> ObtenerTodos()
         {
             try
             {
@@ -60,9 +61,9 @@ namespace nest.core.rrhh.Controllers
         /// <response code="200">Relación encontrada correctamente.</response>
         /// <response code="400">Error en la solicitud.</response>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(RegistroAsistenciaOrdenTrabajo), 200)]
+        [ProducesResponseType(typeof(RegistroAsistencia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<RegistroAsistenciaOrdenTrabajo>> ObtenerPorId(long id)
+        public async Task<ActionResult<RegistroAsistencia>> ObtenerPorId(long id)
         {
             try
             {
@@ -83,10 +84,58 @@ namespace nest.core.rrhh.Controllers
         /// <returns>Relación creada.</returns>
         /// <response code="200">Relación creada correctamente.</response>
         /// <response code="400">Error en la solicitud.</response>
-        [HttpPost]
-        [ProducesResponseType(typeof(RegistroAsistenciaOrdenTrabajo), 200)]
+        [HttpPost("serverdt")]
+        [ProducesResponseType(typeof(RegistroAsistencia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<RegistroAsistenciaOrdenTrabajo>> Agregar([FromBody] RegistroAsistenciaOrdenTrabajoCrearDto registro)
+        public async Task<ActionResult<RegistroAsistencia>> AgregarConDatetime([FromBody] RegistroAsistenciaCrearDto registro)
+        {
+            try
+            {
+                registro.Fecha = DateTime.Now;
+                var data = await service.Agregar(registro);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Crea un nuevo registro de asistencia utilizando los parametros del token como inicio de sesion.
+        /// </summary>
+        /// <returns>Registro de asistencia creado.</returns>
+        /// <response code="200">Registro creado correctamente.</response>
+        /// <response code="400">Error en la solicitud.</response>
+        [HttpPost("current_user")]
+        [ProducesResponseType(typeof(RegistroAsistencia), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<RegistroAsistencia>> AgregarUsuarioActual()
+        {
+            try
+            {
+                var data = await service.AgregarUsuarioActual();
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Crea una relación entre un registro de asistencia y una orden de trabajo.
+        /// </summary>
+        /// <param name="registro">Datos de la relación a crear.</param>
+        /// <returns>Relación creada.</returns>
+        /// <response code="200">Relación creada correctamente.</response>
+        /// <response code="400">Error en la solicitud.</response>
+        [HttpPost]
+        [ProducesResponseType(typeof(RegistroAsistencia), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<RegistroAsistencia>> Agregar([FromBody] RegistroAsistenciaCrearDto registro)
         {
             try
             {
@@ -111,11 +160,11 @@ namespace nest.core.rrhh.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(RegistroAsistenciaOrdenTrabajo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<RegistroAsistenciaOrdenTrabajo>> Modificar(long id, [FromBody] RegistroAsistenciaOrdenTrabajoCrearDto registro)
+        public async Task<ActionResult<RegistroAsistenciaOrdenTrabajo>> Modificar(long id, [FromBody] RegistroAsistencia_OrdenTrabajoCrearDto registro)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await service.ModificarOt(id, registro);
                 return Ok(data);
             }
             catch (Exception ex)

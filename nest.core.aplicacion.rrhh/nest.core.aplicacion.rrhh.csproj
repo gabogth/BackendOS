@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\nest.core.aplication.auth\nest.core.aplication.auth.csproj" />
     <ProjectReference Include="..\nest.core.dominio\nest.core.dominio.csproj" />
+    <ProjectReference Include="..\nest.core.infraestructura.mantto\nest.core.infraestructura.mantto.csproj" />
     <ProjectReference Include="..\nest.core.infraestructura.rrhh\nest.core.infraestructura.rrhh.csproj" />
     <ProjectReference Include="..\nest.core.infraestructura.security\nest.core.infraestructura.security.csproj" />
   </ItemGroup>

@@ -42,12 +42,13 @@ namespace nest.iac.servicesinfra.Resources
                 {
                     Variables = 
                     {
-                        { "ASPNETCORE_ENVIRONMENT", "Development" },
+                        { "ASPNETCORE_ENVIRONMENT", "Production" },
                         { "ENGINE", "Npgsql" },
-                        { "Connections__Npgsql", "Host=nest-generalinfra-instance.cibyifu5bsuf.us-east-1.rds.amazonaws.com;Port=5432;Database=nest;Username=lucia;Password=123Lucia01*;Application Name=Nest;" },
+                        { "Connections__Npgsql", ConfigVariables.ConnectionString },
                         { "BASE_URL", this.basePath },
                         { "IS_LAMBDA", "True" },
                         { "URL_ENDPOINT", this.endpointUrl },
+                        { "MAIN_BUCKET", ConfigVariables.AwsBucketName },
                     }
                 },
                 VpcConfig = new Aws.Lambda.Inputs.FunctionVpcConfigArgs

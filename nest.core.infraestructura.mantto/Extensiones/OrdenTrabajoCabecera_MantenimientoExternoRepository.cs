@@ -16,8 +16,6 @@ namespace nest.core.infraestructura.mantto.Extensiones
         {
             return base.Query()
                 .Include(x => x.OrdenTrabajoDetalles).ThenInclude(x => x.OrdenTrabajoDetalleActivo)
-                .Include(x => x.Personales)
-                .Include(x => x.Personales).ThenInclude(x => x.Persona)
                 .Include(x => x.OrdenTrabajoDetalles).ThenInclude(x => x.OrdenTrabajoDetalleActivo).ThenInclude(x => x.Activo);
         }  
     }

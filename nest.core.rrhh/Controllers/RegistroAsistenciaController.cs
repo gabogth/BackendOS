@@ -155,9 +155,8 @@ namespace nest.core.rrhh.Controllers
         }
 
         /// <summary>
-        /// Crea un nuevo registro de asistencia.
+        /// Crea un nuevo registro de asistencia utilizando los parametros del token como inicio de sesion.
         /// </summary>
-        /// <param name="registro">Datos del registro de asistencia a crear.</param>
         /// <returns>Registro de asistencia creado.</returns>
         /// <response code="200">Registro creado correctamente.</response>
         /// <response code="400">Error en la solicitud.</response>
