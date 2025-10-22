@@ -1,4 +1,6 @@
 using AutoMapper;
+using nest.core.dominio.General.AdjuntoEntities;
+using nest.core.dominio.General.AdjuntoProviderEntities;
 using nest.core.dominio.General.PersonaEntities;
 using nest.core.dominio.General.DepartamentoEntites;
 using nest.core.dominio.General.DistritoEntities;
@@ -15,6 +17,8 @@ namespace nest.core.infraestructura.general.Mapper
     {
         public AutomapperProfiles()
         {
+            CreateMap<AdjuntoCrearDto, Adjunto>();
+            CreateMap<AdjuntoConfigProviderCrearDto, AdjuntoConfigProvider>();
             CreateMap<PersonaCrearDto, Persona>();
             CreateMap<DepartamentoCrearDto, Departamento>();
             CreateMap<ProvinciaCrearDto, Provincia>();
