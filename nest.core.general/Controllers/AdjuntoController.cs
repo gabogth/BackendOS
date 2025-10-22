@@ -1,14 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.general.AdjuntoServices;
 using nest.core.dominio;
 using nest.core.dominio.General.AdjuntoEntities;
-using nest.core.general.Controllers.Requests;
+using nest.core.dominio.General.AdjuntoProviderEntities;
 
 namespace nest.core.general.Controllers
 {
@@ -72,26 +67,26 @@ namespace nest.core.general.Controllers
         /// <summary>
         /// Registra un nuevo adjunto.
         /// </summary>
-        [HttpPost]
+        [HttpPost("{modulo}")]
         [Consumes("multipart/form-data")]
         [ProducesResponseType(typeof(Adjunto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Adjunto>> Agregar([FromForm] AdjuntoUploadRequest request, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<Adjunto>> Agregar([FromForm] IFormFile archivo, AdjuntoConfigProviderModuloEnum modulo, CancellationToken cancellationToken = default)
         {
             try
             {
-                if (request.Archivo is null || request.Archivo.Length == 0)
+                if (archivo is null || archivo.Length == 0)
                     return BadRequest(new ErrorMessage { Message = "Debe adjuntar un archivo válido." });
 
                 var uploadDto = new AdjuntoUploadDto
                 {
-                    Content = request.Archivo.OpenReadStream(),
-                    FileName = request.Archivo.FileName,
-                    ContentType = request.Archivo.ContentType,
-                    Size = request.Archivo.Length
+                    Content = archivo.OpenReadStream(),
+                    FileName = archivo.FileName,
+                    ContentType = archivo.ContentType,
+                    Size = archivo.Length
                 };
 
-                var data = await service.Agregar(request.Modulo, uploadDto, cancellationToken);
+                var data = await service.Agregar(modulo, uploadDto, cancellationToken);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -104,26 +99,26 @@ namespace nest.core.general.Controllers
         /// <summary>
         /// Actualiza un adjunto existente.
         /// </summary>
-        [HttpPut("{id}")]
+        [HttpPut("{modulo}/{id}")]
         [Consumes("multipart/form-data")]
         [ProducesResponseType(typeof(Adjunto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Adjunto>> Modificar(long id, [FromForm] AdjuntoUploadRequest request, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<Adjunto>> Modificar(long id, [FromForm] IFormFile archivo, AdjuntoConfigProviderModuloEnum modulo, CancellationToken cancellationToken = default)
         {
             try
             {
-                if (request.Archivo is null || request.Archivo.Length == 0)
+                if (archivo is null || archivo.Length == 0)
                     return BadRequest(new ErrorMessage { Message = "Debe adjuntar un archivo válido." });
 
                 var uploadDto = new AdjuntoUploadDto
                 {
-                    Content = request.Archivo.OpenReadStream(),
-                    FileName = request.Archivo.FileName,
-                    ContentType = request.Archivo.ContentType,
-                    Size = request.Archivo.Length
+                    Content = archivo.OpenReadStream(),
+                    FileName = archivo.FileName,
+                    ContentType = archivo.ContentType,
+                    Size = archivo.Length
                 };
 
-                var data = await service.Modificar(id, request.Modulo, uploadDto, cancellationToken);
+                var data = await service.Modificar(id, modulo, uploadDto, cancellationToken);
                 return Ok(data);
             }
             catch (Exception ex)

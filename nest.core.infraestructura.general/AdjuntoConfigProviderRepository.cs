@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using nest.core.dominio.Cache;
 using nest.core.dominio.General.AdjuntoProviderEntities;
 using nest.core.infraestructura.db.Cache;
 using nest.core.infraestructura.db.DbContext;
@@ -16,13 +17,7 @@ namespace nest.core.infraestructura.general
         {
         }
 
-        public async Task<AdjuntoConfigProvider> ObtenerPorId(AdjuntoConfigProviderModuloEnum id)
-        {
-            var entity = await GetByIdAsync(id);
-            if (entity is null)
-                throw new RegistroNoEncontradoException<AdjuntoConfigProvider>(id.ToString());
-            return entity;
-        }
+        public Task<AdjuntoConfigProvider> ObtenerPorId(AdjuntoConfigProviderModuloEnum id) => GetByIdAsync(id);
 
         public Task<List<AdjuntoConfigProvider>> ObtenerTodos() => GetAllAsync();
 

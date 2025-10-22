@@ -1,3 +1,4 @@
+using nest.core.dominio.General.AdjuntoProviderEntities;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;

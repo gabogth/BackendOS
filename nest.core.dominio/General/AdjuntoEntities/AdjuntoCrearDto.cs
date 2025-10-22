@@ -1,3 +1,5 @@
+using nest.core.dominio.General.AdjuntoProviderEntities;
+
 namespace nest.core.dominio.General.AdjuntoEntities
 {
     public class AdjuntoCrearDto

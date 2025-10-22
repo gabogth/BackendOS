@@ -8,6 +8,7 @@ using Amazon.S3.Model;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using nest.core.dominio.General.AdjuntoEntities;
+using nest.core.dominio.General.AdjuntoProviderEntities;
 
 namespace nest.core.infraestructura.general.Storage
 {
@@ -31,8 +32,7 @@ namespace nest.core.infraestructura.general.Storage
             ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
             var settings = options.CurrentValue;
             var bucket = string.IsNullOrWhiteSpace(container) ? settings.DefaultBucketName : container;
-            if (string.IsNullOrWhiteSpace(bucket))
-                throw new InvalidOperationException("No se ha configurado un bucket para almacenar el adjunto.");
+            ArgumentException.ThrowIfNullOrWhiteSpace(bucket);
 
             string generatedName = $"{Guid.NewGuid():N}_{fileName}";
             string objectKey = BuildObjectKey(path, generatedName);
