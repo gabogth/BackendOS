@@ -5,9 +5,10 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.General.PersonaAdjuntoEntities
 {
-    public class PersonaAdjunto : IEntity<long>, IAuditable
+    public class PersonaAdjunto : IEntity<long>, IAuditable, ITenantEntity
     {
         public long Id { get; set; }
+        public int EmpresaId { get; set; }
         public int PersonaId { get; set; }
         public long AdjuntoId { get; set; }
         public AdjuntoTipoEnum AdjuntoTipoId { get; set; }
