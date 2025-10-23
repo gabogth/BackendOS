@@ -2,6 +2,7 @@
 using nest.core.dominio.General.DistritoEntities;
 using nest.core.dominio.General.DocumentoIdentidadTipoEntities;
 using nest.core.dominio.General.LicenciaConducirEntities;
+using nest.core.dominio.General.PersonaAdjuntoEntities;
 using nest.core.dominio.General.SexoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.Security.Audit;
@@ -35,5 +36,6 @@ namespace nest.core.dominio.General.PersonaEntities
         public Sexo Sexo { get; set; }
         public Tercero Tercero { get; set; }
         public Personal Personal { get; set; }
+        public List<PersonaAdjunto> PersonaAdjuntos { get; set; }
     }
 }

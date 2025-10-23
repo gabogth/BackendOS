@@ -32,7 +32,7 @@ namespace nest.core.infraestructura.general.Storage
             Console.WriteLine($"Iniciando carga de archivo a S3: FileName={fileName}, Container={container}, Path={path}");
 
             string generatedName = $"{Guid.NewGuid():N}_{fileName}";
-            string objectKey = $"{path.Trim()}/{fileName}";
+            string objectKey = $"{path.Trim()}/{generatedName}";
             Console.WriteLine($"Generado Object Key: {objectKey}");
 
             if (content.CanSeek)

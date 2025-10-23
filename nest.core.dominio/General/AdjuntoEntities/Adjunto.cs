@@ -14,6 +14,4 @@ namespace nest.core.dominio.General.AdjuntoEntities
         public string FullPath { get; set; }
         public string NombreGenerado { get; set; }
     }
-
-    
 }

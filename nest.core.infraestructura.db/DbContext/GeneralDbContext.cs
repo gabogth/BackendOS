@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.General.AdjuntoEntities;
 using nest.core.dominio.General.AdjuntoProviderEntities;
+using nest.core.dominio.General.AdjuntoTipoEntities;
 using nest.core.dominio.General.DepartamentoEntites;
 using nest.core.dominio.General.DistritoEntities;
 using nest.core.dominio.General.DocumentoIdentidadTipoEntities;
@@ -26,6 +27,7 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<Sexo> Sexos { get; set; }
         public DbSet<AdjuntoConfigProvider> AdjuntoConfigProvider { get; set; }
         public DbSet<Adjunto> Adjunto { get; set; }
+        public DbSet<AdjuntoTipo> AdjuntoTipo { get; set; }
         public void OnModelCreatingGeneral(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Persona>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
