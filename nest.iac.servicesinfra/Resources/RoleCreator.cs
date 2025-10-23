@@ -75,7 +75,28 @@ namespace nest.iac.servicesinfra.Resources
                 }
             } });
 		}
-		private string getSecretPolicy()
+        private string getS3Policy()
+        {
+            return JsonSerializer.Serialize(new Dictionary<string, object?>
+            {
+                { "Version", "2012-10-17" },
+                { "Statement", new [] {
+                    new Dictionary<string, object?>
+                    {
+                        { "Effect", "Allow" },
+                        { "Action", new [] {
+                            "s3:PutObject",
+                            "s3:PutObjectAcl",
+                            "s3:AbortMultipartUpload",
+                            "s3:ListBucketMultipartUploads",
+                            "s3:ListBucket"
+                        } },
+                        { "Resource", new [] { "*" } }
+                    },
+                }
+            } });
+        }
+        private string getSecretPolicy()
 		{
             return JsonSerializer.Serialize(new Dictionary<string, object?>
             {
@@ -179,9 +200,11 @@ namespace nest.iac.servicesinfra.Resources
             string policyForLogging = this.getLoggingPolicy();
             string policyForNetwork = this.getNetworkPolicy();
             string policyForSecret = this.getSecretPolicy();
+            string policyForS3 = this.getS3Policy();
             this.attachPolicyToRole(role, $"{prefix}-lambda-secret", policyForSecret, $"Logging policy for the {project}");
             this.attachPolicyToRole(role, $"{prefix}-lambda-network", policyForNetwork, $"Network policy for the {project}");
             this.attachPolicyToRole(role, $"{prefix}-lambda-logging", policyForLogging, $"Secret policy for the {project}");
+            this.attachPolicyToRole(role, $"{prefix}-lambda-s3", policyForS3, $"S3 policy for the {project}");
             this.attachPolicyManagedToRole(role, $"{prefix}-lambda-AWSXray", Aws.Iam.ManagedPolicy.AWSLambdaBasicExecutionRole.ToString());
         }
         public Aws.Iam.Role createRoleTask(string roleName, string prefix, string project)

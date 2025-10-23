@@ -8,5 +8,10 @@ namespace nest.core.aplicacion.general.AdjuntoServices
         public string FileName { get; set; }
         public string ContentType { get; set; }
         public long Size { get; set; }
+
+        public override string ToString()
+        {
+            return $"AdjuntoUploadDto [FileName={FileName}, ContentType={ContentType}, Size={Size}]";
+        }
     }
 }

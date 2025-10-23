@@ -1,9 +1,6 @@
-using Amazon;
-using Amazon.Runtime;
 using Amazon.S3;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using nest.core.aplication.auth;
 using nest.core.dominio.General.AdjuntoEntities;
 using nest.core.dominio.General.AdjuntoProviderEntities;
@@ -31,28 +28,8 @@ namespace nest.core.aplicacion.general
             services.AddAutoMapper(typeof(infraestructura.general.Mapper.AutomapperProfiles));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));
-            services.Configure<AmazonS3StorageOptions>(configuration.GetSection("AdjuntoStorage:AmazonS3"));
-            services.Configure<LocalFileStorageOptions>(configuration.GetSection("AdjuntoStorage:Local"));
-            services.AddSingleton<IAmazonS3>(provider =>
-            {
-                var options = provider.GetRequiredService<IOptions<AmazonS3StorageOptions>>().Value;
-                var region = string.IsNullOrWhiteSpace(options.Region) ? RegionEndpoint.USEast1 : RegionEndpoint.GetBySystemName(options.Region);
-                var configAmazon = new AmazonS3Config
-                {
-                    RegionEndpoint = region,
-                    ForcePathStyle = options.ForcePathStyle
-                };
-                if (!string.IsNullOrWhiteSpace(options.ServiceURL))
-                    configAmazon.ServiceURL = options.ServiceURL;
-
-                AWSCredentials credentials;
-                if (!string.IsNullOrWhiteSpace(options.AccessKey) && !string.IsNullOrWhiteSpace(options.SecretKey))
-                    credentials = new BasicAWSCredentials(options.AccessKey, options.SecretKey);
-                else
-                    credentials = FallbackCredentialsFactory.GetCredentials();
-
-                return new AmazonS3Client(credentials, configAmazon);
-            });
+            services.AddDefaultAWSOptions(configuration.GetAWSOptions());
+            services.AddAWSService<IAmazonS3>();
             services.AddSingleton<IAdjuntoStorageService, AmazonS3AdjuntoStorageService>();
             services.AddSingleton<IAdjuntoStorageService, LocalFileAdjuntoStorageService>();
             services.AddTransient<IPersonaRepository, PersonaRepository>();

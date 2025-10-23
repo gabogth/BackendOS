@@ -28,9 +28,12 @@ namespace nest.core.aplicacion.general.AdjuntoServices
             try
             {
                 var config = await configRepository.ObtenerPorId(modulo);
+                Console.WriteLine($"Configuración obtenida: {config.Nombre}, Proveedor: {config.AdjuntoProvider}, Contenedor: {config.Container}, Ruta Principal: {config.MainPath}");
                 var storage = ResolveStorage(config.AdjuntoProvider);
+                Console.WriteLine($"Servicio de almacenamiento resuelto para el proveedor: {config.AdjuntoProvider}");
                 EnsureContentType(archivo);
                 var uploadResult = await storage.UploadAsync(archivo.Content, archivo.FileName, archivo.ContentType, config.Container, config.MainPath, cancellationToken);
+                Console.WriteLine($"Archivo subido: Contenedor: {uploadResult.Container}, Ruta Completa: {uploadResult.FullPath}, Nombre Generado: {uploadResult.NombreGenerado}");
                 var dto = new AdjuntoCrearDto
                 {
                     FileName = archivo.FileName,
@@ -41,6 +44,7 @@ namespace nest.core.aplicacion.general.AdjuntoServices
                     FullPath = uploadResult.FullPath,
                     NombreGenerado = uploadResult.NombreGenerado
                 };
+                Console.WriteLine($"Registrando con esta Informacion: {dto.ToString()}");
                 return await repository.Agregar(dto);
             }
             finally

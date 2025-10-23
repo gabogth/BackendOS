@@ -11,5 +11,9 @@ namespace nest.core.dominio.General.AdjuntoEntities
         public string Container { get; set; }
         public string FullPath { get; set; }
         public string NombreGenerado { get; set; }
+        public override string ToString()
+        {
+            return $"FileName: {FileName}, ContentType: {ContentType}, Size: {Size}, AdjuntoProvider: {AdjuntoProvider}, Container: {Container}, FullPath: {FullPath}, NombreGenerado: {NombreGenerado}";
+        }
     }
 }

@@ -4,6 +4,7 @@ using nest.core.aplicacion.general.AdjuntoServices;
 using nest.core.dominio;
 using nest.core.dominio.General.AdjuntoEntities;
 using nest.core.dominio.General.AdjuntoProviderEntities;
+using nest.core.general.Controllers.Requests;
 
 namespace nest.core.general.Controllers
 {
@@ -71,21 +72,21 @@ namespace nest.core.general.Controllers
         [Consumes("multipart/form-data")]
         [ProducesResponseType(typeof(Adjunto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Adjunto>> Agregar([FromForm] IFormFile archivo, AdjuntoConfigProviderModuloEnum modulo, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<Adjunto>> Agregar([FromForm] AdjuntoUploadRequest request, [FromRoute]AdjuntoConfigProviderModuloEnum modulo, CancellationToken cancellationToken = default)
         {
             try
             {
-                if (archivo is null || archivo.Length == 0)
+                if (request.Archivo is null || request.Archivo.Length == 0)
                     return BadRequest(new ErrorMessage { Message = "Debe adjuntar un archivo válido." });
 
                 var uploadDto = new AdjuntoUploadDto
                 {
-                    Content = archivo.OpenReadStream(),
-                    FileName = archivo.FileName,
-                    ContentType = archivo.ContentType,
-                    Size = archivo.Length
+                    Content = request.Archivo.OpenReadStream(),
+                    FileName = request.Archivo.FileName,
+                    ContentType = request.Archivo.ContentType,
+                    Size = request.Archivo.Length
                 };
-
+                Console.WriteLine(uploadDto.ToString());
                 var data = await service.Agregar(modulo, uploadDto, cancellationToken);
                 return Ok(data);
             }
@@ -103,19 +104,19 @@ namespace nest.core.general.Controllers
         [Consumes("multipart/form-data")]
         [ProducesResponseType(typeof(Adjunto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Adjunto>> Modificar(long id, [FromForm] IFormFile archivo, AdjuntoConfigProviderModuloEnum modulo, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<Adjunto>> Modificar([FromRoute] long id, [FromForm] AdjuntoUploadRequest request, [FromRoute] AdjuntoConfigProviderModuloEnum modulo, CancellationToken cancellationToken = default)
         {
             try
             {
-                if (archivo is null || archivo.Length == 0)
+                if (request.Archivo is null || request.Archivo.Length == 0)
                     return BadRequest(new ErrorMessage { Message = "Debe adjuntar un archivo válido." });
 
                 var uploadDto = new AdjuntoUploadDto
                 {
-                    Content = archivo.OpenReadStream(),
-                    FileName = archivo.FileName,
-                    ContentType = archivo.ContentType,
-                    Size = archivo.Length
+                    Content = request.Archivo.OpenReadStream(),
+                    FileName = request.Archivo.FileName,
+                    ContentType = request.Archivo.ContentType,
+                    Size = request.Archivo.Length
                 };
 
                 var data = await service.Modificar(id, modulo, uploadDto, cancellationToken);
