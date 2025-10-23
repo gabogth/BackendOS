@@ -8,6 +8,7 @@ using nest.core.dominio.General.DocumentoIdentidadTipoEntities;
 using nest.core.dominio.General.DocumentoTipoEntities;
 using nest.core.dominio.General.LicenciaConducirEntities;
 using nest.core.dominio.General.PaisEntities;
+using nest.core.dominio.General.PersonaAdjuntoEntities;
 using nest.core.dominio.General.PersonaEntities;
 using nest.core.dominio.General.ProvinciaEntities;
 using nest.core.dominio.General.SexoEntities;
@@ -28,6 +29,7 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<AdjuntoConfigProvider> AdjuntoConfigProvider { get; set; }
         public DbSet<Adjunto> Adjunto { get; set; }
         public DbSet<AdjuntoTipo> AdjuntoTipo { get; set; }
+        public DbSet<PersonaAdjunto> PersonaAdjunto { get; set; }
         public void OnModelCreatingGeneral(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Persona>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);

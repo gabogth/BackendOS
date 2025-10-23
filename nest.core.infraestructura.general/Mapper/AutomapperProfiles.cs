@@ -1,6 +1,8 @@
 using AutoMapper;
 using nest.core.dominio.General.AdjuntoEntities;
 using nest.core.dominio.General.AdjuntoProviderEntities;
+using nest.core.dominio.General.AdjuntoTipoEntities;
+using nest.core.dominio.General.PersonaAdjuntoEntities;
 using nest.core.dominio.General.PersonaEntities;
 using nest.core.dominio.General.DepartamentoEntites;
 using nest.core.dominio.General.DistritoEntities;
@@ -20,11 +22,13 @@ namespace nest.core.infraestructura.general.Mapper
             CreateMap<AdjuntoCrearDto, Adjunto>();
             CreateMap<AdjuntoConfigProviderCrearDto, AdjuntoConfigProvider>();
             CreateMap<PersonaCrearDto, Persona>();
+            CreateMap<PersonaAdjuntoCrearDto, PersonaAdjunto>();
             CreateMap<DepartamentoCrearDto, Departamento>();
             CreateMap<ProvinciaCrearDto, Provincia>();
             CreateMap<DistritoCrearDto, Distrito>();
             CreateMap<DocumentoIdentidadTipoCrearDto, DocumentoIdentidadTipo>();
             CreateMap<DocumentoTipoCrearDto, DocumentoTipo>();
+            CreateMap<AdjuntoTipoCrearDto, AdjuntoTipo>();
             CreateMap<LicenciaConducirCrearDto, LicenciaConducir>();
             CreateMap<PaisCrearDto, Pais>();
             CreateMap<SexoCrearDto, Sexo>();

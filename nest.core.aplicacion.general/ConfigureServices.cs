@@ -4,12 +4,14 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplication.auth;
 using nest.core.dominio.General.AdjuntoEntities;
 using nest.core.dominio.General.AdjuntoProviderEntities;
+using nest.core.dominio.General.AdjuntoTipoEntities;
 using nest.core.dominio.General.DepartamentoEntites;
 using nest.core.dominio.General.DistritoEntities;
 using nest.core.dominio.General.DocumentoIdentidadTipoEntities;
 using nest.core.dominio.General.DocumentoTipoEntities;
 using nest.core.dominio.General.LicenciaConducirEntities;
 using nest.core.dominio.General.PaisEntities;
+using nest.core.dominio.General.PersonaAdjuntoEntities;
 using nest.core.dominio.General.PersonaEntities;
 using nest.core.dominio.General.ProvinciaEntities;
 using nest.core.dominio.General.SexoEntities;
@@ -43,6 +45,8 @@ namespace nest.core.aplicacion.general
             services.AddTransient<ISexoRepository, SexoRepository>();
             services.AddTransient<IAdjuntoRepository, AdjuntoRepository>();
             services.AddTransient<IAdjuntoConfigProviderRepository, AdjuntoConfigProviderRepository>();
+            services.AddTransient<IAdjuntoTipoRepository, AdjuntoTipoRepository>();
+            services.AddTransient<IPersonaAdjuntoRepository, PersonaAdjuntoRepository>();
             return services;
         }
     }
