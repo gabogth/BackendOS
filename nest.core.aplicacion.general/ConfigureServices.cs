@@ -19,6 +19,7 @@ using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Transaccional;
 using nest.core.infraestructura.db.Transaccional;
 using nest.core.infraestructura.general;
+using nest.core.infraestructura.general.Extensiones;
 using nest.core.infraestructura.general.Storage;
 
 namespace nest.core.aplicacion.general
@@ -35,6 +36,7 @@ namespace nest.core.aplicacion.general
             services.AddSingleton<IAdjuntoStorageService, AmazonS3AdjuntoStorageService>();
             services.AddSingleton<IAdjuntoStorageService, LocalFileAdjuntoStorageService>();
             services.AddTransient<IPersonaRepository, PersonaRepository>();
+            services.AddTransient<IPersonaAdjuntosRepository, PersonaAdjuntosRepository>();
             services.AddTransient<IDepartamentoRepository, DepartamentoRepository>();
             services.AddTransient<IProvinciaRepository, ProvinciaRepository>();
             services.AddTransient<IDistritoRepository, DistritoRepository>();
