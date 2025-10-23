@@ -47,6 +47,11 @@ namespace nest.core.aplicacion.general.AdjuntoServices
                 Console.WriteLine($"Registrando con esta Informacion: {dto.ToString()}");
                 return await repository.Agregar(dto);
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error durante la carga del archivo: {ex.Message}");
+                throw;
+            }
             finally
             {
                 archivo.Content.Dispose();

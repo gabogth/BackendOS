@@ -36,7 +36,7 @@ namespace nest.iac.servicesinfra.Resources
                 PackageType = "Image",
                 ImageUri = this.image.ImageUri,
                 MemorySize = 512,
-                Timeout = 30,
+                Timeout = 120,
                 Role = this.role.Arn,
                 Environment = new Aws.Lambda.Inputs.FunctionEnvironmentArgs
                 {

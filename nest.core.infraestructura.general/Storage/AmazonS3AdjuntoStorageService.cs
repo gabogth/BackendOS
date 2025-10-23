@@ -15,13 +15,11 @@ namespace nest.core.infraestructura.general.Storage
     public class AmazonS3AdjuntoStorageService : IAdjuntoStorageService
     {
         private readonly IAmazonS3 amazonS3;
-        private readonly IOptionsMonitor<AmazonS3StorageOptions> options;
         private readonly ILogger<AmazonS3AdjuntoStorageService> logger;
 
-        public AmazonS3AdjuntoStorageService(IAmazonS3 amazonS3, IOptionsMonitor<AmazonS3StorageOptions> options, ILogger<AmazonS3AdjuntoStorageService> logger)
+        public AmazonS3AdjuntoStorageService(IAmazonS3 amazonS3, ILogger<AmazonS3AdjuntoStorageService> logger)
         {
             this.amazonS3 = amazonS3;
-            this.options = options;
             this.logger = logger;
         }
 
@@ -30,34 +28,35 @@ namespace nest.core.infraestructura.general.Storage
         public async Task<AdjuntoStorageResult> UploadAsync(Stream content, string fileName, string contentType, string container, string path, CancellationToken cancellationToken = default)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(fileName);
-            var settings = options.CurrentValue;
-            var bucket = string.IsNullOrWhiteSpace(container) ? settings.DefaultBucketName : container;
-            ArgumentException.ThrowIfNullOrWhiteSpace(bucket);
+            ArgumentException.ThrowIfNullOrWhiteSpace(container);
+            Console.WriteLine($"Iniciando carga de archivo a S3: FileName={fileName}, Container={container}, Path={path}");
 
             string generatedName = $"{Guid.NewGuid():N}_{fileName}";
-            string objectKey = BuildObjectKey(path, generatedName);
+            string objectKey = $"{path.Trim()}/{fileName}";
+            Console.WriteLine($"Generado Object Key: {objectKey}");
 
             if (content.CanSeek)
                 content.Position = 0;
 
             var request = new PutObjectRequest
             {
-                BucketName = bucket,
+                BucketName = container,
                 Key = objectKey,
                 InputStream = content,
                 ContentType = contentType,
                 AutoCloseStream = false
             };
+            Console.WriteLine("Configurando metadatos para el objeto S3.");
 
             request.Metadata["original-filename"] = fileName;
             request.Metadata["uploaded-at"] = DateTimeOffset.UtcNow.ToString("O");
 
-            await amazonS3.PutObjectAsync(request, cancellationToken);
-            logger.LogInformation("Archivo {FileName} almacenado en S3 (Bucket: {Bucket}, Key: {Key}).", fileName, bucket, objectKey);
-
+            var response = await amazonS3.PutObjectAsync(request, cancellationToken);
+            Console.WriteLine($"PutObjectAsync Response: {response.HttpStatusCode}");
+            logger.LogInformation("Archivo {FileName} almacenado en S3 (Bucket: {Bucket}, Key: {Key}).", fileName, container, objectKey);
             return new AdjuntoStorageResult
             {
-                Container = bucket,
+                Container = container,
                 FullPath = objectKey,
                 NombreGenerado = generatedName
             };
@@ -65,30 +64,17 @@ namespace nest.core.infraestructura.general.Storage
 
         public async Task DeleteAsync(string container, string fullPath, CancellationToken cancellationToken = default)
         {
-            var settings = options.CurrentValue;
-            var bucket = string.IsNullOrWhiteSpace(container) ? settings.DefaultBucketName : container;
-            if (string.IsNullOrWhiteSpace(bucket) || string.IsNullOrWhiteSpace(fullPath))
+            if (string.IsNullOrWhiteSpace(container) || string.IsNullOrWhiteSpace(fullPath))
                 return;
 
             var request = new DeleteObjectRequest
             {
-                BucketName = bucket,
+                BucketName = container,
                 Key = fullPath
             };
 
             await amazonS3.DeleteObjectAsync(request, cancellationToken);
-            logger.LogInformation("Archivo eliminado de S3 (Bucket: {Bucket}, Key: {Key}).", bucket, fullPath);
-        }
-
-        private static string BuildObjectKey(string path, string fileName)
-        {
-            if (string.IsNullOrWhiteSpace(path))
-                return fileName;
-
-            string normalisedPath = path.Replace("\\", "/").Trim('/');
-            return string.IsNullOrEmpty(normalisedPath)
-                ? fileName
-                : $"{normalisedPath}/{fileName}";
+            logger.LogInformation("Archivo eliminado de S3 (Bucket: {Bucket}, Key: {Key}).", container, fullPath);
         }
     }
 }
