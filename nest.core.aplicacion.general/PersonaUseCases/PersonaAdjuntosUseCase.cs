@@ -38,6 +38,7 @@ namespace nest.core.aplicacion.general.PersonaUseCases
                 for (int i = 0; i < adjuntos.Length; i++)
                 {
                     adjuntos[i].PersonaId = persona.Id;
+                    adjuntos[i].EmpresaId = persona.EmpresaId;
                     adjuntos[i].Id = 0;
                 }
 
@@ -76,6 +77,7 @@ namespace nest.core.aplicacion.general.PersonaUseCases
                 {
                     PersonaAdjuntoCrearDto current = adjuntosEntrada[i];
                     current.PersonaId = persona.Id;
+                    current.EmpresaId = persona.EmpresaId;
                 }
 
                 (long id, PersonaAdjuntoCrearDto entry)[] adjuntosEntries = adjuntosEntrada

@@ -33,6 +33,7 @@ namespace nest.core.infraestructura.db.DbContext
         public void OnModelCreatingGeneral(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Persona>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<PersonaAdjunto>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
         }
 
     }
