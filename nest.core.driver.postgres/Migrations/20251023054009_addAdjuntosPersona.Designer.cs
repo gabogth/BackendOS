@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using nest.core.infraestructura.db.DbContext.Provider;
@@ -12,9 +13,11 @@ using nest.core.infraestructura.db.DbContext.Provider;
 namespace nest.core.driver.postgres.Migrations
 {
     [DbContext(typeof(DbContextPsSql))]
-    partial class DbContextPsSqlModelSnapshot : ModelSnapshot
+    [Migration("20251023054009_addAdjuntosPersona")]
+    partial class addAdjuntosPersona
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -6542,14 +6545,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal?>("Latitud")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("numeric(18,4)");
-
-                    b.Property<decimal?>("Longitud")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("numeric(18,4)");
-
                     b.Property<int>("PersonalId")
                         .HasColumnType("integer");
 
@@ -10541,14 +10536,6 @@ namespace nest.core.driver.postgres.Migrations
 
                     b.Property<long?>("HorarioDetalleEventoId")
                         .HasColumnType("bigint");
-
-                    b.Property<decimal?>("Latitud")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("numeric(9,6)");
-
-                    b.Property<decimal?>("Longitud")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("numeric(9,6)");
 
                     b.Property<int>("PersonalId")
                         .HasColumnType("integer");
