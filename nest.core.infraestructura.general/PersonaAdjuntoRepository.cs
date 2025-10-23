@@ -26,7 +26,20 @@ namespace nest.core.infraestructura.general
         public async Task<List<PersonaAdjunto>> ObtenerPorPersona(int personaId) =>
             await Query().Where(x => x.PersonaId == personaId).ToListAsync();
         public Task<PersonaAdjunto> Agregar(PersonaAdjuntoCrearDto entry) => AddAsync(entry);
+        public async Task<PersonaAdjunto[]> AgregarRange(PersonaAdjuntoCrearDto[] entries)
+        {
+            PersonaAdjunto[] results = await AddRangeAsync(entries);
+            List<PersonaAdjunto> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
+            return GetOrderedArrayFrom(completed, results);
+        }
         public Task<PersonaAdjunto> Modificar(long id, PersonaAdjuntoCrearDto entry) => UpdateAsync(id, entry);
+        public async Task<PersonaAdjunto[]> FusionarRange(PersonaAdjunto[] originalEntities, (long id, PersonaAdjuntoCrearDto entry)[] entries)
+        {
+            PersonaAdjunto[] results = await MergeRangeAsync(originalEntities, entries);
+            List<PersonaAdjunto> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
+            return GetOrderedArrayFrom(completed, results);
+        }
         public Task Eliminar(long id) => DeleteAsync(id);
+        public Task EliminarRange(long[] ids) => DeleteRangeAsync(ids);
     }
 }
