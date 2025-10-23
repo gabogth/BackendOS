@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.PaisServices;
+using nest.core.aplicacion.general.Features.Paises.Commands;
+using nest.core.aplicacion.general.Features.Paises.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.PaisEntities;
 
@@ -11,13 +13,15 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class PaisController : ControllerBase
     {
-        private readonly PaisService service;
+        private readonly IMediator mediator;
         private readonly ILogger<PaisController> logger;
-        public PaisController(PaisService service, ILogger<PaisController> logger)
+
+        public PaisController(IMediator mediator, ILogger<PaisController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
+
         [HttpGet]
         [ProducesResponseType(typeof(List<Pais>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -25,7 +29,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await mediator.Send(new GetPaisesQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -34,6 +38,7 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Pais), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -41,7 +46,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await mediator.Send(new GetPaisByIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -50,14 +55,32 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
+        [HttpGet("activos")]
+        [ProducesResponseType(typeof(List<Pais>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<List<Pais>>> ObtenerActivos()
+        {
+            try
+            {
+                var data = await mediator.Send(new GetPaisesActivosQuery());
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw;
+            }
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(Pais), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Pais>> Agregar([FromBody] PaisCrearDto registro)
+        public async Task<ActionResult<Pais>> Agregar([FromBody] CreatePaisCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await mediator.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -66,14 +89,15 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Pais), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Pais>> Modificar(int id, [FromBody] PaisCrearDto registro)
+        public async Task<ActionResult<Pais>> Modificar(int id, [FromBody] UpdatePaisCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await mediator.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -82,6 +106,7 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -89,7 +114,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await mediator.Send(new DeletePaisCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

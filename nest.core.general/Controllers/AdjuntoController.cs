@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.AdjuntoServices;
+using nest.core.aplicacion.general.Features.Adjuntos.Commands;
+using nest.core.aplicacion.general.Features.Adjuntos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.AdjuntoEntities;
 using nest.core.dominio.General.AdjuntoProviderEntities;
@@ -16,12 +18,12 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class AdjuntoController : ControllerBase
     {
-        private readonly AdjuntoService service;
+        private readonly IMediator mediator;
         private readonly ILogger<AdjuntoController> logger;
 
-        public AdjuntoController(AdjuntoService service, ILogger<AdjuntoController> logger)
+        public AdjuntoController(IMediator mediator, ILogger<AdjuntoController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
 
@@ -35,7 +37,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await mediator.Send(new GetAdjuntosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -55,7 +57,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await mediator.Send(new GetAdjuntoByIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -87,7 +89,7 @@ namespace nest.core.general.Controllers
                     Size = request.Archivo.Length
                 };
                 Console.WriteLine(uploadDto.ToString());
-                var data = await service.Agregar(modulo, uploadDto, cancellationToken);
+                var data = await mediator.Send(new CreateAdjuntoCommand(modulo, uploadDto), cancellationToken);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -119,7 +121,7 @@ namespace nest.core.general.Controllers
                     Size = request.Archivo.Length
                 };
 
-                var data = await service.Modificar(id, modulo, uploadDto, cancellationToken);
+                var data = await mediator.Send(new UpdateAdjuntoCommand(id, modulo, uploadDto), cancellationToken);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -139,7 +141,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                await service.Eliminar(id, cancellationToken);
+                await mediator.Send(new DeleteAdjuntoCommand(id), cancellationToken);
                 return Ok(true);
             }
             catch (Exception ex)

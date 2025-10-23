@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.DocumentoIdentidadTipoServices;
+using nest.core.aplicacion.general.Features.DocumentosIdentidadTipo.Commands;
+using nest.core.aplicacion.general.Features.DocumentosIdentidadTipo.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.DocumentoIdentidadTipoEntities;
 
@@ -11,13 +13,15 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class DocumentoIdentidadTipoController : ControllerBase
     {
-        private readonly DocumentoIdentidadTipoService service;
+        private readonly IMediator mediator;
         private readonly ILogger<DocumentoIdentidadTipoController> logger;
-        public DocumentoIdentidadTipoController(DocumentoIdentidadTipoService service, ILogger<DocumentoIdentidadTipoController> logger)
+
+        public DocumentoIdentidadTipoController(IMediator mediator, ILogger<DocumentoIdentidadTipoController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
+
         [HttpGet]
         [ProducesResponseType(typeof(List<DocumentoIdentidadTipo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -25,7 +29,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await mediator.Send(new GetDocumentosIdentidadTipoQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -34,6 +38,7 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(DocumentoIdentidadTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -41,7 +46,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await mediator.Send(new GetDocumentoIdentidadTipoByIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -50,14 +55,32 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
+        [HttpGet("activos")]
+        [ProducesResponseType(typeof(List<DocumentoIdentidadTipo>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<List<DocumentoIdentidadTipo>>> ObtenerActivos()
+        {
+            try
+            {
+                var data = await mediator.Send(new GetDocumentosIdentidadTipoActivosQuery());
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw;
+            }
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(DocumentoIdentidadTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<DocumentoIdentidadTipo>> Agregar([FromBody] DocumentoIdentidadTipoCrearDto registro)
+        public async Task<ActionResult<DocumentoIdentidadTipo>> Agregar([FromBody] CreateDocumentoIdentidadTipoCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await mediator.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -66,14 +89,15 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(DocumentoIdentidadTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<DocumentoIdentidadTipo>> Modificar(byte id, [FromBody] DocumentoIdentidadTipoCrearDto registro)
+        public async Task<ActionResult<DocumentoIdentidadTipo>> Modificar(byte id, [FromBody] UpdateDocumentoIdentidadTipoCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await mediator.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -82,6 +106,7 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -89,7 +114,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await mediator.Send(new DeleteDocumentoIdentidadTipoCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

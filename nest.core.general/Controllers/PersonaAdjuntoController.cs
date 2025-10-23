@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.PersonaAdjuntoServices;
+using nest.core.aplicacion.general.Features.PersonaAdjuntos.Commands;
+using nest.core.aplicacion.general.Features.PersonaAdjuntos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.PersonaAdjuntoEntities;
 
@@ -14,12 +16,12 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class PersonaAdjuntoController : ControllerBase
     {
-        private readonly PersonaAdjuntoService service;
+        private readonly IMediator mediator;
         private readonly ILogger<PersonaAdjuntoController> logger;
 
-        public PersonaAdjuntoController(PersonaAdjuntoService service, ILogger<PersonaAdjuntoController> logger)
+        public PersonaAdjuntoController(IMediator mediator, ILogger<PersonaAdjuntoController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
 
@@ -30,7 +32,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await mediator.Send(new GetPersonaAdjuntosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -47,7 +49,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await mediator.Send(new GetPersonaAdjuntoByIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -64,7 +66,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorPersona(personaId);
+                var data = await mediator.Send(new GetPersonaAdjuntosByPersonaQuery(personaId));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -77,11 +79,11 @@ namespace nest.core.general.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(PersonaAdjunto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<PersonaAdjunto>> Agregar([FromBody] PersonaAdjuntoCrearDto registro)
+        public async Task<ActionResult<PersonaAdjunto>> Agregar([FromBody] CreatePersonaAdjuntoCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await mediator.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -94,11 +96,11 @@ namespace nest.core.general.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(PersonaAdjunto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<PersonaAdjunto>> Modificar(long id, [FromBody] PersonaAdjuntoCrearDto registro)
+        public async Task<ActionResult<PersonaAdjunto>> Modificar(long id, [FromBody] UpdatePersonaAdjuntoCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await mediator.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -115,7 +117,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await mediator.Send(new DeletePersonaAdjuntoCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

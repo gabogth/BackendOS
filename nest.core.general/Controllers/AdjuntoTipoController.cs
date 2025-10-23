@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.AdjuntoTipoServices;
+using nest.core.aplicacion.general.Features.AdjuntoTipos.Commands;
+using nest.core.aplicacion.general.Features.AdjuntoTipos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.AdjuntoTipoEntities;
 
@@ -14,12 +16,12 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class AdjuntoTipoController : ControllerBase
     {
-        private readonly AdjuntoTipoService service;
+        private readonly IMediator mediator;
         private readonly ILogger<AdjuntoTipoController> logger;
 
-        public AdjuntoTipoController(AdjuntoTipoService service, ILogger<AdjuntoTipoController> logger)
+        public AdjuntoTipoController(IMediator mediator, ILogger<AdjuntoTipoController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
 
@@ -30,7 +32,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await mediator.Send(new GetAdjuntoTiposQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -47,7 +49,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await mediator.Send(new GetAdjuntoTipoByIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -64,7 +66,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerActivos();
+                var data = await mediator.Send(new GetAdjuntoTiposActivosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -77,11 +79,11 @@ namespace nest.core.general.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(AdjuntoTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<AdjuntoTipo>> Agregar([FromBody] AdjuntoTipoCrearDto registro)
+        public async Task<ActionResult<AdjuntoTipo>> Agregar([FromBody] CreateAdjuntoTipoCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await mediator.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -94,11 +96,11 @@ namespace nest.core.general.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(AdjuntoTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<AdjuntoTipo>> Modificar(AdjuntoTipoEnum id, [FromBody] AdjuntoTipoCrearDto registro)
+        public async Task<ActionResult<AdjuntoTipo>> Modificar(AdjuntoTipoEnum id, [FromBody] UpdateAdjuntoTipoCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await mediator.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -115,7 +117,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await mediator.Send(new DeleteAdjuntoTipoCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

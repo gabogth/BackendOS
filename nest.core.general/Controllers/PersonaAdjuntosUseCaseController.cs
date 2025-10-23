@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.PersonaUseCases;
+using nest.core.aplicacion.general.Features.PersonaAdjuntosUseCase.Commands;
+using nest.core.aplicacion.general.Features.PersonaAdjuntosUseCase.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.PersonaEntities;
 
@@ -14,26 +16,18 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class PersonaAdjuntosUseCaseController : ControllerBase
     {
-        private readonly PersonaAdjuntosUseCase useCase;
+        private readonly IMediator mediator;
         private readonly ILogger<PersonaAdjuntosUseCaseController> logger;
 
         /// <summary>
         /// Inicializa una nueva instancia del controlador de personas con adjuntos.
         /// </summary>
-        /// <param name="useCase">Caso de uso para operar sobre personas y sus adjuntos.</param>
-        /// <param name="logger">Instancia del registrador.</param>
-        public PersonaAdjuntosUseCaseController(PersonaAdjuntosUseCase useCase, ILogger<PersonaAdjuntosUseCaseController> logger)
+        public PersonaAdjuntosUseCaseController(IMediator mediator, ILogger<PersonaAdjuntosUseCaseController> logger)
         {
-            this.useCase = useCase;
+            this.mediator = mediator;
             this.logger = logger;
         }
 
-        /// <summary>
-        /// Obtiene todas las personas junto con sus adjuntos registrados.
-        /// </summary>
-        /// <returns>Listado de personas.</returns>
-        /// <response code="200">Listado recuperado correctamente.</response>
-        /// <response code="400">Ocurrió un error al procesar la solicitud.</response>
         [HttpGet]
         [ProducesResponseType(typeof(List<Persona>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -41,7 +35,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var personas = await useCase.ObtenerTodos();
+                var personas = await mediator.Send(new GetPersonasConAdjuntosQuery());
                 return Ok(personas);
             }
             catch (Exception ex)
@@ -51,13 +45,6 @@ namespace nest.core.general.Controllers
             }
         }
 
-        /// <summary>
-        /// Obtiene una persona junto con sus adjuntos por identificador.
-        /// </summary>
-        /// <param name="id">Identificador de la persona.</param>
-        /// <returns>Persona encontrada.</returns>
-        /// <response code="200">Persona recuperada correctamente.</response>
-        /// <response code="400">Ocurrió un error al procesar la solicitud.</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -65,7 +52,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var persona = await useCase.ObtenerPorId(id);
+                var persona = await mediator.Send(new GetPersonaConAdjuntosByIdQuery(id));
                 return Ok(persona);
             }
             catch (Exception ex)
@@ -75,21 +62,14 @@ namespace nest.core.general.Controllers
             }
         }
 
-        /// <summary>
-        /// Crea una nueva persona y registra sus adjuntos asociados.
-        /// </summary>
-        /// <param name="registro">Información de la persona y sus adjuntos.</param>
-        /// <returns>Persona creada.</returns>
-        /// <response code="200">Persona creada correctamente.</response>
-        /// <response code="400">Ocurrió un error al procesar la solicitud.</response>
         [HttpPost]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> Agregar([FromBody] PersonaAdjuntosUseCaseCrearDto registro)
+        public async Task<ActionResult<Persona>> Agregar([FromBody] CreatePersonaAdjuntosCommand command)
         {
             try
             {
-                var persona = await useCase.Agregar(registro);
+                var persona = await mediator.Send(command);
                 return Ok(persona);
             }
             catch (Exception ex)
@@ -99,22 +79,14 @@ namespace nest.core.general.Controllers
             }
         }
 
-        /// <summary>
-        /// Actualiza una persona y sincroniza sus adjuntos.
-        /// </summary>
-        /// <param name="id">Identificador de la persona.</param>
-        /// <param name="registro">Información actualizada de la persona y sus adjuntos.</param>
-        /// <returns>Persona actualizada.</returns>
-        /// <response code="200">Persona modificada correctamente.</response>
-        /// <response code="400">Ocurrió un error al procesar la solicitud.</response>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> Modificar(int id, [FromBody] PersonaAdjuntosUseCaseCrearDto registro)
+        public async Task<ActionResult<Persona>> Modificar(int id, [FromBody] UpdatePersonaAdjuntosCommand command)
         {
             try
             {
-                var persona = await useCase.Modificar(id, registro);
+                var persona = await mediator.Send(command with { Id = id });
                 return Ok(persona);
             }
             catch (Exception ex)
@@ -124,12 +96,6 @@ namespace nest.core.general.Controllers
             }
         }
 
-        /// <summary>
-        /// Elimina una persona y sus adjuntos relacionados.
-        /// </summary>
-        /// <param name="id">Identificador de la persona.</param>
-        /// <response code="200">Persona eliminada correctamente.</response>
-        /// <response code="400">Ocurrió un error al procesar la solicitud.</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -137,7 +103,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                await useCase.Eliminar(id);
+                await mediator.Send(new DeletePersonaAdjuntosCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

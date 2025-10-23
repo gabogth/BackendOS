@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.DepartamentoServices;
+using nest.core.aplicacion.general.Features.Departamentos.Commands;
+using nest.core.aplicacion.general.Features.Departamentos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.DepartamentoEntites;
 
@@ -11,13 +13,15 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class DepartamentoController : ControllerBase
     {
-        private readonly DepartamentoService service;
+        private readonly IMediator mediator;
         private readonly ILogger<DepartamentoController> logger;
-        public DepartamentoController(DepartamentoService service, ILogger<DepartamentoController> logger)
+
+        public DepartamentoController(IMediator mediator, ILogger<DepartamentoController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
+
         [HttpGet]
         [ProducesResponseType(typeof(List<Departamento>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -25,7 +29,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await mediator.Send(new GetDepartamentosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -34,6 +38,7 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Departamento), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -41,7 +46,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await mediator.Send(new GetDepartamentoByIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -50,14 +55,15 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpPost]
         [ProducesResponseType(typeof(Departamento), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Departamento>> Agregar([FromBody] DepartamentoCrearDto registro)
+        public async Task<ActionResult<Departamento>> Agregar([FromBody] CreateDepartamentoCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await mediator.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -66,14 +72,15 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Departamento), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Departamento>> Modificar(int id, [FromBody] DepartamentoCrearDto registro)
+        public async Task<ActionResult<Departamento>> Modificar(int id, [FromBody] UpdateDepartamentoCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await mediator.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -82,6 +89,7 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -89,7 +97,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await mediator.Send(new DeleteDepartamentoCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

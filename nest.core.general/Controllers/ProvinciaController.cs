@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.ProvinciaServices;
+using nest.core.aplicacion.general.Features.Provincias.Commands;
+using nest.core.aplicacion.general.Features.Provincias.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.ProvinciaEntities;
 
@@ -11,13 +13,15 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class ProvinciaController : ControllerBase
     {
-        private readonly ProvinciaService service;
+        private readonly IMediator mediator;
         private readonly ILogger<ProvinciaController> logger;
-        public ProvinciaController(ProvinciaService service, ILogger<ProvinciaController> logger)
+
+        public ProvinciaController(IMediator mediator, ILogger<ProvinciaController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
+
         [HttpGet]
         [ProducesResponseType(typeof(List<Provincia>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -25,7 +29,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await mediator.Send(new GetProvinciasQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -34,6 +38,7 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Provincia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -41,7 +46,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await mediator.Send(new GetProvinciaByIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -50,14 +55,15 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpPost]
         [ProducesResponseType(typeof(Provincia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Provincia>> Agregar([FromBody] ProvinciaCrearDto registro)
+        public async Task<ActionResult<Provincia>> Agregar([FromBody] CreateProvinciaCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await mediator.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -66,14 +72,15 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Provincia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Provincia>> Modificar(int id, [FromBody] ProvinciaCrearDto registro)
+        public async Task<ActionResult<Provincia>> Modificar(int id, [FromBody] UpdateProvinciaCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await mediator.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -82,6 +89,7 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -89,7 +97,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await mediator.Send(new DeleteProvinciaCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

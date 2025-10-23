@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using nest.core.aplicacion.general.AdjuntoConfigProviderServices;
+using nest.core.aplicacion.general.Features.AdjuntoConfigProviders.Commands;
+using nest.core.aplicacion.general.Features.AdjuntoConfigProviders.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.AdjuntoProviderEntities;
 
@@ -18,12 +20,12 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class AdjuntoConfigProviderController : ControllerBase
     {
-        private readonly AdjuntoConfigProviderService service;
+        private readonly IMediator mediator;
         private readonly ILogger<AdjuntoConfigProviderController> logger;
 
-        public AdjuntoConfigProviderController(AdjuntoConfigProviderService service, ILogger<AdjuntoConfigProviderController> logger)
+        public AdjuntoConfigProviderController(IMediator mediator, ILogger<AdjuntoConfigProviderController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
 
@@ -37,7 +39,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await mediator.Send(new GetAdjuntoConfigProvidersQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -57,7 +59,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await mediator.Send(new GetAdjuntoConfigProviderByIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -77,7 +79,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerActivos();
+                var data = await mediator.Send(new GetAdjuntoConfigProvidersActivosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -93,11 +95,11 @@ namespace nest.core.general.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(AdjuntoConfigProvider), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<AdjuntoConfigProvider>> Agregar([FromBody] AdjuntoConfigProviderCrearDto registro)
+        public async Task<ActionResult<AdjuntoConfigProvider>> Agregar([FromBody] CreateAdjuntoConfigProviderCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await mediator.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -113,11 +115,11 @@ namespace nest.core.general.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(AdjuntoConfigProvider), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<AdjuntoConfigProvider>> Modificar(AdjuntoConfigProviderModuloEnum id, [FromBody] AdjuntoConfigProviderCrearDto registro)
+        public async Task<ActionResult<AdjuntoConfigProvider>> Modificar(AdjuntoConfigProviderModuloEnum id, [FromBody] UpdateAdjuntoConfigProviderCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await mediator.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -137,7 +139,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await mediator.Send(new DeleteAdjuntoConfigProviderCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

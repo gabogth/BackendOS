@@ -1,4 +1,5 @@
 using Amazon.S3;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplication.auth;
@@ -29,6 +30,7 @@ namespace nest.core.aplicacion.general
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddAutoMapper(typeof(infraestructura.general.Mapper.AutomapperProfiles));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ConfigureServices).Assembly));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));
             services.AddDefaultAWSOptions(configuration.GetAWSOptions());

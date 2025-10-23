@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.DistritoServices;
+using nest.core.aplicacion.general.Features.Distritos.Commands;
+using nest.core.aplicacion.general.Features.Distritos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.DistritoEntities;
 
@@ -11,13 +13,15 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class DistritoController : ControllerBase
     {
-        private readonly DistritoService service;
+        private readonly IMediator mediator;
         private readonly ILogger<DistritoController> logger;
-        public DistritoController(DistritoService service, ILogger<DistritoController> logger)
+
+        public DistritoController(IMediator mediator, ILogger<DistritoController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
+
         [HttpGet]
         [ProducesResponseType(typeof(List<Distrito>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -25,7 +29,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await mediator.Send(new GetDistritosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -34,6 +38,7 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Distrito), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -41,7 +46,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await mediator.Send(new GetDistritoByIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -50,14 +55,15 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpPost]
         [ProducesResponseType(typeof(Distrito), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Distrito>> Agregar([FromBody] DistritoCrearDto registro)
+        public async Task<ActionResult<Distrito>> Agregar([FromBody] CreateDistritoCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await mediator.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -66,14 +72,15 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Distrito), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Distrito>> Modificar(int id, [FromBody] DistritoCrearDto registro)
+        public async Task<ActionResult<Distrito>> Modificar(int id, [FromBody] UpdateDistritoCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await mediator.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -82,6 +89,7 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -89,7 +97,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await mediator.Send(new DeleteDistritoCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)
