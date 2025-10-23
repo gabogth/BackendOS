@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using nest.core.dominio.General.PersonaAdjuntoEntities;
 using nest.core.dominio.General.PersonaEntities;
 using nest.core.dominio.Transaccional;
@@ -10,12 +6,12 @@ namespace nest.core.aplicacion.general.PersonaUseCases
 {
     public class PersonaAdjuntosUseCase
     {
-        private readonly IPersonaAdjuntosRepository personaRepository;
+        private readonly IPersonaAdjuntosUseCaseRepository personaRepository;
         private readonly IPersonaAdjuntoRepository personaAdjuntoRepository;
         private readonly IUnitOfWork unitOfWork;
 
         public PersonaAdjuntosUseCase(
-            IPersonaAdjuntosRepository personaRepository,
+            IPersonaAdjuntosUseCaseRepository personaRepository,
             IPersonaAdjuntoRepository personaAdjuntoRepository,
             IUnitOfWork unitOfWork)
         {
@@ -28,7 +24,7 @@ namespace nest.core.aplicacion.general.PersonaUseCases
 
         public Task<List<Persona>> ObtenerTodos() => personaRepository.ObtenerTodos();
 
-        public async Task<Persona> Agregar(PersonaAdjuntosCrearDto dto)
+        public async Task<Persona> Agregar(PersonaAdjuntosUseCaseCrearDto dto)
         {
             if (dto is null)
                 throw new ArgumentNullException(nameof(dto));
@@ -62,7 +58,7 @@ namespace nest.core.aplicacion.general.PersonaUseCases
             }
         }
 
-        public async Task<Persona> Modificar(int id, PersonaAdjuntosCrearDto dto)
+        public async Task<Persona> Modificar(int id, PersonaAdjuntosUseCaseCrearDto dto)
         {
             if (dto is null)
                 throw new ArgumentNullException(nameof(dto));
@@ -102,31 +98,6 @@ namespace nest.core.aplicacion.general.PersonaUseCases
             }
         }
 
-        public async Task Eliminar(int id)
-        {
-            await unitOfWork.BeginTransactionAsync();
-            try
-            {
-                List<PersonaAdjunto> adjuntos = await personaAdjuntoRepository.ObtenerPorPersona(id);
-                if (adjuntos.Count > 0)
-                {
-                    long[] adjuntosIds = adjuntos.Select(x => x.Id).ToArray();
-                    await personaAdjuntoRepository.EliminarRange(adjuntosIds);
-                }
-
-                await personaRepository.Eliminar(id);
-
-                await unitOfWork.CommitAsync();
-            }
-            catch (Exception)
-            {
-                await unitOfWork.RollbackAsync();
-                throw;
-            }
-            finally
-            {
-                await unitOfWork.DisposeAsync();
-            }
-        }
+        public Task Eliminar(int id) => personaRepository.Eliminar(id);
     }
 }

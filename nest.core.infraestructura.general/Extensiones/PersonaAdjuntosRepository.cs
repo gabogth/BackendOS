@@ -5,7 +5,7 @@ using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.general.Extensiones
 {
-    public class PersonaAdjuntosRepository : PersonaRepository, IPersonaAdjuntosRepository
+    public class PersonaAdjuntosRepository : PersonaRepository, IPersonaAdjuntosUseCaseRepository
     {
         public PersonaAdjuntosRepository(NestDbContext context, IMapper mapper) : base(context, mapper)
         {

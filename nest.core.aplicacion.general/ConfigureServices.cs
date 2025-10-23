@@ -36,7 +36,7 @@ namespace nest.core.aplicacion.general
             services.AddSingleton<IAdjuntoStorageService, AmazonS3AdjuntoStorageService>();
             services.AddSingleton<IAdjuntoStorageService, LocalFileAdjuntoStorageService>();
             services.AddTransient<IPersonaRepository, PersonaRepository>();
-            services.AddTransient<IPersonaAdjuntosRepository, PersonaAdjuntosRepository>();
+            services.AddTransient<IPersonaAdjuntosUseCaseRepository, PersonaAdjuntosRepository>();
             services.AddTransient<IDepartamentoRepository, DepartamentoRepository>();
             services.AddTransient<IProvinciaRepository, ProvinciaRepository>();
             services.AddTransient<IDistritoRepository, DistritoRepository>();
