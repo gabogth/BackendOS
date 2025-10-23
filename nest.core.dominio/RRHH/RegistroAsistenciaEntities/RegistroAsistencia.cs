@@ -16,6 +16,8 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
         public HorarioDetalleEventoTipoEnum TipoEvento { get; set; }
         public bool EsTardanza { get; set; }
         public int DiferenciaMinutos { get; set; }
+        public decimal? Latitud { get; set; }
+        public decimal? Longitud { get; set; }
         public long? HorarioDetalleEventoId { get; set; }
         public long? RegistroAsistenciaPoliticaId { get; set; }
         public RegistroAsistenciaPolitica RegistroAsistenciaPolitica { get; set; }

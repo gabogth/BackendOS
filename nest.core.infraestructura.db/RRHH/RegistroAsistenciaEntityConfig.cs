@@ -18,6 +18,10 @@ namespace nest.core.infraestructura.db.RRHH
                 .WithMany()
                 .HasForeignKey(x => x.PersonalId)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(x => x.Latitud)
+                .HasPrecision(9, 6);
+            builder.Property(x => x.Longitud)
+                .HasPrecision(9, 6);
             builder.HasOne(x => x.HorarioDetalleEvento)
                 .WithMany()
                 .HasForeignKey(x => x.HorarioDetalleEventoId)
