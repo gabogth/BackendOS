@@ -1,8 +1,14 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.PersonaServices;
+using nest.core.aplicacion.general.Personas.Commands.CreatePersona;
+using nest.core.aplicacion.general.Personas.Commands.DeletePersona;
+using nest.core.aplicacion.general.Personas.Commands.UpdatePersona;
+using nest.core.aplicacion.general.Personas.Dtos;
+using nest.core.aplicacion.general.Personas.Queries.GetPersonaById;
+using nest.core.aplicacion.general.Personas.Queries.GetPersonas;
+using nest.core.aplicacion.general.Personas.Queries.GetPersonasActivas;
 using nest.core.dominio;
-using nest.core.dominio.General.PersonaEntities;
 
 namespace nest.core.general.Controllers
 {
@@ -14,23 +20,23 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class PersonaController : ControllerBase
     {
-        private readonly PersonaService service;
+        private readonly IMediator mediator;
         private readonly ILogger<PersonaController> logger;
 
-        public PersonaController(PersonaService service, ILogger<PersonaController> logger)
+        public PersonaController(IMediator mediator, ILogger<PersonaController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<Persona>), 200)]
+        [ProducesResponseType(typeof(List<PersonaResponseDto>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Persona>>> ObtenerTodos()
+        public async Task<ActionResult<List<PersonaResponseDto>>> ObtenerTodos()
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await mediator.Send(new GetPersonasQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -41,13 +47,13 @@ namespace nest.core.general.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Persona), 200)]
+        [ProducesResponseType(typeof(PersonaResponseDto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> ObtenerPorId(int id)
+        public async Task<ActionResult<PersonaResponseDto?>> ObtenerPorId(int id)
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await mediator.Send(new GetPersonaByIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -58,13 +64,13 @@ namespace nest.core.general.Controllers
         }
 
         [HttpGet("activos")]
-        [ProducesResponseType(typeof(List<Persona>), 200)]
+        [ProducesResponseType(typeof(List<PersonaResponseDto>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Persona>>> ObtenerActivos()
+        public async Task<ActionResult<List<PersonaResponseDto>>> ObtenerActivos()
         {
             try
             {
-                var data = await service.ObtenerActivos();
+                var data = await mediator.Send(new GetPersonasActivasQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -75,13 +81,13 @@ namespace nest.core.general.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(Persona), 200)]
+        [ProducesResponseType(typeof(PersonaResponseDto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> Agregar([FromBody] PersonaCrearDto registro)
+        public async Task<ActionResult<PersonaResponseDto>> Agregar([FromBody] PersonaCreateDto registro)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await mediator.Send(new CreatePersonaCommand(registro));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -92,13 +98,13 @@ namespace nest.core.general.Controllers
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(Persona), 200)]
+        [ProducesResponseType(typeof(PersonaResponseDto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> Modificar(int id, [FromBody] PersonaCrearDto registro)
+        public async Task<ActionResult<PersonaResponseDto>> Modificar(int id, [FromBody] PersonaCreateDto registro)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await mediator.Send(new UpdatePersonaCommand(id, registro));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -115,7 +121,7 @@ namespace nest.core.general.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await mediator.Send(new DeletePersonaCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

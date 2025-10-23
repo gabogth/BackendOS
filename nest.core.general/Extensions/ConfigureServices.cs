@@ -11,7 +11,6 @@ using nest.core.aplicacion.general.DocumentoTipoServices;
 using nest.core.aplicacion.general.LicenciaConducirServices;
 using nest.core.aplicacion.general.PaisServices;
 using nest.core.aplicacion.general.PersonaAdjuntoServices;
-using nest.core.aplicacion.general.PersonaServices;
 using nest.core.aplicacion.general.PersonaUseCases;
 using nest.core.aplicacion.general.ProvinciaServices;
 using nest.core.aplicacion.general.SexoServices;
@@ -32,7 +31,6 @@ namespace nest.core.general.Extensions
             services.AddScoped<DocumentoTipoService>();
             services.AddScoped<LicenciaConducirService>();
             services.AddScoped<PaisService>();
-            services.AddScoped<PersonaService>();
             services.AddScoped<PersonaAdjuntosUseCase>();
             services.AddScoped<PersonaAdjuntoService>();
             services.AddScoped<ProvinciaService>();
