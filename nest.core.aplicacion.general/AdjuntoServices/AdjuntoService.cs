@@ -96,6 +96,13 @@ namespace nest.core.aplicacion.general.AdjuntoServices
             await storage.DeleteAsync(actual.Container, actual.FullPath, cancellationToken);
         }
 
+        public async Task<string> ObtenerUrlDescarga(long id, CancellationToken cancellationToken = default)
+        {
+            var actual = await repository.ObtenerPorId(id);
+            var storage = ResolveStorage(actual.AdjuntoProvider);
+            return await storage.GetUrlAsync(actual.Container, actual.FullPath, cancellationToken);
+        }
+
         private IAdjuntoStorageService ResolveStorage(AdjuntoProviderEnum provider)
         {
             if (!storageServices.TryGetValue(provider, out var storageService))

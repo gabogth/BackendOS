@@ -89,7 +89,8 @@ namespace nest.iac.servicesinfra.Resources
                             "s3:PutObjectAcl",
                             "s3:AbortMultipartUpload",
                             "s3:ListBucketMultipartUploads",
-                            "s3:ListBucket"
+                            "s3:ListBucket",
+                            "s3:GetObject"
                         } },
                         { "Resource", new [] { "*" } }
                     },

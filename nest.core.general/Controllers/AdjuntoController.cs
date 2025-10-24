@@ -148,5 +148,25 @@ namespace nest.core.general.Controllers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Obtiene la url de un attachment para su descarga.
+        /// </summary>
+        [HttpGet("download/{id}")]
+        [ProducesResponseType(typeof(Adjunto), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<string>> ObtenerUrl([FromRoute] long id, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var data = await service.ObtenerUrlDescarga(id, cancellationToken);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
     }
 }

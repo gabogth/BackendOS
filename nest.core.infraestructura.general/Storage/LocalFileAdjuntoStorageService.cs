@@ -58,5 +58,10 @@ namespace nest.core.infraestructura.general.Storage
 
             return Task.CompletedTask;
         }
+
+        public Task<string> GetUrlAsync(string container, string fullPath, CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(fullPath);
+        }
     }
 }

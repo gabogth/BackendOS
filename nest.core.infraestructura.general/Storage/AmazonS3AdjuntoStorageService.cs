@@ -76,5 +76,21 @@ namespace nest.core.infraestructura.general.Storage
             await amazonS3.DeleteObjectAsync(request, cancellationToken);
             logger.LogInformation("Archivo eliminado de S3 (Bucket: {Bucket}, Key: {Key}).", container, fullPath);
         }
+
+        public async Task<string> GetUrlAsync(string container, string fullPath, CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrWhiteSpace(container) || string.IsNullOrWhiteSpace(fullPath))
+                return null;
+
+            var request = new GetPreSignedUrlRequest
+            {
+                BucketName = container,
+                Key = fullPath,
+                Verb = HttpVerb.GET,
+                Expires = DateTime.UtcNow.AddMinutes(15)
+            };
+
+            return await amazonS3.GetPreSignedURLAsync(request);
+        }
     }
 }
