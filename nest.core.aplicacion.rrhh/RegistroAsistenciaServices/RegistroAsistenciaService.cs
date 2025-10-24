@@ -29,9 +29,8 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaServices
         public Task<RegistroAsistencia> ObtenerPorId(long id) => repository.ObtenerPorId(id);
         public Task<List<RegistroAsistencia>> ObtenerTodos() => repository.ObtenerTodos();
         public Task<List<RegistroAsistencia>> BuscarPorRangoFecha(int personalId, DateTime fechaInicio, DateTime fechaFin) => repository.BuscarPorRangoFecha(personalId, fechaInicio, fechaFin);
-        public virtual async Task<RegistroAsistencia> AgregarUsuarioActual()
+        public virtual async Task<RegistroAsistencia> AgregarUsuarioActual(RegistroAsistenciaCrearDto entry)
         {
-            RegistroAsistenciaCrearDto entry = new RegistroAsistenciaCrearDto();
             entry.EmpresaId = connectionStringService.EmpresaId.HasValue ? connectionStringService.EmpresaId.Value : throw new Exception("Usuario no autenticado");
             entry.PersonalId = int.Parse(connectionStringService.UserId);
             entry.Fecha = DateTime.Now;

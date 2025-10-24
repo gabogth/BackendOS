@@ -111,7 +111,7 @@ namespace nest.core.rrhh.Controllers
         [HttpPost("current_user")]
         [ProducesResponseType(typeof(RegistroAsistencia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<RegistroAsistencia>> AgregarUsuarioActual()
+        public async Task<ActionResult<RegistroAsistencia>> AgregarUsuarioActual([FromBody] RegistroAsistenciaCrearDto registro)
         {
             try
             {
