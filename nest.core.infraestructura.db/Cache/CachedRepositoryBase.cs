@@ -7,7 +7,7 @@ using nest.core.infraestructura.db.Utils;
 
 namespace nest.core.infraestructura.db.Cache
 {
-    public abstract class CachedRepositoryBase<TEntity, TCreateDto, TKey> : CrudRepositoryBase<TEntity, TCreateDto, TKey> where TEntity : class, IEntity<TKey>
+    public abstract class CachedRepositoryBase<TEntity, TKey> : CrudRepositoryBase<TEntity, TKey> where TEntity : class, IEntity<TKey>
     {
         protected readonly ICacheRepository cache;
         private readonly string cacheKey;
@@ -36,25 +36,25 @@ namespace nest.core.infraestructura.db.Cache
 
         protected override async Task<TEntity?> GetByIdAsync(TKey id) => (await GetCachedListAsync()).FirstOrDefault(e => e.Id!.Equals(id));
         protected override async Task<List<TEntity>> GetAllAsync() => await GetCachedListAsync();
-        protected override async Task<TEntity> AddAsync(TCreateDto dto)
+        protected override async Task<TEntity> AddAsync(TEntity dto)
         {
             TEntity response = await base.AddAsync(dto);
             await InvalidateCacheAsync();
             return response;
         }
-        protected override async Task<TEntity[]> AddRangeAsync(TCreateDto[] dtos)
+        protected override async Task<TEntity[]> AddRangeAsync(TEntity[] dtos)
         {
             TEntity[] response = await base.AddRangeAsync(dtos);
             await InvalidateCacheAsync();
             return response;
         }
-        protected override async Task<TEntity> UpdateAsync(TKey id, TCreateDto dto)
+        protected override async Task<TEntity> UpdateAsync(TEntity dto)
         {
-            TEntity response = await base.UpdateAsync(id, dto);
+            TEntity response = await base.UpdateAsync(dto);
             await InvalidateCacheAsync();
             return response;
         }
-        protected override async Task<TEntity[]> UpdateRangeAsync((TKey key, TCreateDto dto)[] entries)
+        protected override async Task<TEntity[]> UpdateRangeAsync(TEntity[] entries)
         {
             TEntity[] response = await base.UpdateRangeAsync(entries);
             await InvalidateCacheAsync();
@@ -70,7 +70,7 @@ namespace nest.core.infraestructura.db.Cache
             await base.DeleteRangeAsync(ids);
             await InvalidateCacheAsync();
         }
-        protected override async Task<TEntity[]> MergeRangeAsync(TEntity[] originalEntities, (TKey key, TCreateDto dto)[] entries)
+        protected override async Task<TEntity[]> MergeRangeAsync(TEntity[] originalEntities, TEntity[] entries)
         {
             TEntity[] response = await base.MergeRangeAsync(originalEntities, entries);
             await InvalidateCacheAsync();

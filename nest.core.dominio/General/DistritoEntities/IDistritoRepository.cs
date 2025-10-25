@@ -4,8 +4,8 @@ namespace nest.core.dominio.General.DistritoEntities
     {
         Task<Distrito> ObtenerPorId(int id);
         Task<List<Distrito>> ObtenerTodos();
-        Task<Distrito> Agregar(DistritoCrearDto entry);
-        Task<Distrito> Modificar(int id, DistritoCrearDto entry);
+        Task<Distrito> Agregar(Distrito entry);
+        Task<Distrito> Modificar(Distrito entry);
         Task Eliminar(int id);
     }
 }

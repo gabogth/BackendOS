@@ -6,7 +6,7 @@ using nest.core.infraestructura.db.Utils;
 
 namespace nest.core.infraestructura.general
 {
-    public class PersonaRepository : CrudRepositoryBase<Persona, PersonaCrearDto, int>, IPersonaRepository
+    public class PersonaRepository : CrudRepositoryBase<Persona, int>, IPersonaRepository
     {
         public PersonaRepository(NestDbContext context, IMapper mapper): base(context, mapper) { }
         protected override IQueryable<Persona> Query() => context.Set<Persona>()
@@ -23,8 +23,8 @@ namespace nest.core.infraestructura.general
         public async Task<Persona> ObtenerPorId(int id) => await GetByIdAsync(id);
         public async Task<List<Persona>> ObtenerTodos() => await GetAllAsync();
         public async Task<List<Persona>> ObtenerActivos() => await Query().Where(p => p.Estado).ToListAsync();
-        public async Task<Persona> Agregar(PersonaCrearDto entry) => await AddAsync(entry);
-        public async Task<Persona> Modificar(int id, PersonaCrearDto entry) => await UpdateAsync(id, entry);
+        public async Task<Persona> Agregar(Persona entry) => await AddAsync(entry);
+        public async Task<Persona> Modificar(Persona entry) => await UpdateAsync(entry);
         public async Task Eliminar(int id) => await DeleteAsync(id);
     }
 }
