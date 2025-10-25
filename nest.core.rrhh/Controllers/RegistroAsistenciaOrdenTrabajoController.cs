@@ -115,7 +115,7 @@ namespace nest.core.rrhh.Controllers
         {
             try
             {
-                var data = await service.AgregarUsuarioActual();
+                var data = await service.AgregarUsuarioActual(registro);
                 return Ok(data);
             }
             catch (Exception ex)
