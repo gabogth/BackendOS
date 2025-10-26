@@ -7,10 +7,10 @@ namespace nest.core.dominio.General.PersonaAdjuntoEntities
         Task<PersonaAdjunto> ObtenerPorId(long id);
         Task<List<PersonaAdjunto>> ObtenerTodos();
         Task<List<PersonaAdjunto>> ObtenerPorPersona(int personaId);
-        Task<PersonaAdjunto> Agregar(PersonaAdjuntoCrearDto entry);
-        Task<PersonaAdjunto[]> AgregarRange(PersonaAdjuntoCrearDto[] entries);
-        Task<PersonaAdjunto> Modificar(long id, PersonaAdjuntoCrearDto entry);
-        Task<PersonaAdjunto[]> FusionarRange(PersonaAdjunto[] originalEntities, (long id, PersonaAdjuntoCrearDto entry)[] entries);
+        Task<PersonaAdjunto> Agregar(PersonaAdjunto entry);
+        Task<PersonaAdjunto[]> AgregarRange(PersonaAdjunto[] entries);
+        Task<PersonaAdjunto> Modificar(PersonaAdjunto entry);
+        Task<PersonaAdjunto[]> FusionarRange(PersonaAdjunto[] originalEntities, PersonaAdjunto[] entries);
         Task Eliminar(long id);
         Task EliminarRange(long[] ids);
     }

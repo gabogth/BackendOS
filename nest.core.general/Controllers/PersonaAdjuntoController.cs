@@ -1,6 +1,11 @@
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.PersonaAdjuntoServices;
+using nest.core.aplicacion.general.PersonaAdjuntos.Commands;
+using nest.core.aplicacion.general.PersonaAdjuntos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.PersonaAdjuntoEntities;
 
@@ -14,115 +19,66 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class PersonaAdjuntoController : ControllerBase
     {
-        private readonly PersonaAdjuntoService service;
-        private readonly ILogger<PersonaAdjuntoController> logger;
+        private readonly ISender sender;
 
-        public PersonaAdjuntoController(PersonaAdjuntoService service, ILogger<PersonaAdjuntoController> logger)
+        public PersonaAdjuntoController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(List<PersonaAdjunto>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<PersonaAdjunto>>> ObtenerTodos()
+        public async Task<ActionResult<List<PersonaAdjunto>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(entidad);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(PersonaAdjunto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<PersonaAdjunto>> ObtenerPorId(long id)
+        public async Task<ActionResult<PersonaAdjunto>> ObtenerPorId([FromRoute] long id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(entidad);
         }
 
         [HttpGet("persona/{personaId}")]
         [ProducesResponseType(typeof(List<PersonaAdjunto>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<PersonaAdjunto>>> ObtenerPorPersona(int personaId)
+        public async Task<ActionResult<List<PersonaAdjunto>>> ObtenerPorPersona([FromRoute] int personaId, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorPersona(personaId);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(new ObtenerPorPersonaQuery(personaId), ct);
+            return Ok(entidad);
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(PersonaAdjunto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<PersonaAdjunto>> Agregar([FromBody] PersonaAdjuntoCrearDto registro)
+        public async Task<ActionResult<PersonaAdjunto>> Agregar([FromBody] PersonaAdjuntoCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command, ct);
+            return Ok(entidad);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(PersonaAdjunto), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<PersonaAdjunto>> Modificar(long id, [FromBody] PersonaAdjuntoCrearDto registro)
+        public async Task<ActionResult<PersonaAdjunto>> Modificar([FromRoute] long id, [FromBody] PersonaAdjuntoModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var entidad = await sender.Send(cmd, ct);
+            return Ok(entidad);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(long id)
+        public async Task<ActionResult> Eliminar([FromRoute] long id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new PersonaAdjuntoEliminarCommand(id), ct);
+            return Ok();
         }
     }
 }

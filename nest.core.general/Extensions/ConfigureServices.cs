@@ -5,10 +5,6 @@ using nest.core.aplicacion.general.AdjuntoConfigProviderServices;
 using nest.core.aplicacion.general.AdjuntoServices;
 using nest.core.aplicacion.general.AdjuntoTipoServices;
 using nest.core.aplicacion.general.Distritos.Commands;
-using nest.core.aplicacion.general.DocumentoIdentidadTipoServices;
-using nest.core.aplicacion.general.DocumentoTipoServices;
-using nest.core.aplicacion.general.LicenciaConducirServices;
-using nest.core.aplicacion.general.PersonaAdjuntoServices;
 using nest.core.aplicacion.general.PersonaUseCases;
 using nest.core.aplicacion.general.SexoServices;
 using nest.core.dominio.Cache;
@@ -26,11 +22,7 @@ namespace nest.core.general.Extensions
             {
                 cfg.RegisterServicesFromAssembly(typeof(DistritoCrearCommand).Assembly);
             });
-            services.AddScoped<DocumentoIdentidadTipoService>();
-            services.AddScoped<DocumentoTipoService>();
-            services.AddScoped<LicenciaConducirService>();
             services.AddScoped<PersonaAdjuntosUseCase>();
-            services.AddScoped<PersonaAdjuntoService>();
             services.AddScoped<SexoService>();
             services.AddScoped<AdjuntoService>();
             services.AddScoped<AdjuntoTipoService>();

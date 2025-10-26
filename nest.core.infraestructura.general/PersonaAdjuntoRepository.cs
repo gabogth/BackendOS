@@ -10,7 +10,7 @@ using nest.core.infraestructura.db.Utils;
 
 namespace nest.core.infraestructura.general
 {
-    public class PersonaAdjuntoRepository : CrudRepositoryBase<PersonaAdjunto, PersonaAdjuntoCrearDto, long>, IPersonaAdjuntoRepository
+    public class PersonaAdjuntoRepository : CrudRepositoryBase<PersonaAdjunto, long>, IPersonaAdjuntoRepository
     {
         public PersonaAdjuntoRepository(NestDbContext context, IMapper mapper) : base(context, mapper)
         {
@@ -26,7 +26,7 @@ namespace nest.core.infraestructura.general
         public async Task<List<PersonaAdjunto>> ObtenerTodos() => await GetAllAsync();
         public async Task<List<PersonaAdjunto>> ObtenerPorPersona(int personaId) =>
             await Query().Where(x => x.PersonaId == personaId).ToListAsync();
-        public Task<PersonaAdjunto> Agregar(PersonaAdjuntoCrearDto entry)
+        public Task<PersonaAdjunto> Agregar(PersonaAdjunto entry)
         {
             if (entry is null)
                 throw new ArgumentNullException(nameof(entry));
@@ -35,7 +35,7 @@ namespace nest.core.infraestructura.general
             return AddAsync(entry);
         }
 
-        public async Task<PersonaAdjunto[]> AgregarRange(PersonaAdjuntoCrearDto[] entries)
+        public async Task<PersonaAdjunto[]> AgregarRange(PersonaAdjunto[] entries)
         {
             if (entries is null)
                 throw new ArgumentNullException(nameof(entries));
@@ -44,27 +44,33 @@ namespace nest.core.infraestructura.general
                 entries[i].EmpresaId = context.EmpresaId ?? entries[i].EmpresaId;
 
             PersonaAdjunto[] results = await AddRangeAsync(entries);
-            List<PersonaAdjunto> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
+            var completed = (await GetByIdsAsync(results.Select(x => x.Id).ToList()))
+                .Where(x => x is not null)
+                .Cast<PersonaAdjunto>()
+                .ToList();
             return GetOrderedArrayFrom(completed, results);
         }
-        public Task<PersonaAdjunto> Modificar(long id, PersonaAdjuntoCrearDto entry)
+        public Task<PersonaAdjunto> Modificar(PersonaAdjunto entry)
         {
             if (entry is null)
                 throw new ArgumentNullException(nameof(entry));
 
             entry.EmpresaId = context.EmpresaId ?? entry.EmpresaId;
-            return UpdateAsync(id, entry);
+            return UpdateAsync(entry);
         }
-        public async Task<PersonaAdjunto[]> FusionarRange(PersonaAdjunto[] originalEntities, (long id, PersonaAdjuntoCrearDto entry)[] entries)
+        public async Task<PersonaAdjunto[]> FusionarRange(PersonaAdjunto[] originalEntities, PersonaAdjunto[] entries)
         {
             if (entries is null)
                 throw new ArgumentNullException(nameof(entries));
 
             for (int i = 0; i < entries.Length; i++)
-                entries[i].entry.EmpresaId = context.EmpresaId ?? entries[i].entry.EmpresaId;
+                entries[i].EmpresaId = context.EmpresaId ?? entries[i].EmpresaId;
 
             PersonaAdjunto[] results = await MergeRangeAsync(originalEntities, entries);
-            List<PersonaAdjunto> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
+            var completed = (await GetByIdsAsync(results.Select(x => x.Id).ToList()))
+                .Where(x => x is not null)
+                .Cast<PersonaAdjunto>()
+                .ToList();
             return GetOrderedArrayFrom(completed, results);
         }
         public Task Eliminar(long id) => DeleteAsync(id);

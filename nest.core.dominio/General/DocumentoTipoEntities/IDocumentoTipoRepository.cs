@@ -5,8 +5,8 @@ namespace nest.core.dominio.General.DocumentoTipoEntities
         Task<DocumentoTipo> ObtenerPorId(int id);
         Task<List<DocumentoTipo>> ObtenerTodos();
         Task<List<DocumentoTipo>> ObtenerActivos();
-        Task<DocumentoTipo> Agregar(DocumentoTipoCrearDto entry);
-        Task<DocumentoTipo> Modificar(int id, DocumentoTipoCrearDto entry);
+        Task<DocumentoTipo> Agregar(DocumentoTipo entry);
+        Task<DocumentoTipo> Modificar(DocumentoTipo entry);
         Task Eliminar(int id);
     }
 }
