@@ -1,9 +1,8 @@
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.corporativo;
-using nest.core.aplicacion.corporativo.EstructuraOrganizacionalServices;
-using nest.core.aplicacion.corporativo.EstructuraOrganizacionalTipoServices;
-using nest.core.aplicacion.corporativo.EmpresaServices;
+using nest.core.aplicacion.corporativo.Empresas.Commands;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -15,9 +14,10 @@ namespace nest.core.corporativo.Extensions
         {
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
-            services.AddScoped<EstructuraOrganizacionalTipoService>();
-            services.AddScoped<EstructuraOrganizacionalService>();
-            services.AddScoped<EmpresaService>();
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(EmpresaCrearCommand).Assembly);
+            });
 
             return services;
         }

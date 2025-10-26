@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.Cache;
@@ -7,7 +8,7 @@ using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.corporativo
 {
-    public class EmpresaRepository : CachedRepositoryBase<Empresa, EmpresaCrearDto, int>, IEmpresaRepository
+    public class EmpresaRepository : CachedRepositoryBase<Empresa, int>, IEmpresaRepository
     {
         public EmpresaRepository(NestDbContext context, IMapper mapper, ICacheRepository cache)
             : base(context, mapper, cache)
@@ -22,13 +23,8 @@ namespace nest.core.infraestructura.corporativo
         public async Task<Empresa?> ObtenerPorId(int id) => await GetByIdAsync(id);
         public async Task<List<Empresa>> ObtenerTodos() => await GetAllAsync();
         public async Task<List<Empresa>> ObtenerActivos() => (await GetCachedListAsync()).Where(x => x.Estado).ToList();
-        public async Task<Empresa> Agregar(EmpresaCrearDto entry) => await AddAsync(entry);
-        public async Task<Empresa> Modificar(int id, EmpresaCrearDto entry) => await UpdateAsync(id, entry);
-        public async Task Eliminar(int id)
-        {
-            await DeleteAsync(id);
-            await InvalidateCacheAsync();
-        }
+        public async Task<Empresa> Agregar(Empresa entidad) => await AddAsync(entidad);
+        public async Task<Empresa> Modificar(Empresa entidad) => await UpdateAsync(entidad);
+        public async Task Eliminar(int id) => await DeleteAsync(id);
     }
 }
-
