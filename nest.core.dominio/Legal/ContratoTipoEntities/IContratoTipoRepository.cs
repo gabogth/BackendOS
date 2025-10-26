@@ -4,8 +4,8 @@ namespace nest.core.dominio.Legal.ContratoTipoEntities
     {
         Task<ContratoTipo> ObtenerPorId(byte id);
         Task<List<ContratoTipo>> ObtenerTodos();
-        Task<ContratoTipo> Agregar(ContratoTipoCrearDto entidad);
-        Task<ContratoTipo> Modificar(byte id, ContratoTipoCrearDto entidad);
+        Task<ContratoTipo> Agregar(ContratoTipo entidad);
+        Task<ContratoTipo> Modificar(ContratoTipo entidad);
         Task Eliminar(byte id);
     }
 }

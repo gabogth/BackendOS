@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.finanzas.TerceroServices;
+using nest.core.aplicacion.finanzas.Terceros.Commands;
+using nest.core.aplicacion.finanzas.Terceros.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Finanzas.ClienteEntities;
 
@@ -14,12 +16,12 @@ namespace nest.core.finanzas.Controllers
     [Route("[controller]")]
     public class TerceroController : ControllerBase
     {
-        private readonly TerceroService service;
+        private readonly ISender sender;
         private readonly ILogger<TerceroController> logger;
 
-        public TerceroController(TerceroService service, ILogger<TerceroController> logger)
+        public TerceroController(ISender sender, ILogger<TerceroController> logger)
         {
-            this.service = service;
+            this.sender = sender;
             this.logger = logger;
         }
 
@@ -30,7 +32,7 @@ namespace nest.core.finanzas.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await sender.Send(new ObtenerTodosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -47,7 +49,7 @@ namespace nest.core.finanzas.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await sender.Send(new ObtenerPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -60,11 +62,11 @@ namespace nest.core.finanzas.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(Tercero), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Tercero>> Agregar([FromBody] TerceroCrearDto registro)
+        public async Task<ActionResult<Tercero>> Agregar([FromBody] TerceroCrearCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await sender.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -77,11 +79,11 @@ namespace nest.core.finanzas.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Tercero), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Tercero>> Modificar(int id, [FromBody] TerceroCrearDto registro)
+        public async Task<ActionResult<Tercero>> Modificar(int id, [FromBody] TerceroModificarCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await sender.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -98,7 +100,7 @@ namespace nest.core.finanzas.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await sender.Send(new TerceroEliminarCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

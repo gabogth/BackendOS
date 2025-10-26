@@ -1,8 +1,10 @@
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using nest.core.aplicacion.mantto.Labores.Commands;
+using nest.core.aplicacion.mantto.Labores.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Mantto.LaborEntities;
-using Microsoft.AspNetCore.Authorization;
-using nest.core.aplicacion.mantto.LaborServices;
 
 namespace nest.core.mantto.Controllers
 {
@@ -16,7 +18,7 @@ namespace nest.core.mantto.Controllers
     [ApiController]
     public class LaborController : ControllerBase
     {
-        private readonly LaborService service;
+        private readonly ISender sender;
         private readonly ILogger<LaborController> logger;
 
         /// <summary>
@@ -24,9 +26,9 @@ namespace nest.core.mantto.Controllers
         /// </summary>
         /// <param name="service">Servicio para gestionar las labores.</param>
         /// <param name="logger">Logger para registrar eventos y errores.</param>
-        public LaborController(LaborService service, ILogger<LaborController> logger)
+        public LaborController(ISender sender, ILogger<LaborController> logger)
         {
-            this.service = service;
+            this.sender = sender;
             this.logger = logger;
         }
 
@@ -43,7 +45,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await this.service.ObtenerTodos();
+                var data = await sender.Send(new ObtenerTodosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -67,7 +69,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await this.service.ObtenerPorId(id);
+                var data = await sender.Send(new ObtenerPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -90,7 +92,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await this.service.ObtenerActivos();
+                var data = await sender.Send(new ObtenerActivosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -110,11 +112,11 @@ namespace nest.core.mantto.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(Labor), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Labor>> Agregar([FromBody] LaborCrearDto registro)
+        public async Task<ActionResult<Labor>> Agregar([FromBody] LaborCrearCommand command)
         {
             try
             {
-                var data = await this.service.Agregar(registro);
+                var data = await sender.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -135,11 +137,11 @@ namespace nest.core.mantto.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Labor), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Labor>> Modificar(int id, [FromBody] LaborCrearDto registro)
+        public async Task<ActionResult<Labor>> Modificar(int id, [FromBody] LaborModificarCommand command)
         {
             try
             {
-                var data = await this.service.Modificar(id, registro);
+                var data = await sender.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -163,7 +165,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                await this.service.Eliminar(id);
+                await sender.Send(new LaborEliminarCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

@@ -5,8 +5,8 @@ namespace nest.core.dominio.Finanzas.OrigenFinancieroEntities
         Task<OrigenFinanciero> ObtenerPorId(short id);
         Task<List<OrigenFinanciero>> ObtenerTodos();
         Task<List<OrigenFinanciero>> ObtenerActivos();
-        Task<OrigenFinanciero> Agregar(OrigenFinancieroCrearDto entidad);
-        Task<OrigenFinanciero> Modificar(short id, OrigenFinancieroCrearDto entidad);
+        Task<OrigenFinanciero> Agregar(OrigenFinanciero entidad);
+        Task<OrigenFinanciero> Modificar(OrigenFinanciero entidad);
         Task Eliminar(short id);
     }
 }

@@ -6,7 +6,7 @@ using nest.core.infraestructura.db.Utils;
 
 namespace nest.core.infraestructura.finanzas
 {
-    public class TerceroRepository : CrudRepositoryBase<Tercero, TerceroCrearDto, int>, ITerceroRepository
+    public class TerceroRepository : CrudRepositoryBase<Tercero, int>, ITerceroRepository
     {
         public TerceroRepository(NestDbContext context, IMapper mapper) : base(context, mapper) { }
         protected override IQueryable<Tercero> Query() => context.Set<Tercero>()
@@ -17,8 +17,8 @@ namespace nest.core.infraestructura.finanzas
             .Include(x => x.Persona);
         public Task<Tercero> ObtenerPorId(int id) => GetByIdAsync(id);
         public Task<List<Tercero>> ObtenerTodos() => GetAllAsync();
-        public Task<Tercero> Agregar(TerceroCrearDto entry) => AddAsync(entry);
-        public Task<Tercero> Modificar(int id, TerceroCrearDto entry) => UpdateAsync(id, entry);
+        public Task<Tercero> Agregar(Tercero entry) => AddAsync(entry);
+        public Task<Tercero> Modificar(Tercero entry) => UpdateAsync(entry);
         public Task Eliminar(int id) => DeleteAsync(id);
     }
 }

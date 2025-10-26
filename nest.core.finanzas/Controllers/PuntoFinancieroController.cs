@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.finanzas.PuntoFinancieroServices;
+using nest.core.aplicacion.finanzas.PuntoFinancieros.Commands;
+using nest.core.aplicacion.finanzas.PuntoFinancieros.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Finanzas.PuntoFinancieroEntities;
 
@@ -14,12 +16,12 @@ namespace nest.core.finanzas.Controllers
     [Route("[controller]")]
     public class PuntoFinancieroController : ControllerBase
     {
-        private readonly PuntoFinancieroService service;
+        private readonly ISender sender;
         private readonly ILogger<PuntoFinancieroController> logger;
 
-        public PuntoFinancieroController(PuntoFinancieroService service, ILogger<PuntoFinancieroController> logger)
+        public PuntoFinancieroController(ISender sender, ILogger<PuntoFinancieroController> logger)
         {
-            this.service = service;
+            this.sender = sender;
             this.logger = logger;
         }
 
@@ -30,7 +32,7 @@ namespace nest.core.finanzas.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await sender.Send(new ObtenerTodosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -47,7 +49,7 @@ namespace nest.core.finanzas.Controllers
         {
             try
             {
-                var data = await service.ObtenerActivos();
+                var data = await sender.Send(new ObtenerActivosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -64,7 +66,7 @@ namespace nest.core.finanzas.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await sender.Send(new ObtenerPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -77,11 +79,11 @@ namespace nest.core.finanzas.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(PuntoFinanciero), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<PuntoFinanciero>> Agregar([FromBody] PuntoFinancieroCrearDto registro)
+        public async Task<ActionResult<PuntoFinanciero>> Agregar([FromBody] PuntoFinancieroCrearCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await sender.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -94,11 +96,11 @@ namespace nest.core.finanzas.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(PuntoFinanciero), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<PuntoFinanciero>> Modificar(int id, [FromBody] PuntoFinancieroCrearDto registro)
+        public async Task<ActionResult<PuntoFinanciero>> Modificar(int id, [FromBody] PuntoFinancieroModificarCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await sender.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -115,7 +117,7 @@ namespace nest.core.finanzas.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await sender.Send(new PuntoFinancieroEliminarCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

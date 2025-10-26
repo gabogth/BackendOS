@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.legal.ContratoTipoServices;
+using nest.core.aplicacion.legal.ContratoTipos.Commands;
+using nest.core.aplicacion.legal.ContratoTipos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Legal.ContratoTipoEntities;
 
@@ -14,12 +16,12 @@ namespace nest.core.legal.Controllers
     [ApiController]
     public class ContratoTipoController : ControllerBase
     {
-        private readonly ContratoTipoService service;
+        private readonly ISender sender;
         private readonly ILogger<ContratoTipoController> logger;
 
-        public ContratoTipoController(ContratoTipoService service, ILogger<ContratoTipoController> logger)
+        public ContratoTipoController(ISender sender, ILogger<ContratoTipoController> logger)
         {
-            this.service = service;
+            this.sender = sender;
             this.logger = logger;
         }
 
@@ -33,7 +35,7 @@ namespace nest.core.legal.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await sender.Send(new ObtenerTodosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -53,7 +55,7 @@ namespace nest.core.legal.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await sender.Send(new ObtenerPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -69,11 +71,11 @@ namespace nest.core.legal.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ContratoTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<ContratoTipo>> Agregar([FromBody] ContratoTipoCrearDto registro)
+        public async Task<ActionResult<ContratoTipo>> Agregar([FromBody] ContratoTipoCrearCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await sender.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -89,11 +91,11 @@ namespace nest.core.legal.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ContratoTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<ContratoTipo>> Modificar(byte id, [FromBody] ContratoTipoCrearDto registro)
+        public async Task<ActionResult<ContratoTipo>> Modificar(byte id, [FromBody] ContratoTipoModificarCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await sender.Send(command with { Id = id });
                 return Ok(data);
             }
             catch (Exception ex)
@@ -113,7 +115,7 @@ namespace nest.core.legal.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await sender.Send(new ContratoTipoEliminarCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)
