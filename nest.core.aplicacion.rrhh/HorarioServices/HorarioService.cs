@@ -32,15 +32,40 @@ namespace nest.core.aplicacion.rrhh.HorarioServices
                     p.EmpresaId = horarioCabecera.EmpresaId;
                 });
                 HorarioDetalleCrearDto[] detallesDtoArray = entry.Detalles.ToArray();
-                HorarioDetalle[] detalles = await this.horarioDetalleRepository.AgregarRange(entry.Detalles.ToArray());
+                HorarioDetalle[] detallesEntities = detallesDtoArray
+                    .Select(d => new HorarioDetalle
+                    {
+                        Id = d.Id ?? 0,
+                        EmpresaId = d.EmpresaId,
+                        HorarioCabeceraId = d.HorarioCabeceraId,
+                        DiaSemana = d.DiaSemana,
+                        HorarioDetalleEventos = new List<HorarioDetalleEvento>()
+                    })
+                    .ToArray();
+
+                HorarioDetalle[] detalles = await this.horarioDetalleRepository.AgregarRange(detallesEntities);
                 for (int i = 0; i < detallesDtoArray.Length; i++)
                 {
                     HorarioDetalle currentDetalle = detalles[i];
-                    HorarioDetalleEventoCrearDto[] currentEventos = detallesDtoArray[i].Eventos.ToArray();
-                    for (int j = 0; j < currentEventos.Length; j++)
+                    HorarioDetalleEventoCrearDto[] currentEventosDto = detallesDtoArray[i].Eventos.ToArray();
+                    HorarioDetalleEvento[] currentEventos = currentEventosDto
+                        .Select(e => new HorarioDetalleEvento
+                        {
+                            Id = e.Id ?? 0,
+                            EmpresaId = e.EmpresaId,
+                            HorarioDetalleId = currentDetalle.Id,
+                            TipoEvento = e.TipoEvento,
+                            Hora = e.Hora,
+                            DiferenciaDia = e.DiferenciaDia,
+                            VentanaMin = e.VentanaMin,
+                            VentanaMax = e.VentanaMax
+                        })
+                        .ToArray();
+
+                    for (int j = 0; j < currentEventosDto.Length; j++)
                     {
-                        currentEventos[j].HorarioDetalleId = currentDetalle.Id;
-                        currentEventos[j].EmpresaId = currentDetalle.EmpresaId;
+                        currentEventosDto[j].HorarioDetalleId = currentDetalle.Id;
+                        currentEventosDto[j].EmpresaId = currentDetalle.EmpresaId;
                     }
                     HorarioDetalleEvento[] detallesEventos = await this.horarioDetalleEventoRepository.AgregarRange(currentEventos);
                 }
@@ -71,19 +96,42 @@ namespace nest.core.aplicacion.rrhh.HorarioServices
                     p.EmpresaId = horarioCabecera.EmpresaId;
                 });
                 HorarioDetalleCrearDto[] detallesDtoArray = entry.Detalles.ToArray();
-                (long, HorarioDetalleCrearDto)[] detallesConIdDto = detallesDtoArray.Select(x => (x.Id.HasValue ? x.Id.Value : 0, x)).ToArray();
-                HorarioDetalle[] detalles = await this.horarioDetalleRepository.FusionarRange(horarioCabecera.HorarioDetalles.ToArray(), detallesConIdDto);
+                HorarioDetalle[] detallesEntities = detallesDtoArray
+                    .Select(d => new HorarioDetalle
+                    {
+                        Id = d.Id ?? 0,
+                        EmpresaId = d.EmpresaId,
+                        HorarioCabeceraId = d.HorarioCabeceraId,
+                        DiaSemana = d.DiaSemana,
+                        HorarioDetalleEventos = new List<HorarioDetalleEvento>()
+                    })
+                    .ToArray();
+
+                HorarioDetalle[] detalles = await this.horarioDetalleRepository.FusionarRange(horarioCabecera.HorarioDetalles.ToArray(), detallesEntities);
                 for (int i = 0; i < detallesDtoArray.Length; i++)
                 {
                     HorarioDetalle currentDetalle = detalles[i];
-                    HorarioDetalleEventoCrearDto[] currentEventos = detallesDtoArray[i].Eventos.ToArray();
-                    for (int j = 0; j < currentEventos.Length; j++)
+                    HorarioDetalleEventoCrearDto[] currentEventosDto = detallesDtoArray[i].Eventos.ToArray();
+                    for (int j = 0; j < currentEventosDto.Length; j++)
                     {
-                        currentEventos[j].HorarioDetalleId = currentDetalle.Id;
-                        currentEventos[j].EmpresaId = currentDetalle.EmpresaId;
+                        currentEventosDto[j].HorarioDetalleId = currentDetalle.Id;
+                        currentEventosDto[j].EmpresaId = currentDetalle.EmpresaId;
                     }
-                    (long, HorarioDetalleEventoCrearDto)[] detallesEventosConIdDto = currentEventos.Select(x => (x.Id.HasValue ? x.Id.Value : 0, x)).ToArray();
-                    HorarioDetalleEvento[] detallesEventos = await this.horarioDetalleEventoRepository.FusionarRange(currentDetalle.HorarioDetalleEventos.ToArray(), detallesEventosConIdDto);
+                    HorarioDetalleEvento[] eventosEntities = currentEventosDto
+                        .Select(e => new HorarioDetalleEvento
+                        {
+                            Id = e.Id ?? 0,
+                            EmpresaId = e.EmpresaId,
+                            HorarioDetalleId = currentDetalle.Id,
+                            TipoEvento = e.TipoEvento,
+                            Hora = e.Hora,
+                            DiferenciaDia = e.DiferenciaDia,
+                            VentanaMin = e.VentanaMin,
+                            VentanaMax = e.VentanaMax
+                        })
+                        .ToArray();
+
+                    HorarioDetalleEvento[] detallesEventos = await this.horarioDetalleEventoRepository.FusionarRange(currentDetalle.HorarioDetalleEventos.ToArray(), eventosEntities);
                 }
                 await this.unitOfWork.CommitAsync();
                 return await repository.ObtenerPorId(horarioCabecera.Id);
