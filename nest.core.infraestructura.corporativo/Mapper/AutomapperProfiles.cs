@@ -1,4 +1,7 @@
 using AutoMapper;
+using nest.core.aplicacion.corporativo.Empresas.Commands;
+using nest.core.aplicacion.corporativo.EstructuraOrganizacionales.Commands;
+using nest.core.aplicacion.corporativo.EstructuraOrganizacionalTipos.Commands;
 using nest.core.dominio.Corporativo.Empresa;
 using nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities;
 using nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities;
@@ -10,9 +13,12 @@ namespace nest.core.infraestructura.corporativo.Mapper
     {
         public AutomapperProfiles()
         {
-            CreateMap<EstructuraOrganizacionalTipoCrearDto, EstructuraOrganizacionalTipo>();
-            CreateMap<EstructuraOrganizacionalCrearDto, EstructuraOrganizacional>();
-            CreateMap<EmpresaCrearDto, Empresa>();
+            CreateMap<EstructuraOrganizacionalTipoCrearCommand, EstructuraOrganizacionalTipo>();
+            CreateMap<EstructuraOrganizacionalTipoModificarCommand, EstructuraOrganizacionalTipo>();
+            CreateMap<EstructuraOrganizacionalCrearCommand, EstructuraOrganizacional>();
+            CreateMap<EstructuraOrganizacionalModificarCommand, EstructuraOrganizacional>();
+            CreateMap<EmpresaCrearCommand, Empresa>();
+            CreateMap<EmpresaModificarCommand, Empresa>();
             CreateMap<UsuarioEmpresaCrearDto, UsuarioEmpresa>();
         }
     }
