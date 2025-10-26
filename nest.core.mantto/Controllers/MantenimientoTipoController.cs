@@ -1,8 +1,12 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using nest.core.aplicacion.mantto.MantenimientoTipos.Commands;
+using nest.core.aplicacion.mantto.MantenimientoTipos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Mantto.MantenimientoTipoEntities;
-using Microsoft.AspNetCore.Authorization;
-using nest.core.aplicacion.mantto.MantenimientoTipoServices;
 
 namespace nest.core.mantto.Controllers
 {
@@ -16,161 +20,71 @@ namespace nest.core.mantto.Controllers
     [ApiController]
     public class MantenimientoTipoController : ControllerBase
     {
-        private readonly MantenimientoTipoService service;
-        private readonly ILogger<MantenimientoTipoController> logger;
+        private readonly ISender sender;
 
-        /// <summary>
-        /// Constructor del controlador MantenimientoTipoController.
-        /// </summary>
-        /// <param name="service">Servicio para gestionar tipos de mantenimiento.</param>
-        /// <param name="logger">Logger para registrar eventos y errores.</param>
-        public MantenimientoTipoController(MantenimientoTipoService service, ILogger<MantenimientoTipoController> logger)
+        public MantenimientoTipoController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         /// <summary>
         /// Obtiene todos los tipos de mantenimiento registrados.
         /// </summary>
-        /// <returns>Lista de tipos de mantenimiento.</returns>
-        /// <response code="200">Devuelve la lista de tipos de mantenimiento.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpGet]
         [ProducesResponseType(typeof(List<MantenimientoTipo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<List<MantenimientoTipo>>> ObtenerTodos()
-        {
-            try
-            {
-                var data = await this.service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
-        }
+            => Ok(await sender.Send(new ObtenerTodosQuery()));
 
         /// <summary>
         /// Obtiene un tipo de mantenimiento por su ID.
         /// </summary>
-        /// <param name="id">ID del tipo de mantenimiento.</param>
-        /// <returns>Tipo de mantenimiento correspondiente al ID.</returns>
-        /// <response code="200">Tipo de mantenimiento encontrado.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(MantenimientoTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<MantenimientoTipo>> ObtenerPorId(short id)
-        {
-            try
-            {
-                var data = await this.service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
-        }
+            => Ok(await sender.Send(new ObtenerPorIdQuery(id)));
 
         /// <summary>
         /// Obtiene todos los tipos de mantenimiento activos.
         /// </summary>
-        /// <returns>Lista de tipos de mantenimiento activos.</returns>
-        /// <response code="200">Devuelve la lista de tipos de mantenimiento activos.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<MantenimientoTipo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<List<MantenimientoTipo>>> ObtenerActivos()
-        {
-            try
-            {
-                var data = await this.service.ObtenerActivos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
-        }
+            => Ok(await sender.Send(new ObtenerActivosQuery()));
 
         /// <summary>
         /// Agrega un nuevo tipo de mantenimiento.
         /// </summary>
-        /// <param name="registro">DTO con la información del tipo de mantenimiento a crear.</param>
-        /// <returns>Tipo de mantenimiento creado.</returns>
-        /// <response code="200">Tipo de mantenimiento agregado exitosamente.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpPost]
         [ProducesResponseType(typeof(MantenimientoTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<MantenimientoTipo>> Agregar([FromBody] MantenimientoTipoCrearDto registro)
-        {
-            try
-            {
-                var data = await this.service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
-        }
+        public async Task<ActionResult<MantenimientoTipo>> Agregar([FromBody] MantenimientoTipoCrearCommand command)
+            => Ok(await sender.Send(command));
 
         /// <summary>
         /// Modifica un tipo de mantenimiento existente.
         /// </summary>
-        /// <param name="id">ID del tipo de mantenimiento a modificar.</param>
-        /// <param name="registro">DTO con la información actualizada del tipo de mantenimiento.</param>
-        /// <returns>Tipo de mantenimiento modificado.</returns>
-        /// <response code="200">Tipo de mantenimiento modificado exitosamente.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(MantenimientoTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<MantenimientoTipo>> Modificar(short id, [FromBody] MantenimientoTipoCrearDto registro)
+        public async Task<ActionResult<MantenimientoTipo>> Modificar([FromRoute] short id, [FromBody] MantenimientoTipoModificarCommand command)
         {
-            try
-            {
-                var data = await this.service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            return Ok(await sender.Send(cmd));
         }
 
         /// <summary>
         /// Elimina un tipo de mantenimiento.
         /// </summary>
-        /// <param name="id">ID del tipo de mantenimiento a eliminar.</param>
-        /// <returns>True si la eliminación fue exitosa.</returns>
-        /// <response code="200">Tipo de mantenimiento eliminado exitosamente.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult> Eliminar(short id)
         {
-            try
-            {
-                await this.service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new MantenimientoTipoEliminarCommand(id));
+            return Ok(true);
         }
     }
 }

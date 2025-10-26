@@ -1,8 +1,12 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using nest.core.aplicacion.mantto.OrdenServicioTipos.Commands;
+using nest.core.aplicacion.mantto.OrdenServicioTipos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Mantto.OrdenServicioTipoEntities;
-using Microsoft.AspNetCore.Authorization;
-using nest.core.aplicacion.mantto.OrdenServicioTipoServices;
 
 namespace nest.core.mantto.Controllers
 {
@@ -16,161 +20,71 @@ namespace nest.core.mantto.Controllers
     [ApiController]
     public class OrdenServicioTipoController : ControllerBase
     {
-        private readonly OrdenServicioTipoService service;
-        private readonly ILogger<OrdenServicioTipoController> logger;
+        private readonly ISender sender;
 
-        /// <summary>
-        /// Constructor del controlador OrdenServicioTipoController.
-        /// </summary>
-        /// <param name="service">Servicio para gestionar tipos de orden de servicio.</param>
-        /// <param name="logger">Logger para registrar eventos y errores.</param>
-        public OrdenServicioTipoController(OrdenServicioTipoService service, ILogger<OrdenServicioTipoController> logger)
+        public OrdenServicioTipoController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         /// <summary>
         /// Obtiene todos los tipos de orden de servicio registrados.
         /// </summary>
-        /// <returns>Lista de tipos de orden de servicio.</returns>
-        /// <response code="200">Devuelve la lista de tipos de orden de servicio.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpGet]
         [ProducesResponseType(typeof(List<OrdenServicioTipo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<List<OrdenServicioTipo>>> ObtenerTodos()
-        {
-            try
-            {
-                var data = await this.service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
-        }
+            => Ok(await sender.Send(new ObtenerTodosQuery()));
 
         /// <summary>
         /// Obtiene un tipo de orden de servicio por su ID.
         /// </summary>
-        /// <param name="id">ID del tipo de orden de servicio.</param>
-        /// <returns>Tipo de orden de servicio correspondiente al ID.</returns>
-        /// <response code="200">Tipo de orden de servicio encontrado.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(OrdenServicioTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<OrdenServicioTipo>> ObtenerPorId(short id)
-        {
-            try
-            {
-                var data = await this.service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
-        }
+            => Ok(await sender.Send(new ObtenerPorIdQuery(id)));
 
         /// <summary>
         /// Obtiene todos los tipos de orden de servicio activos.
         /// </summary>
-        /// <returns>Lista de tipos de orden de servicio activos.</returns>
-        /// <response code="200">Devuelve la lista de tipos de orden de servicio activos.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<OrdenServicioTipo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<List<OrdenServicioTipo>>> ObtenerActivos()
-        {
-            try
-            {
-                var data = await this.service.ObtenerActivos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
-        }
+            => Ok(await sender.Send(new ObtenerActivosQuery()));
 
         /// <summary>
         /// Agrega un nuevo tipo de orden de servicio.
         /// </summary>
-        /// <param name="registro">DTO con la información del tipo de orden de servicio a crear.</param>
-        /// <returns>Tipo de orden de servicio creado.</returns>
-        /// <response code="200">Tipo de orden de servicio agregado exitosamente.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpPost]
         [ProducesResponseType(typeof(OrdenServicioTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenServicioTipo>> Agregar([FromBody] OrdenServicioTipoCrearDto registro)
-        {
-            try
-            {
-                var data = await this.service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
-        }
+        public async Task<ActionResult<OrdenServicioTipo>> Agregar([FromBody] OrdenServicioTipoCrearCommand command)
+            => Ok(await sender.Send(command));
 
         /// <summary>
         /// Modifica un tipo de orden de servicio existente.
         /// </summary>
-        /// <param name="id">ID del tipo de orden de servicio a modificar.</param>
-        /// <param name="registro">DTO con la información actualizada del tipo de orden de servicio.</param>
-        /// <returns>Tipo de orden de servicio modificado.</returns>
-        /// <response code="200">Tipo de orden de servicio modificado exitosamente.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(OrdenServicioTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenServicioTipo>> Modificar(short id, [FromBody] OrdenServicioTipoCrearDto registro)
+        public async Task<ActionResult<OrdenServicioTipo>> Modificar([FromRoute] short id, [FromBody] OrdenServicioTipoModificarCommand command)
         {
-            try
-            {
-                var data = await this.service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            return Ok(await sender.Send(cmd));
         }
 
         /// <summary>
         /// Elimina un tipo de orden de servicio.
         /// </summary>
-        /// <param name="id">ID del tipo de orden de servicio a eliminar.</param>
-        /// <returns>True si la eliminación fue exitosa.</returns>
-        /// <response code="200">Tipo de orden de servicio eliminado exitosamente.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult> Eliminar(short id)
         {
-            try
-            {
-                await this.service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new OrdenServicioTipoEliminarCommand(id));
+            return Ok(true);
         }
     }
 }

@@ -6,7 +6,7 @@ using nest.core.infraestructura.db.Utils;
 
 namespace nest.core.infraestructura.mantto
 {
-    public class OrdenTrabajoCabeceraRepository : CrudRepositoryBase<OrdenTrabajoCabecera, OrdenTrabajoCabeceraCrearDto, long>, IOrdenTrabajoCabeceraRepository
+    public class OrdenTrabajoCabeceraRepository : CrudRepositoryBase<OrdenTrabajoCabecera, long>, IOrdenTrabajoCabeceraRepository
     {
         public OrdenTrabajoCabeceraRepository(NestDbContext context, IMapper mapper) : base(context, mapper)
         {
@@ -50,9 +50,9 @@ namespace nest.core.infraestructura.mantto
                 .ToListAsync();
         }
 
-        public Task<OrdenTrabajoCabecera> Agregar(OrdenTrabajoCabeceraCrearDto dto) => AddAsync(dto);
+        public Task<OrdenTrabajoCabecera> Agregar(OrdenTrabajoCabecera entity) => AddAsync(entity);
 
-        public Task<OrdenTrabajoCabecera> Modificar(long id, OrdenTrabajoCabeceraCrearDto dto) => UpdateAsync(id, dto);
+        public Task<OrdenTrabajoCabecera> Modificar(OrdenTrabajoCabecera entity) => UpdateAsync(entity);
 
         public Task Eliminar(long id) => DeleteAsync(id);
     }

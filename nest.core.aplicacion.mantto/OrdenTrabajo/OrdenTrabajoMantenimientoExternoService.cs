@@ -1,3 +1,4 @@
+using AutoMapper;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
@@ -14,19 +15,22 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
         private readonly IOrdenTrabajoDetalleActivoRepository detalleActivoRepository;
         private readonly IOrdenTrabajoPersonalRepository ordenTrabajoPersonalRepository;
         private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
 
         public OrdenTrabajoMantenimientoExternoService(
             IOrdenTrabajoCabecera_MantenimientoExternoRepository repository,
             IOrdenTrabajoDetalleRepository detalleRepository,
             IOrdenTrabajoDetalleActivoRepository detalleActivoRepository,
             IOrdenTrabajoPersonalRepository ordenTrabajoPersonalRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IMapper mapper)
         {
             this.repository = repository;
             this.detalleRepository = detalleRepository;
             this.detalleActivoRepository = detalleActivoRepository;
             this.ordenTrabajoPersonalRepository = ordenTrabajoPersonalRepository;
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
         public Task<OrdenTrabajoCabecera> ObtenerPorId(long id) => repository.ObtenerPorId(id);
@@ -40,7 +44,8 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
             await unitOfWork.BeginTransactionAsync();
             try
             {
-                OrdenTrabajoCabecera cabecera = await repository.Agregar(dto.Cabecera);
+                OrdenTrabajoCabecera cabeceraEntity = mapper.Map<OrdenTrabajoCabecera>(dto.Cabecera);
+                OrdenTrabajoCabecera cabecera = await repository.Agregar(cabeceraEntity);
                 List<OrdenTrabajoDetalle_MantenimientoExternoCrearDto> detallesEntrada = dto.Detalles;
 
                 OrdenTrabajoPersonalCrearDto[] personasDtoArray = dto.Personas.ToArray();
@@ -91,7 +96,9 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
             await unitOfWork.BeginTransactionAsync();
             try
             {
-                OrdenTrabajoCabecera cabecera = await repository.Modificar(id, dto.Cabecera);
+                OrdenTrabajoCabecera cabeceraEntity = mapper.Map<OrdenTrabajoCabecera>(dto.Cabecera);
+                cabeceraEntity.Id = id;
+                OrdenTrabajoCabecera cabecera = await repository.Modificar(cabeceraEntity);
                 cabecera = await repository.ObtenerPorId(cabecera.Id);
 
                 OrdenTrabajoPersonal[] originalesPersonas = cabecera.Personales.ToArray();

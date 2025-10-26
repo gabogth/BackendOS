@@ -6,7 +6,7 @@ using nest.core.infraestructura.db.Utils;
 
 namespace nest.core.infraestructura.mantto
 {
-    public class OrdenServicioMantenimientoExternoRepository : CrudRepositoryBase<OrdenServicioMantenimientoExterno, OrdenServicioMantenimientoExternoCrearDto, long>, IOrdenServicioMantenimientoExternoRepository
+    public class OrdenServicioMantenimientoExternoRepository : CrudRepositoryBase<OrdenServicioMantenimientoExterno, long>, IOrdenServicioMantenimientoExternoRepository
     {
         public OrdenServicioMantenimientoExternoRepository(NestDbContext context, IMapper mapper) : base(context, mapper)
         {
@@ -29,9 +29,9 @@ namespace nest.core.infraestructura.mantto
 
         public Task<List<OrdenServicioMantenimientoExterno>> ObtenerTodos() => GetAllAsync();
 
-        public Task<OrdenServicioMantenimientoExterno> Agregar(OrdenServicioMantenimientoExternoCrearDto dto) => AddAsync(dto);
+        public Task<OrdenServicioMantenimientoExterno> Agregar(OrdenServicioMantenimientoExterno entity) => AddAsync(entity);
 
-        public Task<OrdenServicioMantenimientoExterno> Modificar(long id, OrdenServicioMantenimientoExternoCrearDto dto) => UpdateAsync(id, dto);
+        public Task<OrdenServicioMantenimientoExterno> Modificar(OrdenServicioMantenimientoExterno entity) => UpdateAsync(entity);
 
         public Task Eliminar(long id) => DeleteAsync(id);
     }

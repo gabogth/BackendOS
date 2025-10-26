@@ -4,8 +4,8 @@ namespace nest.core.dominio.Mantto.OrdenServicioMantenimientoExternoEntities
     {
         Task<OrdenServicioMantenimientoExterno> ObtenerPorId(long id);
         Task<List<OrdenServicioMantenimientoExterno>> ObtenerTodos();
-        Task<OrdenServicioMantenimientoExterno> Agregar(OrdenServicioMantenimientoExternoCrearDto dto);
-        Task<OrdenServicioMantenimientoExterno> Modificar(long id, OrdenServicioMantenimientoExternoCrearDto dto);
+        Task<OrdenServicioMantenimientoExterno> Agregar(OrdenServicioMantenimientoExterno entry);
+        Task<OrdenServicioMantenimientoExterno> Modificar(OrdenServicioMantenimientoExterno entry);
         Task Eliminar(long id);
     }
 }
