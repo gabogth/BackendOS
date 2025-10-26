@@ -4,8 +4,8 @@ namespace nest.core.dominio.Mantto.OrdenServicioCabeceraEntities
     {
         Task<OrdenServicioCabecera> ObtenerPorId(long id);
         Task<List<OrdenServicioCabecera>> ObtenerTodos();
-        Task<OrdenServicioCabecera> Agregar(OrdenServicioCabeceraCrearDto dto);
-        Task<OrdenServicioCabecera> Modificar(long id, OrdenServicioCabeceraCrearDto dto);
+        Task<OrdenServicioCabecera> Agregar(OrdenServicioCabecera entry);
+        Task<OrdenServicioCabecera> Modificar(OrdenServicioCabecera entry);
         Task Eliminar(long id);
     }
 }

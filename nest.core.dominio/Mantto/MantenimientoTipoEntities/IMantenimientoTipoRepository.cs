@@ -5,8 +5,8 @@ namespace nest.core.dominio.Mantto.MantenimientoTipoEntities
         Task<MantenimientoTipo> ObtenerPorId(short id);
         Task<List<MantenimientoTipo>> ObtenerTodos();
         Task<List<MantenimientoTipo>> ObtenerActivos();
-        Task<MantenimientoTipo> Agregar(MantenimientoTipoCrearDto entry);
-        Task<MantenimientoTipo> Modificar(short id, MantenimientoTipoCrearDto entry);
+        Task<MantenimientoTipo> Agregar(MantenimientoTipo entry);
+        Task<MantenimientoTipo> Modificar(MantenimientoTipo entry);
         Task Eliminar(short id);
     }
 }

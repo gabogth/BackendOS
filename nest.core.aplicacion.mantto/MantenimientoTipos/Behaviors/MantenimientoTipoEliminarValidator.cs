@@ -1,0 +1,14 @@
+using FluentValidation;
+using nest.core.aplicacion.mantto.MantenimientoTipos.Commands;
+
+namespace nest.core.aplicacion.mantto.MantenimientoTipos.Behaviors
+{
+    public class MantenimientoTipoEliminarValidator : AbstractValidator<MantenimientoTipoEliminarCommand>
+    {
+        public MantenimientoTipoEliminarValidator()
+        {
+            RuleFor(x => x.Id)
+                .GreaterThan((short)0).WithMessage("El identificador debe ser mayor a 0.");
+        }
+    }
+}

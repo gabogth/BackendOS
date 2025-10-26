@@ -6,8 +6,8 @@ namespace nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities
         Task<List<OrdenTrabajoCabecera>> ObtenerTodos();
         Task<List<OrdenTrabajoCabecera>> ObtenerPorOrdenServicio(long ordenServicioCabeceraId);
         Task<OrdenTrabajoCabecera> ObtenerPorPersonaFechaInicialFechaFinal(int personaId, DateTime fecha);
-        Task<OrdenTrabajoCabecera> Agregar(OrdenTrabajoCabeceraCrearDto dto);
-        Task<OrdenTrabajoCabecera> Modificar(long id, OrdenTrabajoCabeceraCrearDto dto);
+        Task<OrdenTrabajoCabecera> Agregar(OrdenTrabajoCabecera dto);
+        Task<OrdenTrabajoCabecera> Modificar(OrdenTrabajoCabecera dto);
         Task Eliminar(long id);
     }
 }
