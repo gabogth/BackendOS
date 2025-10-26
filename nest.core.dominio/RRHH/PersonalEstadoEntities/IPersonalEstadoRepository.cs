@@ -5,8 +5,8 @@ namespace nest.core.dominio.RRHH.PersonalEstadoEntities
         Task<PersonalEstado> ObtenerPorId(byte id);
         Task<List<PersonalEstado>> ObtenerTodos();
         Task<List<PersonalEstado>> ObtenerActivos();
-        Task<PersonalEstado> Agregar(PersonalEstadoCrearDto entidad);
-        Task<PersonalEstado> Modificar(byte id, PersonalEstadoCrearDto entidad);
+        Task<PersonalEstado> Agregar(PersonalEstado entidad);
+        Task<PersonalEstado> Modificar(PersonalEstado entidad);
         Task Eliminar(byte id);
     }
 }

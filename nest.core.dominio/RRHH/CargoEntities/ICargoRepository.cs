@@ -5,8 +5,8 @@
         Task<Cargo> ObtenerPorId(int id);
         Task<List<Cargo>> ObtenerTodos();
         Task<List<Cargo>> ObtenerActivos();
-        Task<Cargo> Agregar(CargoCrearDto entidad);
-        Task<Cargo> Modificar(int id, CargoCrearDto entidad);
+        Task<Cargo> Agregar(Cargo entidad);
+        Task<Cargo> Modificar(Cargo entidad);
         Task Eliminar(int id);
     }
 }

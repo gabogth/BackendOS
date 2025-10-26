@@ -1,176 +1,77 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using nest.core.dominio;
-using nest.core.aplicacion.rrhh.CargoServices;
-using nest.core.dominio.RRHH.CargoEntities;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using nest.core.aplicacion.rrhh.Cargos.Commands;
+using nest.core.aplicacion.rrhh.Cargos.Queries;
+using nest.core.dominio;
+using nest.core.dominio.RRHH.CargoEntities;
 
 namespace nest.core.rrhh.Controllers
 {
-    /// <summary>
-    /// Controlador para la gestión de cargos.
-    /// Permite realizar operaciones CRUD y obtener cargos activos.
-    /// Requiere autorización para acceder.
-    /// </summary>
     [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class CargoController : ControllerBase
     {
-        private readonly CargoService service;
-        private readonly ILogger<CargoController> logger;
+        private readonly ISender sender;
 
-        /// <summary>
-        /// Constructor del controlador CargoController.
-        /// </summary>
-        /// <param name="service">Servicio para gestionar cargos.</param>
-        /// <param name="logger">Logger para registrar eventos y errores.</param>
-        public CargoController(CargoService service, ILogger<CargoController> logger)
+        public CargoController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
-        /// <summary>
-        /// Obtiene todos los cargos registrados.
-        /// </summary>
-        /// <returns>Lista de cargos.</returns>
-        /// <response code="200">Devuelve la lista de cargos.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpGet]
         [ProducesResponseType(typeof(List<Cargo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Cargo>>> ObtenerTodos()
+        public async Task<ActionResult<List<Cargo>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerCargosQuery(), ct);
+            return Ok(data);
         }
 
-        /// <summary>
-        /// Obtiene un cargo por su ID.
-        /// </summary>
-        /// <param name="id">ID del cargo.</param>
-        /// <returns>Cargo correspondiente al ID.</returns>
-        /// <response code="200">Cargo encontrado.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Cargo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Cargo>> ObtenerPorId(int id)
+        public async Task<ActionResult<Cargo>> ObtenerPorId(int id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerCargoPorIdQuery(id), ct);
+            return Ok(data);
         }
 
-        /// <summary>
-        /// Obtiene todos los cargos activos.
-        /// </summary>
-        /// <returns>Lista de cargos activos.</returns>
-        /// <response code="200">Devuelve la lista de cargos activos.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<Cargo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Cargo>>> ObtenerActivos()
+        public async Task<ActionResult<List<Cargo>>> ObtenerActivos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerActivos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerCargosActivosQuery(), ct);
+            return Ok(data);
         }
 
-        /// <summary>
-        /// Agrega un nuevo cargo.
-        /// </summary>
-        /// <param name="registro">DTO con la información del cargo a crear.</param>
-        /// <returns>Cargo creado.</returns>
-        /// <response code="200">Cargo agregado exitosamente.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpPost]
         [ProducesResponseType(typeof(Cargo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Cargo>> Agregar([FromBody] CargoCrearDto registro)
+        public async Task<ActionResult<Cargo>> Agregar([FromBody] CargoCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command, ct);
+            return Ok(data);
         }
 
-        /// <summary>
-        /// Modifica un cargo existente.
-        /// </summary>
-        /// <param name="id">ID del cargo a modificar.</param>
-        /// <param name="registro">DTO con la información actualizada del cargo.</param>
-        /// <returns>Cargo modificado.</returns>
-        /// <response code="200">Cargo modificado exitosamente.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Cargo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Cargo>> Modificar(int id, [FromBody] CargoCrearDto registro)
+        public async Task<ActionResult<Cargo>> Modificar(int id, [FromBody] CargoModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command with { Id = id }, ct);
+            return Ok(data);
         }
 
-        /// <summary>
-        /// Elimina un cargo.
-        /// </summary>
-        /// <param name="id">ID del cargo a eliminar.</param>
-        /// <returns>True si la eliminación fue exitosa.</returns>
-        /// <response code="200">Cargo eliminado exitosamente.</response>
-        /// <response code="400">Error en la solicitud.</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Eliminar(int id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new CargoEliminarCommand(id), ct);
+            return Ok();
         }
     }
 }

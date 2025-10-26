@@ -5,12 +5,12 @@ namespace nest.core.dominio.RRHH.HorarioDetalleEntities
         Task<HorarioDetalle> ObtenerPorId(long id);
         Task<List<HorarioDetalle>> ObtenerPorIds(List<long> ids);
         Task<List<HorarioDetalle>> ObtenerTodos();
-        Task<HorarioDetalle> Agregar(HorarioDetalleCrearDto entidad);
-        Task<HorarioDetalle[]> AgregarRange(HorarioDetalleCrearDto[] entidad);
-        Task<HorarioDetalle> Modificar(long id, HorarioDetalleCrearDto entidad);
-        Task<HorarioDetalle[]> ModificarRange((long id, HorarioDetalleCrearDto entidad)[] entidad);
+        Task<HorarioDetalle> Agregar(HorarioDetalle entidad);
+        Task<HorarioDetalle[]> AgregarRange(HorarioDetalle[] entidad);
+        Task<HorarioDetalle> Modificar(HorarioDetalle entidad);
+        Task<HorarioDetalle[]> ModificarRange(HorarioDetalle[] entidad);
         Task Eliminar(long id);
         Task EliminarRange(long[] ids);
-        Task<HorarioDetalle[]> FusionarRange(HorarioDetalle[] originalEntities, (long id, HorarioDetalleCrearDto entidad)[] entidad);
+        Task<HorarioDetalle[]> FusionarRange(HorarioDetalle[] originalEntities, HorarioDetalle[] entidad);
     }
 }

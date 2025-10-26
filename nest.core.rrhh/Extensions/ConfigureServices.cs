@@ -1,12 +1,10 @@
-﻿using nest.core.aplicacion.rrhh;
-using nest.core.aplicacion.rrhh.CargoServices;
+using FluentValidation;
+using MediatR;
+using nest.core.aplicacion.rrhh;
+using nest.core.aplicacion.rrhh.Cargos.Behaviors;
+using nest.core.aplicacion.rrhh.Cargos.Commands;
 using nest.core.aplicacion.rrhh.GrupoTrabajoServices;
-using nest.core.aplicacion.rrhh.GrupoTrabajoPersonaServices;
 using nest.core.aplicacion.rrhh.HorarioServices;
-using nest.core.aplicacion.rrhh.HorarioDetalleEventoServices;
-using nest.core.aplicacion.rrhh.HorarioDetalleServices;
-using nest.core.aplicacion.rrhh.PersonalEstadoServices;
-using nest.core.aplicacion.rrhh.PersonalServices;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaServices;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajoServices;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaPoliticaServices;
@@ -21,14 +19,13 @@ namespace nest.core.rrhh.Extensions
         {
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
-            services.AddScoped<CargoService>();
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(CargoCrearCommand).Assembly);
+            });
+            services.AddValidatorsFromAssemblyContaining<CargoCrearValidator>();
             services.AddScoped<GrupoTrabajoService>();
-            services.AddScoped<GrupoTrabajoPersonaService>();
             services.AddScoped<HorarioService>();
-            services.AddScoped<HorarioDetalleService>();
-            services.AddScoped<HorarioDetalleEventoService>();
-            services.AddScoped<PersonalEstadoService>();
-            services.AddScoped<PersonalService>();
             services.AddScoped<RegistroAsistenciaService>();
             services.AddScoped<RegistroAsistenciaOrdenTrabajoService>();
             services.AddScoped<RegistroAsistenciaPoliticaService>();
