@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using nest.core.dominio.General.PersonaAdjuntoEntities;
 using nest.core.dominio.General.PersonaEntities;
 using nest.core.dominio.Transaccional;
@@ -43,7 +45,21 @@ namespace nest.core.aplicacion.general.PersonaUseCases
                 }
 
                 if (adjuntos.Length > 0)
-                    await personaAdjuntoRepository.AgregarRange(adjuntos);
+                {
+                    PersonaAdjunto[] adjuntosEntities = adjuntos
+                        .Select(entry => new PersonaAdjunto
+                        {
+                            Id = entry.Id,
+                            EmpresaId = entry.EmpresaId,
+                            PersonaId = entry.PersonaId,
+                            AdjuntoId = entry.AdjuntoId,
+                            AdjuntoTipoId = entry.AdjuntoTipoId,
+                            EsFotoPrincipal = entry.EsFotoPrincipal
+                        })
+                        .ToArray();
+
+                    await personaAdjuntoRepository.AgregarRange(adjuntosEntities);
+                }
 
                 await unitOfWork.CommitAsync();
                 return await personaRepository.ObtenerPorId(persona.Id);
@@ -80,11 +96,19 @@ namespace nest.core.aplicacion.general.PersonaUseCases
                     current.EmpresaId = persona.EmpresaId;
                 }
 
-                (long id, PersonaAdjuntoCrearDto entry)[] adjuntosEntries = adjuntosEntrada
-                    .Select(entry => (entry.Id, entry))
+                PersonaAdjunto[] adjuntosEntities = adjuntosEntrada
+                    .Select(entry => new PersonaAdjunto
+                    {
+                        Id = entry.Id,
+                        EmpresaId = entry.EmpresaId,
+                        PersonaId = entry.PersonaId,
+                        AdjuntoId = entry.AdjuntoId,
+                        AdjuntoTipoId = entry.AdjuntoTipoId,
+                        EsFotoPrincipal = entry.EsFotoPrincipal
+                    })
                     .ToArray();
 
-                await personaAdjuntoRepository.FusionarRange(originalesAdjuntos, adjuntosEntries);
+                await personaAdjuntoRepository.FusionarRange(originalesAdjuntos, adjuntosEntities);
 
                 await unitOfWork.CommitAsync();
                 return await personaRepository.ObtenerPorId(persona.Id);

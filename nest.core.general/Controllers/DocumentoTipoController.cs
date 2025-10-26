@@ -1,6 +1,11 @@
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.DocumentoTipoServices;
+using nest.core.aplicacion.general.DocumentoTipos.Commands;
+using nest.core.aplicacion.general.DocumentoTipos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.DocumentoTipoEntities;
 
@@ -11,92 +16,66 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class DocumentoTipoController : ControllerBase
     {
-        private readonly DocumentoTipoService service;
-        private readonly ILogger<DocumentoTipoController> logger;
-        public DocumentoTipoController(DocumentoTipoService service, ILogger<DocumentoTipoController> logger)
+        private readonly ISender sender;
+
+        public DocumentoTipoController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
+
         [HttpGet]
         [ProducesResponseType(typeof(List<DocumentoTipo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<DocumentoTipo>>> ObtenerTodos()
+        public async Task<ActionResult<List<DocumentoTipo>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(entidad);
         }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(DocumentoTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<DocumentoTipo>> ObtenerPorId(int id)
+        public async Task<ActionResult<DocumentoTipo>> ObtenerPorId([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(entidad);
         }
+
+        [HttpGet("activos")]
+        [ProducesResponseType(typeof(List<DocumentoTipo>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<List<DocumentoTipo>>> ObtenerActivos(CancellationToken ct)
+        {
+            var entidad = await sender.Send(new ObtenerActivosQuery(), ct);
+            return Ok(entidad);
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(DocumentoTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<DocumentoTipo>> Agregar([FromBody] DocumentoTipoCrearDto registro)
+        public async Task<ActionResult<DocumentoTipo>> Agregar([FromBody] DocumentoTipoCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command, ct);
+            return Ok(entidad);
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(DocumentoTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<DocumentoTipo>> Modificar(int id, [FromBody] DocumentoTipoCrearDto registro)
+        public async Task<ActionResult<DocumentoTipo>> Modificar([FromRoute] int id, [FromBody] DocumentoTipoModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var entidad = await sender.Send(cmd, ct);
+            return Ok(entidad);
         }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Eliminar([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new DocumentoTipoEliminarCommand(id), ct);
+            return Ok();
         }
     }
 }

@@ -1,6 +1,11 @@
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.LicenciaConducirServices;
+using nest.core.aplicacion.general.LicenciasConducir.Commands;
+using nest.core.aplicacion.general.LicenciasConducir.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.LicenciaConducirEntities;
 
@@ -11,92 +16,66 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class LicenciaConducirController : ControllerBase
     {
-        private readonly LicenciaConducirService service;
-        private readonly ILogger<LicenciaConducirController> logger;
-        public LicenciaConducirController(LicenciaConducirService service, ILogger<LicenciaConducirController> logger)
+        private readonly ISender sender;
+
+        public LicenciaConducirController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
+
         [HttpGet]
         [ProducesResponseType(typeof(List<LicenciaConducir>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<LicenciaConducir>>> ObtenerTodos()
+        public async Task<ActionResult<List<LicenciaConducir>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(entidad);
         }
+
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(LicenciaConducir), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<LicenciaConducir>> ObtenerPorId(byte id)
+        public async Task<ActionResult<LicenciaConducir>> ObtenerPorId([FromRoute] byte id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(entidad);
         }
+
+        [HttpGet("activos")]
+        [ProducesResponseType(typeof(List<LicenciaConducir>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<List<LicenciaConducir>>> ObtenerActivos(CancellationToken ct)
+        {
+            var entidad = await sender.Send(new ObtenerActivosQuery(), ct);
+            return Ok(entidad);
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(LicenciaConducir), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<LicenciaConducir>> Agregar([FromBody] LicenciaConducirCrearDto registro)
+        public async Task<ActionResult<LicenciaConducir>> Agregar([FromBody] LicenciaConducirCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command, ct);
+            return Ok(entidad);
         }
+
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(LicenciaConducir), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<LicenciaConducir>> Modificar(byte id, [FromBody] LicenciaConducirCrearDto registro)
+        public async Task<ActionResult<LicenciaConducir>> Modificar([FromRoute] byte id, [FromBody] LicenciaConducirModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var entidad = await sender.Send(cmd, ct);
+            return Ok(entidad);
         }
+
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(byte id)
+        public async Task<ActionResult> Eliminar([FromRoute] byte id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new LicenciaConducirEliminarCommand(id), ct);
+            return Ok();
         }
     }
 }
