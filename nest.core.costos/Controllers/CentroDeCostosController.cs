@@ -1,128 +1,78 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.costos.CentroDeCostosServices;
+using nest.core.aplicacion.costos.CentroDeCostos.Commands;
+using nest.core.aplicacion.costos.CentroDeCostos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Costos.CentroDeCostosEntities;
 
 namespace nest.core.costos.Controllers
 {
-    /// <summary>
-    /// Controlador para la gestión de centros de costos.
-    /// </summary>
     [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class CentroDeCostosController : ControllerBase
     {
-        private readonly CentroDeCostosService service;
-        private readonly ILogger<CentroDeCostosController> logger;
+        private readonly ISender sender;
 
-        public CentroDeCostosController(CentroDeCostosService service, ILogger<CentroDeCostosController> logger)
+        public CentroDeCostosController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(List<CentroDeCostos>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<CentroDeCostos>>> ObtenerTodos()
+        public async Task<ActionResult<List<CentroDeCostos>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(data);
         }
 
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<CentroDeCostos>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<CentroDeCostos>>> ObtenerActivos()
+        public async Task<ActionResult<List<CentroDeCostos>>> ObtenerActivos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerActivos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerActivosQuery(), ct);
+            return Ok(data);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(CentroDeCostos), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<CentroDeCostos>> ObtenerPorId(int id)
+        public async Task<ActionResult<CentroDeCostos>> ObtenerPorId([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(data);
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(CentroDeCostos), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<CentroDeCostos>> Agregar([FromBody] CentroDeCostosCrearDto registro)
+        public async Task<ActionResult<CentroDeCostos>> Agregar([FromBody] CentroDeCostosCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command, ct);
+            return Ok(data);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(CentroDeCostos), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<CentroDeCostos>> Modificar(int id, [FromBody] CentroDeCostosCrearDto registro)
+        public async Task<ActionResult<CentroDeCostos>> Modificar([FromRoute] int id, [FromBody] CentroDeCostosModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var data = await sender.Send(cmd, ct);
+            return Ok(data);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Eliminar([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new CentroDeCostosEliminarCommand(id), ct);
+            return Ok(true);
         }
     }
 }

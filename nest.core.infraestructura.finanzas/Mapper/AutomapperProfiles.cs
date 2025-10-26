@@ -1,4 +1,8 @@
 using AutoMapper;
+using nest.core.aplicacion.finanzas.CuentaCorriente.Commands;
+using nest.core.aplicacion.finanzas.EntidadFinanciera.Commands;
+using nest.core.aplicacion.finanzas.Financiero.Commands;
+using nest.core.aplicacion.finanzas.Moneda.Commands;
 using nest.core.dominio.Finanzas.CuentaCorrienteEntities;
 using nest.core.dominio.Finanzas.EntidadFinancieraEntities;
 using nest.core.dominio.Finanzas.MonedaEntities;
@@ -14,14 +18,20 @@ namespace nest.core.infraestructura.finanzas.Mapper
     {
         public AutomapperProfiles()
         {
-            CreateMap<CuentaCorrienteCrearDto, CuentaCorriente>();
-            CreateMap<EntidadFinancieraCrearDto, EntidadFinanciera>();
-            CreateMap<MonedaCrearDto, Moneda>();
+            CreateMap<CuentaCorrienteCrearCommand, CuentaCorriente>();
+            CreateMap<CuentaCorrienteModificarCommand, CuentaCorriente>();
+            CreateMap<EntidadFinancieraCrearCommand, EntidadFinanciera>();
+            CreateMap<EntidadFinancieraModificarCommand, EntidadFinanciera>();
+            CreateMap<MonedaCrearCommand, Moneda>();
+            CreateMap<MonedaModificarCommand, Moneda>();
             CreateMap<OrigenFinancieroCrearDto, OrigenFinanciero>();
             CreateMap<PuntoFinancieroCrearDto, PuntoFinanciero>();
             CreateMap<TerceroCrearDto, Tercero>();
-            CreateMap<FinancieroCabeceraCrearDto, FinancieroCabecera>();
-            CreateMap<FinancieroDetalleCrearDto, FinancieroDetalle>();
+            CreateMap<FinancieroCrearCommand, FinancieroCabecera>();
+            CreateMap<FinancieroModificarCommand, FinancieroCabecera>();
+            CreateMap<FinancieroDetalleEntrada, FinancieroDetalle>();
+            CreateMap<FinancieroDetalleCrearCommand, FinancieroDetalle>();
+            CreateMap<FinancieroDetalleModificarCommand, FinancieroDetalle>();
         }
     }
 }
