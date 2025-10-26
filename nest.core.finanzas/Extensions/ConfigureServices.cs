@@ -3,8 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.finanzas;
 using nest.core.aplicacion.finanzas.CuentaCorriente.Commands;
-using nest.core.aplicacion.finanzas.OrigenFinancieroServices;
-using nest.core.aplicacion.finanzas.PuntoFinancieroServices;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -20,8 +18,6 @@ namespace nest.core.finanzas.Extensions
             {
                 cfg.RegisterServicesFromAssembly(typeof(CuentaCorrienteCrearCommand).Assembly);
             });
-            services.AddScoped<OrigenFinancieroService>();
-            services.AddScoped<PuntoFinancieroService>();
             return services;
         }
 

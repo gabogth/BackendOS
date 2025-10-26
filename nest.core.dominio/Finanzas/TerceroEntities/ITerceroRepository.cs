@@ -4,8 +4,8 @@ namespace nest.core.dominio.Finanzas.ClienteEntities
     {
         Task<Tercero> ObtenerPorId(int id);
         Task<List<Tercero>> ObtenerTodos();
-        Task<Tercero> Agregar(TerceroCrearDto entidad);
-        Task<Tercero> Modificar(int id, TerceroCrearDto entidad);
+        Task<Tercero> Agregar(Tercero entidad);
+        Task<Tercero> Modificar(Tercero entidad);
         Task Eliminar(int id);
     }
 }

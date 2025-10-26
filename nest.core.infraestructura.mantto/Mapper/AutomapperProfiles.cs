@@ -1,4 +1,5 @@
 using AutoMapper;
+using nest.core.aplicacion.mantto.Labores.Commands;
 using nest.core.dominio.Mantto.LaborEntities;
 using nest.core.dominio.Mantto.MantenimientoTipoEntities;
 using nest.core.dominio.Mantto.OrdenServicioCabeceraEntities;
@@ -15,7 +16,8 @@ namespace nest.core.infraestructura.mantto.Mapper
     {
         public AutomapperProfiles()
         {
-            CreateMap<LaborCrearDto, Labor>();
+            CreateMap<LaborCrearCommand, Labor>();
+            CreateMap<LaborModificarCommand, Labor>();
             CreateMap<MantenimientoTipoCrearDto, MantenimientoTipo>();
             CreateMap<OrdenServicioCabeceraCrearDto, OrdenServicioCabecera>();
             CreateMap<OrdenServicioMantenimientoExternoCrearDto, OrdenServicioMantenimientoExterno>();

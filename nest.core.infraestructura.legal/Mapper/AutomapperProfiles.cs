@@ -1,4 +1,5 @@
 using AutoMapper;
+using nest.core.aplicacion.legal.ContratoTipos.Commands;
 using nest.core.dominio.Legal.ContratoTipoEntities;
 using nest.core.dominio.Legal.ContratoCabeceraEntities;
 using nest.core.dominio.Legal.ContratoDetalleEntities;
@@ -10,7 +11,8 @@ namespace nest.core.infraestructura.legal.Mapper
     {
         public AutomapperProfiles()
         {
-            CreateMap<ContratoTipoCrearDto, ContratoTipo>();
+            CreateMap<ContratoTipoCrearCommand, ContratoTipo>();
+            CreateMap<ContratoTipoModificarCommand, ContratoTipo>();
             CreateMap<ContratoCabeceraCrearDto, ContratoCabecera>();
             CreateMap<ContratoDetalleCrearDto, ContratoDetalle>();
             CreateMap<ContratoPersonalCrearDto, ContratoPersonal>();

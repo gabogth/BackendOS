@@ -1,6 +1,5 @@
 using nest.core.aplicacion.legal;
 using nest.core.aplicacion.legal.ContratoServices;
-using nest.core.aplicacion.legal.ContratoTipoServices;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -12,7 +11,6 @@ namespace nest.core.legal.Extensions
         {
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
-            services.AddScoped<ContratoTipoService>();
             services.AddScoped<ContratoPersonalService>();
             return services;
         }

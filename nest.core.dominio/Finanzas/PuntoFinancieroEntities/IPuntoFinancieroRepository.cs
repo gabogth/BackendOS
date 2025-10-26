@@ -5,8 +5,8 @@ namespace nest.core.dominio.Finanzas.PuntoFinancieroEntities
         Task<PuntoFinanciero> ObtenerPorId(int id);
         Task<List<PuntoFinanciero>> ObtenerTodos();
         Task<List<PuntoFinanciero>> ObtenerActivos();
-        Task<PuntoFinanciero> Agregar(PuntoFinancieroCrearDto entidad);
-        Task<PuntoFinanciero> Modificar(int id, PuntoFinancieroCrearDto entidad);
+        Task<PuntoFinanciero> Agregar(PuntoFinanciero entidad);
+        Task<PuntoFinanciero> Modificar(PuntoFinanciero entidad);
         Task Eliminar(int id);
     }
 }
