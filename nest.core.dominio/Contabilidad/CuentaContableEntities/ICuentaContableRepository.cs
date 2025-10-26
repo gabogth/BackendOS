@@ -2,11 +2,11 @@ namespace nest.core.dominio.Contabilidad.CuentaContableEntities
 {
     public interface ICuentaContableRepository
     {
-        Task<CuentaContable> ObtenerPorId(int id);
+        Task<CuentaContable> ObtenerPorId(long id);
         Task<List<CuentaContable>> ObtenerTodos();
         Task<List<CuentaContable>> ObtenerActivos();
-        Task<CuentaContable> Agregar(CuentaContableCrearDto entidad);
-        Task<CuentaContable> Modificar(int id, CuentaContableCrearDto entidad);
-        Task Eliminar(int id);
+        Task<CuentaContable> Agregar(CuentaContable entidad);
+        Task<CuentaContable> Modificar(CuentaContable entidad);
+        Task Eliminar(long id);
     }
 }
