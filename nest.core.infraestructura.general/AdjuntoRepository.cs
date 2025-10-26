@@ -7,7 +7,7 @@ using nest.core.infraestructura.db.Utils;
 
 namespace nest.core.infraestructura.general
 {
-    public class AdjuntoRepository : CrudRepositoryBase<Adjunto, AdjuntoCrearDto, long>, IAdjuntoRepository
+    public class AdjuntoRepository : CrudRepositoryBase<Adjunto, long>, IAdjuntoRepository
     {
         public AdjuntoRepository(NestDbContext context, IMapper mapper) : base(context, mapper)
         {
@@ -15,8 +15,8 @@ namespace nest.core.infraestructura.general
 
         public Task<Adjunto> ObtenerPorId(long id) => GetByIdAsync(id);
         public Task<List<Adjunto>> ObtenerTodos() => GetAllAsync();
-        public Task<Adjunto> Agregar(AdjuntoCrearDto entry) => AddAsync(entry);
-        public Task<Adjunto> Modificar(long id, AdjuntoCrearDto entry) => UpdateAsync(id, entry);
+        public Task<Adjunto> Agregar(Adjunto entry) => AddAsync(entry);
+        public Task<Adjunto> Modificar(Adjunto entry) => UpdateAsync(entry);
         public Task Eliminar(long id) => DeleteAsync(id);
     }
 }

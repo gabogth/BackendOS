@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using nest.core.aplicacion.general.AdjuntoConfigProviderServices;
+using nest.core.aplicacion.general.AdjuntoConfigProviders.Commands;
+using nest.core.aplicacion.general.AdjuntoConfigProviders.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.AdjuntoProviderEntities;
 
@@ -18,13 +16,11 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class AdjuntoConfigProviderController : ControllerBase
     {
-        private readonly AdjuntoConfigProviderService service;
-        private readonly ILogger<AdjuntoConfigProviderController> logger;
+        private readonly ISender sender;
 
-        public AdjuntoConfigProviderController(AdjuntoConfigProviderService service, ILogger<AdjuntoConfigProviderController> logger)
+        public AdjuntoConfigProviderController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         /// <summary>
@@ -33,18 +29,10 @@ namespace nest.core.general.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<AdjuntoConfigProvider>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<AdjuntoConfigProvider>>> ObtenerTodos()
+        public async Task<ActionResult<List<AdjuntoConfigProvider>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -53,18 +41,10 @@ namespace nest.core.general.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(AdjuntoConfigProvider), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<AdjuntoConfigProvider>> ObtenerPorId(AdjuntoConfigProviderModuloEnum id)
+        public async Task<ActionResult<AdjuntoConfigProvider>> ObtenerPorId(AdjuntoConfigProviderModuloEnum id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -73,18 +53,10 @@ namespace nest.core.general.Controllers
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<AdjuntoConfigProvider>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<AdjuntoConfigProvider>>> ObtenerActivos()
+        public async Task<ActionResult<List<AdjuntoConfigProvider>>> ObtenerActivos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerActivos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerActivosQuery(), ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -93,18 +65,10 @@ namespace nest.core.general.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(AdjuntoConfigProvider), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<AdjuntoConfigProvider>> Agregar([FromBody] AdjuntoConfigProviderCrearDto registro)
+        public async Task<ActionResult<AdjuntoConfigProvider>> Agregar([FromBody] AdjuntoConfigProviderCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command, ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -113,18 +77,11 @@ namespace nest.core.general.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(AdjuntoConfigProvider), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<AdjuntoConfigProvider>> Modificar(AdjuntoConfigProviderModuloEnum id, [FromBody] AdjuntoConfigProviderCrearDto registro)
+        public async Task<ActionResult<AdjuntoConfigProvider>> Modificar(AdjuntoConfigProviderModuloEnum id, [FromBody] AdjuntoConfigProviderModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var data = await sender.Send(cmd, ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -133,18 +90,10 @@ namespace nest.core.general.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(AdjuntoConfigProviderModuloEnum id)
+        public async Task<ActionResult> Eliminar(AdjuntoConfigProviderModuloEnum id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            await sender.Send(new AdjuntoConfigProviderEliminarCommand(id), ct);
+            return Ok();
         }
     }
 }
