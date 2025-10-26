@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.mantto.OrdenTrabajoDetalleServices;
+using nest.core.aplicacion.mantto.OrdenTrabajoDetalles.Commands;
+using nest.core.aplicacion.mantto.OrdenTrabajoDetalles.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
 
@@ -15,7 +17,7 @@ namespace nest.core.mantto.Controllers
     [ApiController]
     public class OrdenTrabajoDetalleController : ControllerBase
     {
-        private readonly OrdenTrabajoDetalleService service;
+        private readonly ISender sender;
         private readonly ILogger<OrdenTrabajoDetalleController> logger;
 
         /// <summary>
@@ -23,9 +25,9 @@ namespace nest.core.mantto.Controllers
         /// </summary>
         /// <param name="service">Servicio de detalles de orden de trabajo.</param>
         /// <param name="logger">Logger para registrar eventos.</param>
-        public OrdenTrabajoDetalleController(OrdenTrabajoDetalleService service, ILogger<OrdenTrabajoDetalleController> logger)
+        public OrdenTrabajoDetalleController(ISender sender, ILogger<OrdenTrabajoDetalleController> logger)
         {
-            this.service = service;
+            this.sender = sender;
             this.logger = logger;
         }
 
@@ -41,7 +43,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await sender.Send(new ObtenerPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -63,7 +65,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorCabecera(ordenTrabajoCabeceraId);
+                var data = await sender.Send(new ObtenerPorCabeceraQuery(ordenTrabajoCabeceraId));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -81,11 +83,11 @@ namespace nest.core.mantto.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(OrdenTrabajoDetalle), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenTrabajoDetalle>> Agregar([FromBody] OrdenTrabajoDetalleCrearDto registro)
+        public async Task<ActionResult<OrdenTrabajoDetalle>> Agregar([FromBody] OrdenTrabajoDetalleCrearCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await sender.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -104,11 +106,12 @@ namespace nest.core.mantto.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(OrdenTrabajoDetalle), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenTrabajoDetalle>> Modificar(long id, [FromBody] OrdenTrabajoDetalleCrearDto registro)
+        public async Task<ActionResult<OrdenTrabajoDetalle>> Modificar(long id, [FromBody] OrdenTrabajoDetalleModificarCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var updatedCommand = command with { Id = id };
+                var data = await sender.Send(updatedCommand);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -130,7 +133,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await sender.Send(new OrdenTrabajoDetalleEliminarCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

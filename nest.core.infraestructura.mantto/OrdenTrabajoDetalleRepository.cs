@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace nest.core.infraestructura.mantto
 {
-    public class OrdenTrabajoDetalleRepository : CrudRepositoryBase<OrdenTrabajoDetalle, OrdenTrabajoDetalleCrearDto, long>, IOrdenTrabajoDetalleRepository
+    public class OrdenTrabajoDetalleRepository : CrudRepositoryBase<OrdenTrabajoDetalle, long>, IOrdenTrabajoDetalleRepository
     {
         public OrdenTrabajoDetalleRepository(NestDbContext context, IMapper mapper) : base(context, mapper)
         {
@@ -31,18 +31,18 @@ namespace nest.core.infraestructura.mantto
                 .ToListAsync();
         }
 
-        public Task<OrdenTrabajoDetalle> Agregar(OrdenTrabajoDetalleCrearDto dto) => AddAsync(dto);
+        public Task<OrdenTrabajoDetalle> Agregar(OrdenTrabajoDetalle dto) => AddAsync(dto);
 
-        public async Task<OrdenTrabajoDetalle[]> AgregarRange(OrdenTrabajoDetalleCrearDto[] dto)
+        public async Task<OrdenTrabajoDetalle[]> AgregarRange(OrdenTrabajoDetalle[] dto)
         {
             OrdenTrabajoDetalle[] results = await AddRangeAsync(dto);
             List<OrdenTrabajoDetalle> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
             return GetOrderedArrayFrom(completed, results);
         }
 
-        public Task<OrdenTrabajoDetalle> Modificar(long id, OrdenTrabajoDetalleCrearDto dto) => UpdateAsync(id, dto);
+        public Task<OrdenTrabajoDetalle> Modificar(OrdenTrabajoDetalle dto) => UpdateAsync(dto);
 
-        public async Task<OrdenTrabajoDetalle[]> ModificarRange((long id, OrdenTrabajoDetalleCrearDto dto)[] dto)
+        public async Task<OrdenTrabajoDetalle[]> ModificarRange(OrdenTrabajoDetalle[] dto)
         {
             OrdenTrabajoDetalle[] results = await UpdateRangeAsync(dto);
             List<OrdenTrabajoDetalle> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
@@ -53,7 +53,7 @@ namespace nest.core.infraestructura.mantto
 
         public Task EliminarRange(long[] ids) => DeleteRangeAsync(ids);
 
-        public async Task<OrdenTrabajoDetalle[]> FusionarRange(OrdenTrabajoDetalle[] originalEntities, (long id, OrdenTrabajoDetalleCrearDto dto)[] dto)
+        public async Task<OrdenTrabajoDetalle[]> FusionarRange(OrdenTrabajoDetalle[] originalEntities, OrdenTrabajoDetalle[] dto)
         {
             OrdenTrabajoDetalle[] results = await MergeRangeAsync(originalEntities, dto);
             List<OrdenTrabajoDetalle> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());

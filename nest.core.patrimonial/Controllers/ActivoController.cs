@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.patrimonial.ActivoServices;
+using nest.core.aplicacion.patrimonial.Activos.Commands;
+using nest.core.aplicacion.patrimonial.Activos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Patrimonial.ActivoEntities;
 
@@ -16,7 +18,7 @@ namespace nest.core.patrimonial.Controllers
     [Route("[controller]")]
     public class ActivoController : ControllerBase
     {
-        private readonly ActivoService service;
+        private readonly ISender sender;
         private readonly ILogger<ActivoController> logger;
 
         /// <summary>
@@ -24,9 +26,9 @@ namespace nest.core.patrimonial.Controllers
         /// </summary>
         /// <param name="service">Servicio de aplicación para la gestión de activos.</param>
         /// <param name="logger">Registrador para auditoría y trazabilidad de errores.</param>
-        public ActivoController(ActivoService service, ILogger<ActivoController> logger)
+        public ActivoController(ISender sender, ILogger<ActivoController> logger)
         {
-            this.service = service;
+            this.sender = sender;
             this.logger = logger;
         }
 
@@ -45,7 +47,7 @@ namespace nest.core.patrimonial.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await sender.Send(new ObtenerTodosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -71,7 +73,7 @@ namespace nest.core.patrimonial.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await sender.Send(new ObtenerPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -93,11 +95,11 @@ namespace nest.core.patrimonial.Controllers
         [ProducesResponseType(typeof(Activo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<Activo>> Agregar([FromBody] ActivoCrearDto registro)
+        public async Task<ActionResult<Activo>> Agregar([FromBody] ActivoCrearCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await sender.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -120,11 +122,12 @@ namespace nest.core.patrimonial.Controllers
         [ProducesResponseType(typeof(Activo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<Activo>> Modificar(long id, [FromBody] ActivoCrearDto registro)
+        public async Task<ActionResult<Activo>> Modificar(long id, [FromBody] ActivoModificarCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var updatedCommand = command with { Id = id };
+                var data = await sender.Send(updatedCommand);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -150,7 +153,7 @@ namespace nest.core.patrimonial.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await sender.Send(new ActivoEliminarCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using nest.core.aplicacion.patrimonial.UbicacionActivoServices;
+using nest.core.aplicacion.patrimonial.UbicacionActivos.Commands;
+using nest.core.aplicacion.patrimonial.UbicacionActivos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Patrimonial.UbicacionActivoEntities;
 
@@ -19,7 +18,7 @@ namespace nest.core.patrimonial.Controllers
     [Route("[controller]")]
     public class UbicacionActivoController : ControllerBase
     {
-        private readonly UbicacionActivoService service;
+        private readonly ISender sender;
         private readonly ILogger<UbicacionActivoController> logger;
 
         /// <summary>
@@ -27,9 +26,9 @@ namespace nest.core.patrimonial.Controllers
         /// </summary>
         /// <param name="service">Servicio de aplicación para gestionar ubicaciones de activos.</param>
         /// <param name="logger">Registrador para auditoría y trazabilidad.</param>
-        public UbicacionActivoController(UbicacionActivoService service, ILogger<UbicacionActivoController> logger)
+        public UbicacionActivoController(ISender sender, ILogger<UbicacionActivoController> logger)
         {
-            this.service = service;
+            this.sender = sender;
             this.logger = logger;
         }
 
@@ -48,7 +47,7 @@ namespace nest.core.patrimonial.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await sender.Send(new ObtenerTodosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -74,7 +73,7 @@ namespace nest.core.patrimonial.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorActivo(activoId);
+                var data = await sender.Send(new ObtenerPorActivoQuery(activoId));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -100,7 +99,7 @@ namespace nest.core.patrimonial.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await sender.Send(new ObtenerPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -122,11 +121,11 @@ namespace nest.core.patrimonial.Controllers
         [ProducesResponseType(typeof(UbicacionActivo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<UbicacionActivo>> Agregar([FromBody] UbicacionActivoCrearDto registro)
+        public async Task<ActionResult<UbicacionActivo>> Agregar([FromBody] UbicacionActivoCrearCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await sender.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -149,11 +148,12 @@ namespace nest.core.patrimonial.Controllers
         [ProducesResponseType(typeof(UbicacionActivo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<UbicacionActivo>> Modificar(long id, [FromBody] UbicacionActivoCrearDto registro)
+        public async Task<ActionResult<UbicacionActivo>> Modificar(long id, [FromBody] UbicacionActivoModificarCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var updatedCommand = command with { Id = id };
+                var data = await sender.Send(updatedCommand);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -179,7 +179,7 @@ namespace nest.core.patrimonial.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await sender.Send(new UbicacionActivoEliminarCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

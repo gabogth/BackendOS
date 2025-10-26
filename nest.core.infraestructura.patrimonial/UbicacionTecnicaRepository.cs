@@ -10,7 +10,7 @@ using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.patrimonial
 {
-    public class UbicacionTecnicaRepository : CachedRepositoryBase<UbicacionTecnica, UbicacionTecnicaCrearDto, long>, IUbicacionTecnicaRepository
+    public class UbicacionTecnicaRepository : CachedRepositoryBase<UbicacionTecnica, long>, IUbicacionTecnicaRepository
     {
         public UbicacionTecnicaRepository(NestDbContext context, IMapper mapper, ICacheRepository cache)
             : base(context, mapper, cache)
@@ -24,9 +24,9 @@ namespace nest.core.infraestructura.patrimonial
                 .AsNoTracking();
         }
 
-        public Task<UbicacionTecnica> Agregar(UbicacionTecnicaCrearDto entry) => AddAsync(entry);
+        public Task<UbicacionTecnica> Agregar(UbicacionTecnica entry) => AddAsync(entry);
         public Task Eliminar(long id) => DeleteAsync(id);
-        public Task<UbicacionTecnica> Modificar(long id, UbicacionTecnicaCrearDto entry) => UpdateAsync(id, entry);
+        public Task<UbicacionTecnica> Modificar(UbicacionTecnica entry) => UpdateAsync(entry);
         public async Task<UbicacionTecnica> ObtenerPorId(long id) => await GetByIdAsync(id);
         public async Task<List<UbicacionTecnica>> ObtenerTodos() => await GetAllAsync();
         public async Task<List<UbicacionTecnica>> ObtenerActivas()

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace nest.core.infraestructura.mantto
 {
-    public class OrdenTrabajoDetalleActivoRepository : CrudRepositoryBase<OrdenTrabajoDetalleActivo, OrdenTrabajoDetalleActivoCrearDto, long>, IOrdenTrabajoDetalleActivoRepository
+    public class OrdenTrabajoDetalleActivoRepository : CrudRepositoryBase<OrdenTrabajoDetalleActivo, long>, IOrdenTrabajoDetalleActivoRepository
     {
         public OrdenTrabajoDetalleActivoRepository(NestDbContext context, IMapper mapper) : base(context, mapper)
         {
@@ -35,18 +35,18 @@ namespace nest.core.infraestructura.mantto
                 .ToListAsync();
         }
 
-        public Task<OrdenTrabajoDetalleActivo> Agregar(OrdenTrabajoDetalleActivoCrearDto dto) => AddAsync(dto);
+        public Task<OrdenTrabajoDetalleActivo> Agregar(OrdenTrabajoDetalleActivo dto) => AddAsync(dto);
 
-        public async Task<OrdenTrabajoDetalleActivo[]> AgregarRange(OrdenTrabajoDetalleActivoCrearDto[] dto)
+        public async Task<OrdenTrabajoDetalleActivo[]> AgregarRange(OrdenTrabajoDetalleActivo[] dto)
         {
             OrdenTrabajoDetalleActivo[] results = await AddRangeAsync(dto);
             List<OrdenTrabajoDetalleActivo> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
             return GetOrderedArrayFrom(completed, results);
         }
 
-        public Task<OrdenTrabajoDetalleActivo> Modificar(long id, OrdenTrabajoDetalleActivoCrearDto dto) => UpdateAsync(id, dto);
+        public Task<OrdenTrabajoDetalleActivo> Modificar(OrdenTrabajoDetalleActivo dto) => UpdateAsync(dto);
 
-        public async Task<OrdenTrabajoDetalleActivo[]> ModificarRange((long id, OrdenTrabajoDetalleActivoCrearDto dto)[] dto)
+        public async Task<OrdenTrabajoDetalleActivo[]> ModificarRange(OrdenTrabajoDetalleActivo[] dto)
         {
             OrdenTrabajoDetalleActivo[] results = await UpdateRangeAsync(dto);
             List<OrdenTrabajoDetalleActivo> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
@@ -57,7 +57,7 @@ namespace nest.core.infraestructura.mantto
 
         public Task EliminarRange(long[] ids) => DeleteRangeAsync(ids);
 
-        public async Task<OrdenTrabajoDetalleActivo[]> FusionarRange(OrdenTrabajoDetalleActivo[] originalEntities, (long id, OrdenTrabajoDetalleActivoCrearDto dto)[] dto)
+        public async Task<OrdenTrabajoDetalleActivo[]> FusionarRange(OrdenTrabajoDetalleActivo[] originalEntities, OrdenTrabajoDetalleActivo[] dto)
         {
             OrdenTrabajoDetalleActivo[] results = await MergeRangeAsync(originalEntities, dto);
             List<OrdenTrabajoDetalleActivo> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());

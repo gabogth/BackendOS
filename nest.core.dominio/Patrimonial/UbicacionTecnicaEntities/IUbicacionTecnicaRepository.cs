@@ -8,8 +8,8 @@ namespace nest.core.dominio.Patrimonial.UbicacionTecnicaEntities
         Task<UbicacionTecnica> ObtenerPorId(long id);
         Task<List<UbicacionTecnica>> ObtenerTodos();
         Task<List<UbicacionTecnica>> ObtenerActivas();
-        Task<UbicacionTecnica> Agregar(UbicacionTecnicaCrearDto entry);
-        Task<UbicacionTecnica> Modificar(long id, UbicacionTecnicaCrearDto entry);
+        Task<UbicacionTecnica> Agregar(UbicacionTecnica entry);
+        Task<UbicacionTecnica> Modificar(UbicacionTecnica entry);
         Task Eliminar(long id);
     }
 }
