@@ -9,7 +9,7 @@ using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.general
 {
-    public class AdjuntoTipoRepository : CachedRepositoryBase<AdjuntoTipo, AdjuntoTipoCrearDto, AdjuntoTipoEnum>, IAdjuntoTipoRepository
+    public class AdjuntoTipoRepository : CachedRepositoryBase<AdjuntoTipo, AdjuntoTipoEnum>, IAdjuntoTipoRepository
     {
         public AdjuntoTipoRepository(NestDbContext context, IMapper mapper, ICacheRepository cache) : base(context, mapper, cache)
         {
@@ -19,8 +19,8 @@ namespace nest.core.infraestructura.general
         public async Task<List<AdjuntoTipo>> ObtenerTodos() => await GetAllAsync();
         public async Task<List<AdjuntoTipo>> ObtenerActivos() =>
             (await GetCachedListAsync()).Where(x => x.Activo).ToList();
-        public Task<AdjuntoTipo> Agregar(AdjuntoTipoCrearDto entry) => AddAsync(entry);
-        public Task<AdjuntoTipo> Modificar(AdjuntoTipoEnum id, AdjuntoTipoCrearDto entry) => UpdateAsync(id, entry);
+        public Task<AdjuntoTipo> Agregar(AdjuntoTipo entry) => AddAsync(entry);
+        public Task<AdjuntoTipo> Modificar(AdjuntoTipo entry) => UpdateAsync(entry);
         public Task Eliminar(AdjuntoTipoEnum id) => DeleteAsync(id);
     }
 }

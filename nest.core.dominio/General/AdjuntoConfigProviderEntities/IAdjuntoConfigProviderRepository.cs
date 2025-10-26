@@ -5,8 +5,8 @@ namespace nest.core.dominio.General.AdjuntoProviderEntities
         Task<AdjuntoConfigProvider> ObtenerPorId(AdjuntoConfigProviderModuloEnum id);
         Task<List<AdjuntoConfigProvider>> ObtenerTodos();
         Task<List<AdjuntoConfigProvider>> ObtenerActivos();
-        Task<AdjuntoConfigProvider> Agregar(AdjuntoConfigProviderCrearDto entry);
-        Task<AdjuntoConfigProvider> Modificar(AdjuntoConfigProviderModuloEnum id, AdjuntoConfigProviderCrearDto entry);
+        Task<AdjuntoConfigProvider> Agregar(AdjuntoConfigProvider entry);
+        Task<AdjuntoConfigProvider> Modificar(AdjuntoConfigProvider entry);
         Task Eliminar(AdjuntoConfigProviderModuloEnum id);
     }
 }

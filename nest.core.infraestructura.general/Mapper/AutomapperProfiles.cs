@@ -1,4 +1,6 @@
 using AutoMapper;
+using nest.core.aplicacion.general.AdjuntoConfigProviders.Commands;
+using nest.core.aplicacion.general.AdjuntoTipos.Commands;
 using nest.core.aplicacion.general.Departamentos.Commands;
 using nest.core.aplicacion.general.DocumentoIdentidadTipos.Commands;
 using nest.core.aplicacion.general.DocumentoTipos.Commands;
@@ -6,6 +8,7 @@ using nest.core.aplicacion.general.LicenciasConducir.Commands;
 using nest.core.aplicacion.general.Paises.Commands;
 using nest.core.aplicacion.general.PersonaAdjuntos.Commands;
 using nest.core.aplicacion.general.Provincias.Commands;
+using nest.core.aplicacion.general.Sexos.Commands;
 using nest.core.dominio.General.AdjuntoEntities;
 using nest.core.dominio.General.AdjuntoProviderEntities;
 using nest.core.dominio.General.AdjuntoTipoEntities;
@@ -26,15 +29,16 @@ namespace nest.core.infraestructura.general.Mapper
     {
         public AutomapperProfiles()
         {
-            CreateMap<AdjuntoCrearDto, Adjunto>();
-            CreateMap<AdjuntoConfigProviderCrearDto, AdjuntoConfigProvider>();
+            CreateMap<AdjuntoConfigProviderCrearCommand, AdjuntoConfigProvider>();
+            CreateMap<AdjuntoConfigProviderModificarCommand, AdjuntoConfigProvider>();
             CreateMap<PersonaCrearDto, Persona>();
             CreateMap<DepartamentoCrearCommand, Departamento>();
             CreateMap<DepartamentoModificarCommand, Departamento>();
             CreateMap<ProvinciaCrearCommand, Provincia>();
             CreateMap<ProvinciaModificarCommand, Provincia>();
             CreateMap<DistritoCrearDto, Distrito>();
-            CreateMap<AdjuntoTipoCrearDto, AdjuntoTipo>();
+            CreateMap<AdjuntoTipoCrearCommand, AdjuntoTipo>();
+            CreateMap<AdjuntoTipoModificarCommand, AdjuntoTipo>();
             CreateMap<DocumentoIdentidadTipoCrearCommand, DocumentoIdentidadTipo>();
             CreateMap<DocumentoIdentidadTipoModificarCommand, DocumentoIdentidadTipo>();
             CreateMap<DocumentoTipoCrearCommand, DocumentoTipo>();
@@ -45,7 +49,8 @@ namespace nest.core.infraestructura.general.Mapper
             CreateMap<PersonaAdjuntoModificarCommand, PersonaAdjunto>();
             CreateMap<PaisCrearCommand, Pais>();
             CreateMap<PaisModificarCommand, Pais>();
-            CreateMap<SexoCrearDto, Sexo>();
+            CreateMap<SexoCrearCommand, Sexo>();
+            CreateMap<SexoModificarCommand, Sexo>();
         }
     }
 }

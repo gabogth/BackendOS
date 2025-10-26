@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.SexoServices;
+using nest.core.aplicacion.general.Sexos.Commands;
+using nest.core.aplicacion.general.Sexos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.SexoEntities;
 
@@ -11,92 +13,51 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class SexoController : ControllerBase
     {
-        private readonly SexoService service;
-        private readonly ILogger<SexoController> logger;
-        public SexoController(SexoService service, ILogger<SexoController> logger)
+        private readonly ISender sender;
+        public SexoController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
         [HttpGet]
         [ProducesResponseType(typeof(List<Sexo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Sexo>>> ObtenerTodos()
+        public async Task<ActionResult<List<Sexo>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(data);
         }
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Sexo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Sexo>> ObtenerPorId(byte id)
+        public async Task<ActionResult<Sexo>> ObtenerPorId(byte id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(data);
         }
         [HttpPost]
         [ProducesResponseType(typeof(Sexo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Sexo>> Agregar([FromBody] SexoCrearDto registro)
+        public async Task<ActionResult<Sexo>> Agregar([FromBody] SexoCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command, ct);
+            return Ok(data);
         }
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Sexo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Sexo>> Modificar(byte id, [FromBody] SexoCrearDto registro)
+        public async Task<ActionResult<Sexo>> Modificar(byte id, [FromBody] SexoModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var data = await sender.Send(cmd, ct);
+            return Ok(data);
         }
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(byte id)
+        public async Task<ActionResult> Eliminar(byte id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new SexoEliminarCommand(id), ct);
+            return Ok();
         }
     }
 }
