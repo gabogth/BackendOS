@@ -5,8 +5,8 @@ namespace nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities
         Task<EstructuraOrganizacionalTipo> ObtenerPorId(int id);
         Task<List<EstructuraOrganizacionalTipo>> ObtenerTodos();
         Task<List<EstructuraOrganizacionalTipo>> ObtenerActivos();
-        Task<EstructuraOrganizacionalTipo> Agregar(EstructuraOrganizacionalTipoCrearDto entidad);
-        Task<EstructuraOrganizacionalTipo> Modificar(int id, EstructuraOrganizacionalTipoCrearDto entidad);
+        Task<EstructuraOrganizacionalTipo> Agregar(EstructuraOrganizacionalTipo entidad);
+        Task<EstructuraOrganizacionalTipo> Modificar(EstructuraOrganizacionalTipo entidad);
         Task Eliminar(int id);
     }
 }

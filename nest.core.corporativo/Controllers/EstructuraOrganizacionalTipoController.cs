@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.corporativo.EstructuraOrganizacionalTipoServices;
+using nest.core.aplicacion.corporativo.EstructuraOrganizacionalTipos.Commands;
+using nest.core.aplicacion.corporativo.EstructuraOrganizacionalTipos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Corporativo.EstructuraOrganizacionalTipoEntities;
 
@@ -14,115 +16,65 @@ namespace nest.core.corporativo.Controllers
     [Route("[controller]")]
     public class EstructuraOrganizacionalTipoController : ControllerBase
     {
-        private readonly EstructuraOrganizacionalTipoService service;
-        private readonly ILogger<EstructuraOrganizacionalTipoController> logger;
+        private readonly ISender sender;
 
-        public EstructuraOrganizacionalTipoController(EstructuraOrganizacionalTipoService service, ILogger<EstructuraOrganizacionalTipoController> logger)
+        public EstructuraOrganizacionalTipoController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(List<EstructuraOrganizacionalTipo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<EstructuraOrganizacionalTipo>>> ObtenerTodos()
+        public async Task<ActionResult<List<EstructuraOrganizacionalTipo>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidades = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(entidades);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(EstructuraOrganizacionalTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<EstructuraOrganizacionalTipo>> ObtenerPorId(int id)
+        public async Task<ActionResult<EstructuraOrganizacionalTipo?>> ObtenerPorId([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(entidad);
         }
 
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<EstructuraOrganizacionalTipo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<EstructuraOrganizacionalTipo>>> ObtenerActivos()
+        public async Task<ActionResult<List<EstructuraOrganizacionalTipo>>> ObtenerActivos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerActivos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidades = await sender.Send(new ObtenerActivosQuery(), ct);
+            return Ok(entidades);
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(EstructuraOrganizacionalTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<EstructuraOrganizacionalTipo>> Agregar([FromBody] EstructuraOrganizacionalTipoCrearDto registro)
+        public async Task<ActionResult<EstructuraOrganizacionalTipo>> Agregar([FromBody] EstructuraOrganizacionalTipoCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command, ct);
+            return Ok(entidad);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(EstructuraOrganizacionalTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<EstructuraOrganizacionalTipo>> Modificar(int id, [FromBody] EstructuraOrganizacionalTipoCrearDto registro)
+        public async Task<ActionResult<EstructuraOrganizacionalTipo>> Modificar([FromRoute] int id, [FromBody] EstructuraOrganizacionalTipoModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command with { Id = id }, ct);
+            return Ok(entidad);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Eliminar([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new EstructuraOrganizacionalTipoEliminarCommand(id), ct);
+            return Ok(true);
         }
     }
 }
