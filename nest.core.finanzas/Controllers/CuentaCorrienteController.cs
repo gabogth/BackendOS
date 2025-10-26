@@ -1,128 +1,78 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.finanzas.CuentaCorrienteServices;
+using nest.core.aplicacion.finanzas.CuentaCorriente.Commands;
+using nest.core.aplicacion.finanzas.CuentaCorriente.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Finanzas.CuentaCorrienteEntities;
 
 namespace nest.core.finanzas.Controllers
 {
-    /// <summary>
-    /// Controlador para la gestión de cuentas corrientes.
-    /// </summary>
     [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class CuentaCorrienteController : ControllerBase
     {
-        private readonly CuentaCorrienteService service;
-        private readonly ILogger<CuentaCorrienteController> logger;
+        private readonly ISender sender;
 
-        public CuentaCorrienteController(CuentaCorrienteService service, ILogger<CuentaCorrienteController> logger)
+        public CuentaCorrienteController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(List<CuentaCorriente>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<CuentaCorriente>>> ObtenerTodos()
+        public async Task<ActionResult<List<CuentaCorriente>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(data);
         }
 
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<CuentaCorriente>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<CuentaCorriente>>> ObtenerActivos()
+        public async Task<ActionResult<List<CuentaCorriente>>> ObtenerActivos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerActivos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerActivosQuery(), ct);
+            return Ok(data);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(CuentaCorriente), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<CuentaCorriente>> ObtenerPorId(int id)
+        public async Task<ActionResult<CuentaCorriente>> ObtenerPorId([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(data);
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(CuentaCorriente), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<CuentaCorriente>> Agregar([FromBody] CuentaCorrienteCrearDto registro)
+        public async Task<ActionResult<CuentaCorriente>> Agregar([FromBody] CuentaCorrienteCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command, ct);
+            return Ok(data);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(CuentaCorriente), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<CuentaCorriente>> Modificar(int id, [FromBody] CuentaCorrienteCrearDto registro)
+        public async Task<ActionResult<CuentaCorriente>> Modificar([FromRoute] int id, [FromBody] CuentaCorrienteModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var data = await sender.Send(cmd, ct);
+            return Ok(data);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Eliminar([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new CuentaCorrienteEliminarCommand(id), ct);
+            return Ok(true);
         }
     }
 }

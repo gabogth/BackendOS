@@ -1,11 +1,10 @@
+using MediatR;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.finanzas;
-using nest.core.aplicacion.finanzas.CuentaCorrienteServices;
-using nest.core.aplicacion.finanzas.EntidadFinancieraServices;
-using nest.core.aplicacion.finanzas.MonedaServices;
+using nest.core.aplicacion.finanzas.CuentaCorriente.Commands;
 using nest.core.aplicacion.finanzas.OrigenFinancieroServices;
 using nest.core.aplicacion.finanzas.PuntoFinancieroServices;
-using nest.core.aplicacion.finanzas.TerceroServices;
-using nest.core.aplicacion.finanzas.FinancieroServices;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -17,15 +16,15 @@ namespace nest.core.finanzas.Extensions
         {
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
-            services.AddScoped<CuentaCorrienteService>();
-            services.AddScoped<EntidadFinancieraService>();
-            services.AddScoped<MonedaService>();
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(CuentaCorrienteCrearCommand).Assembly);
+            });
             services.AddScoped<OrigenFinancieroService>();
             services.AddScoped<PuntoFinancieroService>();
-            services.AddScoped<TerceroService>();
-            services.AddScoped<FinancieroService>();
             return services;
         }
+
         private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)
         {
             bool useRedis = configuration.GetValue<bool>($"RedisConfig:Enabled");

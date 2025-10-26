@@ -1,4 +1,5 @@
 using AutoMapper;
+using nest.core.aplicacion.costos.CentroDeCostos.Commands;
 using nest.core.dominio.Costos.CentroDeCostosEntities;
 
 namespace nest.core.infraestructura.costos.Mapper
@@ -7,7 +8,8 @@ namespace nest.core.infraestructura.costos.Mapper
     {
         public AutomapperProfiles()
         {
-            CreateMap<CentroDeCostosCrearDto, CentroDeCostos>();
+            CreateMap<CentroDeCostosCrearCommand, CentroDeCostos>();
+            CreateMap<CentroDeCostosModificarCommand, CentroDeCostos>();
         }
     }
 }

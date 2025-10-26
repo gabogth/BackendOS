@@ -5,8 +5,8 @@ namespace nest.core.dominio.Costos.CentroDeCostosEntities
         Task<CentroDeCostos> ObtenerPorId(int id);
         Task<List<CentroDeCostos>> ObtenerTodos();
         Task<List<CentroDeCostos>> ObtenerActivos();
-        Task<CentroDeCostos> Agregar(CentroDeCostosCrearDto entry);
-        Task<CentroDeCostos> Modificar(int id, CentroDeCostosCrearDto entry);
+        Task<CentroDeCostos> Agregar(CentroDeCostos entry);
+        Task<CentroDeCostos> Modificar(CentroDeCostos entry);
         Task Eliminar(int id);
     }
 }

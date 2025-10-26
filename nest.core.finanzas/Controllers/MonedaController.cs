@@ -1,111 +1,69 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.finanzas.MonedaServices;
+using nest.core.aplicacion.finanzas.Moneda.Commands;
+using nest.core.aplicacion.finanzas.Moneda.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Finanzas.MonedaEntities;
 
 namespace nest.core.finanzas.Controllers
 {
-    /// <summary>
-    /// Controlador para la gestión de monedas.
-    /// </summary>
     [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class MonedaController : ControllerBase
     {
-        private readonly MonedaService service;
-        private readonly ILogger<MonedaController> logger;
+        private readonly ISender sender;
 
-        public MonedaController(MonedaService service, ILogger<MonedaController> logger)
+        public MonedaController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(List<Moneda>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Moneda>>> ObtenerTodos()
+        public async Task<ActionResult<List<Moneda>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(data);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Moneda), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Moneda>> ObtenerPorId(int id)
+        public async Task<ActionResult<Moneda>> ObtenerPorId([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(data);
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(Moneda), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Moneda>> Agregar([FromBody] MonedaCrearDto registro)
+        public async Task<ActionResult<Moneda>> Agregar([FromBody] MonedaCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command, ct);
+            return Ok(data);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Moneda), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Moneda>> Modificar(int id, [FromBody] MonedaCrearDto registro)
+        public async Task<ActionResult<Moneda>> Modificar([FromRoute] int id, [FromBody] MonedaModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var data = await sender.Send(cmd, ct);
+            return Ok(data);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Eliminar([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new MonedaEliminarCommand(id), ct);
+            return Ok(true);
         }
     }
 }

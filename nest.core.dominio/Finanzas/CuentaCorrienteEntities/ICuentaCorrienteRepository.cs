@@ -5,8 +5,8 @@ namespace nest.core.dominio.Finanzas.CuentaCorrienteEntities
         Task<CuentaCorriente> ObtenerPorId(int id);
         Task<List<CuentaCorriente>> ObtenerTodos();
         Task<List<CuentaCorriente>> ObtenerActivos();
-        Task<CuentaCorriente> Agregar(CuentaCorrienteCrearDto entidad);
-        Task<CuentaCorriente> Modificar(int id, CuentaCorrienteCrearDto entidad);
+        Task<CuentaCorriente> Agregar(CuentaCorriente entry);
+        Task<CuentaCorriente> Modificar(CuentaCorriente entry);
         Task Eliminar(int id);
     }
 }
