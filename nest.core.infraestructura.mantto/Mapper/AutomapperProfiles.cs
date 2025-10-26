@@ -5,6 +5,9 @@ using nest.core.aplicacion.mantto.OrdenServicioCabeceras.Commands;
 using nest.core.aplicacion.mantto.OrdenServicioMantenimientoExternos.Commands;
 using nest.core.aplicacion.mantto.OrdenServicioTipos.Commands;
 using nest.core.aplicacion.mantto.OrdenTrabajoCabeceras.Commands;
+using nest.core.aplicacion.mantto.OrdenTrabajoDetalleActivos.Commands;
+using nest.core.aplicacion.mantto.OrdenTrabajoDetalles.Commands;
+using nest.core.aplicacion.mantto.OrdenTrabajoPersonales.Commands;
 using nest.core.dominio.Mantto.LaborEntities;
 using nest.core.dominio.Mantto.MantenimientoTipoEntities;
 using nest.core.dominio.Mantto.OrdenServicioCabeceraEntities;
@@ -33,13 +36,16 @@ namespace nest.core.infraestructura.mantto.Mapper
             CreateMap<OrdenServicioMantenimientoExternoModificarCommand, OrdenServicioMantenimientoExterno>();
             CreateMap<OrdenServicioTipoCrearCommand, OrdenServicioTipo>();
             CreateMap<OrdenServicioTipoModificarCommand, OrdenServicioTipo>();
-            CreateMap<OrdenTrabajoCabeceraCrearDto, OrdenTrabajoCabecera>();
             CreateMap<OrdenTrabajoCabeceraCrearCommand, OrdenTrabajoCabecera>();
             CreateMap<OrdenTrabajoCabeceraModificarCommand, OrdenTrabajoCabecera>();
-            CreateMap<OrdenTrabajoDetalleCrearDto, OrdenTrabajoDetalle>();
-            CreateMap<OrdenTrabajoPersonalCrearDto, OrdenTrabajoPersonal>();
-            CreateMap<OrdenTrabajoDetalleActivoCrearDto, OrdenTrabajoDetalleActivo>()
+            CreateMap<OrdenTrabajoDetalleCrearCommand, OrdenTrabajoDetalle>();
+            CreateMap<OrdenTrabajoDetalleModificarCommand, OrdenTrabajoDetalle>();
+            CreateMap<OrdenTrabajoPersonalCrearCommand, OrdenTrabajoPersonal>();
+            CreateMap<OrdenTrabajoPersonalModificarCommand, OrdenTrabajoPersonal>();
+            CreateMap<OrdenTrabajoDetalleActivoCrearCommand, OrdenTrabajoDetalleActivo>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.OrdenTrabajoDetalleId));
+            CreateMap<OrdenTrabajoDetalleActivoModificarCommand, OrdenTrabajoDetalleActivo>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

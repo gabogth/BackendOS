@@ -1,9 +1,8 @@
+using FluentValidation;
 using nest.core.aplicacion.mantto;
 using nest.core.aplicacion.mantto.OrdenServicio;
 using nest.core.aplicacion.mantto.OrdenTrabajo;
-using nest.core.aplicacion.mantto.OrdenTrabajoDetalleActivoServices;
-using nest.core.aplicacion.mantto.OrdenTrabajoDetalleServices;
-using nest.core.aplicacion.mantto.OrdenTrabajoPersonalServices;
+using nest.core.aplicacion.mantto.OrdenTrabajo.Behaviors;
 using nest.core.aplicacion.mantto.MantenimientoTipos.Commands;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
@@ -20,11 +19,9 @@ namespace nest.core.mantto.Extensions
             {
                 cfg.RegisterServicesFromAssembly(typeof(MantenimientoTipoCrearCommand).Assembly);
             });
+            services.AddValidatorsFromAssemblyContaining<OrdenTrabajoMantenimientoExternoRegistroValidator>();
             services.AddScoped<MantenimientoExternoService>();
             services.AddScoped<OrdenTrabajoMantenimientoExternoService>();
-            services.AddScoped<OrdenTrabajoDetalleService>();
-            services.AddScoped<OrdenTrabajoPersonalService>();
-            services.AddScoped<OrdenTrabajoDetalleActivoService>();
             return services;
         }
         private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)

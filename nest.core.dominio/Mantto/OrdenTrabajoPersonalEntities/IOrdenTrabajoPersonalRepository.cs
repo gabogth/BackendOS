@@ -7,12 +7,12 @@ namespace nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities
         Task<OrdenTrabajoPersonal> ObtenerPorId(long id);
         Task<List<OrdenTrabajoPersonal>> ObtenerPorIds(List<long> ids);
         Task<List<OrdenTrabajoPersonal>> ObtenerPorCabecera(long ordenTrabajoCabeceraId);
-        Task<OrdenTrabajoPersonal> Agregar(OrdenTrabajoPersonalCrearDto dto);
-        Task<OrdenTrabajoPersonal[]> AgregarRange(OrdenTrabajoPersonalCrearDto[] dto);
-        Task<OrdenTrabajoPersonal> Modificar(long id, OrdenTrabajoPersonalCrearDto dto);
-        Task<OrdenTrabajoPersonal[]> ModificarRange((long id, OrdenTrabajoPersonalCrearDto dto)[] dto);
+        Task<OrdenTrabajoPersonal> Agregar(OrdenTrabajoPersonal entity);
+        Task<OrdenTrabajoPersonal[]> AgregarRange(OrdenTrabajoPersonal[] entities);
+        Task<OrdenTrabajoPersonal> Modificar(OrdenTrabajoPersonal entity);
+        Task<OrdenTrabajoPersonal[]> ModificarRange(OrdenTrabajoPersonal[] entities);
         Task Eliminar(long id);
         Task EliminarRange(long[] ids);
-        Task<OrdenTrabajoPersonal[]> FusionarRange(OrdenTrabajoPersonal[] originalEntities, (long id, OrdenTrabajoPersonalCrearDto dto)[] dto);
+        Task<OrdenTrabajoPersonal[]> FusionarRange(OrdenTrabajoPersonal[] originalEntities, OrdenTrabajoPersonal[] entities);
     }
 }

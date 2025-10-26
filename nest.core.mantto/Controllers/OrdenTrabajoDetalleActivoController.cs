@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.mantto.OrdenTrabajoDetalleActivoServices;
+using nest.core.aplicacion.mantto.OrdenTrabajoDetalleActivos.Commands;
+using nest.core.aplicacion.mantto.OrdenTrabajoDetalleActivos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 
@@ -14,7 +16,7 @@ namespace nest.core.mantto.Controllers
     [ApiController]
     public class OrdenTrabajoDetalleActivoController : ControllerBase
     {
-        private readonly OrdenTrabajoDetalleActivoService service;
+        private readonly ISender sender;
         private readonly ILogger<OrdenTrabajoDetalleActivoController> logger;
 
         /// <summary>
@@ -22,9 +24,9 @@ namespace nest.core.mantto.Controllers
         /// </summary>
         /// <param name="service">Servicio de dominio para los activos.</param>
         /// <param name="logger">Logger para auditoría.</param>
-        public OrdenTrabajoDetalleActivoController(OrdenTrabajoDetalleActivoService service, ILogger<OrdenTrabajoDetalleActivoController> logger)
+        public OrdenTrabajoDetalleActivoController(ISender sender, ILogger<OrdenTrabajoDetalleActivoController> logger)
         {
-            this.service = service;
+            this.sender = sender;
             this.logger = logger;
         }
 
@@ -40,7 +42,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await sender.Send(new ObtenerPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -62,7 +64,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorDetalle(ordenTrabajoDetalleId);
+                var data = await sender.Send(new ObtenerPorDetalleQuery(ordenTrabajoDetalleId));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -80,11 +82,11 @@ namespace nest.core.mantto.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(OrdenTrabajoDetalleActivo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenTrabajoDetalleActivo>> Agregar([FromBody] OrdenTrabajoDetalleActivoCrearDto registro)
+        public async Task<ActionResult<OrdenTrabajoDetalleActivo>> Agregar([FromBody] OrdenTrabajoDetalleActivoCrearCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await sender.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -103,11 +105,12 @@ namespace nest.core.mantto.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(OrdenTrabajoDetalleActivo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenTrabajoDetalleActivo>> Modificar(long id, [FromBody] OrdenTrabajoDetalleActivoCrearDto registro)
+        public async Task<ActionResult<OrdenTrabajoDetalleActivo>> Modificar(long id, [FromBody] OrdenTrabajoDetalleActivoModificarCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var updatedCommand = command with { Id = id };
+                var data = await sender.Send(updatedCommand);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -129,7 +132,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await sender.Send(new OrdenTrabajoDetalleActivoEliminarCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

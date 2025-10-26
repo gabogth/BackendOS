@@ -1,9 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.patrimonial;
-using nest.core.aplicacion.patrimonial.ActivoServices;
-using nest.core.aplicacion.patrimonial.UbicacionActivoServices;
-using nest.core.aplicacion.patrimonial.UbicacionTecnicaServices;
+using nest.core.aplicacion.patrimonial.Activos.Commands;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -15,9 +13,10 @@ namespace nest.core.patrimonial.Extensions
         {
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
-            services.AddScoped<ActivoService>();
-            services.AddScoped<UbicacionActivoService>();
-            services.AddScoped<UbicacionTecnicaService>();
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(ActivoCrearCommand).Assembly);
+            });
             return services;
         }
 

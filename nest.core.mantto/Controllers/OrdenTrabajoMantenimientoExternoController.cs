@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using nest.core.aplicacion.mantto.OrdenTrabajo;
+using nest.core.aplicacion.mantto.OrdenTrabajo.Commands;
 using nest.core.dominio;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
-using nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities;
 
 namespace nest.core.mantto.Controllers
 {
@@ -105,7 +105,7 @@ namespace nest.core.mantto.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(OrdenTrabajoCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenTrabajoCabecera>> Agregar([FromBody] OrdenTrabajoCabecera_MantenimientoExternoCrearDto registro)
+        public async Task<ActionResult<OrdenTrabajoCabecera>> Agregar([FromBody] OrdenTrabajoMantenimientoExternoRegistroCommand registro)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace nest.core.mantto.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(OrdenTrabajoCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenTrabajoCabecera>> Modificar(long id, [FromBody] OrdenTrabajoCabecera_MantenimientoExternoCrearDto registro)
+        public async Task<ActionResult<OrdenTrabajoCabecera>> Modificar(long id, [FromBody] OrdenTrabajoMantenimientoExternoRegistroCommand registro)
         {
             try
             {
