@@ -4,8 +4,8 @@ namespace nest.core.dominio.General.DepartamentoEntites
     {
         Task<Departamento> ObtenerPorId(int id);
         Task<List<Departamento>> ObtenerTodos();
-        Task<Departamento> Agregar(DepartamentoCrearDto entry);
-        Task<Departamento> Modificar(int id, DepartamentoCrearDto entry);
+        Task<Departamento> Agregar(Departamento entry);
+        Task<Departamento> Modificar(Departamento entry);
         Task Eliminar(int id);
     }
 }
