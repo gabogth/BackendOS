@@ -4,6 +4,7 @@ using nest.core.aplicacion.rrhh.GrupoTrabajoPersonas.Commands;
 using nest.core.aplicacion.rrhh.HorarioDetalleEventos.Commands;
 using nest.core.aplicacion.rrhh.HorarioDetalles.Commands;
 using nest.core.aplicacion.rrhh.Personales.Commands;
+using nest.core.aplicacion.rrhh.RegistroAsistenciaPoliticas.Commands;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.GrupoTrabajoEntities;
 using nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities;
@@ -43,7 +44,8 @@ public class AutomapperProfiles : Profile
         CreateMap<RegistroAsistenciaOrdenTrabajoCrearDto, RegistroAsistenciaOrdenTrabajo>()
             .ForMember(dest => dest.RegistroAsistencia, opt => opt.Ignore())
             .ForMember(dest => dest.OrdenTrabajoCabecera, opt => opt.Ignore());
-        CreateMap<RegistroAsistenciaPoliticaCrearDto, RegistroAsistenciaPolitica>();
+        CreateMap<RegistroAsistenciaPoliticaCrearCommand, RegistroAsistenciaPolitica>();
+        CreateMap<RegistroAsistenciaPoliticaModificarCommand, RegistroAsistenciaPolitica>();
         CreateMap<GrupoTrabajoPersonaCrearCommand, GrupoTrabajoPersona>();
         CreateMap<GrupoTrabajoPersonaModificarCommand, GrupoTrabajoPersona>();
         CreateMap<GrupoTrabajoPersonaCrearDto, GrupoTrabajoPersona>()

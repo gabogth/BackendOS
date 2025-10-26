@@ -4,8 +4,8 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities
     {
         Task<RegistroAsistenciaPolitica> ObtenerPorId(long id);
         Task<List<RegistroAsistenciaPolitica>> ObtenerTodos();
-        Task<RegistroAsistenciaPolitica> Agregar(RegistroAsistenciaPoliticaCrearDto entidad);
-        Task<RegistroAsistenciaPolitica> Modificar(long id, RegistroAsistenciaPoliticaCrearDto entidad);
+        Task<RegistroAsistenciaPolitica> Agregar(RegistroAsistenciaPolitica entry);
+        Task<RegistroAsistenciaPolitica> Modificar(RegistroAsistenciaPolitica entry);
         Task Eliminar(long id);
     }
 }
