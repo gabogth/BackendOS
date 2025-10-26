@@ -1,7 +1,9 @@
-﻿using nest.core.aplicacion.security;
-using nest.core.aplicacion.security.Aplicacion;
+using FluentValidation;
+using MediatR;
+using nest.core.aplicacion.security;
+using nest.core.aplicacion.security.Formularios.Behaviors;
+using nest.core.aplicacion.security.Formularios.Commands;
 using nest.core.aplicacion.security.Login;
-using nest.core.aplicacion.security.Security;
 using nest.core.aplicacion.security.UsuarioEmpresaServices;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
@@ -14,18 +16,15 @@ namespace nest.core.security.Extensions
         {
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(FormularioCrearCommand).Assembly));
+            services.AddValidatorsFromAssemblyContaining<FormularioCrearValidator>();
             services.AddScoped<LoginUseCase>();
-            services.AddScoped<ModuloService>();
-            services.AddScoped<FormularioService>();
-            services.AddScoped<RoleService>();
-            services.AddScoped<RoleClaimsService>();
             services.AddScoped<UsuarioService>();
-            services.AddScoped<RoleUsuarioService>();
             services.AddScoped<UsuarioEmpresaService>();
             return services;
         }
 
-        private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration) 
+        private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)
         {
             bool useRedis = configuration.GetValue<bool>($"RedisConfig:Enabled");
             if (useRedis)
