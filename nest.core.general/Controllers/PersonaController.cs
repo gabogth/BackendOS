@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.PersonaServices;
+using nest.core.aplicacion.general.Personas.Commands;
+using nest.core.aplicacion.general.Personas.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.PersonaEntities;
 
@@ -14,115 +16,66 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class PersonaController : ControllerBase
     {
-        private readonly PersonaService service;
-        private readonly ILogger<PersonaController> logger;
+        private readonly ISender sender;
 
-        public PersonaController(PersonaService service, ILogger<PersonaController> logger)
+        public PersonaController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(List<Persona>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Persona>>> ObtenerTodos()
+        public async Task<ActionResult<List<Persona>>> ObtenerTodos([FromBody] ObtenerTodosQuery command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command);
+            return Ok(entidad);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> ObtenerPorId(int id)
+        public async Task<ActionResult<Persona>> ObtenerPorId([FromBody] ObtenerPorIdQuery command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command);
+            return Ok(entidad);
         }
 
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<Persona>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Persona>>> ObtenerActivos()
+        public async Task<ActionResult<List<Persona>>> ObtenerActivos([FromBody] ObtenerActivosQuery command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerActivos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command);
+            return Ok(entidad);
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> Agregar([FromBody] PersonaCrearDto registro)
+        public async Task<ActionResult<Persona>> Agregar([FromBody] PersonaCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command);
+            return Ok(entidad);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> Modificar(int id, [FromBody] PersonaCrearDto registro)
+        public async Task<ActionResult<Persona>> Modificar([FromRoute] int id, [FromBody] PersonaModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var entidad = await sender.Send(cmd);
+            return Ok(entidad);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Eliminar([FromBody] PersonaEliminarCommand command, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command);
+            return Ok();
         }
     }
 }

@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.DistritoServices;
+using nest.core.aplicacion.general.Distritos.Commands;
+using nest.core.aplicacion.general.Distritos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.DistritoEntities;
 
@@ -11,92 +13,51 @@ namespace nest.core.general.Controllers
     [Route("[controller]")]
     public class DistritoController : ControllerBase
     {
-        private readonly DistritoService service;
-        private readonly ILogger<DistritoController> logger;
-        public DistritoController(DistritoService service, ILogger<DistritoController> logger)
+        private readonly ISender sender;
+        public DistritoController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
         [HttpGet]
         [ProducesResponseType(typeof(List<Distrito>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Distrito>>> ObtenerTodos()
+        public async Task<ActionResult<List<Distrito>>> ObtenerTodos([FromBody] ObtenerTodosQuery command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command);
+            return Ok(entidad);
         }
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Distrito), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Distrito>> ObtenerPorId(int id)
+        public async Task<ActionResult<Distrito>> ObtenerPorId([FromBody] ObtenerPorIdQuery command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command);
+            return Ok(entidad);
         }
         [HttpPost]
         [ProducesResponseType(typeof(Distrito), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Distrito>> Agregar([FromBody] DistritoCrearDto registro)
+        public async Task<ActionResult<Distrito>> Agregar([FromBody] DistritoCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command);
+            return Ok(entidad);
         }
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Distrito), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Distrito>> Modificar(int id, [FromBody] DistritoCrearDto registro)
+        public async Task<ActionResult<Distrito>> Modificar([FromRoute] int id, [FromBody] DistritoModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var entidad = await sender.Send(cmd);
+            return Ok(entidad);
         }
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Eliminar([FromBody] DistritoEliminarCommand command, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command);
+            return Ok();
         }
     }
 }
