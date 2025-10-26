@@ -5,8 +5,8 @@ namespace nest.core.dominio.Contabilidad.CuentaContableTipoEntities
         Task<CuentaContableTipo> ObtenerPorId(int id);
         Task<List<CuentaContableTipo>> ObtenerTodos();
         Task<List<CuentaContableTipo>> ObtenerActivos();
-        Task<CuentaContableTipo> Agregar(CuentaContableTipoCrearDto entidad);
-        Task<CuentaContableTipo> Modificar(int id, CuentaContableTipoCrearDto entidad);
+        Task<CuentaContableTipo> Agregar(CuentaContableTipo entidad);
+        Task<CuentaContableTipo> Modificar(CuentaContableTipo entidad);
         Task Eliminar(int id);
     }
 }

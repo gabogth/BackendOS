@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.contabilidad.CuentaContableTipoServices;
+using nest.core.aplicacion.contabilidad.CuentaContableTipos.Commands;
+using nest.core.aplicacion.contabilidad.CuentaContableTipos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Contabilidad.CuentaContableTipoEntities;
 
@@ -14,115 +16,66 @@ namespace nest.core.contabilidad.Controllers
     [Route("[controller]")]
     public class CuentaContableTipoController : ControllerBase
     {
-        private readonly CuentaContableTipoService service;
-        private readonly ILogger<CuentaContableTipoController> logger;
+        private readonly ISender sender;
 
-        public CuentaContableTipoController(CuentaContableTipoService service, ILogger<CuentaContableTipoController> logger)
+        public CuentaContableTipoController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(List<CuentaContableTipo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<CuentaContableTipo>>> ObtenerTodos()
+        public async Task<ActionResult<List<CuentaContableTipo>>> ObtenerTodos([FromBody] ObtenerTodosQuery query, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(query, ct);
+            return Ok(entidad);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(CuentaContableTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<CuentaContableTipo>> ObtenerPorId(int id)
+        public async Task<ActionResult<CuentaContableTipo>> ObtenerPorId([FromBody] ObtenerPorIdQuery query, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(query, ct);
+            return Ok(entidad);
         }
 
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<CuentaContableTipo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<CuentaContableTipo>>> ObtenerActivos()
+        public async Task<ActionResult<List<CuentaContableTipo>>> ObtenerActivos([FromBody] ObtenerActivosQuery query, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerActivos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(query, ct);
+            return Ok(entidad);
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(CuentaContableTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<CuentaContableTipo>> Agregar([FromBody] CuentaContableTipoCrearDto registro)
+        public async Task<ActionResult<CuentaContableTipo>> Agregar([FromBody] CuentaContableTipoCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command, ct);
+            return Ok(entidad);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(CuentaContableTipo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<CuentaContableTipo>> Modificar(int id, [FromBody] CuentaContableTipoCrearDto registro)
+        public async Task<ActionResult<CuentaContableTipo>> Modificar([FromRoute] int id, [FromBody] CuentaContableTipoModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var entidad = await sender.Send(cmd, ct);
+            return Ok(entidad);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Eliminar([FromBody] CuentaContableTipoEliminarCommand command, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(command, ct);
+            return Ok();
         }
     }
 }

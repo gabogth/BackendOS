@@ -1,8 +1,8 @@
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.contabilidad;
-using nest.core.aplicacion.contabilidad.CuentaContableServices;
-using nest.core.aplicacion.contabilidad.CuentaContableTipoServices;
+using nest.core.aplicacion.contabilidad.CuentaContables.Commands;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -14,8 +14,10 @@ namespace nest.core.contabilidad.Extensions
         {
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
-            services.AddScoped<CuentaContableTipoService>();
-            services.AddScoped<CuentaContableService>();
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(CuentaContableCrearCommand).Assembly);
+            });
             return services;
         }
         private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)
