@@ -2,7 +2,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.general;
 using nest.core.aplicacion.general.Distritos.Commands;
-using nest.core.aplicacion.general.PersonaUseCases;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -18,7 +17,6 @@ namespace nest.core.general.Extensions
             {
                 cfg.RegisterServicesFromAssembly(typeof(DistritoCrearCommand).Assembly);
             });
-            services.AddScoped<PersonaAdjuntosUseCase>();
             return services;
         }
         private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)
