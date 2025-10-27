@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.costos.CentroDeCostos.Commands;
-using nest.core.aplicacion.costos.CentroDeCostos.Queries;
+using nest.core.aplicacion.costos.CentroCostos.Commands;
+using nest.core.aplicacion.costos.CentroCostos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Costos.CentroDeCostosEntities;
 

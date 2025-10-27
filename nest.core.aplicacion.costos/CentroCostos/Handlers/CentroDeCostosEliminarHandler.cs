@@ -1,9 +1,9 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
-using nest.core.aplicacion.costos.CentroDeCostos.Commands;
+using nest.core.aplicacion.costos.CentroCostos.Commands;
 using nest.core.dominio.Costos.CentroDeCostosEntities;
 
-namespace nest.core.aplicacion.costos.CentroDeCostos.Handlers
+namespace nest.core.aplicacion.costos.CentroCostos.Handlers
 {
     internal class CentroDeCostosEliminarHandler : IRequestHandler<CentroDeCostosEliminarCommand, bool>
     {

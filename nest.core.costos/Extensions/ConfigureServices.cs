@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.costos;
-using nest.core.aplicacion.costos.CentroDeCostos.Commands;
+using nest.core.aplicacion.costos.CentroCostos.Commands;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 

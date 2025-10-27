@@ -1,9 +1,9 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
-using nest.core.aplicacion.costos.CentroDeCostos.Queries;
+using nest.core.aplicacion.costos.CentroCostos.Queries;
 using nest.core.dominio.Costos.CentroDeCostosEntities;
 
-namespace nest.core.aplicacion.costos.CentroDeCostos.Handlers
+namespace nest.core.aplicacion.costos.CentroCostos.Handlers
 {
     internal class ObtenerTodosHandler : IRequestHandler<ObtenerTodosQuery, List<CentroDeCostos>>
     {
