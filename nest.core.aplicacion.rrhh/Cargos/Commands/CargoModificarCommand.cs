@@ -8,4 +8,4 @@ public record CargoModificarCommand(
     int Id,
     string Nombre,
     bool Estado
-) : IRequest<Cargo>, ICommandBase;
+) : IRequest<Cargo>, ICargoGenericCommand;

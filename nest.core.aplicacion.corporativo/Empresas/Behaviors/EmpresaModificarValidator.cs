@@ -7,7 +7,7 @@ namespace nest.core.aplicacion.corporativo.Empresas.Behaviors
     {
         public EmpresaModificarValidator()
         {
-            Include(new EmpresaCrearValidator());
+            Include(new EmpresaGenericValidator<EmpresaModificarCommand>());
 
             RuleFor(x => x.Id)
                 .GreaterThan(0).WithMessage("El identificador de la empresa debe ser mayor a cero.");

@@ -16,5 +16,5 @@ namespace nest.core.aplicacion.mantto.OrdenServicioCabeceras.Commands
         DateTime FechaInicial,
         DateTime FechaFinal,
         DateTime FechaEntrega
-    ) : IRequest<OrdenServicioCabecera>, ICommandBase;
+    ) : IRequest<OrdenServicioCabecera>, IOrdenServicioCabeceraGenericCommand;
 }

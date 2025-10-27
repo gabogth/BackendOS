@@ -9,4 +9,4 @@ public record HorarioDetalleModificarCommand(
     int EmpresaId,
     int HorarioCabeceraId,
     DayOfWeek DiaSemana
-) : IRequest<HorarioDetalle>, ICommandBase;
+) : IRequest<HorarioDetalle>, IHorarioDetalleGenericCommand;

@@ -9,8 +9,7 @@ namespace nest.core.aplicacion.legal.ContratoTipos.Behaviors
         {
             RuleFor(x => x.Id)
                 .GreaterThan((byte)0).WithMessage("El identificador debe ser mayor a 0.");
-
-            Include(new ContratoTipoCrearValidator());
+            Include(new ContratoTipoGenericValidator<ContratoTipoModificarCommand>());
         }
     }
 }

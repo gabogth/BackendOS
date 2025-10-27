@@ -9,5 +9,5 @@ namespace nest.core.aplicacion.contabilidad.CuentaContableTipos.Commands
         string Nombre,
         string NombreCorto,
         bool Activo
-    ) : IRequest<CuentaContableTipo>, ICommandBase;
+    ) : IRequest<CuentaContableTipo>, ICuentaContableTipoGenericCommand;
 }

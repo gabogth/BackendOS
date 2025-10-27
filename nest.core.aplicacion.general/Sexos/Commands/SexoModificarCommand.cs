@@ -8,5 +8,5 @@ namespace nest.core.aplicacion.general.Sexos.Commands
         byte Id,
         string Nombre,
         string NombreCorto
-    ) : IRequest<Sexo>, ICommandBase;
+    ) : IRequest<Sexo>, ISexoGenericCommand;
 }

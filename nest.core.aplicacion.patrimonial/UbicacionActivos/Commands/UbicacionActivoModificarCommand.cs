@@ -13,5 +13,5 @@ namespace nest.core.aplicacion.patrimonial.UbicacionActivos.Commands
         long? ContratoCabeceraId,
         DateTime FechaIngreso,
         DateTime? FechaSalida
-    ) : IRequest<UbicacionActivo>, ICommandBase;
+    ) : IRequest<UbicacionActivo>, IUbicacionActivoGenericCommand;
 }

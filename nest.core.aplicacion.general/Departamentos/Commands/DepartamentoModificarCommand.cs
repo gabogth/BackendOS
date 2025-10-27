@@ -8,5 +8,5 @@ namespace nest.core.aplicacion.general.Departamentos.Commands
         int Id,
         string Nombre,
         int PaisId
-    ) : IRequest<Departamento>, ICommandBase;
+    ) : IRequest<Departamento>, IDepartamentoGenericCommand;
 }

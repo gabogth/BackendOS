@@ -12,5 +12,5 @@ namespace nest.core.aplicacion.general.Adjuntos.Commands
         string FileName,
         string? ContentType,
         long Size
-    ) : IRequest<Adjunto>, ICommandBase;
+    ) : IRequest<Adjunto>, IAdjuntoGenericCommand;
 }

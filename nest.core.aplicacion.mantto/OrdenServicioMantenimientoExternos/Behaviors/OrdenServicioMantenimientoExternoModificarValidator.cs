@@ -9,8 +9,7 @@ namespace nest.core.aplicacion.mantto.OrdenServicioMantenimientoExternos.Behavio
         {
             RuleFor(x => x.Id)
                 .GreaterThan(0).WithMessage("El identificador debe ser mayor a 0.");
-
-            Include(new OrdenServicioMantenimientoExternoCrearValidator());
+            Include(new OrdenServicioMantenimientoExternoGenericValidator<OrdenServicioMantenimientoExternoModificarCommand>());
         }
     }
 }

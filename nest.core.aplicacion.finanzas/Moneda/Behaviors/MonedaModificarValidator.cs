@@ -9,7 +9,7 @@ namespace nest.core.aplicacion.finanzas.Moneda.Behaviors
         {
             RuleFor(x => x.Id)
                 .GreaterThan(0).WithMessage("El identificador es requerido.");
-            Include(new MonedaCrearValidator());
+            Include(new MonedaGenericValidator<MonedaModificarCommand>());
         }
     }
 }

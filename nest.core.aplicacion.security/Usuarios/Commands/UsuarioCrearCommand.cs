@@ -7,5 +7,5 @@ namespace nest.core.aplicacion.security.Usuarios.Commands
     public sealed record UsuarioCrearCommand(
         ApplicationUser Usuario,
         string Password
-    ) : IRequest<ApplicationUser>, ICommandBase;
+    ) : IRequest<ApplicationUser>, IUsuarioGenericCommand;
 }

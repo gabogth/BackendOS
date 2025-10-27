@@ -6,5 +6,5 @@ namespace nest.core.aplicacion.security.Usuarios.Commands
 {
     public sealed record UsuarioModificarCommand(
         ApplicationUser Usuario
-    ) : IRequest<ApplicationUser>, ICommandBase;
+    ) : IRequest<ApplicationUser>, IUsuarioGenericCommand;
 }

@@ -9,13 +9,7 @@ namespace nest.core.aplicacion.general.LicenciasConducir.Behaviors
         {
             RuleFor(x => x.Id)
                 .GreaterThan((byte)0).WithMessage("El identificador es requerido.");
-
-            RuleFor(x => x.Nombre)
-                .NotEmpty().WithMessage("El nombre es requerido.")
-                .MaximumLength(150).WithMessage("El nombre no puede exceder los 150 caracteres.");
-
-            RuleFor(x => x.Nivel)
-                .GreaterThan((byte)0).WithMessage("El nivel debe ser mayor a 0.");
+            Include(new LicenciaConducirGenericValidator<LicenciaConducirModificarCommand>());
         }
     }
 }

@@ -7,9 +7,7 @@ namespace nest.core.aplicacion.finanzas.Financiero.Behaviors
     {
         public FinancieroDetalleCrearValidator()
         {
-            RuleFor(x => x.FinancieroCabeceraId)
-                .GreaterThan(0).WithMessage("La cabecera es requerida.");
-            Include(new FinancieroDetalleEntradaValidator());
+            Include(new FinancieroDetalleGenericValidator<FinancieroDetalleCrearCommand>());
         }
     }
 }

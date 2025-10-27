@@ -13,4 +13,4 @@ public record ModuloModificarCommand(
     string Action,
     string Controlador,
     bool Estado
-) : IRequest<Modulo>, ICommandBase;
+) : IRequest<Modulo>, IModuloGenericCommand;

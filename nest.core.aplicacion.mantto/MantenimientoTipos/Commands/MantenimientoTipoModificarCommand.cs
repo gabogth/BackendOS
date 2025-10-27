@@ -9,5 +9,5 @@ namespace nest.core.aplicacion.mantto.MantenimientoTipos.Commands
         string Nombre,
         string NombreCorto,
         bool Activo
-    ) : IRequest<MantenimientoTipo>, ICommandBase;
+    ) : IRequest<MantenimientoTipo>, IMantenimientoTipoGenericCommand;
 }

@@ -9,5 +9,5 @@ namespace nest.core.aplicacion.corporativo.EstructuraOrganizacionalTipos.Command
         string NombreCorto,
         string Descripcion,
         bool Estado
-    ) : IRequest<EstructuraOrganizacionalTipo>, ICommandBase;
+    ) : IRequest<EstructuraOrganizacionalTipo>, IEstructuraOrganizacionalTipoGenericCommand;
 }

@@ -9,7 +9,6 @@ public class GrupoTrabajoPersonaModificarValidator : AbstractValidator<GrupoTrab
     {
         RuleFor(x => x.Id)
             .GreaterThan(0).WithMessage("El identificador es obligatorio.");
-
-        Include(new GrupoTrabajoPersonaCrearValidator());
+            Include(new GrupoTrabajoPersonaGenericValidator<GrupoTrabajoPersonaModificarCommand>());
     }
 }

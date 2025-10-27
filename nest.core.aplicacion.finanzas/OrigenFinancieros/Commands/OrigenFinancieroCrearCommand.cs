@@ -9,5 +9,5 @@ namespace nest.core.aplicacion.finanzas.OrigenFinancieros.Commands
         string NombreCorto,
         string Naturaleza,
         bool Activo
-    ) : IRequest<OrigenFinanciero>, ICommandBase;
+    ) : IRequest<OrigenFinanciero>, IOrigenFinancieroGenericCommand;
 }

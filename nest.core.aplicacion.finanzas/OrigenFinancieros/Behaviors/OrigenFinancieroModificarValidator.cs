@@ -9,8 +9,7 @@ namespace nest.core.aplicacion.finanzas.OrigenFinancieros.Behaviors
         {
             RuleFor(x => x.Id)
                 .GreaterThan((short)0).WithMessage("El identificador debe ser mayor a 0.");
-
-            Include(new OrigenFinancieroCrearValidator());
+            Include(new OrigenFinancieroGenericValidator<OrigenFinancieroModificarCommand>());
         }
     }
 }

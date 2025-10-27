@@ -12,5 +12,5 @@ namespace nest.core.aplicacion.general.AdjuntoConfigProviders.Commands
         string Container,
         string MainPath,
         bool Activo
-    ) : IRequest<AdjuntoConfigProvider>, ICommandBase;
+    ) : IRequest<AdjuntoConfigProvider>, IAdjuntoConfigProviderGenericCommand;
 }

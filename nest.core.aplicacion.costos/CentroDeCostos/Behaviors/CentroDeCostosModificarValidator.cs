@@ -9,7 +9,7 @@ namespace nest.core.aplicacion.costos.CentroDeCostos.Behaviors
         {
             RuleFor(x => x.Id)
                 .GreaterThan(0).WithMessage("El identificador es requerido.");
-            Include(new CentroDeCostosCrearValidator());
+            Include(new CentroDeCostosGenericValidator<CentroDeCostosModificarCommand>());
         }
     }
 }

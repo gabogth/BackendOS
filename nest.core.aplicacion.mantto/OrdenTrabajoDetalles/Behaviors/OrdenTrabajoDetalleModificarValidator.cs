@@ -9,8 +9,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoDetalles.Behaviors
         {
             RuleFor(x => x.Id)
                 .GreaterThan(0).WithMessage("El identificador del detalle es obligatorio.");
-
-            Include(new OrdenTrabajoDetalleCrearValidator());
+            Include(new OrdenTrabajoDetalleGenericValidator<OrdenTrabajoDetalleModificarCommand>());
         }
     }
 }

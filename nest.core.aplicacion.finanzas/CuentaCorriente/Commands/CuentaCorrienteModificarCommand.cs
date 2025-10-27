@@ -13,5 +13,5 @@ namespace nest.core.aplicacion.finanzas.CuentaCorriente.Commands
         string CuentaNumero,
         int EntidadFinancieraId,
         long CuentaContableId
-    ) : IRequest<CuentaCorriente>, ICommandBase;
+    ) : IRequest<CuentaCorriente>, ICuentaCorrienteGenericCommand;
 }

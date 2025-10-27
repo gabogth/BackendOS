@@ -17,5 +17,5 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoCabeceras.Commands
         long? GrupoTrabajoId,
         long? OrdenTrabajoCabeceraPadreId,
         OrdenTrabajoEstado Estado
-    ) : IRequest<OrdenTrabajoCabecera>, ICommandBase;
+    ) : IRequest<OrdenTrabajoCabecera>, IOrdenTrabajoCabeceraGenericCommand;
 }

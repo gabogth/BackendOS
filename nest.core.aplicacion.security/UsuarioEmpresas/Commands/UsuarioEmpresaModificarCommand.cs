@@ -9,5 +9,5 @@ namespace nest.core.aplicacion.security.UsuarioEmpresas.Commands
         string UsuarioId,
         int EmpresaId,
         bool Actual
-    ) : IRequest<UsuarioEmpresa>, ICommandBase;
+    ) : IRequest<UsuarioEmpresa>, IUsuarioEmpresaGenericCommand;
 }

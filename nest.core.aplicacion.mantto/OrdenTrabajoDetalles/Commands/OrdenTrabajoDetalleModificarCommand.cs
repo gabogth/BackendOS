@@ -14,5 +14,5 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoDetalles.Commands
         int HorasEjecutadas,
         string? Descripcion,
         OrdenTrabajoDetalleEstado Estado
-    ) : IRequest<OrdenTrabajoDetalle>, ICommandBase;
+    ) : IRequest<OrdenTrabajoDetalle>, IOrdenTrabajoDetalleGenericCommand;
 }

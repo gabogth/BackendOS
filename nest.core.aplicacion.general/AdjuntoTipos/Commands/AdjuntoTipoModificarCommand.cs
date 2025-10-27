@@ -9,5 +9,5 @@ namespace nest.core.aplicacion.general.AdjuntoTipos.Commands
         string Nombre,
         string NombreCorto,
         bool Activo
-    ) : IRequest<AdjuntoTipo>, ICommandBase;
+    ) : IRequest<AdjuntoTipo>, IAdjuntoTipoGenericCommand;
 }

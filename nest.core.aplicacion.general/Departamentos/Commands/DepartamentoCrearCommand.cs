@@ -7,5 +7,5 @@ namespace nest.core.aplicacion.general.Departamentos.Commands
     public sealed record DepartamentoCrearCommand(
         string Nombre,
         int PaisId
-    ) : IRequest<Departamento>, ICommandBase;
+    ) : IRequest<Departamento>, IDepartamentoGenericCommand;
 }

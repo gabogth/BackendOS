@@ -9,7 +9,7 @@ namespace nest.core.aplicacion.finanzas.CuentaCorriente.Behaviors
         {
             RuleFor(x => x.Id)
                 .GreaterThan(0).WithMessage("El identificador es requerido.");
-            Include(new CuentaCorrienteCrearValidator());
+            Include(new CuentaCorrienteGenericValidator<CuentaCorrienteModificarCommand>());
         }
     }
 }
