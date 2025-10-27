@@ -41,7 +41,7 @@ namespace nest.core.aplicacion.corporativo.Empresas.Handlers
             {
                 var entity = mapper.Map<Empresa>(request);
                 var empresa = await repository.Agregar(entity);
-                await usuarioEmpresaRepository.Agregar(new UsuarioEmpresaCrearDto
+                await usuarioEmpresaRepository.Agregar(new UsuarioEmpresa
                 {
                     Actual = false,
                     EmpresaId = empresa.Id,

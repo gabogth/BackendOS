@@ -4,7 +4,6 @@ using nest.core.aplicacion.security;
 using nest.core.aplicacion.security.Formularios.Behaviors;
 using nest.core.aplicacion.security.Formularios.Commands;
 using nest.core.aplicacion.security.Login;
-using nest.core.aplicacion.security.UsuarioEmpresaServices;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -19,8 +18,6 @@ namespace nest.core.security.Extensions
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(FormularioCrearCommand).Assembly));
             services.AddValidatorsFromAssemblyContaining<FormularioCrearValidator>();
             services.AddScoped<LoginUseCase>();
-            services.AddScoped<UsuarioService>();
-            services.AddScoped<UsuarioEmpresaService>();
             return services;
         }
 
