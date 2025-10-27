@@ -2,7 +2,7 @@ using MediatR;
 using nest.core.aplicacion.utils.Commands;
 using nest.core.dominio.Costos.CentroDeCostosEntities;
 
-namespace nest.core.aplicacion.costos.CentroDeCostos.Commands
+namespace nest.core.aplicacion.costos.CentroCostos.Commands
 {
     public sealed record CentroDeCostosCrearCommand(
         int EmpresaId,

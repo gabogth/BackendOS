@@ -1,5 +1,5 @@
 using AutoMapper;
-using nest.core.aplicacion.costos.CentroDeCostos.Commands;
+using nest.core.aplicacion.costos.CentroCostos.Commands;
 using nest.core.dominio.Costos.CentroDeCostosEntities;
 
 namespace nest.core.aplicacion.costos.Mapper

@@ -1,7 +1,7 @@
 using FluentValidation;
-using nest.core.aplicacion.costos.CentroDeCostos.Commands;
+using nest.core.aplicacion.costos.CentroCostos.Commands;
 
-namespace nest.core.aplicacion.costos.CentroDeCostos.Behaviors
+namespace nest.core.aplicacion.costos.CentroCostos.Behaviors
 {
     public class CentroDeCostosCrearValidator : AbstractValidator<CentroDeCostosCrearCommand>
     {
