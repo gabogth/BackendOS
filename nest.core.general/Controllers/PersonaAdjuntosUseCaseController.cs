@@ -1,150 +1,69 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.general.PersonaUseCases;
+using nest.core.aplicacion.general.PersonaUseCases.Commands;
+using nest.core.aplicacion.general.PersonaUseCases.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.PersonaEntities;
 
 namespace nest.core.general.Controllers
 {
-    /// <summary>
-    /// Controlador para gestionar personas junto con sus adjuntos asociados.
-    /// </summary>
     [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PersonaAdjuntosUseCaseController : ControllerBase
     {
-        private readonly PersonaAdjuntosUseCase useCase;
-        private readonly ILogger<PersonaAdjuntosUseCaseController> logger;
+        private readonly ISender sender;
 
-        /// <summary>
-        /// Inicializa una nueva instancia del controlador de personas con adjuntos.
-        /// </summary>
-        /// <param name="useCase">Caso de uso para operar sobre personas y sus adjuntos.</param>
-        /// <param name="logger">Instancia del registrador.</param>
-        public PersonaAdjuntosUseCaseController(PersonaAdjuntosUseCase useCase, ILogger<PersonaAdjuntosUseCaseController> logger)
+        public PersonaAdjuntosUseCaseController(ISender sender)
         {
-            this.useCase = useCase;
-            this.logger = logger;
+            this.sender = sender;
         }
 
-        /// <summary>
-        /// Obtiene todas las personas junto con sus adjuntos registrados.
-        /// </summary>
-        /// <returns>Listado de personas.</returns>
-        /// <response code="200">Listado recuperado correctamente.</response>
-        /// <response code="400">Ocurrió un error al procesar la solicitud.</response>
         [HttpGet]
         [ProducesResponseType(typeof(List<Persona>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Persona>>> ObtenerTodos()
+        public async Task<ActionResult<List<Persona>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var personas = await useCase.ObtenerTodos();
-                return Ok(personas);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(new ObtenerPersonasConAdjuntosQuery(), ct);
+            return Ok(entidad);
         }
 
-        /// <summary>
-        /// Obtiene una persona junto con sus adjuntos por identificador.
-        /// </summary>
-        /// <param name="id">Identificador de la persona.</param>
-        /// <returns>Persona encontrada.</returns>
-        /// <response code="200">Persona recuperada correctamente.</response>
-        /// <response code="400">Ocurrió un error al procesar la solicitud.</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> ObtenerPorId(int id)
+        public async Task<ActionResult<Persona>> ObtenerPorId([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                var persona = await useCase.ObtenerPorId(id);
-                return Ok(persona);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(new ObtenerPersonaConAdjuntosPorIdQuery(id), ct);
+            return Ok(entidad);
         }
 
-        /// <summary>
-        /// Crea una nueva persona y registra sus adjuntos asociados.
-        /// </summary>
-        /// <param name="registro">Información de la persona y sus adjuntos.</param>
-        /// <returns>Persona creada.</returns>
-        /// <response code="200">Persona creada correctamente.</response>
-        /// <response code="400">Ocurrió un error al procesar la solicitud.</response>
         [HttpPost]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> Agregar([FromBody] PersonaAdjuntosUseCaseCrearDto registro)
+        public async Task<ActionResult<Persona>> Agregar([FromBody] PersonaAdjuntosUseCaseCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var persona = await useCase.Agregar(registro);
-                return Ok(persona);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var entidad = await sender.Send(command, ct);
+            return Ok(entidad);
         }
 
-        /// <summary>
-        /// Actualiza una persona y sincroniza sus adjuntos.
-        /// </summary>
-        /// <param name="id">Identificador de la persona.</param>
-        /// <param name="registro">Información actualizada de la persona y sus adjuntos.</param>
-        /// <returns>Persona actualizada.</returns>
-        /// <response code="200">Persona modificada correctamente.</response>
-        /// <response code="400">Ocurrió un error al procesar la solicitud.</response>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> Modificar(int id, [FromBody] PersonaAdjuntosUseCaseCrearDto registro)
+        public async Task<ActionResult<Persona>> Modificar([FromRoute] int id, [FromBody] PersonaAdjuntosUseCaseModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var persona = await useCase.Modificar(id, registro);
-                return Ok(persona);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var entidad = await sender.Send(cmd, ct);
+            return Ok(entidad);
         }
 
-        /// <summary>
-        /// Elimina una persona y sus adjuntos relacionados.
-        /// </summary>
-        /// <param name="id">Identificador de la persona.</param>
-        /// <response code="200">Persona eliminada correctamente.</response>
-        /// <response code="400">Ocurrió un error al procesar la solicitud.</response>
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Eliminar([FromRoute] int id, CancellationToken ct)
         {
-            try
-            {
-                await useCase.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new PersonaAdjuntosUseCaseEliminarCommand(id), ct);
+            return Ok();
         }
     }
 }

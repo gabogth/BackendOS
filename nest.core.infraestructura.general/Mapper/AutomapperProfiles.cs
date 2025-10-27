@@ -31,7 +31,6 @@ namespace nest.core.infraestructura.general.Mapper
         {
             CreateMap<AdjuntoConfigProviderCrearCommand, AdjuntoConfigProvider>();
             CreateMap<AdjuntoConfigProviderModificarCommand, AdjuntoConfigProvider>();
-            CreateMap<PersonaCrearDto, Persona>();
             CreateMap<DepartamentoCrearCommand, Departamento>();
             CreateMap<DepartamentoModificarCommand, Departamento>();
             CreateMap<ProvinciaCrearCommand, Provincia>();
