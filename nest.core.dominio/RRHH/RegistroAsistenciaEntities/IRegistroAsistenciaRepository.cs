@@ -12,8 +12,8 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
         Task<List<RegistroAsistencia>> BuscarPorRangoFecha(int personalId, DateTime fechaInicio, DateTime fechaFin);
         Task<RegistroAsistencia> BuscarPorRangoFecha(int personalId, DateTime fechaInicio, DateTime fechaFin, HorarioDetalleEventoTipoEnum tipoMarca);
         Task<RegistroAsistencia> BuscarUltimaMarca(int personalId);
-        Task<RegistroAsistencia> Agregar(RegistroAsistenciaCrearDto entidad);
-        Task<RegistroAsistencia> Modificar(long id, RegistroAsistenciaCrearDto entidad);
+        Task<RegistroAsistencia> Agregar(RegistroAsistencia entidad);
+        Task<RegistroAsistencia> Modificar(RegistroAsistencia entidad);
         Task Eliminar(long id);
     }
 }

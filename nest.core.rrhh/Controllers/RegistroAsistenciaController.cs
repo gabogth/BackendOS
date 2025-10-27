@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.rrhh.RegistroAsistenciaServices;
+using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
+using nest.core.aplicacion.rrhh.RegistroAsistencias.Queries;
 using nest.core.dominio;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 
@@ -18,18 +17,11 @@ namespace nest.core.rrhh.Controllers
     [Route("[controller]")]
     public class RegistroAsistenciaController : ControllerBase
     {
-        private readonly RegistroAsistenciaService service;
-        private readonly ILogger<RegistroAsistenciaController> logger;
+        private readonly ISender sender;
 
-        /// <summary>
-        /// Inicializa una nueva instancia del controlador <see cref="RegistroAsistenciaController"/>.
-        /// </summary>
-        /// <param name="service">Servicio de aplicación que gestiona la lógica de registros de asistencia.</param>
-        /// <param name="logger">Instancia de <see cref="ILogger"/> para el registro de eventos.</param>
-        public RegistroAsistenciaController(RegistroAsistenciaService service, ILogger<RegistroAsistenciaController> logger)
+        public RegistroAsistenciaController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         /// <summary>
@@ -41,18 +33,10 @@ namespace nest.core.rrhh.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<RegistroAsistencia>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<RegistroAsistencia>>> ObtenerTodos()
+        public async Task<ActionResult<List<RegistroAsistencia>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -65,18 +49,10 @@ namespace nest.core.rrhh.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(RegistroAsistencia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<RegistroAsistencia>> ObtenerPorId(long id)
+        public async Task<ActionResult<RegistroAsistencia>> ObtenerPorId(long id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -91,18 +67,11 @@ namespace nest.core.rrhh.Controllers
         [HttpGet("personal/{personalId}")]
         [ProducesResponseType(typeof(List<RegistroAsistencia>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<RegistroAsistencia>>> BuscarPorRangoFecha(int personalId, [FromQuery] DateTime fechaInicio, [FromQuery] DateTime fechaFin)
+        public async Task<ActionResult<List<RegistroAsistencia>>> BuscarPorRangoFecha(int personalId, [FromQuery] DateTime fechaInicio, [FromQuery] DateTime fechaFin, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.BuscarPorRangoFecha(personalId, fechaInicio, fechaFin);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var query = new BuscarPorRangoFechaQuery(personalId, fechaInicio, fechaFin);
+            var data = await sender.Send(query, ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -115,18 +84,10 @@ namespace nest.core.rrhh.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(RegistroAsistencia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<RegistroAsistencia>> Agregar([FromBody] RegistroAsistenciaCrearDto registro)
+        public async Task<ActionResult<RegistroAsistencia>> Agregar([FromBody] RegistroAsistenciaCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command, ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -139,19 +100,11 @@ namespace nest.core.rrhh.Controllers
         [HttpPost("serverdt")]
         [ProducesResponseType(typeof(RegistroAsistencia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<RegistroAsistencia>> AgregarConDatetime([FromBody] RegistroAsistenciaCrearDto registro)
+        public async Task<ActionResult<RegistroAsistencia>> AgregarConDatetime([FromBody] RegistroAsistenciaCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                registro.Fecha = DateTime.Now;
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var cmd = command with { Fecha = DateTime.Now };
+            var data = await sender.Send(cmd, ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -163,18 +116,10 @@ namespace nest.core.rrhh.Controllers
         [HttpPost("current_user")]
         [ProducesResponseType(typeof(RegistroAsistencia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<RegistroAsistencia>> AgregarUsuarioActual([FromBody] RegistroAsistenciaCrearDto registro)
+        public async Task<ActionResult<RegistroAsistencia>> AgregarUsuarioActual([FromBody] RegistroAsistenciaCrearUsuarioActualCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.AgregarUsuarioActual(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command, ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -188,18 +133,11 @@ namespace nest.core.rrhh.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(RegistroAsistencia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<RegistroAsistencia>> Modificar(long id, [FromBody] RegistroAsistenciaCrearDto registro)
+        public async Task<ActionResult<RegistroAsistencia>> Modificar(long id, [FromBody] RegistroAsistenciaModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var data = await sender.Send(cmd, ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -212,18 +150,10 @@ namespace nest.core.rrhh.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(long id)
+        public async Task<ActionResult> Eliminar(long id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            await sender.Send(new RegistroAsistenciaEliminarCommand(id), ct);
+            return Ok(true);
         }
     }
 }

@@ -6,7 +6,7 @@ using nest.core.infraestructura.db.Utils;
 
 namespace nest.core.infraestructura.rrhh
 {
-    public class HorarioCabeceraRepository : CrudRepositoryBase<HorarioCabecera, HorarioCabeceraCrearDto, int>, IHorarioRepository
+    public class HorarioCabeceraRepository : CrudRepositoryBase<HorarioCabecera, int>, IHorarioRepository
     {
         public HorarioCabeceraRepository(NestDbContext context, IMapper mapper) : base(context, mapper) { }
 
@@ -15,7 +15,8 @@ namespace nest.core.infraestructura.rrhh
             .Include(c => c.HorarioDetalles)
             .Include(c => c.HorarioDetalles).ThenInclude(d => d.HorarioDetalleEventos);
 
-        public Task<HorarioCabecera> ObtenerPorId(int id) => GetByIdAsync(id);
+        public async Task<HorarioCabecera> ObtenerPorId(int id) =>
+            await GetByIdAsync(id) ?? throw new RegistroNoEncontradoException<HorarioCabecera>(id.ToString());
         public Task<HorarioCabecera> ObtenerPorPersonalId(int personalId) =>
             context.Personales
                 .AsNoTracking()
@@ -25,8 +26,17 @@ namespace nest.core.infraestructura.rrhh
                 .Select(p => p.HorarioCabecera)
                 .FirstOrDefaultAsync();
         public Task<List<HorarioCabecera>> ObtenerTodos() => GetAllAsync();
-        public Task<HorarioCabecera> Agregar(HorarioCabeceraCrearDto entry) => AddAsync(entry);
-        public async Task<HorarioCabecera> Modificar(int id, HorarioCabeceraCrearDto entry) => await UpdateAsync(id, entry);
+        public async Task<HorarioCabecera> Agregar(HorarioCabecera entry)
+        {
+            var horario = await AddAsync(entry);
+            return await ObtenerPorId(horario.Id);
+        }
+
+        public async Task<HorarioCabecera> Modificar(HorarioCabecera entry)
+        {
+            await UpdateAsync(entry);
+            return await ObtenerPorId(entry.Id);
+        }
         public Task Eliminar(int id) => DeleteAsync(id);
     }
 }

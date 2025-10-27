@@ -7,8 +7,8 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities
     {
         Task<RegistroAsistenciaOrdenTrabajo> ObtenerPorId(long id);
         Task<List<RegistroAsistenciaOrdenTrabajo>> ObtenerTodos();
-        Task<RegistroAsistenciaOrdenTrabajo> Agregar(RegistroAsistenciaOrdenTrabajoCrearDto entidad);
-        Task<RegistroAsistenciaOrdenTrabajo> Modificar(long id, RegistroAsistenciaOrdenTrabajoCrearDto entidad);
+        Task<RegistroAsistenciaOrdenTrabajo> Agregar(RegistroAsistenciaOrdenTrabajo entidad);
+        Task<RegistroAsistenciaOrdenTrabajo> Modificar(RegistroAsistenciaOrdenTrabajo entidad);
         Task Eliminar(long id);
     }
 }
