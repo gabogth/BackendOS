@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplication.auth;
+using nest.core.aplicacion.legal.Mapper;
 using nest.core.dominio.Legal.ContratoCabeceraEntities;
 using nest.core.dominio.Legal.ContratoTipoEntities;
 using nest.core.dominio.Security.Tenant;
@@ -14,7 +15,7 @@ namespace nest.core.aplicacion.legal
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(infraestructura.legal.Mapper.AutomapperProfiles));
+            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(infraestructura.legal.Mapper.AutomapperProfiles));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
             services.AddTransient<IContratoTipoRepository, ContratoTipoRepository>();
