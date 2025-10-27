@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.finanzas.Moneda.Commands;
-using nest.core.aplicacion.finanzas.Moneda.Queries;
+using nest.core.aplicacion.finanzas.Monedas.Commands;
+using nest.core.aplicacion.finanzas.Monedas.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Finanzas.MonedaEntities;
 
