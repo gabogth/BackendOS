@@ -1,8 +1,9 @@
 using MediatR;
+using nest.core.aplicacion.finanzas.CuentaCorrientes.Interfaces;
 using nest.core.aplicacion.utils.Commands;
 using nest.core.dominio.Finanzas.CuentaCorrienteEntities;
 
-namespace nest.core.aplicacion.finanzas.CuentaCorriente.Commands
+namespace nest.core.aplicacion.finanzas.CuentaCorrientes.Commands
 {
     public sealed record CuentaCorrienteModificarCommand(
         int Id,
@@ -13,5 +14,5 @@ namespace nest.core.aplicacion.finanzas.CuentaCorriente.Commands
         string CuentaNumero,
         int EntidadFinancieraId,
         long CuentaContableId
-    ) : IRequest<CuentaCorriente>, ICommandBase;
+    ) : IRequest<CuentaCorriente>, ICommandBase, ICuentaCorrienteGenericCommand;
 }

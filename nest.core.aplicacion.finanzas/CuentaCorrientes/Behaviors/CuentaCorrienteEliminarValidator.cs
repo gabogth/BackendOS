@@ -1,7 +1,7 @@
 using FluentValidation;
-using nest.core.aplicacion.finanzas.CuentaCorriente.Commands;
+using nest.core.aplicacion.finanzas.CuentaCorrientes.Commands;
 
-namespace nest.core.aplicacion.finanzas.CuentaCorriente.Behaviors
+namespace nest.core.aplicacion.finanzas.CuentaCorrientes.Behaviors
 {
     public class CuentaCorrienteEliminarValidator : AbstractValidator<CuentaCorrienteEliminarCommand>
     {

@@ -1,9 +1,9 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
-using nest.core.aplicacion.finanzas.CuentaCorriente.Commands;
+using nest.core.aplicacion.finanzas.CuentaCorrientes.Commands;
 using nest.core.dominio.Finanzas.CuentaCorrienteEntities;
 
-namespace nest.core.aplicacion.finanzas.CuentaCorriente.Handlers
+namespace nest.core.aplicacion.finanzas.CuentaCorrientes.Handlers
 {
     internal class CuentaCorrienteEliminarHandler : IRequestHandler<CuentaCorrienteEliminarCommand, bool>
     {

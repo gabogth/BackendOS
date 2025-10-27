@@ -7,12 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="13.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\nest.core.aplicacion.utils\nest.core.aplicacion.utils.csproj" />
     <ProjectReference Include="..\nest.core.aplication.auth\nest.core.aplication.auth.csproj" />
     <ProjectReference Include="..\nest.core.dominio\nest.core.dominio.csproj" />
     <ProjectReference Include="..\nest.core.infraestructura.costos\nest.core.infraestructura.costos.csproj" />

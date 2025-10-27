@@ -1,11 +1,12 @@
-using FluentValidation;
-using nest.core.aplicacion.finanzas.CuentaCorriente.Commands;
+﻿using FluentValidation;
+using nest.core.aplicacion.finanzas.CuentaCorrientes.Interfaces;
 
-namespace nest.core.aplicacion.finanzas.CuentaCorriente.Behaviors
+namespace nest.core.aplicacion.finanzas.CuentaCorrientes.Generics
 {
-    public class CuentaCorrienteCrearValidator : AbstractValidator<CuentaCorrienteCrearCommand>
+    public class CuentaCorrienteGenericValidator<T> : AbstractValidator<T>
+        where T : ICuentaCorrienteGenericCommand
     {
-        public CuentaCorrienteCrearValidator()
+        public CuentaCorrienteGenericValidator()
         {
             RuleFor(x => x.EmpresaId)
                 .GreaterThan(0).WithMessage("EmpresaId es requerido.");
@@ -20,8 +21,7 @@ namespace nest.core.aplicacion.finanzas.CuentaCorriente.Behaviors
                 .MaximumLength(50).WithMessage("El número de cuenta no puede superar los 50 caracteres.");
             RuleFor(x => x.EntidadFinancieraId)
                 .GreaterThan(0).WithMessage("La entidad financiera es requerida.");
-            RuleFor(x => x.CuentaContableId)
-                .GreaterThan(0).WithMessage("La cuenta contable es requerida.");
+            RuleFor(x => x.CuentaContableId);
         }
     }
 }
