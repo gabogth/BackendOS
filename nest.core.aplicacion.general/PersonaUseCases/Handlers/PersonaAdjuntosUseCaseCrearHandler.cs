@@ -1,3 +1,4 @@
+using AutoMapper;
 using MediatR;
 using nest.core.aplicacion.general.PersonaUseCases.Commands;
 using nest.core.dominio.General.PersonaAdjuntoEntities;
@@ -11,15 +12,18 @@ namespace nest.core.aplicacion.general.PersonaUseCases.Handlers
         private readonly IPersonaAdjuntosUseCaseRepository personaRepository;
         private readonly IPersonaAdjuntoRepository personaAdjuntoRepository;
         private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
 
         public PersonaAdjuntosUseCaseCrearHandler(
             IPersonaAdjuntosUseCaseRepository personaRepository,
             IPersonaAdjuntoRepository personaAdjuntoRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IMapper mapper)
         {
             this.personaRepository = personaRepository;
             this.personaAdjuntoRepository = personaAdjuntoRepository;
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
         public async Task<Persona> Handle(PersonaAdjuntosUseCaseCrearCommand request, CancellationToken cancellationToken)
@@ -27,14 +31,11 @@ namespace nest.core.aplicacion.general.PersonaUseCases.Handlers
             await unitOfWork.BeginTransactionAsync();
             try
             {
-                var persona = await personaRepository.Agregar(PersonaAdjuntosUseCaseMapper.ToPersona(request));
-
-                PersonaAdjunto[] adjuntos = PersonaAdjuntosUseCaseMapper.ToAdjuntos(request, persona);
+                var personaDto = mapper.Map<Persona>(request);
+                var persona = await personaRepository.Agregar(personaDto);
+                PersonaAdjunto[] adjuntos = request.PersonaAdjuntos.Select(dto => mapper.Map<PersonaAdjunto>(dto)).ToArray();
                 if (adjuntos.Length > 0)
-                {
                     await personaAdjuntoRepository.AgregarRange(adjuntos);
-                }
-
                 await unitOfWork.CommitAsync();
                 return await personaRepository.ObtenerPorId(persona.Id);
             }

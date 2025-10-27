@@ -9,7 +9,7 @@ using nest.core.infrastructura.utils.Excepciones;
 
 namespace nest.core.infraestructura.legal
 {
-    public class ContratoPersonalRepository : CrudRepositoryBase<ContratoCabecera, ContratoPersonalDto, long>, IContratoPersonalRepository
+    public class ContratoPersonalRepository : CrudRepositoryBase<ContratoCabecera, long>, IContratoPersonalRepository
     {
         public ContratoPersonalRepository(NestDbContext context, IMapper mapper): base(context, mapper) { }
         protected override IQueryable<ContratoCabecera> Query() => context.Set<ContratoCabecera>()
