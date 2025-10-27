@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplication.auth;
+using nest.core.aplicacion.costos.Mapper;
 using nest.core.dominio.Costos.CentroDeCostosEntities;
 using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Transaccional;
@@ -13,7 +14,7 @@ namespace nest.core.aplicacion.costos
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(infraestructura.costos.Mapper.AutomapperProfiles));
+            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(infraestructura.costos.Mapper.AutomapperProfiles));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((provider) => AuthClaim.constructClaimsAuth(provider, configuration));
             services.AddTransient<ICentroDeCostosRepository, CentroDeCostosRepository>();
