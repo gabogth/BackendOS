@@ -8,5 +8,5 @@ namespace nest.core.aplicacion.corporativo.Empresas.Commands
         string Nombre,
         string NombreCorto,
         bool Estado
-    ) : IRequest<Empresa>, ICommandBase;
+    ) : IRequest<Empresa>, IEmpresaGenericCommand;
 }

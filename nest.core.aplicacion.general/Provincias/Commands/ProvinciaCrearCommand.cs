@@ -7,5 +7,5 @@ namespace nest.core.aplicacion.general.Provincias.Commands
     public sealed record ProvinciaCrearCommand(
         string Nombre,
         int DepartamentoId
-    ) : IRequest<Provincia>, ICommandBase;
+    ) : IRequest<Provincia>, IProvinciaGenericCommand;
 }

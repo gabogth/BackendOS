@@ -9,7 +9,6 @@ public class CargoModificarValidator : AbstractValidator<CargoModificarCommand>
     {
         RuleFor(x => x.Id)
             .GreaterThan(0).WithMessage("El identificador es obligatorio.");
-
-        Include(new CargoCrearValidator());
+            Include(new CargoGenericValidator<CargoModificarCommand>());
     }
 }

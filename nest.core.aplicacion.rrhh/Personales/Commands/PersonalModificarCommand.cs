@@ -13,4 +13,4 @@ public record PersonalModificarCommand(
     int? SuperiorId,
     byte PersonalEstadoId,
     long RegistroAsistenciaPoliticaId
-) : IRequest<Personal>, ICommandBase;
+) : IRequest<Personal>, IPersonalGenericCommand;

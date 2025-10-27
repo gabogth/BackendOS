@@ -18,5 +18,5 @@ namespace nest.core.aplicacion.general.Personas.Commands
         int DistritoId,
         byte? LicenciaConducirId,
         byte DocumentoIdentidadTipoId
-    ) : IRequest<Persona>, ICommandBase;
+    ) : IRequest<Persona>, IPersonaGenericCommand;
 }

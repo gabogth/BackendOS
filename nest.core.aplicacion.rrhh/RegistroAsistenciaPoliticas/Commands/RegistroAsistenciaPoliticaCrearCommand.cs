@@ -13,4 +13,4 @@ public record RegistroAsistenciaPoliticaCrearCommand(
     int MinutosExtra,
     int MinutosExtraEntrada,
     bool TieneCompletarHora
-) : IRequest<RegistroAsistenciaPolitica>, ICommandBase;
+) : IRequest<RegistroAsistenciaPolitica>, IRegistroAsistenciaPoliticaGenericCommand;

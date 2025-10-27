@@ -18,5 +18,5 @@ namespace nest.core.aplicacion.finanzas.Financiero.Commands
         string NumeroDocumentoGen,
         List<FinancieroDetalleEntrada> Detalles,
         bool Transaccional = true
-    ) : IRequest<FinancieroCabecera>, ICommandBase;
+    ) : IRequest<FinancieroCabecera>, IFinancieroGenericCommand;
 }

@@ -9,5 +9,5 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoDetalleActivos.Commands
         int EmpresaId,
         long OrdenTrabajoDetalleId,
         long ActivoId
-    ) : IRequest<OrdenTrabajoDetalleActivo>, ICommandBase;
+    ) : IRequest<OrdenTrabajoDetalleActivo>, IOrdenTrabajoDetalleActivoGenericCommand;
 }

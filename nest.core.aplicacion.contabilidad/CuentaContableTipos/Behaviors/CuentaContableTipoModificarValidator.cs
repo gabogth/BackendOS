@@ -9,7 +9,7 @@ namespace nest.core.aplicacion.contabilidad.CuentaContableTipos.Behaviors
         {
             RuleFor(x => x.Id)
                 .GreaterThan(0).WithMessage("El identificador es requerido.");
-            Include(new CuentaContableTipoCrearValidator());
+            Include(new CuentaContableTipoGenericValidator<CuentaContableTipoModificarCommand>());
         }
     }
 }

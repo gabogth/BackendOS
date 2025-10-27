@@ -11,5 +11,5 @@ namespace nest.core.aplicacion.finanzas.EntidadFinanciera.Commands
         string NombreCorto,
         bool Activo,
         bool EsEfectivo
-    ) : IRequest<EntidadFinanciera>, ICommandBase;
+    ) : IRequest<EntidadFinanciera>, IEntidadFinancieraGenericCommand;
 }

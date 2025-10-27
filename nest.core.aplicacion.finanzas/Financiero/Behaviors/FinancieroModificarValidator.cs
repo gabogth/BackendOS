@@ -9,7 +9,7 @@ namespace nest.core.aplicacion.finanzas.Financiero.Behaviors
         {
             RuleFor(x => x.Id)
                 .GreaterThan(0).WithMessage("El identificador es requerido.");
-            Include(new FinancieroCrearValidator());
+            Include(new FinancieroGenericValidator<FinancieroModificarCommand>());
         }
     }
 }

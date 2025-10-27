@@ -8,5 +8,5 @@ namespace nest.core.aplicacion.general.DocumentoIdentidadTipos.Commands
         byte Id,
         string Nombre,
         string NombreCorto
-    ) : IRequest<DocumentoIdentidadTipo>, ICommandBase;
+    ) : IRequest<DocumentoIdentidadTipo>, IDocumentoIdentidadTipoGenericCommand;
 }

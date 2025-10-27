@@ -8,5 +8,5 @@ namespace nest.core.aplicacion.general.Paises.Commands
         string Nombre,
         string CodigoIso,
         string CodigoTelefono
-    ) : IRequest<Pais>, ICommandBase;
+    ) : IRequest<Pais>, IPaisGenericCommand;
 }

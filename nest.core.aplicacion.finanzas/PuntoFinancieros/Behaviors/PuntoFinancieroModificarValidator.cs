@@ -9,8 +9,7 @@ namespace nest.core.aplicacion.finanzas.PuntoFinancieros.Behaviors
         {
             RuleFor(x => x.Id)
                 .GreaterThan(0).WithMessage("El identificador debe ser mayor a 0.");
-
-            Include(new PuntoFinancieroCrearValidator());
+            Include(new PuntoFinancieroGenericValidator<PuntoFinancieroModificarCommand>());
         }
     }
 }

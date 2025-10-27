@@ -8,5 +8,5 @@ namespace nest.core.aplicacion.legal.ContratoTipos.Commands
         byte Id,
         string Nombre,
         string Detalle
-    ) : IRequest<ContratoTipo>, ICommandBase;
+    ) : IRequest<ContratoTipo>, IContratoTipoGenericCommand;
 }

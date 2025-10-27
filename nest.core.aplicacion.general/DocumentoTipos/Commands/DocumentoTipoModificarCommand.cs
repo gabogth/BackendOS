@@ -9,5 +9,5 @@ namespace nest.core.aplicacion.general.DocumentoTipos.Commands
         string Nombre,
         string NombreCorto,
         string CodigoEstatal
-    ) : IRequest<DocumentoTipo>, ICommandBase;
+    ) : IRequest<DocumentoTipo>, IDocumentoTipoGenericCommand;
 }

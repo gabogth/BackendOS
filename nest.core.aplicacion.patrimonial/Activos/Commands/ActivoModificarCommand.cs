@@ -14,5 +14,5 @@ namespace nest.core.aplicacion.patrimonial.Activos.Commands
         int? CentroDeCostosId,
         string? ImagenUrl,
         int? TerceroId
-    ) : IRequest<Activo>, ICommandBase;
+    ) : IRequest<Activo>, IActivoGenericCommand;
 }

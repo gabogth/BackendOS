@@ -9,7 +9,6 @@ public class HorarioDetalleModificarValidator : AbstractValidator<HorarioDetalle
     {
         RuleFor(x => x.Id)
             .GreaterThan(0).WithMessage("El identificador es obligatorio.");
-
-        Include(new HorarioDetalleCrearValidator());
+            Include(new HorarioDetalleGenericValidator<HorarioDetalleModificarCommand>());
     }
 }

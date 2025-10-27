@@ -14,5 +14,5 @@ namespace nest.core.aplicacion.contabilidad.CuentaContables.Commands
         int Nivel,
         long? PadreId,
         bool PermiteMovimiento
-    ) : IRequest<CuentaContable>, ICommandBase;
+    ) : IRequest<CuentaContable>, ICuentaContableGenericCommand;
 }

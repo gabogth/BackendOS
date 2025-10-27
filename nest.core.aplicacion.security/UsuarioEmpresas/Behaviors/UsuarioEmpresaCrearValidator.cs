@@ -7,11 +7,7 @@ namespace nest.core.aplicacion.security.UsuarioEmpresas.Behaviors
     {
         public UsuarioEmpresaCrearValidator()
         {
-            RuleFor(x => x.UsuarioId)
-                .NotEmpty().WithMessage("El identificador del usuario es requerido.");
-
-            RuleFor(x => x.EmpresaId)
-                .GreaterThan(0).WithMessage("El identificador de la empresa es requerido.");
+            Include(new UsuarioEmpresaGenericValidator<UsuarioEmpresaCrearCommand>());
         }
     }
 }

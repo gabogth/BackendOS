@@ -8,5 +8,5 @@ namespace nest.core.aplicacion.general.Distritos.Commands
         int Id,
         string Nombre,
         int ProvinciaId
-    ) : IRequest<Distrito>, ICommandBase;
+    ) : IRequest<Distrito>, IDistritoGenericCommand;
 }

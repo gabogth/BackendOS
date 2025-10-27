@@ -7,4 +7,4 @@ namespace nest.core.aplicacion.rrhh.Cargos.Commands;
 public record CargoCrearCommand(
     string Nombre,
     bool Estado
-) : IRequest<Cargo>, ICommandBase;
+) : IRequest<Cargo>, ICargoGenericCommand;

@@ -9,6 +9,6 @@ public class ModuloModificarValidator : AbstractValidator<ModuloModificarCommand
     {
         RuleFor(x => x.Id)
             .GreaterThan(0).WithMessage("El identificador es obligatorio.");
-        Include(new ModuloCrearValidator());
+            Include(new ModuloGenericValidator<ModuloModificarCommand>());
     }
 }

@@ -12,4 +12,4 @@ public record ModuloCrearCommand(
     string Action,
     string Controlador,
     bool Estado
-) : IRequest<Modulo>, ICommandBase;
+) : IRequest<Modulo>, IModuloGenericCommand;

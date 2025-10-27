@@ -8,5 +8,5 @@ namespace nest.core.aplicacion.mantto.OrdenServicioTipos.Commands
         string Nombre,
         string NombreCorto,
         bool Estado
-    ) : IRequest<OrdenServicioTipo>, ICommandBase;
+    ) : IRequest<OrdenServicioTipo>, IOrdenServicioTipoGenericCommand;
 }

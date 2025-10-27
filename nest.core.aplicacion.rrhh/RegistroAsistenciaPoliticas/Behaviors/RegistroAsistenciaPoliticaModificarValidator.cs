@@ -9,6 +9,6 @@ public class RegistroAsistenciaPoliticaModificarValidator : AbstractValidator<Re
     {
         RuleFor(x => x.Id)
             .GreaterThan(0).WithMessage("El identificador es obligatorio.");
-        Include(new RegistroAsistenciaPoliticaCrearValidator());
+            Include(new RegistroAsistenciaPoliticaGenericValidator<RegistroAsistenciaPoliticaModificarCommand>());
     }
 }

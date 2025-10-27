@@ -13,5 +13,5 @@ namespace nest.core.aplicacion.costos.CentroDeCostos.Commands
         bool EsFinal,
         bool Activo,
         int? PadreId
-    ) : IRequest<CentroDeCostos>, ICommandBase;
+    ) : IRequest<CentroDeCostos>, ICentroDeCostosGenericCommand;
 }
