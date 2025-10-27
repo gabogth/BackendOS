@@ -1,9 +1,9 @@
 using AutoMapper;
 using nest.core.aplicacion.finanzas.CuentaCorriente.Commands;
-using nest.core.aplicacion.finanzas.EntidadFinanciera.Commands;
+using nest.core.aplicacion.finanzas.EntidadFinancieras.Commands;
 using nest.core.aplicacion.finanzas.FinancieroCabeceras.Commands;
 using nest.core.aplicacion.finanzas.FinancieroDetalles.Commands;
-using nest.core.aplicacion.finanzas.Moneda.Commands;
+using nest.core.aplicacion.finanzas.Monedas.Commands;
 using nest.core.aplicacion.finanzas.OrigenFinancieros.Commands;
 using nest.core.aplicacion.finanzas.PuntoFinancieros.Commands;
 using nest.core.aplicacion.finanzas.Terceros.Commands;

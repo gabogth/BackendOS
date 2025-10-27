@@ -1,0 +1,15 @@
+using MediatR;
+using nest.core.aplicacion.utils.Commands;
+using nest.core.dominio.Finanzas.EntidadFinancieraEntities;
+
+namespace nest.core.aplicacion.finanzas.EntidadFinancieras.Commands
+{
+    public sealed record EntidadFinancieraModificarCommand(
+        int Id,
+        int EmpresaId,
+        string Nombre,
+        string NombreCorto,
+        bool Activo,
+        bool EsEfectivo
+    ) : IRequest<EntidadFinanciera>, IEntidadFinancieraGenericCommand;
+}
