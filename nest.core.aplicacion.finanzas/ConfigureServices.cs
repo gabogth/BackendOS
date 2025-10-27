@@ -5,6 +5,7 @@ using nest.core.dominio.Finanzas.ClienteEntities;
 using nest.core.dominio.Finanzas.CuentaCorrienteEntities;
 using nest.core.dominio.Finanzas.EntidadFinancieraEntities;
 using nest.core.dominio.Finanzas.FinancieroCabeceraEntities;
+using nest.core.dominio.Finanzas.FinancieroDetalleEntities;
 using nest.core.dominio.Finanzas.MonedaEntities;
 using nest.core.dominio.Finanzas.OrigenFinancieroEntities;
 using nest.core.dominio.Finanzas.PuntoFinancieroEntities;
@@ -28,7 +29,8 @@ namespace nest.core.aplicacion.finanzas
             services.AddTransient<IOrigenFinancieroRepository, OrigenFinancieroRepository>();
             services.AddTransient<IPuntoFinancieroRepository, PuntoFinancieroRepository>();
             services.AddTransient<ITerceroRepository, TerceroRepository>();
-            services.AddTransient<IFinancieroRepository, FinancieroRepository>();
+            services.AddTransient<IFinancieroCabeceraRepository, FinancieroCabeceraRepository>();
+            services.AddTransient<IFinancieroDetalleRepository, FinancieroDetalleRepository>();
             return services;
         }
     }
