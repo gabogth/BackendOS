@@ -10,5 +10,5 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoPersonales.Commands
         long OrdenTrabajoCabeceraId,
         int PersonaId,
         bool EsLider
-    ) : IRequest<OrdenTrabajoPersonal>, ICommandBase;
+    ) : IRequest<OrdenTrabajoPersonal>, IOrdenTrabajoPersonalGenericCommand;
 }

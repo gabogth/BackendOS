@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.security.Security;
-using nest.core.dominio.Security;
+using nest.core.aplicacion.security.Usuarios.Commands;
+using nest.core.aplicacion.security.Usuarios.Queries;
 using nest.core.dominio;
+using nest.core.dominio.Security;
 
 namespace nest.core.security.Controllers
 {
@@ -16,17 +21,17 @@ namespace nest.core.security.Controllers
     [Route("[controller]")]
     public class UsuarioController : Controller
     {
-        private readonly UsuarioService service;
+        private readonly IMediator mediator;
         private readonly ILogger<UsuarioController> logger;
 
         /// <summary>
         /// Constructor del controlador UsuarioController.
         /// </summary>
-        /// <param name="service">Servicio para gestionar usuarios.</param>
+        /// <param name="mediator">Mediador para gestionar comandos y consultas de usuarios.</param>
         /// <param name="logger">Logger para registrar eventos y errores.</param>
-        public UsuarioController(UsuarioService service, ILogger<UsuarioController> logger)
+        public UsuarioController(IMediator mediator, ILogger<UsuarioController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
 
@@ -43,7 +48,7 @@ namespace nest.core.security.Controllers
         {
             try
             {
-                var data = await this.service.ObtenerTodos();
+                var data = await mediator.Send(new ObtenerTodosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -63,11 +68,11 @@ namespace nest.core.security.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ApplicationUser), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<ApplicationUser>> ObtenerPorId(string id)
+        public async Task<ActionResult<ApplicationUser?>> ObtenerPorId(string id)
         {
             try
             {
-                var data = await this.service.ObtenerPorId(id);
+                var data = await mediator.Send(new ObtenerPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -80,18 +85,18 @@ namespace nest.core.security.Controllers
         /// <summary>
         /// Agrega un nuevo usuario.
         /// </summary>
-        /// <param name="registro">DTO con la información del usuario y su contraseña.</param>
+        /// <param name="comando">Comando con la información del usuario y su contraseña.</param>
         /// <returns>Usuario creado.</returns>
         /// <response code="200">Usuario agregado exitosamente.</response>
         /// <response code="400">Error en la solicitud.</response>
         [HttpPost]
         [ProducesResponseType(typeof(ApplicationUser), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<ApplicationUser>> Agregar([FromBody] ApplicationUserDto registro)
+        public async Task<ActionResult<ApplicationUser>> Agregar([FromBody] UsuarioCrearCommand comando)
         {
             try
             {
-                var data = await this.service.Agregar(registro.User, registro.Password);
+                var data = await mediator.Send(comando);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -104,18 +109,18 @@ namespace nest.core.security.Controllers
         /// <summary>
         /// Modifica un usuario existente.
         /// </summary>
-        /// <param name="registro">Usuario con los datos actualizados.</param>
+        /// <param name="comando">Comando con los datos actualizados del usuario.</param>
         /// <returns>Usuario modificado.</returns>
         /// <response code="200">Usuario modificado exitosamente.</response>
         /// <response code="400">Error en la solicitud.</response>
         [HttpPut]
         [ProducesResponseType(typeof(ApplicationUser), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<ApplicationUser>> Modificar([FromBody] ApplicationUser registro)
+        public async Task<ActionResult<ApplicationUser>> Modificar([FromBody] UsuarioModificarCommand comando)
         {
             try
             {
-                var data = await this.service.Modificar(registro);
+                var data = await mediator.Send(comando);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -128,18 +133,18 @@ namespace nest.core.security.Controllers
         /// <summary>
         /// Elimina un usuario.
         /// </summary>
-        /// <param name="registro">Usuario a eliminar.</param>
+        /// <param name="comando">Comando con el identificador del usuario a eliminar.</param>
         /// <returns>True si la eliminación fue exitosa.</returns>
         /// <response code="200">Usuario eliminado exitosamente.</response>
         /// <response code="400">Error en la solicitud.</response>
         [HttpDelete]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar([FromBody] ApplicationUser registro)
+        public async Task<ActionResult> Eliminar([FromBody] UsuarioEliminarCommand comando)
         {
             try
             {
-                await this.service.Eliminar(registro);
+                await mediator.Send(comando);
                 return Ok(true);
             }
             catch (Exception ex)
@@ -163,7 +168,7 @@ namespace nest.core.security.Controllers
         {
             try
             {
-                var data = await this.service.ObtenerPorRol(roleName);
+                var data = await mediator.Send(new ObtenerPorRolQuery(roleName));
                 return Ok(data);
             }
             catch (Exception ex)

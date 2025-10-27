@@ -9,4 +9,4 @@ public record GrupoTrabajoPersonaCrearCommand(
     long GrupoTrabajoId,
     int PersonaId,
     bool EsLider
-) : IRequest<GrupoTrabajoPersona>, ICommandBase;
+) : IRequest<GrupoTrabajoPersona>, IGrupoTrabajoPersonaGenericCommand;

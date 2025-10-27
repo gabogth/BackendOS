@@ -7,10 +7,6 @@ public class HorarioDetalleCrearValidator : AbstractValidator<HorarioDetalleCrea
 {
     public HorarioDetalleCrearValidator()
     {
-        RuleFor(x => x.EmpresaId)
-            .GreaterThan(0).WithMessage("La empresa es obligatoria.");
-
-        RuleFor(x => x.HorarioCabeceraId)
-            .GreaterThan(0).WithMessage("La cabecera de horario es obligatoria.");
+        Include(new HorarioDetalleGenericValidator<HorarioDetalleCrearCommand>());
     }
 }

@@ -35,5 +35,5 @@ namespace nest.core.aplicacion.mantto.OrdenServicioMantenimientoExternos.Command
         DateTime FechaRecepcionFactura,
         DateTime FechaVencimientoFactura,
         DateTime FechaPagoFactura
-    ) : IRequest<OrdenServicioMantenimientoExterno>, ICommandBase;
+    ) : IRequest<OrdenServicioMantenimientoExterno>, IOrdenServicioMantenimientoExternoGenericCommand;
 }

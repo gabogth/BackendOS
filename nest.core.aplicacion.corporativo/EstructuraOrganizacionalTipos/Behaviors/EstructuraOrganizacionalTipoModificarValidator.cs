@@ -7,7 +7,7 @@ namespace nest.core.aplicacion.corporativo.EstructuraOrganizacionalTipos.Behavio
     {
         public EstructuraOrganizacionalTipoModificarValidator()
         {
-            Include(new EstructuraOrganizacionalTipoCrearValidator());
+            Include(new EstructuraOrganizacionalTipoGenericValidator<EstructuraOrganizacionalTipoModificarCommand>());
 
             RuleFor(x => x.Id)
                 .GreaterThan(0).WithMessage("El identificador debe ser mayor a cero.");

@@ -13,4 +13,4 @@ public record HorarioDetalleEventoModificarCommand(
     int DiferenciaDia,
     int VentanaMin,
     int VentanaMax
-) : IRequest<HorarioDetalleEvento>, ICommandBase;
+) : IRequest<HorarioDetalleEvento>, IHorarioDetalleEventoGenericCommand;

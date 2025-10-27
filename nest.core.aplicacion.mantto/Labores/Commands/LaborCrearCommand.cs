@@ -8,5 +8,5 @@ namespace nest.core.aplicacion.mantto.Labores.Commands
         string Nombre,
         string NombreCorto,
         bool Activo
-    ) : IRequest<Labor>, ICommandBase;
+    ) : IRequest<Labor>, ILaborGenericCommand;
 }

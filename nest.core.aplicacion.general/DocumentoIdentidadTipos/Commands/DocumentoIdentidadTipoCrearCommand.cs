@@ -7,5 +7,5 @@ namespace nest.core.aplicacion.general.DocumentoIdentidadTipos.Commands
     public sealed record DocumentoIdentidadTipoCrearCommand(
         string Nombre,
         string NombreCorto
-    ) : IRequest<DocumentoIdentidadTipo>, ICommandBase;
+    ) : IRequest<DocumentoIdentidadTipo>, IDocumentoIdentidadTipoGenericCommand;
 }

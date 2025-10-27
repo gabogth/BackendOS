@@ -13,5 +13,5 @@ namespace nest.core.aplicacion.finanzas.Terceros.Commands
         string DireccionFiscal,
         long CuentaContablePorCobrarId,
         long CuentaContablePorPagarId
-    ) : IRequest<Tercero>, ICommandBase;
+    ) : IRequest<Tercero>, ITerceroGenericCommand;
 }

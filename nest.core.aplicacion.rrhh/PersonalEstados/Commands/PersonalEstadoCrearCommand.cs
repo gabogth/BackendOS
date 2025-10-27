@@ -6,4 +6,4 @@ namespace nest.core.aplicacion.rrhh.PersonalEstados.Commands;
 
 public record PersonalEstadoCrearCommand(
     string Nombre
-) : IRequest<PersonalEstado>, ICommandBase;
+) : IRequest<PersonalEstado>, IPersonalEstadoGenericCommand;

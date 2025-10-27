@@ -19,7 +19,6 @@ namespace nest.core.infraestructura.corporativo.Mapper
             CreateMap<EstructuraOrganizacionalModificarCommand, EstructuraOrganizacional>();
             CreateMap<EmpresaCrearCommand, Empresa>();
             CreateMap<EmpresaModificarCommand, Empresa>();
-            CreateMap<UsuarioEmpresaCrearDto, UsuarioEmpresa>();
         }
     }
 }

@@ -17,4 +17,4 @@ public record FormularioModificarCommand(
     string ClaimType,
     short Orden,
     bool Estado
-) : IRequest<Formulario>, ICommandBase;
+) : IRequest<Formulario>, IFormularioGenericCommand;

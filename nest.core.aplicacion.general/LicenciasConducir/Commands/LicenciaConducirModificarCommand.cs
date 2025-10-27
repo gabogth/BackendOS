@@ -8,5 +8,5 @@ namespace nest.core.aplicacion.general.LicenciasConducir.Commands
         byte Id,
         string Nombre,
         byte Nivel
-    ) : IRequest<LicenciaConducir>, ICommandBase;
+    ) : IRequest<LicenciaConducir>, ILicenciaConducirGenericCommand;
 }

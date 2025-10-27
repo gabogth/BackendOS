@@ -1,5 +1,4 @@
 using MediatR;
-using nest.core.aplicacion.finanzas.CuentaCorrientes.Interfaces;
 using nest.core.aplicacion.utils.Commands;
 using nest.core.dominio.Finanzas.CuentaCorrienteEntities;
 

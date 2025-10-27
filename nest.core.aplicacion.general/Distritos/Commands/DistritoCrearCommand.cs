@@ -7,5 +7,5 @@ namespace nest.core.aplicacion.general.Distritos.Commands
     public record DistritoCrearCommand (
         string Nombre,
         int ProvinciaId
-    ) : IRequest<Distrito>, ICommandBase;
+    ) : IRequest<Distrito>, IDistritoGenericCommand;
 }

@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.security.UsuarioEmpresaServices;
-using nest.core.dominio;
-using nest.core.dominio.Security.UsuarioEmpresa;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using nest.core.aplicacion.security.UsuarioEmpresas.Commands;
+using nest.core.aplicacion.security.UsuarioEmpresas.Queries;
+using nest.core.dominio;
+using nest.core.dominio.Security.UsuarioEmpresa;
 
 namespace nest.core.security.Controllers
 {
@@ -18,17 +20,17 @@ namespace nest.core.security.Controllers
     [Route("[controller]")]
     public class UsuarioEmpresaController : Controller
     {
-        private readonly UsuarioEmpresaService service;
+        private readonly IMediator mediator;
         private readonly ILogger<UsuarioEmpresaController> logger;
 
         /// <summary>
         /// Inicializa una nueva instancia del controlador <see cref="UsuarioEmpresaController"/>.
         /// </summary>
-        /// <param name="service">Servicio que gestiona las relaciones usuario-empresa.</param>
+        /// <param name="mediator">Mediador que orquesta comandos y consultas de usuario-empresa.</param>
         /// <param name="logger">Logger para registrar eventos y errores.</param>
-        public UsuarioEmpresaController(UsuarioEmpresaService service, ILogger<UsuarioEmpresaController> logger)
+        public UsuarioEmpresaController(IMediator mediator, ILogger<UsuarioEmpresaController> logger)
         {
-            this.service = service;
+            this.mediator = mediator;
             this.logger = logger;
         }
 
@@ -43,7 +45,7 @@ namespace nest.core.security.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await mediator.Send(new ObtenerTodosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -61,11 +63,11 @@ namespace nest.core.security.Controllers
         [HttpGet("{id:long}")]
         [ProducesResponseType(typeof(UsuarioEmpresa), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<UsuarioEmpresa>> ObtenerPorId(long id)
+        public async Task<ActionResult<UsuarioEmpresa?>> ObtenerPorId(long id)
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await mediator.Send(new ObtenerPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -87,7 +89,7 @@ namespace nest.core.security.Controllers
         {
             try
             {
-                var data = await service.ObtenerByUsuarioIdAsync(usuarioId);
+                var data = await mediator.Send(new ObtenerPorUsuarioIdQuery(usuarioId));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -100,16 +102,16 @@ namespace nest.core.security.Controllers
         /// <summary>
         /// Registra una nueva relación usuario-empresa.
         /// </summary>
-        /// <param name="registro">Información de la relación usuario-empresa.</param>
+        /// <param name="comando">Comando con la información de la relación usuario-empresa.</param>
         /// <returns>Relación creada.</returns>
         [HttpPost]
         [ProducesResponseType(typeof(UsuarioEmpresa), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<UsuarioEmpresa>> Agregar([FromBody] UsuarioEmpresaCrearDto registro)
+        public async Task<ActionResult<UsuarioEmpresa>> Agregar([FromBody] UsuarioEmpresaCrearCommand comando)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await mediator.Send(comando);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -122,17 +124,16 @@ namespace nest.core.security.Controllers
         /// <summary>
         /// Modifica una relación usuario-empresa existente.
         /// </summary>
-        /// <param name="id">Identificador de la relación a modificar.</param>
-        /// <param name="registro">Datos actualizados de la relación.</param>
+        /// <param name="comando">Comando con los datos actualizados de la relación.</param>
         /// <returns>Relación modificada.</returns>
-        [HttpPut("{id:long}")]
+        [HttpPut]
         [ProducesResponseType(typeof(UsuarioEmpresa), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<UsuarioEmpresa>> Modificar(long id, [FromBody] UsuarioEmpresaCrearDto registro)
+        public async Task<ActionResult<UsuarioEmpresa>> Modificar([FromBody] UsuarioEmpresaModificarCommand comando)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var data = await mediator.Send(comando);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -145,16 +146,16 @@ namespace nest.core.security.Controllers
         /// <summary>
         /// Elimina una relación usuario-empresa.
         /// </summary>
-        /// <param name="id">Identificador de la relación a eliminar.</param>
+        /// <param name="comando">Comando con el identificador de la relación a eliminar.</param>
         /// <returns>Resultado de la operación.</returns>
-        [HttpDelete("{id:long}")]
+        [HttpDelete]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(long id)
+        public async Task<ActionResult> Eliminar([FromBody] UsuarioEmpresaEliminarCommand comando)
         {
             try
             {
-                await service.Eliminar(id);
+                await mediator.Send(comando);
                 return Ok(true);
             }
             catch (Exception ex)
@@ -167,16 +168,16 @@ namespace nest.core.security.Controllers
         /// <summary>
         /// Selecciona la empresa activa para un usuario.
         /// </summary>
-        /// <param name="registro">Datos con el usuario y la empresa a seleccionar.</param>
+        /// <param name="comando">Comando con el usuario y la empresa a seleccionar.</param>
         /// <returns>Resultado de la operación.</returns>
         [HttpPost("seleccionar")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> SeleccionarEmpresa([FromBody] UsuarioEmpresaSeleccionarDto registro)
+        public async Task<ActionResult> SeleccionarEmpresa([FromBody] UsuarioEmpresaSeleccionarCommand comando)
         {
             try
             {
-                await service.Seleccionar(registro);
+                await mediator.Send(comando);
                 return Ok(true);
             }
             catch (Exception ex)

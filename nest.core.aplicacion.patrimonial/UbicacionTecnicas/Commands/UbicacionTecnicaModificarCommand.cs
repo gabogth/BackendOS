@@ -11,5 +11,5 @@ namespace nest.core.aplicacion.patrimonial.UbicacionTecnicas.Commands
         bool Activo,
         int? TerceroId,
         long? PadreId
-    ) : IRequest<UbicacionTecnica>, ICommandBase;
+    ) : IRequest<UbicacionTecnica>, IUbicacionTecnicaGenericCommand;
 }

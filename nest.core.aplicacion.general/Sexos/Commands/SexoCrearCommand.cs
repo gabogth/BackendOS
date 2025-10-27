@@ -7,5 +7,5 @@ namespace nest.core.aplicacion.general.Sexos.Commands
     public sealed record SexoCrearCommand(
         string Nombre,
         string NombreCorto
-    ) : IRequest<Sexo>, ICommandBase;
+    ) : IRequest<Sexo>, ISexoGenericCommand;
 }

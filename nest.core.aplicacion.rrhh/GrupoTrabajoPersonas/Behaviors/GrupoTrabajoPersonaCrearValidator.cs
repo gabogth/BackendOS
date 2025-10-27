@@ -7,13 +7,6 @@ public class GrupoTrabajoPersonaCrearValidator : AbstractValidator<GrupoTrabajoP
 {
     public GrupoTrabajoPersonaCrearValidator()
     {
-        RuleFor(x => x.EmpresaId)
-            .GreaterThan(0).WithMessage("La empresa es obligatoria.");
-
-        RuleFor(x => x.GrupoTrabajoId)
-            .GreaterThan(0).WithMessage("El grupo de trabajo es obligatorio.");
-
-        RuleFor(x => x.PersonaId)
-            .GreaterThan(0).WithMessage("La persona es obligatoria.");
+        Include(new GrupoTrabajoPersonaGenericValidator<GrupoTrabajoPersonaCrearCommand>());
     }
 }

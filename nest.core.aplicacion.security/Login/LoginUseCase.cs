@@ -55,7 +55,7 @@ namespace nest.core.aplicacion.security.Login
             signInManager.AuthenticationScheme = IdentityConstants.BearerScheme;
             ApplicationUser user = await signInManager.UserManager.FindByEmailAsync(entity.Email);
             List<Claim> claims = await this.GetRoleClaims(user);
-            await this.usuarioEmpresaRepository.Seleccionar(entity.EmpresaId, user.Id);
+            await this.usuarioEmpresaRepository.Seleccionar(user.Id, entity.EmpresaId);
             CustomAccessTokenResponse response = this.claimsGenerator.build(user, claims, entity.EmpresaId, this.configuration["Jwt:Key"], this.configuration["Jwt:Issuer"], this.configuration["Jwt:Audience"]);
             var resultToken = await userManager.SetAuthenticationTokenAsync(user, "onPremises", "AccessToken", response.AccessToken);
             if (resultToken.Succeeded)

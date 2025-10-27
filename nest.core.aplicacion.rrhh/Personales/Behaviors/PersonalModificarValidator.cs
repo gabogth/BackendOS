@@ -9,7 +9,6 @@ public class PersonalModificarValidator : AbstractValidator<PersonalModificarCom
     {
         RuleFor(x => x.Id)
             .GreaterThan(0).WithMessage("El identificador es obligatorio.");
-
-        Include(new PersonalCrearValidator());
+            Include(new PersonalGenericValidator<PersonalModificarCommand>());
     }
 }

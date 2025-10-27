@@ -20,5 +20,5 @@ namespace nest.core.aplicacion.finanzas.Financiero.Commands
         decimal Monto,
         int? CuentaCorrienteId,
         string ES
-    ) : IRequest<FinancieroDetalle>, ICommandBase;
+    ) : IRequest<FinancieroDetalle>, IFinancieroDetalleGenericCommand;
 }

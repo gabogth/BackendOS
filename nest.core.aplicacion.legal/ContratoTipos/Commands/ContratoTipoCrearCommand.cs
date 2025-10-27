@@ -7,5 +7,5 @@ namespace nest.core.aplicacion.legal.ContratoTipos.Commands
     public sealed record ContratoTipoCrearCommand(
         string Nombre,
         string Detalle
-    ) : IRequest<ContratoTipo>, ICommandBase;
+    ) : IRequest<ContratoTipo>, IContratoTipoGenericCommand;
 }

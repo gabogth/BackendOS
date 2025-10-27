@@ -7,16 +7,7 @@ namespace nest.core.aplicacion.finanzas.PuntoFinancieros.Behaviors
     {
         public PuntoFinancieroCrearValidator()
         {
-            RuleFor(x => x.EmpresaId)
-                .GreaterThan(0).WithMessage("EmpresaId debe ser mayor a 0.");
-
-            RuleFor(x => x.Nombre)
-                .NotEmpty().WithMessage("El nombre es requerido.")
-                .MaximumLength(150).WithMessage("El nombre debe tener como máximo 150 caracteres.");
-
-            RuleFor(x => x.NombreCorto)
-                .NotEmpty().WithMessage("El nombre corto es requerido.")
-                .MaximumLength(50).WithMessage("El nombre corto debe tener como máximo 50 caracteres.");
+            Include(new PuntoFinancieroGenericValidator<PuntoFinancieroCrearCommand>());
         }
     }
 }

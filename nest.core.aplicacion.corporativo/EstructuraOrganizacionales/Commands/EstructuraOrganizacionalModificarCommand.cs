@@ -14,5 +14,5 @@ namespace nest.core.aplicacion.corporativo.EstructuraOrganizacionales.Commands
         int EstructuraOrganizacionalTipoId,
         bool Estado,
         bool Final
-    ) : IRequest<EstructuraOrganizacional>, ICommandBase;
+    ) : IRequest<EstructuraOrganizacional>, IEstructuraOrganizacionalGenericCommand;
 }

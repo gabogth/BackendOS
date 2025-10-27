@@ -11,5 +11,5 @@ namespace nest.core.aplicacion.general.PersonaAdjuntos.Commands
         long AdjuntoId,
         AdjuntoTipoEnum AdjuntoTipoId,
         bool EsFotoPrincipal
-    ) : IRequest<PersonaAdjunto>, ICommandBase;
+    ) : IRequest<PersonaAdjunto>, IPersonaAdjuntoGenericCommand;
 }

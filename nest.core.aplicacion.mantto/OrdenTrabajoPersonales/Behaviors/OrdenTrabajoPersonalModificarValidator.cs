@@ -7,7 +7,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoPersonales.Behaviors
     {
         public OrdenTrabajoPersonalModificarValidator()
         {
-            Include(new OrdenTrabajoPersonalCrearValidator());
+            Include(new OrdenTrabajoPersonalGenericValidator<OrdenTrabajoPersonalModificarCommand>());
         }
     }
 }

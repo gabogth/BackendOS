@@ -9,5 +9,5 @@ namespace nest.core.aplicacion.finanzas.PuntoFinancieros.Commands
         string Nombre,
         string NombreCorto,
         bool Activo
-    ) : IRequest<PuntoFinanciero>, ICommandBase;
+    ) : IRequest<PuntoFinanciero>, IPuntoFinancieroGenericCommand;
 }

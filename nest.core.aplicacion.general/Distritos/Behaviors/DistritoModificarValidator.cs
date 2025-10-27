@@ -3,16 +3,13 @@ using nest.core.aplicacion.general.Distritos.Commands;
 
 namespace nest.core.aplicacion.general.Distritos.Behaviors
 {
-    public class PersonaModificarValidator : AbstractValidator<PersonaModificarCommand>
+    public class DistritoModificarValidator : AbstractValidator<DistritoModificarCommand>
     {
-        public PersonaModificarValidator()
+        public DistritoModificarValidator()
         {
             RuleFor(x => x.Id)
                 .NotEmpty().WithMessage("Id es requerido.");
-            RuleFor(x => x.Nombre)
-                .NotEmpty().WithMessage("Nombre es requerido.");
-            RuleFor(x => x.ProvinciaId)
-                .NotEmpty().WithMessage("Provincia es requerida.");
+            Include(new DistritoGenericValidator<DistritoModificarCommand>());
         }
     }
 }

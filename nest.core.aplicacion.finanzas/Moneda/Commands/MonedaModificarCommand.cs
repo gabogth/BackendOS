@@ -11,5 +11,5 @@ namespace nest.core.aplicacion.finanzas.Moneda.Commands
         string Prefix,
         string Sufix,
         string Simbolo
-    ) : IRequest<Moneda>, ICommandBase;
+    ) : IRequest<Moneda>, IMonedaGenericCommand;
 }
