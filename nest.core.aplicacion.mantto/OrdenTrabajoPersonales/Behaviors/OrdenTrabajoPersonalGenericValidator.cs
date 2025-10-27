@@ -8,9 +8,6 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoPersonales.Behaviors
     {
         public OrdenTrabajoPersonalGenericValidator()
         {
-            RuleFor(x => x.Id)
-                .GreaterThan(0).WithMessage("El identificador del registro es obligatorio.");
-
             RuleFor(x => x.EmpresaId)
                 .GreaterThan(0).WithMessage("El identificador de la empresa es obligatorio.");
 

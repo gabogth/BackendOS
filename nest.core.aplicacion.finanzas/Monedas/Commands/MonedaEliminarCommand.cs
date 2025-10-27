@@ -5,5 +5,5 @@ namespace nest.core.aplicacion.finanzas.Monedas.Commands
 {
     public sealed record MonedaEliminarCommand(
         int Id
-    ) : IRequest<Unit>, ICommandBase;
+    ) : IRequest<bool>, ICommandBase;
 }

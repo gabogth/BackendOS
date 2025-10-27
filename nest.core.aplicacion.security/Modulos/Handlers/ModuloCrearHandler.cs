@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.security.Modulos.Commands;
 using nest.core.dominio.Aplicacion.Modulo;
+using nest.core.dominio.Aplicacion.Modulo.Repository;
 
 namespace nest.core.aplicacion.security.Modulos.Handlers;
 

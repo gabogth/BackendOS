@@ -7,6 +7,7 @@ using nest.core.aplicacion.finanzas.Monedas.Commands;
 using nest.core.aplicacion.finanzas.OrigenFinancieros.Commands;
 using nest.core.aplicacion.finanzas.PuntoFinancieros.Commands;
 using nest.core.aplicacion.finanzas.Terceros.Commands;
+using nest.core.dominio.Finanzas.ClienteEntities;
 using nest.core.dominio.Finanzas.CuentaCorrienteEntities;
 using nest.core.dominio.Finanzas.EntidadFinancieraEntities;
 using nest.core.dominio.Finanzas.FinancieroCabeceraEntities;
@@ -14,7 +15,6 @@ using nest.core.dominio.Finanzas.FinancieroDetalleEntities;
 using nest.core.dominio.Finanzas.MonedaEntities;
 using nest.core.dominio.Finanzas.OrigenFinancieroEntities;
 using nest.core.dominio.Finanzas.PuntoFinancieroEntities;
-using nest.core.dominio.Finanzas.TerceroEntities;
 
 namespace nest.core.aplicacion.finanzas.Mapper
 {

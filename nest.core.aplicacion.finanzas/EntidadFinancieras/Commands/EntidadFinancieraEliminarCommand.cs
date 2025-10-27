@@ -5,5 +5,5 @@ namespace nest.core.aplicacion.finanzas.EntidadFinancieras.Commands
 {
     public sealed record EntidadFinancieraEliminarCommand(
         int Id
-    ) : IRequest<Unit>, ICommandBase;
+    ) : IRequest<bool>, ICommandBase;
 }

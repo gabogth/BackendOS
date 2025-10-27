@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using nest.core.aplicacion.general.Distritos.Commands;
+using nest.core.aplicacion.general.Personas.Commands;
 
 namespace nest.core.aplicacion.general.Distritos.Behaviors
 {

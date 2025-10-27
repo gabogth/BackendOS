@@ -5,5 +5,5 @@ namespace nest.core.aplicacion.finanzas.CuentaCorrientes.Commands
 {
     public sealed record CuentaCorrienteEliminarCommand(
         int Id
-    ) : IRequest<Unit>, ICommandBase;
+    ) : IRequest<bool>, ICommandBase;
 }

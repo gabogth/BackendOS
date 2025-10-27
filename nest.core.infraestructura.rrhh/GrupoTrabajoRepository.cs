@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.RRHH.GrupoTrabajoEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
+using nest.core.infrastructura.utils.Excepciones;
 
 namespace nest.core.infraestructura.rrhh
 {
