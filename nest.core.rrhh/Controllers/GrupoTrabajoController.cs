@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.rrhh.GrupoTrabajoServices;
+using nest.core.aplicacion.rrhh.GrupoTrabajos.Commands;
+using nest.core.aplicacion.rrhh.GrupoTrabajos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.RRHH.GrupoTrabajoEntities;
 
@@ -17,18 +17,11 @@ namespace nest.core.rrhh.Controllers
     [Route("[controller]")]
     public class GrupoTrabajoController : ControllerBase
     {
-        private readonly GrupoTrabajoService service;
-        private readonly ILogger<GrupoTrabajoController> logger;
+        private readonly ISender sender;
 
-        /// <summary>
-        /// Inicializa una nueva instancia del controlador <see cref="GrupoTrabajoController"/>.
-        /// </summary>
-        /// <param name="service">Servicio de negocio para grupos de trabajo.</param>
-        /// <param name="logger">Logger para registrar auditoría y errores.</param>
-        public GrupoTrabajoController(GrupoTrabajoService service, ILogger<GrupoTrabajoController> logger)
+        public GrupoTrabajoController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         /// <summary>
@@ -40,18 +33,10 @@ namespace nest.core.rrhh.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<GrupoTrabajo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<GrupoTrabajo>>> ObtenerTodos()
+        public async Task<ActionResult<List<GrupoTrabajo>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -64,18 +49,10 @@ namespace nest.core.rrhh.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(GrupoTrabajo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<GrupoTrabajo>> ObtenerPorId(long id)
+        public async Task<ActionResult<GrupoTrabajo>> ObtenerPorId(long id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -87,18 +64,10 @@ namespace nest.core.rrhh.Controllers
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<GrupoTrabajo>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<GrupoTrabajo>>> ObtenerActivos()
+        public async Task<ActionResult<List<GrupoTrabajo>>> ObtenerActivos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerActivos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerActivosQuery(), ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -111,18 +80,10 @@ namespace nest.core.rrhh.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(GrupoTrabajo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<GrupoTrabajo>> Agregar([FromBody] GrupoTrabajoDto registro)
+        public async Task<ActionResult<GrupoTrabajo>> Agregar([FromBody] GrupoTrabajoCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command, ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -136,18 +97,11 @@ namespace nest.core.rrhh.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(GrupoTrabajo), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<GrupoTrabajo>> Modificar(long id, [FromBody] GrupoTrabajoDto registro)
+        public async Task<ActionResult<GrupoTrabajo>> Modificar(long id, [FromBody] GrupoTrabajoModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var data = await sender.Send(cmd, ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -160,18 +114,10 @@ namespace nest.core.rrhh.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(long id)
+        public async Task<ActionResult> Eliminar(long id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            await sender.Send(new GrupoTrabajoEliminarCommand(id), ct);
+            return Ok(true);
         }
     }
 }

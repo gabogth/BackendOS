@@ -7,7 +7,7 @@ using nest.core.infrastructura.utils.Excepciones;
 
 namespace nest.core.infraestructura.rrhh
 {
-    public class RegistroAsistenciaOrdenTrabajoRepository : CrudRepositoryBase<RegistroAsistenciaOrdenTrabajo, RegistroAsistenciaOrdenTrabajoCrearDto, long>, IRegistroAsistenciaOrdenTrabajoRepository
+    public class RegistroAsistenciaOrdenTrabajoRepository : CrudRepositoryBase<RegistroAsistenciaOrdenTrabajo, long>, IRegistroAsistenciaOrdenTrabajoRepository
     {
         public RegistroAsistenciaOrdenTrabajoRepository(NestDbContext context, IMapper mapper) : base(context, mapper)
         {
@@ -23,17 +23,16 @@ namespace nest.core.infraestructura.rrhh
 
         public Task<List<RegistroAsistenciaOrdenTrabajo>> ObtenerTodos() => GetAllAsync();
 
-        public async Task<RegistroAsistenciaOrdenTrabajo> Agregar(RegistroAsistenciaOrdenTrabajoCrearDto entry)
+        public async Task<RegistroAsistenciaOrdenTrabajo> Agregar(RegistroAsistenciaOrdenTrabajo entry)
         {
             var registro = await AddAsync(entry);
             return await ObtenerPorId(registro.Id);
         }
 
-        public async Task<RegistroAsistenciaOrdenTrabajo> Modificar(long id, RegistroAsistenciaOrdenTrabajoCrearDto entry)
+        public async Task<RegistroAsistenciaOrdenTrabajo> Modificar(RegistroAsistenciaOrdenTrabajo entry)
         {
-            entry.Id = id;
-            await UpdateAsync(id, entry);
-            return await ObtenerPorId(id);
+            await UpdateAsync(entry);
+            return await ObtenerPorId(entry.Id);
         }
 
         public Task Eliminar(long id) => DeleteAsync(id);

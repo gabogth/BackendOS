@@ -3,10 +3,6 @@ using MediatR;
 using nest.core.aplicacion.rrhh;
 using nest.core.aplicacion.rrhh.Cargos.Behaviors;
 using nest.core.aplicacion.rrhh.Cargos.Commands;
-using nest.core.aplicacion.rrhh.GrupoTrabajoServices;
-using nest.core.aplicacion.rrhh.HorarioServices;
-using nest.core.aplicacion.rrhh.RegistroAsistenciaServices;
-using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajoServices;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -23,10 +19,6 @@ namespace nest.core.rrhh.Extensions
                 cfg.RegisterServicesFromAssembly(typeof(CargoCrearCommand).Assembly);
             });
             services.AddValidatorsFromAssemblyContaining<CargoCrearValidator>();
-            services.AddScoped<GrupoTrabajoService>();
-            services.AddScoped<HorarioService>();
-            services.AddScoped<RegistroAsistenciaService>();
-            services.AddScoped<RegistroAsistenciaOrdenTrabajoService>();
             return services;
         }
 

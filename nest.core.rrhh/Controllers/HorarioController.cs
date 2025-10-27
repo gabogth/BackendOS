@@ -1,6 +1,8 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.rrhh.HorarioServices;
+using nest.core.aplicacion.rrhh.Horarios.Commands;
+using nest.core.aplicacion.rrhh.Horarios.Queries;
 using nest.core.dominio;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 
@@ -16,18 +18,11 @@ namespace nest.core.rrhh.Controllers
     [Route("[controller]")]
     public class HorarioController : ControllerBase
     {
-        private readonly HorarioService service;
-        private readonly ILogger<HorarioController> logger;
+        private readonly ISender sender;
 
-        /// <summary>
-        /// Constructor del controlador HorarioController.
-        /// </summary>
-        /// <param name="service">Servicio para gestionar horarios.</param>
-        /// <param name="logger">Logger para registrar eventos y errores.</param>
-        public HorarioController(HorarioService service, ILogger<HorarioController> logger)
+        public HorarioController(ISender sender)
         {
-            this.service = service;
-            this.logger = logger;
+            this.sender = sender;
         }
 
         /// <summary>
@@ -39,18 +34,10 @@ namespace nest.core.rrhh.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<HorarioCabecera>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<HorarioCabecera>>> ObtenerTodos()
+        public async Task<ActionResult<List<HorarioCabecera>>> ObtenerTodos(CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerTodos();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerTodosQuery(), ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -63,18 +50,10 @@ namespace nest.core.rrhh.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(HorarioCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<HorarioCabecera>> ObtenerPorId(int id)
+        public async Task<ActionResult<HorarioCabecera>> ObtenerPorId(int id, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.ObtenerPorId(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerPorIdQuery(id), ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -87,18 +66,10 @@ namespace nest.core.rrhh.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(HorarioCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<HorarioCabecera>> Agregar([FromBody] HorarioDto registro)
+        public async Task<ActionResult<HorarioCabecera>> Agregar([FromBody] HorarioCrearCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Agregar(registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command, ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -112,18 +83,11 @@ namespace nest.core.rrhh.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(HorarioCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<HorarioCabecera>> Modificar(int id, [FromBody] HorarioDto registro)
+        public async Task<ActionResult<HorarioCabecera>> Modificar(int id, [FromBody] HorarioModificarCommand command, CancellationToken ct)
         {
-            try
-            {
-                var data = await service.Modificar(id, registro);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var data = await sender.Send(cmd, ct);
+            return Ok(data);
         }
 
         /// <summary>
@@ -136,18 +100,10 @@ namespace nest.core.rrhh.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(int id)
+        public async Task<ActionResult> Eliminar(int id, CancellationToken ct)
         {
-            try
-            {
-                await service.Eliminar(id);
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new HorarioEliminarCommand(id), ct);
+            return Ok(true);
         }
     }
 }
