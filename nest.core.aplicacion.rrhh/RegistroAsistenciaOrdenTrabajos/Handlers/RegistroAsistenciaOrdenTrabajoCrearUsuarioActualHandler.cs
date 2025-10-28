@@ -7,10 +7,12 @@ using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
+using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities;
 using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Transaccional;
+using nest.core.infraestructura.rrhh;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
 {
@@ -19,6 +21,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
         private readonly IRegistroAsistenciaOrdenTrabajoRepository registroOrdenTrabajoRepository;
         private readonly IOrdenTrabajoCabeceraRepository ordenTrabajoCabeceraRepository;
         private readonly IConnectionStringService connectionStringService;
+        private readonly IRegistroAsistenciaAdjuntoRepository registroAsistenciaAdjuntoRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly ILogger<RegistroAsistenciaOrdenTrabajoCrearUsuarioActualHandler> logger;
@@ -30,6 +33,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             IHorarioDetalleRepository horarioDetalleRepository,
             IRegistroAsistenciaOrdenTrabajoRepository registroOrdenTrabajoRepository,
             IOrdenTrabajoCabeceraRepository ordenTrabajoCabeceraRepository,
+            IRegistroAsistenciaAdjuntoRepository registroAsistenciaAdjuntoRepository,
             IConnectionStringService connectionStringService,
             IUnitOfWork unitOfWork,
             IMapper mapper,
@@ -38,6 +42,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
         {
             this.registroOrdenTrabajoRepository = registroOrdenTrabajoRepository;
             this.ordenTrabajoCabeceraRepository = ordenTrabajoCabeceraRepository;
+            this.registroAsistenciaAdjuntoRepository = registroAsistenciaAdjuntoRepository;
             this.connectionStringService = connectionStringService;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
@@ -71,6 +76,16 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
                 };
 
                 await registroOrdenTrabajoRepository.Agregar(relacion);
+
+                var adjunto = new RegistroAsistenciaAdjunto
+                {
+                    EmpresaId = registro.EmpresaId,
+                    Id = registro.Id,
+                    AdjuntoId = request.AdjuntoId
+                };
+
+                await registroAsistenciaAdjuntoRepository.Modificar(adjunto);
+
                 await unitOfWork.CommitAsync();
                 return await repository.ObtenerPorId(registro.Id);
             }

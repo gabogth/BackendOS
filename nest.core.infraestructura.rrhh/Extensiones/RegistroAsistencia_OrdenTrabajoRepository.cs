@@ -16,7 +16,9 @@ namespace nest.core.infraestructura.rrhh.Extensiones
         {
             return base.Query()
                 .Include(x => x.RegistroAsistenciaOrdenTrabajo)
-                .Include(x => x.RegistroAsistenciaOrdenTrabajo).ThenInclude(x => x.OrdenTrabajoCabecera);
+                .Include(x => x.RegistroAsistenciaOrdenTrabajo).ThenInclude(x => x.OrdenTrabajoCabecera)
+                .Include(x => x.RegistroAsistenciaAdjunto)
+                .Include(x => x.RegistroAsistenciaAdjunto).ThenInclude(x => x.Adjunto);
         }
     }
 }

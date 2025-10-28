@@ -19,10 +19,12 @@ namespace nest.core.infraestructura.db.RRHH
             builder.HasOne(x => x.RegistroAsistencia)
                 .WithOne(x => x.RegistroAsistenciaAdjunto)
                 .HasForeignKey<RegistroAsistencia>(x => x.Id)
+                .HasPrincipalKey<RegistroAsistenciaAdjunto>(x => x.Id)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x => x.Adjunto)
                 .WithOne(x => x.RegistroAsistenciaAdjunto)
                 .HasForeignKey<Adjunto>(x => x.Id)
+                .HasForeignKey<RegistroAsistenciaAdjunto>(x => x.AdjuntoId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

@@ -6454,89 +6454,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.ToTable("punto_financiero_audit", "finanzas");
                 });
 
-            modelBuilder.Entity("RegistroAsistenciaAdjuntoAudit", b =>
-                {
-                    b.Property<long>("AuditId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None)
-                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.None)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
-
-                    b.Property<long>("AdjuntoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("AuditAccion")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("AuditApp")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("AuditAppVersion")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("AuditAssemblyName")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<DateTime>("AuditFecha")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("AuditHost")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("AuditIpRemoteOrigin")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<bool>("AuditIsHttps")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("AuditMethod")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("AuditOrigin")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("AuditProtocol")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("AuditReferer")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("AuditRequestId")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("AuditUserAgent")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("AuditUsuario")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<int>("EmpresaId")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("Id")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("AuditId");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("registro_asistencia_adjunto_audit", "rrhh");
-                });
-
             modelBuilder.Entity("RegistroAsistenciaAudit", b =>
                 {
                     b.Property<long>("AuditId")
@@ -9136,6 +9053,8 @@ namespace nest.core.driver.postgres.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AdjuntoId");
+
                     b.HasIndex("AdjuntoTipoId");
 
                     b.HasIndex("EmpresaId");
@@ -10600,24 +10519,6 @@ namespace nest.core.driver.postgres.Migrations
                         });
                 });
 
-            modelBuilder.Entity("nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities.RegistroAsistenciaAdjunto", b =>
-                {
-                    b.Property<long>("Id")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("AdjuntoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("EmpresaId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmpresaId");
-
-                    b.ToTable("registro_asistencia_adjunto", "rrhh");
-                });
-
             modelBuilder.Entity("nest.core.dominio.RRHH.RegistroAsistenciaEntities.RegistroAsistencia", b =>
                 {
                     b.Property<long>("Id")
@@ -11217,25 +11118,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.Navigation("OrdenServicioCabecera");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.AdjuntoEntities.Adjunto", b =>
-                {
-                    b.HasOne("nest.core.dominio.General.PersonaAdjuntoEntities.PersonaAdjunto", "PersonaAdjunto")
-                        .WithOne("Adjunto")
-                        .HasForeignKey("nest.core.dominio.General.AdjuntoEntities.Adjunto", "Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities.RegistroAsistenciaAdjunto", "RegistroAsistenciaAdjunto")
-                        .WithOne("Adjunto")
-                        .HasForeignKey("nest.core.dominio.General.AdjuntoEntities.Adjunto", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PersonaAdjunto");
-
-                    b.Navigation("RegistroAsistenciaAdjunto");
-                });
-
             modelBuilder.Entity("nest.core.dominio.General.DepartamentoEntites.Departamento", b =>
                 {
                     b.HasOne("nest.core.dominio.General.PaisEntities.Pais", "Pais")
@@ -11260,6 +11142,12 @@ namespace nest.core.driver.postgres.Migrations
 
             modelBuilder.Entity("nest.core.dominio.General.PersonaAdjuntoEntities.PersonaAdjunto", b =>
                 {
+                    b.HasOne("nest.core.dominio.General.AdjuntoEntities.Adjunto", "Adjunto")
+                        .WithMany()
+                        .HasForeignKey("AdjuntoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("nest.core.dominio.General.AdjuntoTipoEntities.AdjuntoTipo", "AdjuntoTipo")
                         .WithMany()
                         .HasForeignKey("AdjuntoTipoId")
@@ -11271,6 +11159,8 @@ namespace nest.core.driver.postgres.Migrations
                         .HasForeignKey("PersonaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Adjunto");
 
                     b.Navigation("AdjuntoTipo");
 
@@ -11821,12 +11711,6 @@ namespace nest.core.driver.postgres.Migrations
                         .HasForeignKey("HorarioDetalleEventoId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities.RegistroAsistenciaAdjunto", "RegistroAsistenciaAdjunto")
-                        .WithOne("RegistroAsistencia")
-                        .HasForeignKey("nest.core.dominio.RRHH.RegistroAsistenciaEntities.RegistroAsistencia", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("nest.core.dominio.RRHH.PersonalEntities.Personal", "Personal")
                         .WithMany()
                         .HasForeignKey("PersonalId")
@@ -11841,8 +11725,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.Navigation("HorarioDetalleEvento");
 
                     b.Navigation("Personal");
-
-                    b.Navigation("RegistroAsistenciaAdjunto");
 
                     b.Navigation("RegistroAsistenciaPolitica");
                 });
@@ -11918,11 +11800,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.Navigation("Departamentos");
                 });
 
-            modelBuilder.Entity("nest.core.dominio.General.PersonaAdjuntoEntities.PersonaAdjunto", b =>
-                {
-                    b.Navigation("Adjunto");
-                });
-
             modelBuilder.Entity("nest.core.dominio.General.PersonaEntities.Persona", b =>
                 {
                     b.Navigation("PersonaAdjuntos");
@@ -11993,13 +11870,6 @@ namespace nest.core.driver.postgres.Migrations
             modelBuilder.Entity("nest.core.dominio.RRHH.PersonalEntities.Personal", b =>
                 {
                     b.Navigation("Children");
-                });
-
-            modelBuilder.Entity("nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities.RegistroAsistenciaAdjunto", b =>
-                {
-                    b.Navigation("Adjunto");
-
-                    b.Navigation("RegistroAsistencia");
                 });
 
             modelBuilder.Entity("nest.core.dominio.RRHH.RegistroAsistenciaEntities.RegistroAsistencia", b =>
