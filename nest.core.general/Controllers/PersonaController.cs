@@ -24,7 +24,7 @@ namespace nest.core.general.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<Persona>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Persona>>> ObtenerTodos([FromBody] ObtenerTodosQuery command, CancellationToken ct)
+        public async Task<ActionResult<List<Persona>>> ObtenerTodos([FromQuery] ObtenerTodosQuery command, CancellationToken ct)
         {
             var entidad = await sender.Send(command);
             return Ok(entidad);
@@ -32,7 +32,7 @@ namespace nest.core.general.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> ObtenerPorId([FromBody] ObtenerPorIdQuery command, CancellationToken ct)
+        public async Task<ActionResult<Persona>> ObtenerPorId([FromQuery] ObtenerPorIdQuery command, CancellationToken ct)
         {
             var entidad = await sender.Send(command);
             return Ok(entidad);
@@ -40,7 +40,7 @@ namespace nest.core.general.Controllers
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<Persona>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Persona>>> ObtenerActivos([FromBody] ObtenerActivosQuery command, CancellationToken ct)
+        public async Task<ActionResult<List<Persona>>> ObtenerActivos([FromQuery] ObtenerActivosQuery command, CancellationToken ct)
         {
             var entidad = await sender.Send(command);
             return Ok(entidad);
