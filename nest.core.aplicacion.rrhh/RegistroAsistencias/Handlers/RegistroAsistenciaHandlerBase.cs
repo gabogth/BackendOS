@@ -109,20 +109,22 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
 
         private JornalParams? GetDiaLaboral(HorarioCabecera horario, DateTime fechaRegistro)
         {
-            var parametros = new List<JornalParams>
-            {
-                GetParamsJornal(horario, DayOfWeekUtils.Ayer(fechaRegistro.DayOfWeek), fechaRegistro.AddDays(-1)),
-                GetParamsJornal(horario, fechaRegistro.DayOfWeek, fechaRegistro),
-                GetParamsJornal(horario, DayOfWeekUtils.Manana(fechaRegistro.DayOfWeek), fechaRegistro.AddDays(1))
-            };
+            var parametros = new List<JornalParams>();
+            JornalParams ayer = GetParamsJornal(horario, DayOfWeekUtils.Ayer(fechaRegistro.DayOfWeek), fechaRegistro.AddDays(-1));
+            JornalParams hoy = GetParamsJornal(horario, fechaRegistro.DayOfWeek, fechaRegistro);
+            JornalParams manana = GetParamsJornal(horario, DayOfWeekUtils.Manana(fechaRegistro.DayOfWeek), fechaRegistro.AddDays(1));
+            if (ayer != null) parametros.Add(ayer);
+            if (hoy != null) parametros.Add(hoy);
+            if (manana != null) parametros.Add(manana);
 
             return parametros.FirstOrDefault(p => p.FechaEntradaConRango <= fechaRegistro && p.FechaSalidaConRango >= fechaRegistro);
         }
 
         private JornalParams GetParamsJornal(HorarioCabecera horario, DayOfWeek dia, DateTime fecha)
         {
-            var detalle = horario.HorarioDetalles.FirstOrDefault(x => x.DiaSemana == dia)
-                          ?? throw new Exception("No se encontró un detalle de horario para el día especificado.");
+            var detalle = horario.HorarioDetalles.FirstOrDefault(x => x.DiaSemana == dia);
+            if (detalle == null)
+                return null;
 
             var eventos = (
                 detalle.HorarioDetalleEventos.FirstOrDefault(x => x.TipoEvento == HorarioDetalleEventoTipoEnum.Entrada),
