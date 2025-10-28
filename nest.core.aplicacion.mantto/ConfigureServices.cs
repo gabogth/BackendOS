@@ -1,7 +1,10 @@
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using nest.core.aplication.auth;
+using nest.core.aplicacion.mantto.Labores.Behaviors;
 using nest.core.aplicacion.mantto.Mapper;
+using nest.core.aplicacion.utils.Behaviors;
+using nest.core.aplication.auth;
 using nest.core.dominio.Mantto.LaborEntities;
 using nest.core.dominio.Mantto.MantenimientoTipoEntities;
 using nest.core.dominio.Mantto.OrdenServicioCabeceraEntities;
@@ -25,6 +28,7 @@ namespace nest.core.aplicacion.mantto
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
             services.AddTransient<ILaborRepository, LaborRepository>();
@@ -39,6 +43,14 @@ namespace nest.core.aplicacion.mantto
             services.AddTransient<IOrdenServicioCabecera_MantenimientoExternoRepository, OrdenServicioCabecera_MantenimientoExternoRepository>();
             services.AddTransient<IOrdenTrabajoCabecera_MantenimientoExternoRepository, OrdenTrabajoCabecera_MantenimientoExternoRepository>();
             return services;
+        }
+        private static void ConfigureValidation(this IServiceCollection services, IConfigurationManager configuration)
+        {
+            services.AddValidatorsFromAssembly(typeof(LaborCrearValidator).Assembly);
+            services.AddMediatR(cnf => {
+                cnf.RegisterServicesFromAssemblyContaining(typeof(LaborCrearValidator));
+                cnf.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
         }
     }
 }

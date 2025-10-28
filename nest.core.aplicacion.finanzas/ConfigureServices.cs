@@ -1,7 +1,10 @@
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using nest.core.aplication.auth;
+using nest.core.aplicacion.finanzas.CuentaCorrientes.Behaviors;
 using nest.core.aplicacion.finanzas.Mapper;
+using nest.core.aplicacion.utils.Behaviors;
+using nest.core.aplication.auth;
 using nest.core.dominio.Finanzas.ClienteEntities;
 using nest.core.dominio.Finanzas.CuentaCorrienteEntities;
 using nest.core.dominio.Finanzas.EntidadFinancieraEntities;
@@ -22,6 +25,7 @@ namespace nest.core.aplicacion.finanzas
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));
             services.AddTransient<ICuentaCorrienteRepository, CuentaCorrienteRepository>();
@@ -33,6 +37,15 @@ namespace nest.core.aplicacion.finanzas
             services.AddTransient<IFinancieroCabeceraRepository, FinancieroCabeceraRepository>();
             services.AddTransient<IFinancieroDetalleRepository, FinancieroDetalleRepository>();
             return services;
+        }
+
+        private static void ConfigureValidation(this IServiceCollection services, IConfigurationManager configuration)
+        {
+            services.AddValidatorsFromAssembly(typeof(CuentaCorrienteCrearValidator).Assembly);
+            services.AddMediatR(cnf => {
+                cnf.RegisterServicesFromAssemblyContaining(typeof(CuentaCorrienteCrearValidator));
+                cnf.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
         }
     }
 }

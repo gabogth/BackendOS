@@ -7,8 +7,10 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Behaviors
     {
         public RegistroAsistenciaCrearUsuarioActualValidator()
         {
-            RuleFor(x => x.DiferenciaMinutos)
-                .GreaterThanOrEqualTo(0).WithMessage("La diferencia de minutos no puede ser negativa.");
+            RuleFor(x => x.Latitud)
+                .NotNull().WithMessage("La latitud es obligatoria.");
+            RuleFor(x => x.Longitud)
+                .NotNull().WithMessage(x => $"La longitud es obligatoria.");
         }
     }
 }

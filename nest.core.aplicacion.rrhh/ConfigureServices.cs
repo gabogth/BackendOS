@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FluentValidation;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using nest.core.aplication.auth;
+using nest.core.aplicacion.rrhh.Cargos.Behaviors;
 using nest.core.aplicacion.rrhh.Mapper;
+using nest.core.aplicacion.utils.Behaviors;
+using nest.core.aplication.auth;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.GrupoTrabajoEntities;
@@ -28,6 +31,7 @@ namespace nest.core.aplicacion.rrhh
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.ConfigureValidation(configuration);
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<ICargoRepository, CargoRepository>();
@@ -45,6 +49,14 @@ namespace nest.core.aplicacion.rrhh
             services.AddTransient<IRegistroAsistencia_OrdenTrabajoRepository, RegistroAsistencia_OrdenTrabajoRepository>();
             
             return services;
+        }
+        private static void ConfigureValidation(this IServiceCollection services, IConfigurationManager configuration)
+        {
+            services.AddValidatorsFromAssembly(typeof(CargoCrearValidator).Assembly);
+            services.AddMediatR(cnf => {
+                cnf.RegisterServicesFromAssemblyContaining(typeof(CargoCrearValidator));
+                cnf.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
         }
     }
 }

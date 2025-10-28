@@ -1,7 +1,10 @@
 using Amazon.S3;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using nest.core.aplicacion.general.Adjuntos.Behaviors;
 using nest.core.aplicacion.general.Mapper;
+using nest.core.aplicacion.utils.Behaviors;
 using nest.core.aplication.auth;
 using nest.core.dominio.General.AdjuntoEntities;
 using nest.core.dominio.General.AdjuntoProviderEntities;
@@ -30,6 +33,7 @@ namespace nest.core.aplicacion.general
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));
             services.AddDefaultAWSOptions(configuration.GetAWSOptions());
@@ -51,6 +55,14 @@ namespace nest.core.aplicacion.general
             services.AddTransient<IAdjuntoTipoRepository, AdjuntoTipoRepository>();
             services.AddTransient<IPersonaAdjuntoRepository, PersonaAdjuntoRepository>();
             return services;
+        }
+        private static void ConfigureValidation(this IServiceCollection services, IConfigurationManager configuration)
+        {
+            services.AddValidatorsFromAssembly(typeof(AdjuntoCrearValidator).Assembly);
+            services.AddMediatR(cnf => {
+                cnf.RegisterServicesFromAssemblyContaining(typeof(AdjuntoCrearValidator));
+                cnf.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
         }
     }
 }

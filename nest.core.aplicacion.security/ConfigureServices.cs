@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using nest.core.aplication.auth;
+using nest.core.aplicacion.security.Formularios.Behaviors;
 using nest.core.aplicacion.security.Mapper;
+using nest.core.aplicacion.utils.Behaviors;
+using nest.core.aplication.auth;
 using nest.core.dominio.Aplicacion.Formulario;
 using nest.core.dominio.Aplicacion.Modulo.Repository;
 using nest.core.dominio.Security.Auth;
@@ -31,6 +34,7 @@ namespace nest.core.aplicacion.security
                     configuration["EmailSettings:MailFromDisplay"] ?? ""
                 );
             });
+            services.ConfigureValidation(configuration);
             services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((services) => AuthClaim.constructClaimsAuth(services, configuration));
@@ -39,6 +43,14 @@ namespace nest.core.aplicacion.security
             services.AddTransient<IFormularioRepository, FormularioRepository>();
             services.AddTransient<IUsuarioEmpresaRepository, UsuarioEmpresaRepository>();
             return services;
+        }
+        private static void ConfigureValidation(this IServiceCollection services, IConfigurationManager configuration)
+        {
+            services.AddValidatorsFromAssembly(typeof(FormularioCrearValidator).Assembly);
+            services.AddMediatR(cnf => {
+                cnf.RegisterServicesFromAssemblyContaining(typeof(FormularioCrearValidator));
+                cnf.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
         }
     }
 }
