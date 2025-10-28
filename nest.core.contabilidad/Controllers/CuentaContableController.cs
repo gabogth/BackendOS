@@ -26,7 +26,7 @@ namespace nest.core.contabilidad.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<CuentaContable>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<CuentaContable>>> ObtenerTodos([FromBody] ObtenerTodosQuery query, CancellationToken ct)
+        public async Task<ActionResult<List<CuentaContable>>> ObtenerTodos([FromQuery] ObtenerTodosQuery query, CancellationToken ct)
         {
             var entidad = await sender.Send(query, ct);
             return Ok(entidad);
@@ -35,7 +35,7 @@ namespace nest.core.contabilidad.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(CuentaContable), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<CuentaContable>> ObtenerPorId([FromBody] ObtenerPorIdQuery query, CancellationToken ct)
+        public async Task<ActionResult<CuentaContable>> ObtenerPorId([FromQuery] ObtenerPorIdQuery query, CancellationToken ct)
         {
             var entidad = await sender.Send(query, ct);
             return Ok(entidad);
@@ -44,7 +44,7 @@ namespace nest.core.contabilidad.Controllers
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<CuentaContable>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<CuentaContable>>> ObtenerActivos([FromBody] ObtenerActivosQuery query, CancellationToken ct)
+        public async Task<ActionResult<List<CuentaContable>>> ObtenerActivos([FromQuery] ObtenerActivosQuery query, CancellationToken ct)
         {
             var entidad = await sender.Send(query, ct);
             return Ok(entidad);
