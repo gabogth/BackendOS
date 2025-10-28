@@ -9,7 +9,7 @@ using nest.core.dominio.General.DistritoEntities;
 namespace nest.core.general.Controllers
 {
     /// <summary>
-    /// Controlador para la gestión de Distritos
+    /// Controlador para la gestiÃ³n de Distritos
     /// </summary>
     [Authorize]
     [ApiController]
@@ -26,7 +26,7 @@ namespace nest.core.general.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<List<Distrito>>> ObtenerTodos([FromQuery] ObtenerTodosQuery command, CancellationToken ct)
         {
-            var entidad = await sender.Send(command);
+            var entidad = await sender.Send(command, ct);
             return Ok(entidad);
         }
         [HttpGet("{id}")]
@@ -34,7 +34,7 @@ namespace nest.core.general.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<Distrito>> ObtenerPorId([FromQuery] ObtenerPorIdQuery command, CancellationToken ct)
         {
-            var entidad = await sender.Send(command);
+            var entidad = await sender.Send(command, ct);
             return Ok(entidad);
         }
         [HttpPost]
@@ -42,7 +42,7 @@ namespace nest.core.general.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<Distrito>> Agregar([FromBody] DistritoCrearCommand command, CancellationToken ct)
         {
-            var entidad = await sender.Send(command);
+            var entidad = await sender.Send(command, ct);
             return Ok(entidad);
         }
         [HttpPut("{id}")]
@@ -59,7 +59,7 @@ namespace nest.core.general.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult> Eliminar([FromBody] DistritoEliminarCommand command, CancellationToken ct)
         {
-            var entidad = await sender.Send(command);
+            var entidad = await sender.Send(command, ct);
             return Ok();
         }
     }
