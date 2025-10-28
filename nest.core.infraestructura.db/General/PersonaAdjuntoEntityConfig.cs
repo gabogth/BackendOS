@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using nest.core.dominio.General.AdjuntoEntities;
 using nest.core.dominio.General.PersonaAdjuntoEntities;
 
 namespace nest.core.infraestructura.db.General
@@ -15,8 +16,8 @@ namespace nest.core.infraestructura.db.General
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<long>>();
             builder.HasOne(x => x.Adjunto)
-                .WithMany()
-                .HasForeignKey(x => x.AdjuntoId)
+                .WithOne(x => x.PersonaAdjunto)
+                .HasForeignKey<Adjunto>(x => x.Id)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(x => x.AdjuntoTipo)
                 .WithMany()
