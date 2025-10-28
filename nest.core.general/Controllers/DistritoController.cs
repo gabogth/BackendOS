@@ -8,6 +8,9 @@ using nest.core.dominio.General.DistritoEntities;
 
 namespace nest.core.general.Controllers
 {
+    /// <summary>
+    /// Controlador para la gestión de Distritos
+    /// </summary>
     [Authorize]
     [ApiController]
     [Route("[controller]")]
@@ -21,7 +24,7 @@ namespace nest.core.general.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<Distrito>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<Distrito>>> ObtenerTodos([FromBody] ObtenerTodosQuery command, CancellationToken ct)
+        public async Task<ActionResult<List<Distrito>>> ObtenerTodos([FromQuery] ObtenerTodosQuery command, CancellationToken ct)
         {
             var entidad = await sender.Send(command);
             return Ok(entidad);
@@ -29,7 +32,7 @@ namespace nest.core.general.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Distrito), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Distrito>> ObtenerPorId([FromBody] ObtenerPorIdQuery command, CancellationToken ct)
+        public async Task<ActionResult<Distrito>> ObtenerPorId([FromQuery] ObtenerPorIdQuery command, CancellationToken ct)
         {
             var entidad = await sender.Send(command);
             return Ok(entidad);

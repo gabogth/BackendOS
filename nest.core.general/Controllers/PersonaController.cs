@@ -17,12 +17,10 @@ namespace nest.core.general.Controllers
     public class PersonaController : ControllerBase
     {
         private readonly ISender sender;
-
         public PersonaController(ISender sender)
         {
             this.sender = sender;
         }
-
         [HttpGet]
         [ProducesResponseType(typeof(List<Persona>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -31,7 +29,6 @@ namespace nest.core.general.Controllers
             var entidad = await sender.Send(command);
             return Ok(entidad);
         }
-
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -40,7 +37,6 @@ namespace nest.core.general.Controllers
             var entidad = await sender.Send(command);
             return Ok(entidad);
         }
-
         [HttpGet("activos")]
         [ProducesResponseType(typeof(List<Persona>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -49,7 +45,6 @@ namespace nest.core.general.Controllers
             var entidad = await sender.Send(command);
             return Ok(entidad);
         }
-
         [HttpPost]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -58,7 +53,6 @@ namespace nest.core.general.Controllers
             var entidad = await sender.Send(command);
             return Ok(entidad);
         }
-
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
@@ -68,7 +62,6 @@ namespace nest.core.general.Controllers
             var entidad = await sender.Send(cmd);
             return Ok(entidad);
         }
-
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]

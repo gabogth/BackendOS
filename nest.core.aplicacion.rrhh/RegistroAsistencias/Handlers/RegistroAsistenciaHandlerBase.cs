@@ -46,7 +46,13 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
 
             if (jornal == null)
             {
-                throw new Exception("FUERA DE HORA");
+                //throw new Exception("FUERA DE HORA");
+                registro.TipoEvento = HorarioDetalleEventoTipoEnum.Otros;
+                registro.FechaJornal = new DateOnly(1900, 1, 1);
+                registro.DiferenciaMinutos = 0;
+                registro.EsTardanza = false;
+                registro.HorarioDetalleEventoId = null;
+                registro.RegistroAsistenciaPoliticaId = null;
             }
 
             var entrada = await repository.BuscarPorRangoFecha(

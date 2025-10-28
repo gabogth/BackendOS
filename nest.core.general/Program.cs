@@ -69,6 +69,7 @@ builder.Services.AddSwaggerGen(c => {
         new string[] {} }
     });
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+    c.CustomSchemaIds(type => type.FullName!.Replace("+", "."));
 });
 builder.Services.AddAuthentication(option =>
 {
