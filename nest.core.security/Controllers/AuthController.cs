@@ -1,67 +1,67 @@
-﻿using nest.core.aplicacion.security.Login;
-using Microsoft.AspNetCore.Mvc;
-using nest.core.dominio.Security;
-using nest.core.dominio.Security.Auth;
-using nest.core.dominio;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using nest.core.aplicacion.security.Login.Commands;
+using nest.core.dominio;
+using nest.core.dominio.Security;
 
-namespace nest.core.security.Controllers
+namespace nest.core.security.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class AuthController : Controller
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class AuthController : Controller
+    private readonly ISender sender;
+    private readonly ILogger<AuthController> logger;
+
+    public AuthController(ISender sender, ILogger<AuthController> logger)
     {
-        private readonly LoginUseCase loginUseCase;
-        private readonly ILogger<AuthController> logger;
-        public AuthController(LoginUseCase loginUseCase, ILogger<AuthController> logger)
-        {
-            this.loginUseCase = loginUseCase;
-            this.logger = logger;
-        }
+        this.sender = sender;
+        this.logger = logger;
+    }
 
-        /// <summary>
-        /// Inicia sesión y genera un token de acceso.
-        /// </summary>
-        /// <param name="login">Credenciales del usuario.</param>
-        /// <returns>Token de acceso con información del usuario.</returns>
-        /// <response code="200">Login exitoso</response>
-        /// <response code="400">Error en la solicitud o credenciales incorrectas</response>
-        [HttpPost("login")]
-        public async Task<ActionResult<CustomAccessTokenResponse>> Login([FromBody] LoginDto login)
+    /// <summary>
+    /// Inicia sesión y genera un token de acceso.
+    /// </summary>
+    /// <param name="login">Credenciales del usuario.</param>
+    /// <returns>Token de acceso con información del usuario.</returns>
+    /// <response code="200">Login exitoso</response>
+    /// <response code="400">Error en la solicitud o credenciales incorrectas</response>
+    [HttpPost("login")]
+    public async Task<ActionResult<CustomAccessTokenResponse>> Login([FromBody] LoginCommand login, CancellationToken ct)
+    {
+        try
         {
-            try
-            {
-                CustomAccessTokenResponse token = await loginUseCase.Execute(login);
-                return Ok(token);
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogError(ex.Message);
-                throw;
-            }
+            CustomAccessTokenResponse token = await sender.Send(login, ct);
+            return Ok(token);
         }
-
-        /// <summary>
-        /// Inicia sesión y genera un token de acceso.
-        /// </summary>
-        /// <param name="empresa">Email del usuario y la empresa a cambiar.</param>
-        /// <returns>Token de acceso con información del usuario.</returns>
-        /// <response code="200">Cambio exitoso</response>
-        /// <response code="401">No autorizado.</response>
-        [Authorize]
-        [HttpPost("changetenant")]
-        public async Task<ActionResult<CustomAccessTokenResponse>> Login([FromBody] CambiarEmpresaDto empresa)
+        catch (Exception ex)
         {
-            try
-            {
-                CustomAccessTokenResponse token = await loginUseCase.CambiarEmpresa(empresa);
-                return Ok(token);
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogError(ex.Message);
-                throw;
-            }
+            logger.LogError(ex, ex.Message);
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Cambia la empresa seleccionada del usuario autenticado.
+    /// </summary>
+    /// <param name="command">Email del usuario y la empresa a cambiar.</param>
+    /// <returns>Token de acceso con información del usuario.</returns>
+    /// <response code="200">Cambio exitoso</response>
+    /// <response code="401">No autorizado.</response>
+    [Authorize]
+    [HttpPost("changetenant")]
+    public async Task<ActionResult<CustomAccessTokenResponse>> CambiarEmpresa([FromBody] CambiarEmpresaCommand command, CancellationToken ct)
+    {
+        try
+        {
+            CustomAccessTokenResponse token = await sender.Send(command, ct);
+            return Ok(token);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, ex.Message);
+            throw;
         }
     }
 }
