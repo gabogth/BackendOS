@@ -7,6 +7,8 @@ public class RoleCrearValidator : AbstractValidator<RoleCrearCommand>
 {
     public RoleCrearValidator()
     {
-        Include(new RoleGenericValidator<RoleCrearCommand>());
+        RuleFor(x => x.Name)
+            .NotEmpty().WithMessage("El nombre es obligatorio.")
+            .MaximumLength(256).WithMessage("El nombre no puede exceder 256 caracteres.");
     }
 }

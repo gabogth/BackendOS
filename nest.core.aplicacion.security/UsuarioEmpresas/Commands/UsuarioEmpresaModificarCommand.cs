@@ -5,7 +5,7 @@ using nest.core.dominio.Security.UsuarioEmpresa;
 namespace nest.core.aplicacion.security.UsuarioEmpresas.Commands
 {
     public sealed record UsuarioEmpresaModificarCommand(
-        long Id,
+        int Id,
         string UsuarioId,
         int EmpresaId,
         bool Actual

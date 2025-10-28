@@ -27,7 +27,7 @@ namespace nest.core.aplicacion.rrhh
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(infraestructura.rrhh.Mapper.AutomapperProfiles));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<ICargoRepository, CargoRepository>();

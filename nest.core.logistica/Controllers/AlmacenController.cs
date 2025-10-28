@@ -110,7 +110,7 @@ namespace nest.core.logistica.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(Almacen), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Almacen>> Agregar([FromBody] AlmacenCrearDto registro)
+        public async Task<ActionResult<Almacen>> Agregar([FromBody] Almacen registro)
         {
             try
             {
@@ -135,11 +135,12 @@ namespace nest.core.logistica.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(Almacen), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Almacen>> Modificar(int id, [FromBody] AlmacenCrearDto registro)
+        public async Task<ActionResult<Almacen>> Modificar(int id, [FromBody] Almacen registro)
         {
             try
             {
-                var data = await this.service.Modificar(id, registro);
+                registro.Id = id;
+                var data = await this.service.Modificar(registro);
                 return Ok(data);
             }
             catch (Exception ex)

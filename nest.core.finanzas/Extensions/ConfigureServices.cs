@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.finanzas;
-using nest.core.aplicacion.finanzas.CuentaCorriente.Commands;
+using nest.core.aplicacion.finanzas.CuentaCorrientes.Commands;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 

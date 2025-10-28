@@ -13,8 +13,8 @@ namespace nest.core.aplicacion.logistica.AlmacenServices
         public Task<Almacen> ObtenerPorId(int id) => repository.ObtenerPorId(id);
         public Task<List<Almacen>> ObtenerTodos() => repository.ObtenerTodos();
         public Task<List<Almacen>> ObtenerActivos() => repository.ObtenerActivos();
-        public Task<Almacen> Agregar(AlmacenCrearDto entry) => repository.Agregar(entry);
-        public Task<Almacen> Modificar(int id, AlmacenCrearDto entry) => repository.Modificar(id, entry);
+        public Task<Almacen> Agregar(Almacen entry) => repository.Agregar(entry);
+        public Task<Almacen> Modificar(Almacen entry) => repository.Modificar(entry);
         public Task Eliminar(int id) => repository.Eliminar(id);
     }
 }

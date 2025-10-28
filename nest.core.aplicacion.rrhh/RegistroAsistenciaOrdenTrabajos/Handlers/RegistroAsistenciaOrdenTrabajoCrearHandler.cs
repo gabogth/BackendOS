@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
+using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;

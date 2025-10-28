@@ -14,7 +14,7 @@ namespace nest.core.aplicacion.costos
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(infraestructura.costos.Mapper.AutomapperProfiles));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((provider) => AuthClaim.constructClaimsAuth(provider, configuration));
             services.AddTransient<ICentroDeCostosRepository, CentroDeCostosRepository>();

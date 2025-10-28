@@ -5,5 +5,5 @@ namespace nest.core.aplicacion.costos.CentroCostos.Commands
 {
     public sealed record CentroDeCostosEliminarCommand(
         int Id
-    ) : IRequest<Unit>, ICommandBase;
+    ) : IRequest<bool>, ICommandBase;
 }

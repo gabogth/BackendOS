@@ -8,7 +8,7 @@ using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
 {
-    internal abstract class RegistroAsistenciaHandlerBase
+    public abstract class RegistroAsistenciaHandlerBase
     {
         protected readonly IRegistroAsistenciaRepository repository;
         protected readonly IHorarioRepository horarioRepository;

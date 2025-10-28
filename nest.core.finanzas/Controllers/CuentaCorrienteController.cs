@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.finanzas.CuentaCorriente.Commands;
-using nest.core.aplicacion.finanzas.CuentaCorriente.Queries;
+using nest.core.aplicacion.finanzas.CuentaCorrientes.Commands;
+using nest.core.aplicacion.finanzas.CuentaCorrientes.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Finanzas.CuentaCorrienteEntities;
 

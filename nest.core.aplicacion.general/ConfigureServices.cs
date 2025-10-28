@@ -1,6 +1,7 @@
 using Amazon.S3;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using nest.core.aplicacion.general.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.General.AdjuntoEntities;
 using nest.core.dominio.General.AdjuntoProviderEntities;
@@ -28,7 +29,7 @@ namespace nest.core.aplicacion.general
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(infraestructura.general.Mapper.AutomapperProfiles));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));
             services.AddDefaultAWSOptions(configuration.GetAWSOptions());

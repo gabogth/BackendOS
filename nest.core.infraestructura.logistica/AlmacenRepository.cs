@@ -8,15 +8,15 @@ using nest.core.infraestructura.db.DbContext;
 
 namespace nest.core.infraestructura.logistica
 {
-    public class AlmacenRepository : CachedRepositoryBase<Almacen, AlmacenCrearDto, int>, IAlmacenRepository
+    public class AlmacenRepository : CachedRepositoryBase<Almacen, int>, IAlmacenRepository
     {
         public AlmacenRepository(NestDbContext context, IMapper mapper, ICacheRepository cache) : base(context, mapper, cache) { }
 
         public async Task<Almacen> ObtenerPorId(int id) => await GetByIdAsync(id);
         public async Task<List<Almacen>> ObtenerTodos() => await GetAllAsync();
         public async Task<List<Almacen>> ObtenerActivos() => (await GetCachedListAsync()).Where(x => x.Activo).ToList();
-        public Task<Almacen> Agregar(AlmacenCrearDto dto) => AddAsync(dto);
-        public Task<Almacen> Modificar(int id, AlmacenCrearDto dto) => UpdateAsync(id, dto);
+        public Task<Almacen> Agregar(Almacen dto) => AddAsync(dto);
+        public Task<Almacen> Modificar(Almacen dto) => UpdateAsync(dto);
         public Task Eliminar(int id) => DeleteAsync(id);
     }
 }

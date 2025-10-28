@@ -31,7 +31,7 @@ namespace nest.core.aplicacion.security
                     configuration["EmailSettings:MailFromDisplay"] ?? ""
                 );
             });
-            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(infraestructura.security.Mapper.AutomapperProfiles));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((services) => AuthClaim.constructClaimsAuth(services, configuration));
             services.AddTransient<IClaimsGenerator, JwtGenerator>();

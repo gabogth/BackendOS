@@ -21,7 +21,7 @@ namespace nest.core.aplicacion.finanzas
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(infraestructura.finanzas.Mapper.AutomapperProfiles));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));
             services.AddTransient<ICuentaCorrienteRepository, CuentaCorrienteRepository>();
