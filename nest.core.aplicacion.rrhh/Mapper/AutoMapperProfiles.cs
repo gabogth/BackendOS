@@ -7,6 +7,7 @@ using nest.core.aplicacion.rrhh.HorarioDetalles.Commands;
 using nest.core.aplicacion.rrhh.Horarios.Commands;
 using nest.core.aplicacion.rrhh.Personales.Commands;
 using nest.core.aplicacion.rrhh.PersonalEstados.Commands;
+using nest.core.aplicacion.rrhh.RegistroAsistenciaAdjuntos.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaPoliticas.Commands;
@@ -18,6 +19,7 @@ using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
+using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
 
@@ -51,6 +53,10 @@ namespace nest.core.aplicacion.rrhh.Mapper
             CreateMap<RegistroAsistenciaOrdenTrabajoModificarCommand, RegistroAsistencia>();
             CreateMap<RegistroAsistenciaPoliticaCrearCommand, RegistroAsistenciaPolitica>();
             CreateMap<RegistroAsistenciaPoliticaModificarCommand, RegistroAsistenciaPolitica>();
+            CreateMap<RegistroAsistenciaAdjuntoCrearCommand, RegistroAsistenciaAdjunto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.RegistroAsistenciaId));
+            CreateMap<RegistroAsistenciaAdjuntoModificarCommand, RegistroAsistenciaAdjunto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.RegistroAsistenciaId));
         }
     }
 }
