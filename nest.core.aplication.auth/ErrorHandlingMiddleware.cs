@@ -41,6 +41,18 @@ namespace nest.core.aplication.auth
                     traceId = context.TraceIdentifier
                 });
             }
+            catch (dominio.Excepciones.ValidationException vex)
+            {
+                _logger.LogWarning(vex, "Validation failed: {TraceId}", context.TraceIdentifier);
+                await WriteResponseAsync(context, HttpStatusCode.BadRequest, new
+                {
+                    type = $"https://httpstatuses.io/{HttpStatusCode.BadRequest}",
+                    title = "Validation failed",
+                    status = (int)HttpStatusCode.BadRequest,
+                    errors = vex.Errors.Select(e => new { field = e.PropertyName, message = e.ErrorMessage }),
+                    traceId = context.TraceIdentifier
+                });
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unhandled exception: {TraceId}", context.TraceIdentifier);

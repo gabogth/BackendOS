@@ -84,7 +84,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
                     AdjuntoId = request.AdjuntoId
                 };
 
-                await registroAsistenciaAdjuntoRepository.Modificar(adjunto);
+                await registroAsistenciaAdjuntoRepository.Agregar(adjunto);
 
                 await unitOfWork.CommitAsync();
                 return await repository.ObtenerPorId(registro.Id);

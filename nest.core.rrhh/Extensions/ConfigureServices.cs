@@ -1,8 +1,8 @@
 using FluentValidation;
 using MediatR;
 using nest.core.aplicacion.rrhh;
-using nest.core.aplicacion.rrhh.Cargos.Behaviors;
-using nest.core.aplicacion.rrhh.Cargos.Commands;
+using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Behaviors;
+using nest.core.aplicacion.utils.Behaviors;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -12,13 +12,9 @@ namespace nest.core.rrhh.Extensions
     {
         public static IServiceCollection ConfigureAplication(this IServiceCollection services, IConfigurationManager configuration)
         {
+            services.ConfigureValidation(configuration);
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
-            services.AddMediatR(cfg =>
-            {
-                cfg.RegisterServicesFromAssembly(typeof(CargoCrearCommand).Assembly);
-            });
-            services.AddValidatorsFromAssemblyContaining<CargoCrearValidator>();
             return services;
         }
 
@@ -39,6 +35,15 @@ namespace nest.core.rrhh.Extensions
                 services.AddMemoryCache();
                 services.AddScoped<ICacheRepository, MemoryCacheRepository>();
             }
+        }
+
+        private static void ConfigureValidation(this IServiceCollection services, IConfigurationManager configuration)
+        {
+            services.AddValidatorsFromAssembly(typeof(RegistroAsistenciaOrdenTrabajoCrearUsuarioActualValidator).Assembly);
+            services.AddMediatR(cnf => {
+                cnf.RegisterServicesFromAssemblyContaining(typeof(RegistroAsistenciaOrdenTrabajoCrearUsuarioActualValidator));
+                cnf.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
         }
     }
 }

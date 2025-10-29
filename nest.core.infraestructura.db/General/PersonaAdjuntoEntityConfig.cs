@@ -17,15 +17,15 @@ namespace nest.core.infraestructura.db.General
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<long>>();
             builder.HasOne(pa => pa.Persona)
-               .WithMany(p => p.PersonaAdjuntos)
-               .HasForeignKey(pa => pa.PersonaId)
-               .HasPrincipalKey(p => p.Id)
-               .OnDelete(DeleteBehavior.Cascade);
+                .WithMany(p => p.PersonaAdjuntos)
+                .HasForeignKey(pa => pa.PersonaId)
+                .HasPrincipalKey(p => p.Id)
+                .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(pa => pa.Adjunto)
-                   .WithOne(a => a.PersonaAdjunto)
-                   .HasForeignKey<PersonaAdjunto>(pa => pa.AdjuntoId)
-                   .HasPrincipalKey<Adjunto>(x => x.Id)
-                   .OnDelete(DeleteBehavior.Restrict);
+                .WithOne(a => a.PersonaAdjunto)
+                .HasForeignKey<PersonaAdjunto>(pa => pa.AdjuntoId)
+                .HasPrincipalKey<Adjunto>(x => x.Id)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(x => x.AdjuntoTipo)
                 .WithMany()
                 .HasForeignKey(x => x.AdjuntoTipoId)

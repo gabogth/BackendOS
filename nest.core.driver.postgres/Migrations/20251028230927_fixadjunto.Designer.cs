@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using nest.core.infraestructura.db.DbContext.Provider;
@@ -12,9 +13,11 @@ using nest.core.infraestructura.db.DbContext.Provider;
 namespace nest.core.driver.postgres.Migrations
 {
     [DbContext(typeof(DbContextPsSql))]
-    partial class DbContextPsSqlModelSnapshot : ModelSnapshot
+    [Migration("20251028230927_fixadjunto")]
+    partial class fixadjunto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5984,10 +5987,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.Property<int?>("SuperiorId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("UsuarioId")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
                     b.HasKey("AuditId");
 
                     b.HasIndex("Id");
@@ -10549,10 +10548,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.Property<int?>("SuperiorId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("UsuarioId")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ContratoCabeceraId");
@@ -10566,9 +10561,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.HasIndex("RegistroAsistenciaPoliticaId");
 
                     b.HasIndex("SuperiorId");
-
-                    b.HasIndex("UsuarioId")
-                        .IsUnique();
 
                     b.ToTable("personal", "rrhh");
                 });
@@ -11807,11 +11799,6 @@ namespace nest.core.driver.postgres.Migrations
                         .HasForeignKey("SuperiorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("nest.core.dominio.Security.ApplicationUser", "Usuario")
-                        .WithOne()
-                        .HasForeignKey("nest.core.dominio.RRHH.PersonalEntities.Personal", "UsuarioId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("ContratoCabecera");
 
                     b.Navigation("HorarioCabecera");
@@ -11823,8 +11810,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.Navigation("RegistroAsistenciaPolitica");
 
                     b.Navigation("Superior");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities.RegistroAsistenciaAdjunto", b =>

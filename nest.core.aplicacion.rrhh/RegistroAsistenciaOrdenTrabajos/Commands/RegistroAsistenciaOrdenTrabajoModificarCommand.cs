@@ -18,6 +18,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands
         decimal? Longitud,
         long? HorarioDetalleEventoId,
         long? RegistroAsistenciaPoliticaId,
-        long OrdenTrabajoCabeceraId
+        long OrdenTrabajoCabeceraId,
+        long AdjuntoId
     ) : IRequest<RegistroAsistencia>, IRegistroAsistenciaGenericCommand;
 }

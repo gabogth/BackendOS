@@ -23,9 +23,18 @@ public class PersonalRepository : CrudRepositoryBase<Personal, int>, IPersonalRe
         .Include(x => x.Persona).ThenInclude(x => x.Distrito)
         .Include(x => x.Persona).ThenInclude(x => x.DocumentoIdentidadTipo)
         .Include(x => x.RegistroAsistenciaPolitica)
+        .Include(x => x.Usuario)
         .Include(x => x.Children);
     public PersonalRepository(NestDbContext context, IMapper mapper): base(context, mapper) { }
     public async Task<Personal> ObtenerPorId(int id) => await GetByIdAsync(id);
+    public async Task<Personal> ObtenerPorDocumentoIdentidad(int tipoDocumentoId, string documentoIdentidad)
+    {
+        return await this.context.Personales.AsNoTracking()
+            .Include(x => x.Persona)
+            .Include(x => x.Usuario)
+            .IgnoreQueryFilters()
+            .FirstOrDefaultAsync(p => p.Persona.DocumentoIdentidadTipoId == tipoDocumentoId && p.Persona.DocumentoIdentidad == documentoIdentidad);
+    }
     public async Task<List<Personal>> ObtenerTodos() => await GetAllAsync();
     public async Task<List<Personal>> ObtenerActivos() => await Query().Where(p => p.PersonalEstadoId == 1).ToListAsync();
     public async Task<Personal> Agregar(Personal entry)

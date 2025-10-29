@@ -64,4 +64,19 @@ public class AuthController : Controller
             throw;
         }
     }
+
+    [HttpPost("login_document")]
+    public async Task<ActionResult<CustomAccessTokenResponse>> LoginPorDocumentoIdentidad([FromBody] LoginDocumentoIdentidadCommand login, CancellationToken ct)
+    {
+        try
+        {
+            CustomAccessTokenResponse token = await sender.Send(login, ct);
+            return Ok(token);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, ex.Message);
+            throw;
+        }
+    }
 }

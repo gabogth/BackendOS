@@ -12,5 +12,6 @@ public record PersonalModificarCommand(
     int HorarioCabeceraId,
     int? SuperiorId,
     byte PersonalEstadoId,
-    long RegistroAsistenciaPoliticaId
+    long RegistroAsistenciaPoliticaId,
+    int? UsuarioId
 ) : IRequest<Personal>, IPersonalGenericCommand;

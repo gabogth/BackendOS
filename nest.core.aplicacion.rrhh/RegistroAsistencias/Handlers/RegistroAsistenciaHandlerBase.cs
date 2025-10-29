@@ -44,7 +44,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             var politica = (await personalRepository.ObtenerPorId(registro.PersonalId)).RegistroAsistenciaPolitica;
             var jornal = GetDiaLaboral(horario, registro.Fecha);
 
-            if (jornal == null)
+            if (jornal == null) //  Sin coincidencia de fechas
             {
                 //throw new Exception("FUERA DE HORA");
                 registro.TipoEvento = HorarioDetalleEventoTipoEnum.Otros;
@@ -54,45 +54,46 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
                 registro.HorarioDetalleEventoId = null;
                 registro.RegistroAsistenciaPoliticaId = null;
             }
-
-            var entrada = await repository.BuscarPorRangoFecha(
-                registro.PersonalId,
-                jornal.FechaEntradaConRango,
-                jornal.FechaSalidaConRango,
-                HorarioDetalleEventoTipoEnum.Entrada);
-
-            if (entrada == null)
+            else // coincidencia de fechas
             {
-                registro.TipoEvento = HorarioDetalleEventoTipoEnum.Entrada;
-                registro.FechaJornal = DateOnly.FromDateTime(jornal.FechaEntrada);
-                registro.DiferenciaMinutos = (int)Math.Ceiling(registro.Fecha.Subtract(jornal.FechaEntrada).TotalMinutes);
-                registro.EsTardanza = registro.DiferenciaMinutos > politica.MinutosTardanzaIngreso;
-                registro.HorarioDetalleEventoId = jornal.Evento.Id;
-                registro.RegistroAsistenciaPoliticaId = politica.Id;
-            }
-            else
-            {
-                var evento = await GetMarcaAsync(entrada.HorarioDetalleEventoId!.Value, entrada.FechaJornal, registro.Fecha);
-                if (evento.HasValue)
+                var entrada = await repository.BuscarPorRangoFecha(
+                    registro.PersonalId,
+                    jornal.FechaEntradaConRango,
+                    jornal.FechaSalidaConRango,
+                    HorarioDetalleEventoTipoEnum.Entrada);
+
+                if (entrada == null)
                 {
-                    registro.TipoEvento = evento.Value.Item1.TipoEvento;
-                    registro.FechaJornal = entrada.FechaJornal;
-                    registro.DiferenciaMinutos = (int)Math.Ceiling(registro.Fecha.Subtract(evento.Value.Item2).TotalMinutes);
-                    registro.EsTardanza = false;
-                    registro.HorarioDetalleEventoId = evento.Value.Item1.Id;
+                    registro.TipoEvento = HorarioDetalleEventoTipoEnum.Entrada;
+                    registro.FechaJornal = DateOnly.FromDateTime(jornal.FechaEntrada);
+                    registro.DiferenciaMinutos = (int)Math.Ceiling(registro.Fecha.Subtract(jornal.FechaEntrada).TotalMinutes);
+                    registro.EsTardanza = registro.DiferenciaMinutos > politica.MinutosTardanzaIngreso;
+                    registro.HorarioDetalleEventoId = jornal.Evento.Id;
                     registro.RegistroAsistenciaPoliticaId = politica.Id;
                 }
                 else
                 {
-                    registro.TipoEvento = HorarioDetalleEventoTipoEnum.Otros;
-                    registro.FechaJornal = entrada.FechaJornal;
-                    registro.DiferenciaMinutos = 0;
-                    registro.EsTardanza = false;
-                    registro.HorarioDetalleEventoId = null;
-                    registro.RegistroAsistenciaPoliticaId = politica.Id;
+                    var evento = await GetMarcaAsync(entrada.HorarioDetalleEventoId!.Value, entrada.FechaJornal, registro.Fecha);
+                    if (evento.HasValue)
+                    {
+                        registro.TipoEvento = evento.Value.Item1.TipoEvento;
+                        registro.FechaJornal = entrada.FechaJornal;
+                        registro.DiferenciaMinutos = (int)Math.Ceiling(registro.Fecha.Subtract(evento.Value.Item2).TotalMinutes);
+                        registro.EsTardanza = false;
+                        registro.HorarioDetalleEventoId = evento.Value.Item1.Id;
+                        registro.RegistroAsistenciaPoliticaId = politica.Id;
+                    }
+                    else
+                    {
+                        registro.TipoEvento = HorarioDetalleEventoTipoEnum.Otros;
+                        registro.FechaJornal = entrada.FechaJornal;
+                        registro.DiferenciaMinutos = 0;
+                        registro.EsTardanza = false;
+                        registro.HorarioDetalleEventoId = null;
+                        registro.RegistroAsistenciaPoliticaId = politica.Id;
+                    }
                 }
             }
-
             return registro;
         }
 

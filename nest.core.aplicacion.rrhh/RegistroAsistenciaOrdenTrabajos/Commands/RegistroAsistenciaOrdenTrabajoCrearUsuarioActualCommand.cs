@@ -1,5 +1,6 @@
 using MediatR;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
+using nest.core.aplicacion.utils.Commands;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands
@@ -8,5 +9,5 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands
         decimal? Latitud,
         decimal? Longitud,
         long AdjuntoId
-    ) : IRequest<RegistroAsistencia>;
+    ) : IRequest<RegistroAsistencia>, ICommandBase;
 }
