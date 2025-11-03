@@ -56,7 +56,8 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             {
                 var registro = mapper.Map<RegistroAsistencia>(request);
                 registro.EmpresaId = connectionStringService.EmpresaId ?? throw new Exception("Usuario no autenticado");
-                registro.PersonalId = int.Parse(connectionStringService.UserId);
+                var personal = await personalRepository.ObtenerPorIdUsuario(connectionStringService.UserId) ?? throw new Exception("El usuario debe tener el atributo IdUsuario");
+                registro.PersonalId = personal.Id;
                 registro.Fecha = DateTime.Now;
 
                 registro = await PrepararRegistroAsync(registro);

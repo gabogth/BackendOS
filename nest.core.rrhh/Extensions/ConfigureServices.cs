@@ -13,12 +13,12 @@ namespace nest.core.rrhh.Extensions
         public static IServiceCollection ConfigureAplication(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.ConfigureValidation(configuration);
-            ConfigureCache(services, configuration);
+            services.ConfigureCache(configuration);
             services.ConfigureInfraestructura(configuration);
             return services;
         }
 
-        private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)
+        private static void ConfigureCache(this IServiceCollection services, IConfigurationManager configuration)
         {
             bool useRedis = configuration.GetValue<bool>($"RedisConfig:Enabled");
             if (useRedis)

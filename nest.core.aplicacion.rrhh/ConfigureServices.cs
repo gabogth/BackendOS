@@ -33,7 +33,6 @@ namespace nest.core.aplicacion.rrhh
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
             services.AddAutoMapper(typeof(AutoMapperProfiles));
-            //services.ConfigureValidation(configuration);
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<ICargoRepository, CargoRepository>();
@@ -53,13 +52,5 @@ namespace nest.core.aplicacion.rrhh
             
             return services;
         }
-        //private static void ConfigureValidation(this IServiceCollection services, IConfigurationManager configuration)
-        //{
-        //    services.AddValidatorsFromAssembly(typeof(RegistroAsistenciaOrdenTrabajoCrearUsuarioActualValidator).Assembly);
-        //    services.AddMediatR(cnf => {
-        //        cnf.RegisterServicesFromAssemblyContaining(typeof(RegistroAsistenciaOrdenTrabajoCrearUsuarioActualValidator));
-        //        cnf.AddOpenBehavior(typeof(ValidationBehavior<,>));
-        //    });
-        //}
     }
 }

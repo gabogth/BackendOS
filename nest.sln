@@ -121,6 +121,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.driver.sqlserver"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.utils", "nest.core.aplicacion.utils\nest.core.aplicacion.utils.csproj", "{78548182-FF83-4E13-9F9F-7293805BC214}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.datasource", "nest.core.aplicacion.datasource\nest.core.aplicacion.datasource.csproj", "{7E32C83F-BCBB-42E7-B32C-86CCA10101A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -216,6 +218,8 @@ Global
 		{01D453BD-1A3D-4B5F-A4E0-F63E814BA034}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78548182-FF83-4E13-9F9F-7293805BC214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{78548182-FF83-4E13-9F9F-7293805BC214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E32C83F-BCBB-42E7-B32C-86CCA10101A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E32C83F-BCBB-42E7-B32C-86CCA10101A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -266,6 +270,7 @@ Global
 		{180FFE87-C3EE-4ECC-8E12-2F6C1A298055} = {7FC3797F-B49D-4CA0-858B-239AE3C16389}
 		{01D453BD-1A3D-4B5F-A4E0-F63E814BA034} = {7FC3797F-B49D-4CA0-858B-239AE3C16389}
 		{78548182-FF83-4E13-9F9F-7293805BC214} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
+		{7E32C83F-BCBB-42E7-B32C-86CCA10101A5} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {651F4B0C-740F-4ABF-8B23-D07A56743FFF}

@@ -135,6 +135,18 @@
         }
       ]
     },
+    {
+      "UpstreamPathTemplate": "/datasource/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8392
+        }
+      ]
+    },
 
     //Start Region [Swagger config]
 
@@ -280,6 +292,19 @@
           "Port": 8391
         }
       ]
+    },
+    {
+      "SwaggerKey": "datasource",
+      "UpstreamPathTemplate": "/datasource/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8392
+        }
+      ]
     }
     //End Region [Swagger config]
   ],
@@ -391,6 +416,16 @@
           "Name": "API Patrimonial",
           "Version": "v1",
           "Url": "https://localhost:8391/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "datasource",
+      "Config": [
+        {
+          "Name": "API Datasource",
+          "Version": "v1",
+          "Url": "https://localhost:8392/swagger/v1/swagger.json"
         }
       ]
     }

@@ -35,6 +35,10 @@ public class PersonalRepository : CrudRepositoryBase<Personal, int>, IPersonalRe
             .IgnoreQueryFilters()
             .FirstOrDefaultAsync(p => p.Persona.DocumentoIdentidadTipoId == tipoDocumentoId && p.Persona.DocumentoIdentidad == documentoIdentidad);
     }
+    public Task<Personal> ObtenerPorIdUsuario(string idUsuario)
+    {
+        return Query().Where(x => x.UsuarioId == idUsuario).FirstOrDefaultAsync();
+    }
     public async Task<List<Personal>> ObtenerTodos() => await GetAllAsync();
     public async Task<List<Personal>> ObtenerActivos() => await Query().Where(p => p.PersonalEstadoId == 1).ToListAsync();
     public async Task<Personal> Agregar(Personal entry)

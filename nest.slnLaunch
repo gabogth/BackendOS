@@ -51,6 +51,11 @@
         "Path": "nest.core.patrimonial\\nest.core.patrimonial.csproj",
         "Action": "Start",
         "DebugTarget": "https"
+      },
+      {
+        "Path": "nest.core.datasource\\nest.core.datasource.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
       }
     ]
   }

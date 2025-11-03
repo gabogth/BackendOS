@@ -17,6 +17,10 @@ namespace nest.core.infraestructura.rrhh
         protected override IQueryable<RegistroAsistencia> Query() => context.Set<RegistroAsistencia>()
             .AsNoTracking()
             .Include(x => x.Personal)
+            .Include(x => x.Personal).ThenInclude(x => x.Persona)
+            .Include(x => x.Personal).ThenInclude(x => x.Persona).ThenInclude(x => x.DocumentoIdentidadTipo)
+            .Include(x => x.Personal).ThenInclude(x => x.Persona).ThenInclude(x => x.LicenciaConducir)
+            .Include(x => x.Personal).ThenInclude(x => x.Persona).ThenInclude(x => x.Sexo)
             .Include(x => x.RegistroAsistenciaPolitica)
             .Include(x => x.HorarioDetalleEvento);
 
@@ -24,27 +28,38 @@ namespace nest.core.infraestructura.rrhh
             await GetByIdAsync(id) ?? throw new RegistroNoEncontradoException<RegistroAsistencia>(id.ToString());
         public Task<List<RegistroAsistencia>> ObtenerTodos() => GetAllAsync();
 
-        public async Task<List<RegistroAsistencia>> BuscarPorRangoFecha(int personalId, DateTime fechaInicio, DateTime fechaFin)
+        public Task<List<RegistroAsistencia>> BuscarPorRangoFecha(int personalId, DateTime fechaInicio, DateTime fechaFin)
         {
             if (fechaFin < fechaInicio)
             {
                 (fechaInicio, fechaFin) = (fechaFin, fechaInicio);
             }
 
-            return await Query()
+            return Query()
                 .Where(x => x.PersonalId == personalId && x.Fecha >= fechaInicio && x.Fecha <= fechaFin)
                 .OrderBy(x => x.Fecha)
                 .ToListAsync();
         }
-        public async Task<RegistroAsistencia> BuscarPorRangoFecha(int personalId, DateTime fechaInicio, DateTime fechaFin, HorarioDetalleEventoTipoEnum tipoMarca)
+        public Task<RegistroAsistencia> BuscarPorRangoFecha(int personalId, DateTime fechaInicio, DateTime fechaFin, HorarioDetalleEventoTipoEnum tipoMarca)
         {
             if (fechaFin < fechaInicio)
                 (fechaInicio, fechaFin) = (fechaFin, fechaInicio);
 
-            return await Query()
+            return Query()
                 .Where(x => x.PersonalId == personalId && x.Fecha >= fechaInicio && x.Fecha <= fechaFin && x.TipoEvento == tipoMarca)
                 .OrderByDescending(x => x.Fecha)
                 .FirstOrDefaultAsync();
+        }
+        public Task<List<RegistroAsistencia>> ObtenerPorIdUsuarioYRangoFecha(string UsuarioId, DateTime fechaInicio, DateTime fechaFin)
+        {
+            if (fechaFin < fechaInicio)
+                (fechaInicio, fechaFin) = (fechaFin, fechaInicio);
+
+            return Query()
+                .Where(x => x.Personal.UsuarioId == UsuarioId)
+                .Where(x => x.Fecha >= fechaInicio && x.Fecha <= fechaFin)
+                .OrderByDescending(x => x.Fecha)
+                .ToListAsync();
         }
         public async Task<RegistroAsistencia> BuscarUltimaMarca(int personalId)
         {

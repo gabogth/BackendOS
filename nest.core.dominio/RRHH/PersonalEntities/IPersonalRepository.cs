@@ -6,6 +6,7 @@ namespace nest.core.dominio.RRHH.PersonalEntities
         Task<List<Personal>> ObtenerTodos();
         Task<List<Personal>> ObtenerActivos();
         Task<Personal> ObtenerPorDocumentoIdentidad(int tipoDocumentoId, string documentoIdentidad);
+        Task<Personal> ObtenerPorIdUsuario(string idUsuario);
         Task<Personal> Agregar(Personal entry);
         Task<Personal> Modificar(Personal entry);
         Task Eliminar(int id);
