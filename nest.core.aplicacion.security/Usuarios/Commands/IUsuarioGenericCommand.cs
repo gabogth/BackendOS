@@ -5,6 +5,8 @@ namespace nest.core.aplicacion.security.Usuarios.Commands
 {
     public interface IUsuarioGenericCommand : ICommandBase
     {
-        ApplicationUser Usuario { get; }
+        string Email { get; }
+        string Password { get; }
+        string PhoneNumber { get; }
     }
 }

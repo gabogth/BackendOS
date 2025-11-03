@@ -25,11 +25,13 @@ namespace nest.core.aplicacion.security.Usuarios.Handlers
         {
             try
             {
-                var usuario = request.Usuario;
-                usuario.UserName = usuario.Email;
-                usuario.NormalizedUserName = usuario.Email?.ToUpperInvariant();
-                usuario.NormalizedEmail = usuario.Email?.ToUpperInvariant();
-
+                ApplicationUser usuario = new ApplicationUser
+                {
+                    UserName = request.Email,
+                    NormalizedUserName = request.Email?.ToUpperInvariant(),
+                    NormalizedEmail = request.Email?.ToUpperInvariant(),
+                    PhoneNumber = request.PhoneNumber
+                };
                 IdentityResult result = await userManager.CreateAsync(usuario, request.Password);
                 if (!result.Succeeded)
                 {
@@ -41,7 +43,7 @@ namespace nest.core.aplicacion.security.Usuarios.Handlers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error al crear el usuario {Email}", request.Usuario?.Email);
+                logger.LogError(ex, "Error al crear el usuario {Email}", request.Email);
                 throw;
             }
         }

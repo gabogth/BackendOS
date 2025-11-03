@@ -14,6 +14,8 @@ namespace nest.core.infraestructura.db.Security
             builder.ToTable("usuario_empresa", "security");
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.EmpresaId);
+            builder.Property(x => x.UsuarioId)
+                .IsRequired();
             builder.HasIndex(x => new { x.EmpresaId, x.UsuarioId })
                 .IsUnique();
             builder.Property(x => x.Id)

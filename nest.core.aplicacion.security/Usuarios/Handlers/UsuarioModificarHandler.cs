@@ -1,7 +1,3 @@
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -26,14 +22,14 @@ namespace nest.core.aplicacion.security.Usuarios.Handlers
         {
             try
             {
-                var usuario = await userManager.FindByIdAsync(request.Usuario.Id)
-                    ?? throw new RegistroNoEncontradoException<ApplicationUser>(request.Usuario.Id);
+                var usuario = await userManager.FindByIdAsync(request.Id)
+                    ?? throw new RegistroNoEncontradoException<ApplicationUser>(request.Id);
 
-                usuario.PhoneNumber = request.Usuario.PhoneNumber;
-                usuario.Email = request.Usuario.Email;
-                usuario.NormalizedEmail = request.Usuario.Email?.ToUpperInvariant();
-                usuario.UserName = request.Usuario.Email;
-                usuario.NormalizedUserName = request.Usuario.Email?.ToUpperInvariant();
+                usuario.PhoneNumber = request.PhoneNumber;
+                usuario.Email = request.Email;
+                usuario.NormalizedEmail = request.Email?.ToUpperInvariant();
+                usuario.UserName = request.Email;
+                usuario.NormalizedUserName = request.Email?.ToUpperInvariant();
 
                 IdentityResult result = await userManager.UpdateAsync(usuario);
                 if (!result.Succeeded)
@@ -46,7 +42,7 @@ namespace nest.core.aplicacion.security.Usuarios.Handlers
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error al modificar el usuario {Id}", request.Usuario.Id);
+                logger.LogError(ex, "Error al modificar el usuario {Id}", request.Email);
                 throw;
             }
         }

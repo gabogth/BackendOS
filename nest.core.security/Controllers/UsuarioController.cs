@@ -109,18 +109,20 @@ namespace nest.core.security.Controllers
         /// <summary>
         /// Modifica un usuario existente.
         /// </summary>
+        /// <param name="id">Id del usuario.</param>
         /// <param name="comando">Comando con los datos actualizados del usuario.</param>
         /// <returns>Usuario modificado.</returns>
         /// <response code="200">Usuario modificado exitosamente.</response>
         /// <response code="400">Error en la solicitud.</response>
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(ApplicationUser), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<ApplicationUser>> Modificar([FromBody] UsuarioModificarCommand comando)
+        public async Task<ActionResult<ApplicationUser>> Modificar([FromRoute] string id, [FromBody] UsuarioModificarCommand comando)
         {
             try
             {
-                var data = await mediator.Send(comando);
+                var cmd = comando with { Id = id };
+                var data = await mediator.Send(cmd);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -133,18 +135,18 @@ namespace nest.core.security.Controllers
         /// <summary>
         /// Elimina un usuario.
         /// </summary>
-        /// <param name="comando">Comando con el identificador del usuario a eliminar.</param>
+        /// <param name="id">identificador del usuario a eliminar.</param>
         /// <returns>True si la eliminación fue exitosa.</returns>
         /// <response code="200">Usuario eliminado exitosamente.</response>
         /// <response code="400">Error en la solicitud.</response>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar([FromBody] UsuarioEliminarCommand comando)
+        public async Task<ActionResult> Eliminar([FromRoute] string id)
         {
             try
             {
-                await mediator.Send(comando);
+                await mediator.Send(new UsuarioEliminarCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

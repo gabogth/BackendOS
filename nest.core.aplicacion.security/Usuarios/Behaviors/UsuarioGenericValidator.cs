@@ -8,15 +8,10 @@ namespace nest.core.aplicacion.security.Usuarios.Behaviors
     {
         public UsuarioGenericValidator()
         {
-            RuleFor(x => x.Usuario)
-                .NotNull().WithMessage("El usuario es requerido.");
-
-            When(x => x.Usuario is not null, () =>
-            {
-                RuleFor(x => x.Usuario.Email)
-                    .NotEmpty().WithMessage("El correo es requerido.")
-                    .EmailAddress().WithMessage("El correo no es válido.");
-            });
+            RuleFor(x => x.Email)
+                .NotNull().WithMessage("El correo es obligatorio.")
+                .NotEmpty().WithMessage("El correo es obligatorio.")
+                .EmailAddress().WithMessage("Debe ser un correo electrónico válido.");
         }
     }
 }
