@@ -3,14 +3,12 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using nest.core.aplicacion.datasource.Querys;
 using nest.core.aplication.auth;
 using nest.core.datasource.Extensions;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 var builder = WebApplication.CreateBuilder(args);
 Console.WriteLine("Iniciando aplicación Datasource...");
@@ -95,14 +93,12 @@ builder.Services.AddAuthorization();
 builder.Services.AddHttpContextAccessor();
 builder.Services
     .AddGraphQLServer()
-    //.AddAuthorizationCore()
-    .AddQueryType<ContabilidadQuery>()
+    .AddDataSources()
     .AddFiltering()
     .AddSorting()
     .AddProjections()
     .AddErrorFilter(err =>
     {
-        // Muestra la inner exception completa (stack) en respuestas GraphQL (SOLO DEV).
         if (err.Exception is not null)
             return err.WithMessage(err.Exception.ToString());
         return err;
