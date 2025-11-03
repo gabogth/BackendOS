@@ -12,6 +12,7 @@ using System;
 
 namespace nest.core.aplicacion.datasource.Querys
 {
+    [ExtendObjectType(OperationTypeNames.Query)]
     public class ManttoQuery
     {
         [UsePaging(IncludeTotalCount = true)]

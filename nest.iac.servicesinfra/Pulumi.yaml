@@ -68,3 +68,8 @@ config:
       contextDocker: "../"
       pathProject: "../nest.core.patrimonial/lambda.Dockerfile"
       port: 8080
+    - serviceName: "datasource"  
+      routepath: "/datasource"
+      contextDocker: "../"
+      pathProject: "../nest.core.datasource/lambda.Dockerfile"
+      port: 8080

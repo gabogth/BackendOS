@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\nest.core.aplicacion.datasource\nest.core.aplicacion.datasource.csproj" />
-    <ProjectReference Include="..\nest.core.aplicacion.mantto\nest.core.aplicacion.mantto.csproj" />
+    <ProjectReference Include="..\nest.core.aplication.auth\nest.core.aplication.auth.csproj" />
     <ProjectReference Include="..\nest.core.infraestructura.db\nest.core.infraestructura.db.csproj" />
   </ItemGroup>
 

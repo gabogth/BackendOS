@@ -5,6 +5,7 @@ using System;
 
 namespace nest.core.aplicacion.datasource.Querys
 {
+    [ExtendObjectType(OperationTypeNames.Query)]
     public class ContabilidadQuery
     {
         [UsePaging(IncludeTotalCount = true)]
