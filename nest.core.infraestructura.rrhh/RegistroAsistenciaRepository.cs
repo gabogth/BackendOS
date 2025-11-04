@@ -61,6 +61,16 @@ namespace nest.core.infraestructura.rrhh
                 .OrderByDescending(x => x.Fecha)
                 .ToListAsync();
         }
+        public Task<List<RegistroAsistencia>> ObtenerPorRangoFecha(DateTime fechaInicio, DateTime fechaFin)
+        {
+            if (fechaFin < fechaInicio)
+                (fechaInicio, fechaFin) = (fechaFin, fechaInicio);
+
+            return Query()
+                .Where(x => x.Fecha >= fechaInicio && x.Fecha <= fechaFin)
+                .OrderByDescending(x => x.Fecha)
+                .ToListAsync();
+        }
         public async Task<RegistroAsistencia> BuscarUltimaMarca(int personalId)
         {
             return await Query()
