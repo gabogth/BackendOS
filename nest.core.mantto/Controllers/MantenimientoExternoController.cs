@@ -1,9 +1,10 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.mantto.OrdenServicio;
+using nest.core.aplicacion.mantto.OrdenServicio.Commands;
+using nest.core.aplicacion.mantto.OrdenServicio.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Mantto.OrdenServicioCabeceraEntities;
-using nest.core.dominio.Mantto.OrdenServicioMantenimientoExternoEntities;
 
 namespace nest.core.mantto.Controllers
 {
@@ -16,17 +17,17 @@ namespace nest.core.mantto.Controllers
     [ApiController]
     public class MantenimientoExternoController : ControllerBase
     {
-        private readonly MantenimientoExternoService service;
+        private readonly ISender sender;
         private readonly ILogger<MantenimientoExternoController> logger;
 
         /// <summary>
         /// Inicializa una nueva instancia del controlador de mantenimiento externo compuesto.
         /// </summary>
-        /// <param name="service">Servicio de aplicación que orquesta la creación y modificación de órdenes de mantenimiento externo.</param>
+        /// <param name="sender">Mediador utilizado para orquestar las operaciones de mantenimiento externo.</param>
         /// <param name="logger">Instancia de <see cref="ILogger"/> para el registro de eventos.</param>
-        public MantenimientoExternoController(MantenimientoExternoService service, ILogger<MantenimientoExternoController> logger)
+        public MantenimientoExternoController(ISender sender, ILogger<MantenimientoExternoController> logger)
         {
-            this.service = service;
+            this.sender = sender;
             this.logger = logger;
         }
 
@@ -43,7 +44,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await sender.Send(new ObtenerOrdenServicioMantenimientoExternoTodosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -67,7 +68,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await sender.Send(new ObtenerOrdenServicioMantenimientoExternoPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -87,11 +88,11 @@ namespace nest.core.mantto.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(OrdenServicioCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenServicioCabecera>> Agregar([FromBody] OrdenServicioCabecera_MantenimientoExternoCrearDto registro)
+        public async Task<ActionResult<OrdenServicioCabecera>> Agregar([FromBody] OrdenServicioMantenimientoExternoRegistrarCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await sender.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -112,11 +113,12 @@ namespace nest.core.mantto.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(OrdenServicioCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenServicioCabecera>> Modificar(long id, [FromBody] OrdenServicioCabecera_MantenimientoExternoCrearDto registro)
+        public async Task<ActionResult<OrdenServicioCabecera>> Modificar(long id, [FromBody] OrdenServicioMantenimientoExternoActualizarCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var cmd = command with { Id = id };
+                var data = await sender.Send(cmd);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -140,7 +142,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await sender.Send(new OrdenServicioMantenimientoExternoEliminarCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)
