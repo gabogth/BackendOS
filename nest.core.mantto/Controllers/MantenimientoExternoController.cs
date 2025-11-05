@@ -64,7 +64,7 @@ namespace nest.core.mantto.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(OrdenServicioCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenServicioCabecera>> ObtenerPorId(long id)
+        public async Task<ActionResult<OrdenServicioCabecera>> ObtenerPorId([FromRoute] long id)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace nest.core.mantto.Controllers
         /// <summary>
         /// Crea una nueva orden de servicio de mantenimiento externo con cabecera e información externa.
         /// </summary>
-        /// <param name="registro">Datos de la orden de servicio y del mantenimiento externo.</param>
+        /// <param name="command">Datos de la orden de servicio y del mantenimiento externo.</param>
         /// <returns>Orden de servicio de mantenimiento externo creada.</returns>
         /// <response code="200">Orden de servicio creada correctamente.</response>
         /// <response code="400">Se produjo un error en la solicitud.</response>
@@ -106,14 +106,14 @@ namespace nest.core.mantto.Controllers
         /// Actualiza una orden de servicio de mantenimiento externo existente.
         /// </summary>
         /// <param name="id">Identificador de la orden de servicio a modificar.</param>
-        /// <param name="registro">Datos actualizados de la cabecera y del mantenimiento externo.</param>
+        /// <param name="command">Datos actualizados de la cabecera y del mantenimiento externo.</param>
         /// <returns>Orden de servicio de mantenimiento externo modificada.</returns>
         /// <response code="200">Orden de servicio modificada correctamente.</response>
         /// <response code="400">Se produjo un error en la solicitud.</response>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(OrdenServicioCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenServicioCabecera>> Modificar(long id, [FromBody] OrdenServicioMantenimientoExternoActualizarCommand command)
+        public async Task<ActionResult<OrdenServicioCabecera>> Modificar([FromRoute] long id, [FromBody] OrdenServicioMantenimientoExternoActualizarCommand command)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace nest.core.mantto.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar(long id)
+        public async Task<ActionResult> Eliminar([FromRoute] long id)
         {
             try
             {
