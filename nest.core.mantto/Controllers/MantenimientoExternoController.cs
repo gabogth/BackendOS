@@ -12,7 +12,7 @@ namespace nest.core.mantto.Controllers
     /// Permite gestionar la cabecera de la orden junto a la información específica del mantenimiento externo.
     /// </summary>
     [Authorize]
-    [Route("OrdenServicio/MantenimientoExterno")]
+    [Route("{controller}")]
     [ApiController]
     public class MantenimientoExternoController : ControllerBase
     {

@@ -12,10 +12,12 @@
     },
     "https": {
       "commandName": "Project",
-      "launchUrl": "swagger",
+      "launchBrowser": true,
+      "launchUrl": "graphql",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ENGINE": "Npgsql"
+        "ENGINE": "Npgsql",
+        "BASE_URL": "/datasource"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:8392"

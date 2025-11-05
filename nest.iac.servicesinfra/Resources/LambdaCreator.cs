@@ -49,6 +49,7 @@ namespace nest.iac.servicesinfra.Resources
                         { "IS_LAMBDA", "True" },
                         { "URL_ENDPOINT", this.endpointUrl },
                         { "MAIN_BUCKET", ConfigVariables.AwsBucketName },
+                        { "TZ", "America/Lima" }
                     }
                 },
                 VpcConfig = new Aws.Lambda.Inputs.FunctionVpcConfigArgs

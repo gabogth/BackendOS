@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 Console.WriteLine("Iniciando aplicación Datasource...");
-if (Environment.GetEnvironmentVariable("IS_LAMBDA") != null)
+if (ConfigVariables.IsLambda)
     builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
 // Add services custom
@@ -73,14 +73,15 @@ builder.Services
     });
 
 var app = builder.Build();
-if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BASE_URL")))
-    app.UsePathBase(Environment.GetEnvironmentVariable("BASE_URL"));
+if (!string.IsNullOrEmpty(ConfigVariables.BaseUrl))
+    app.UsePathBase(ConfigVariables.BaseUrl);
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors("CorsPolicy");
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = check => check.Tags.Contains("live") });
-app.MapGraphQL("/graphql");
+app.MapGraphQL($"/graphql");
+app.MapNitroApp($"/my-graphql-ui", );
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 app.Run();
