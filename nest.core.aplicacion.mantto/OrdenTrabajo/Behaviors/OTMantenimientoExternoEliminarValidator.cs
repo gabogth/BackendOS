@@ -7,8 +7,8 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo.Behaviors
     {
         public OTMantenimientoExternoEliminarValidator()
         {
-            RuleFor(x => x.Id)
-                .GreaterThan(0);
+            //RuleFor(x => x.Id)
+                //.GreaterThan(0);
         }
     }
 }

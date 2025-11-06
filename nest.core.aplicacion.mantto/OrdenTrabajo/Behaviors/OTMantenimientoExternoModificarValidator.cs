@@ -7,10 +7,10 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo.Behaviors
     {
         public OTMantenimientoExternoModificarValidator()
         {
-            Include(new OTMantenimientoExternoGenericValidator<OTMantenimientoExternoModificarCommand>());
+            //Include(new OTMantenimientoExternoGenericValidator<OTMantenimientoExternoModificarCommand>());
 
-            RuleFor(x => x.Id)
-                .GreaterThan(0);
+            //RuleFor(x => x.Id)
+            //    .GreaterThan(0);
         }
     }
 }

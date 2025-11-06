@@ -1,8 +1,5 @@
 using FluentValidation;
-using nest.core.aplicacion.mantto.OrdenTrabajo.Behaviors.Internal;
 using nest.core.aplicacion.mantto.OrdenTrabajo.Commands;
-using nest.core.aplicacion.mantto.OrdenTrabajoCabeceras.Behaviors;
-using nest.core.aplicacion.mantto.OrdenTrabajoPersonales.Behaviors;
 
 namespace nest.core.aplicacion.mantto.OrdenTrabajo.Behaviors
 {
@@ -11,23 +8,23 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo.Behaviors
     {
         public OTMantenimientoExternoGenericValidator()
         {
-            RuleFor(x => x.Cabecera)
-                .NotNull()
-                .SetValidator(new OrdenTrabajoCabeceraCrearValidator());
+            //RuleFor(x => x.Cabecera)
+            //    .NotNull()
+            //    .SetValidator(new OrdenTrabajoCabeceraCrearValidator());
 
-            RuleFor(x => x.Detalles)
-                .NotNull()
-                .NotEmpty();
+            //RuleFor(x => x.Detalles)
+            //    .NotNull()
+            //    .NotEmpty();
 
-            RuleForEach(x => x.Detalles)
-                .SetValidator(new OrdenTrabajoMantenimientoExternoDetalleValidator());
+            //RuleForEach(x => x.Detalles)
+            //    .SetValidator(new OrdenTrabajoMantenimientoExternoDetalleValidator());
 
-            RuleFor(x => x.Personas)
-                .NotNull()
-                .NotEmpty();
+            //RuleFor(x => x.Personas)
+            //    .NotNull()
+            //    .NotEmpty();
 
-            RuleForEach(x => x.Personas)
-                .SetValidator(new OrdenTrabajoPersonalCrearValidator());
+            //RuleForEach(x => x.Personas)
+            //    .SetValidator(new OrdenTrabajoPersonalCrearValidator());
         }
     }
 }

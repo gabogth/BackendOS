@@ -11,6 +11,7 @@ using nest.core.aplicacion.mantto.OrdenTrabajoPersonales.Commands;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities;
 using nest.core.dominio.Transaccional;
 
@@ -24,7 +25,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo.Handlers
         private readonly IOrdenTrabajoPersonalRepository ordenTrabajoPersonalRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
-        private readonly IValidator<OrdenTrabajoMantenimientoExternoRegistroCommand> validator;
+        private readonly IValidator<OTMantenimientoExternoModificarCommand> validator;
         private readonly ILogger<OTMantenimientoExternoModificarHandler> logger;
 
         public OTMantenimientoExternoModificarHandler(
@@ -34,7 +35,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo.Handlers
             IOrdenTrabajoPersonalRepository ordenTrabajoPersonalRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IValidator<OrdenTrabajoMantenimientoExternoRegistroCommand> validator,
+            IValidator<OTMantenimientoExternoModificarCommand> validator,
             ILogger<OTMantenimientoExternoModificarHandler> logger)
         {
             this.repository = repository;
@@ -80,28 +81,21 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo.Handlers
                     .ToArray();
                 await ordenTrabajoPersonalRepository.FusionarRange(originalesPersonas, personasActualizadas);
 
-                OrdenTrabajoMantenimientoExternoDetalleRegistro[] detallesEntrada = request.Detalles.ToArray();
+                OTMantenimientoExternoDetalleModificarCommand[] detallesEntrada = request.Detalles.ToArray();
                 OrdenTrabajoDetalle[] detallesActualizados = detallesEntrada
                     .Select(detalleEntrada =>
                     {
-                        var detalleDto = detalleEntrada.Detalle with
-                        {
-                            EmpresaId = cabecera.EmpresaId,
-                            OrdenTrabajoCabeceraId = cabecera.Id
-                        };
-
                         var modificarDetalleCommand = new OrdenTrabajoDetalleModificarCommand(
-                            detalleDto.Id,
-                            detalleDto.EmpresaId,
-                            detalleDto.OrdenTrabajoCabeceraId,
-                            detalleDto.UbicacionTecnicaId,
-                            detalleDto.LaborId,
-                            detalleDto.HorasProyectadas,
-                            detalleDto.HorasEjecutadas,
-                            detalleDto.Descripcion,
-                            detalleDto.Estado
+                            detalleEntrada.Id,
+                            cabecera.EmpresaId,
+                            cabecera.Id,
+                            detalleEntrada.UbicacionTecnicaId,
+                            detalleEntrada.LaborId,
+                            detalleEntrada.HorasProyectadas,
+                            detalleEntrada.HorasEjecutadas,
+                            detalleEntrada.Descripcion,
+                            detalleEntrada.Estado
                         );
-
                         return mapper.Map<OrdenTrabajoDetalle>(modificarDetalleCommand);
                     })
                     .ToArray();

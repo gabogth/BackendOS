@@ -11,6 +11,7 @@ using nest.core.aplicacion.mantto.OrdenTrabajoPersonales.Commands;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities;
 using nest.core.dominio.Transaccional;
 
@@ -24,7 +25,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo.Handlers
         private readonly IOrdenTrabajoPersonalRepository ordenTrabajoPersonalRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
-        private readonly IValidator<OrdenTrabajoMantenimientoExternoRegistroCommand> validator;
+        private readonly IValidator<OTMantenimientoExternoCrearCommand> validator;
         private readonly ILogger<OTMantenimientoExternoCrearHandler> logger;
 
         public OTMantenimientoExternoCrearHandler(
@@ -34,7 +35,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo.Handlers
             IOrdenTrabajoPersonalRepository ordenTrabajoPersonalRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IValidator<OrdenTrabajoMantenimientoExternoRegistroCommand> validator,
+            IValidator<OTMantenimientoExternoCrearCommand> validator,
             ILogger<OTMantenimientoExternoCrearHandler> logger)
         {
             this.repository = repository;
@@ -73,7 +74,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo.Handlers
                 OrdenTrabajoDetalle[] detalles = request.Detalles
                     .Select(detalleEntrada =>
                     {
-                        var detalleDto = detalleEntrada.Detalle with
+                        var detalleDto = detalleEntrada with
                         {
                             EmpresaId = cabecera.EmpresaId,
                             OrdenTrabajoCabeceraId = cabecera.Id

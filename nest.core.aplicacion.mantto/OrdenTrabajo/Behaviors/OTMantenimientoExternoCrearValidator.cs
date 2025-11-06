@@ -7,7 +7,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo.Behaviors
     {
         public OTMantenimientoExternoCrearValidator()
         {
-            Include(new OTMantenimientoExternoGenericValidator<OTMantenimientoExternoCrearCommand>());
+            //Include(new OTMantenimientoExternoGenericValidator<OTMantenimientoExternoCrearCommand>());
         }
     }
 }

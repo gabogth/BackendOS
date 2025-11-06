@@ -2,7 +2,7 @@ using System;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.mantto.OrdenTrabajo.Commands;
-using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities;
 
 namespace nest.core.aplicacion.mantto.OrdenTrabajo.Handlers
 {

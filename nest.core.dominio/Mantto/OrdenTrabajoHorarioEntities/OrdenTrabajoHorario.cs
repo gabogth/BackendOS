@@ -12,7 +12,7 @@ namespace nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities
         public long OrdenTrabajoCabeceraId { get; set; }
         public int PersonalId { get; set; }
         public DateOnly Fecha { get; set; }
-        public long HorarioCabeceraId { get; set; }
+        public int HorarioCabeceraId { get; set; }
         public OrdenTrabajoCabecera OrdenTrabajoCabecera { get; set; }
         public Personal Personal { get; set; }
         public HorarioCabecera HorarioCabecera { get; set; }
