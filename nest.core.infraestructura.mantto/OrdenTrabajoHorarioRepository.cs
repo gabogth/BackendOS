@@ -2,6 +2,7 @@ using AutoMapper;
 using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
+using System.Data.Entity;
 
 namespace nest.core.infraestructura.mantto
 {
@@ -11,9 +12,21 @@ namespace nest.core.infraestructura.mantto
         {
         }
 
+        protected override IQueryable<OrdenTrabajoHorario> Query()
+        {
+            return base.Query()
+                .Include(x => x.OrdenTrabajoCabecera);
+        }
+
         public Task<OrdenTrabajoHorario> ObtenerPorId(long id) => GetByIdAsync(id);
 
         public Task<List<OrdenTrabajoHorario>> ObtenerTodos() => GetAllAsync();
+        public Task<List<OrdenTrabajoHorario>> ObtenerPorOtYRangoFechas(long OrdenTrabajoCabeceraId, DateOnly Inicio, DateOnly Fin)
+        {
+            return this.Query()
+                .Where(x => x.OrdenTrabajoCabeceraId == OrdenTrabajoCabeceraId  && x.Fecha >= Inicio && x.Fecha <= Fin)
+                .ToListAsync();
+        }
 
         public Task<OrdenTrabajoHorario> Agregar(OrdenTrabajoHorario entity) => AddAsync(entity);
 

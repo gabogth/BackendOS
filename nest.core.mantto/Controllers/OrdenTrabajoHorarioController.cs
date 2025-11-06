@@ -43,16 +43,24 @@ namespace nest.core.mantto.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<List<OrdenTrabajoHorario>>> ObtenerTodos()
         {
-            try
-            {
-                var data = await sender.Send(new ObtenerTodosQuery());
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerTodosQuery());
+            return Ok(data);
+        }
+
+        /// <summary>
+        /// Obtiene un horario de orden de trabajo por su identificador.
+        /// </summary>
+        /// <param name="request">Parametros de búsqueda.</param>
+        /// <returns>Horario correspondiente al identificador indicado.</returns>
+        /// <response code="200">Horario encontrado.</response>
+        /// <response code="400">Error en la solicitud.</response>
+        [HttpGet("by_ot_and_date_range")]
+        [ProducesResponseType(typeof(OrdenTrabajoHorario), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<OrdenTrabajoHorario>> ObtenerPorOtYRangoFechas([FromQuery] ObtenerPorOtYRangoFechasQuery request)
+        {
+            var data = await sender.Send(request);
+            return Ok(data);
         }
 
         /// <summary>
@@ -67,16 +75,8 @@ namespace nest.core.mantto.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<OrdenTrabajoHorario>> ObtenerPorId(long id)
         {
-            try
-            {
-                var data = await sender.Send(new ObtenerPorIdQuery(id));
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerPorIdQuery(id));
+            return Ok(data);
         }
 
         /// <summary>
@@ -91,16 +91,8 @@ namespace nest.core.mantto.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<OrdenTrabajoHorario>> Agregar([FromBody] OrdenTrabajoHorarioCrearCommand command)
         {
-            try
-            {
-                var data = await sender.Send(command);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command);
+            return Ok(data);
         }
 
         /// <summary>
@@ -116,16 +108,8 @@ namespace nest.core.mantto.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<OrdenTrabajoHorario>> Modificar(long id, [FromBody] OrdenTrabajoHorarioModificarCommand command)
         {
-            try
-            {
-                var data = await sender.Send(command with { Id = id });
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command with { Id = id });
+            return Ok(data);
         }
 
         /// <summary>
@@ -140,16 +124,8 @@ namespace nest.core.mantto.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult> Eliminar(long id)
         {
-            try
-            {
-                await sender.Send(new OrdenTrabajoHorarioEliminarCommand(id));
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw;
-            }
+            await sender.Send(new OrdenTrabajoHorarioEliminarCommand(id));
+            return Ok(true);
         }
     }
 }
