@@ -11,6 +11,7 @@ using nest.core.dominio.Mantto.OrdenServicioCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenServicioMantenimientoExternoEntities;
 using nest.core.dominio.Mantto.OrdenServicioTipoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities;
@@ -37,6 +38,7 @@ namespace nest.core.aplicacion.mantto
             services.AddTransient<IOrdenServicioMantenimientoExternoRepository, OrdenServicioMantenimientoExternoRepository>();
             services.AddTransient<IOrdenServicioTipoRepository, OrdenServicioTipoRepository>();
             services.AddTransient<IOrdenTrabajoCabeceraRepository, OrdenTrabajoCabeceraRepository>();
+            services.AddTransient<IOrdenTrabajoHorarioRepository, OrdenTrabajoHorarioRepository>();
             services.AddTransient<IOrdenTrabajoDetalleRepository, OrdenTrabajoDetalleRepository>();
             services.AddTransient<IOrdenTrabajoPersonalRepository, OrdenTrabajoPersonalRepository>();
             services.AddTransient<IOrdenTrabajoDetalleActivoRepository, OrdenTrabajoDetalleActivoRepository>();
