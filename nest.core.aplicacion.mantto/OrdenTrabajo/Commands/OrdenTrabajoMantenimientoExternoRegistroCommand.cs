@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using nest.core.aplicacion.mantto.OrdenTrabajoCabeceras.Commands;
 using nest.core.aplicacion.mantto.OrdenTrabajoPersonales.Commands;
+using nest.core.aplicacion.utils.Commands;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
 
 namespace nest.core.aplicacion.mantto.OrdenTrabajo.Commands
 {
-    public sealed record OrdenTrabajoMantenimientoExternoRegistroCommand
+    public record OrdenTrabajoMantenimientoExternoRegistroCommand : IOTMantenimientoExternoGenericCommand
     {
         [Required]
         public OrdenTrabajoCabeceraCrearCommand Cabecera { get; init; } = default!;
