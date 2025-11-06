@@ -21,6 +21,8 @@ namespace nest.core.infraestructura.mantto
 
         public async Task<OrdenTrabajoPersonal> ObtenerPorId(long id) => await GetByIdAsync(id);
 
+        public async Task<List<OrdenTrabajoPersonal>> ObtenerTodos() => await GetAllAsync();
+
         public Task<List<OrdenTrabajoPersonal>> ObtenerPorIds(List<long> ids) => GetByIdsAsync(ids);
 
         public async Task<List<OrdenTrabajoPersonal>> ObtenerPorCabecera(long ordenTrabajoCabeceraId)
