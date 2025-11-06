@@ -57,7 +57,7 @@ namespace nest.core.mantto.Controllers
         [HttpGet("by_ot_and_date_range")]
         [ProducesResponseType(typeof(OrdenTrabajoHorario), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenTrabajoHorario>> ObtenerPorOtYRangoFechas([FromQuery] ObtenerPorOtYRangoFechasQuery request)
+        public async Task<ActionResult<List<OrdenTrabajoHorario>>> ObtenerPorOtYRangoFechas([FromQuery] ObtenerPorOtYRangoFechasQuery request)
         {
             var data = await sender.Send(request);
             return Ok(data);
