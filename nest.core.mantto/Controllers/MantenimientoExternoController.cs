@@ -13,7 +13,7 @@ namespace nest.core.mantto.Controllers
     /// Permite gestionar la cabecera de la orden junto a la información específica del mantenimiento externo.
     /// </summary>
     [Authorize]
-    [Route("{controller}")]
+    [Route("[controller]")]
     [ApiController]
     public class MantenimientoExternoController : ControllerBase
     {
@@ -42,16 +42,8 @@ namespace nest.core.mantto.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<List<OrdenServicioCabecera>>> ObtenerTodos()
         {
-            try
-            {
-                var data = await sender.Send(new ObtenerOrdenServicioMantenimientoExternoTodosQuery());
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerTodosQuery());
+            return Ok(data);
         }
 
         /// <summary>
@@ -66,16 +58,8 @@ namespace nest.core.mantto.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<OrdenServicioCabecera>> ObtenerPorId([FromRoute] long id)
         {
-            try
-            {
-                var data = await sender.Send(new ObtenerOrdenServicioMantenimientoExternoPorIdQuery(id));
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new ObtenerPorIdQuery(id));
+            return Ok(data);
         }
 
         /// <summary>
@@ -88,18 +72,10 @@ namespace nest.core.mantto.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(OrdenServicioCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenServicioCabecera>> Agregar([FromBody] OrdenServicioMantenimientoExternoRegistrarCommand command)
+        public async Task<ActionResult<OrdenServicioCabecera>> Agregar([FromBody] OSMantenimientoExternoCrearCommand command)
         {
-            try
-            {
-                var data = await sender.Send(command);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(command);
+            return Ok(data);
         }
 
         /// <summary>
@@ -113,19 +89,11 @@ namespace nest.core.mantto.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(OrdenServicioCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenServicioCabecera>> Modificar([FromRoute] long id, [FromBody] OrdenServicioMantenimientoExternoActualizarCommand command)
+        public async Task<ActionResult<OrdenServicioCabecera>> Modificar([FromRoute] long id, [FromBody] OSMantenimientoExternoModificarCommand command)
         {
-            try
-            {
-                var cmd = command with { Id = id };
-                var data = await sender.Send(cmd);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var cmd = command with { Id = id };
+            var data = await sender.Send(cmd);
+            return Ok(data);
         }
 
         /// <summary>
@@ -140,16 +108,8 @@ namespace nest.core.mantto.Controllers
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult> Eliminar([FromRoute] long id)
         {
-            try
-            {
-                await sender.Send(new OrdenServicioMantenimientoExternoEliminarCommand(id));
-                return Ok(true);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
+            var data = await sender.Send(new OSMantenimientoExternoEliminarCommand(id));
+            return Ok(data);
         }
     }
 }

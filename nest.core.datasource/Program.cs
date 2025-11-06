@@ -81,7 +81,7 @@ app.UseAuthorization();
 app.UseCors("CorsPolicy");
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = check => check.Tags.Contains("live") });
 app.MapGraphQL($"/graphql");
-app.MapNitroApp($"/my-graphql-ui", );
+app.MapNitroApp($"/my-graphql-ui");
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 app.Run();
