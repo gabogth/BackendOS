@@ -1,5 +1,9 @@
+using System;
+using System.Linq;
 using AutoMapper;
 using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.mantto.OrdenTrabajo.Commands;
 using nest.core.aplicacion.mantto.OrdenTrabajoDetalleActivos.Commands;
 using nest.core.aplicacion.mantto.OrdenTrabajoDetalles.Commands;
@@ -7,13 +11,12 @@ using nest.core.aplicacion.mantto.OrdenTrabajoPersonales.Commands;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
-using nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities;
 using nest.core.dominio.Transaccional;
 
-namespace nest.core.aplicacion.mantto.OrdenTrabajo
+namespace nest.core.aplicacion.mantto.OrdenTrabajo.Handlers
 {
-    public class OrdenTrabajoMantenimientoExternoService
+    public class OTMantenimientoExternoModificarHandler : IRequestHandler<OTMantenimientoExternoModificarCommand, OrdenTrabajoCabecera>
     {
         private readonly IOrdenTrabajoCabecera_MantenimientoExternoRepository repository;
         private readonly IOrdenTrabajoDetalleRepository detalleRepository;
@@ -22,15 +25,17 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly IValidator<OrdenTrabajoMantenimientoExternoRegistroCommand> validator;
+        private readonly ILogger<OTMantenimientoExternoModificarHandler> logger;
 
-        public OrdenTrabajoMantenimientoExternoService(
+        public OTMantenimientoExternoModificarHandler(
             IOrdenTrabajoCabecera_MantenimientoExternoRepository repository,
             IOrdenTrabajoDetalleRepository detalleRepository,
             IOrdenTrabajoDetalleActivoRepository detalleActivoRepository,
             IOrdenTrabajoPersonalRepository ordenTrabajoPersonalRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            IValidator<OrdenTrabajoMantenimientoExternoRegistroCommand> validator)
+            IValidator<OrdenTrabajoMantenimientoExternoRegistroCommand> validator,
+            ILogger<OTMantenimientoExternoModificarHandler> logger)
         {
             this.repository = repository;
             this.detalleRepository = detalleRepository;
@@ -39,99 +44,17 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.validator = validator;
+            this.logger = logger;
         }
 
-        public Task<OrdenTrabajoCabecera> ObtenerPorId(long id) => repository.ObtenerPorId(id);
-
-        public Task<List<OrdenTrabajoCabecera>> ObtenerTodos() => repository.ObtenerTodos();
-
-        public Task<List<OrdenTrabajoCabecera>> ObtenerPorOrdenServicio(long ordenServicioCabeceraId) => repository.ObtenerPorOrdenServicio(ordenServicioCabeceraId);
-
-        public async Task<OrdenTrabajoCabecera> Agregar(OrdenTrabajoMantenimientoExternoRegistroCommand command)
+        public async Task<OrdenTrabajoCabecera> Handle(OTMantenimientoExternoModificarCommand request, CancellationToken cancellationToken)
         {
-            await validator.ValidateAndThrowAsync(command);
-            await unitOfWork.BeginTransactionAsync();
+            await validator.ValidateAndThrowAsync(request, cancellationToken);
+            await unitOfWork.BeginTransactionAsync(cancellationToken);
             try
             {
-                OrdenTrabajoCabecera cabeceraEntity = mapper.Map<OrdenTrabajoCabecera>(command.Cabecera);
-                OrdenTrabajoCabecera cabecera = await repository.Agregar(cabeceraEntity);
-                List<OrdenTrabajoMantenimientoExternoDetalleRegistro> detallesEntrada = command.Detalles;
-
-                OrdenTrabajoPersonal[] personasEntities = command.Personas
-                    .Select(personaDto =>
-                    {
-                        var personaCommand = personaDto with
-                        {
-                            EmpresaId = cabecera.EmpresaId,
-                            OrdenTrabajoCabeceraId = cabecera.Id
-                        };
-
-                        return mapper.Map<OrdenTrabajoPersonal>(personaCommand);
-                    })
-                    .ToArray();
-                await ordenTrabajoPersonalRepository.AgregarRange(personasEntities);
-
-                OrdenTrabajoDetalle[] detalles = detallesEntrada
-                    .Select(detalleEntrada =>
-                    {
-                        var detalleDto = detalleEntrada.Detalle with
-                        {
-                            EmpresaId = cabecera.EmpresaId,
-                            OrdenTrabajoCabeceraId = cabecera.Id
-                        };
-
-                        var crearDetalleCommand = new OrdenTrabajoDetalleCrearCommand(
-                            detalleDto.EmpresaId,
-                            detalleDto.OrdenTrabajoCabeceraId,
-                            detalleDto.UbicacionTecnicaId,
-                            detalleDto.LaborId,
-                            detalleDto.HorasProyectadas,
-                            detalleDto.HorasEjecutadas,
-                            detalleDto.Descripcion,
-                            detalleDto.Estado
-                        );
-
-                        return mapper.Map<OrdenTrabajoDetalle>(crearDetalleCommand);
-                    })
-                    .ToArray();
-
-                OrdenTrabajoDetalle[] detallesInsertados = await detalleRepository.AgregarRange(detalles);
-
-                OrdenTrabajoDetalleActivo[] activosCrear = new OrdenTrabajoDetalleActivo[detallesEntrada.Count];
-                for (int i = 0; i < detallesEntrada.Count; i++)
-                {
-                    OrdenTrabajoMantenimientoExternoDetalleActivoRegistro activo = detallesEntrada[i].Activo;
-                    var crearActivoCommand = new OrdenTrabajoDetalleActivoCrearCommand(
-                        cabecera.EmpresaId,
-                        detallesInsertados[i].Id,
-                        activo.ActivoId
-                    );
-                    activosCrear[i] = mapper.Map<OrdenTrabajoDetalleActivo>(crearActivoCommand);
-                }
-                await detalleActivoRepository.AgregarRange(activosCrear);
-
-                await unitOfWork.CommitAsync();
-                return await repository.ObtenerPorId(cabecera.Id);
-            }
-            catch (Exception)
-            {
-                await unitOfWork.RollbackAsync();
-                throw;
-            }
-            finally
-            {
-                await unitOfWork.DisposeAsync();
-            }
-        }
-
-        public async Task<OrdenTrabajoCabecera> Modificar(long id, OrdenTrabajoMantenimientoExternoRegistroCommand command)
-        {
-            await validator.ValidateAndThrowAsync(command);
-            await unitOfWork.BeginTransactionAsync();
-            try
-            {
-                OrdenTrabajoCabecera cabeceraEntity = mapper.Map<OrdenTrabajoCabecera>(command.Cabecera);
-                cabeceraEntity.Id = id;
+                OrdenTrabajoCabecera cabeceraEntity = mapper.Map<OrdenTrabajoCabecera>(request.Cabecera);
+                cabeceraEntity.Id = request.Id;
                 OrdenTrabajoCabecera cabecera = await repository.Modificar(cabeceraEntity);
                 cabecera = await repository.ObtenerPorId(cabecera.Id);
 
@@ -141,7 +64,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
                     .Select(x => x.OrdenTrabajoDetalleActivo)
                     .ToArray();
 
-                OrdenTrabajoPersonal[] personasActualizadas = command.Personas
+                OrdenTrabajoPersonal[] personasActualizadas = request.Personas
                     .Select(personaDto =>
                     {
                         var modificarPersonaCommand = new OrdenTrabajoPersonalModificarCommand(
@@ -157,7 +80,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
                     .ToArray();
                 await ordenTrabajoPersonalRepository.FusionarRange(originalesPersonas, personasActualizadas);
 
-                OrdenTrabajoMantenimientoExternoDetalleRegistro[] detallesEntrada = command.Detalles.ToArray();
+                OrdenTrabajoMantenimientoExternoDetalleRegistro[] detallesEntrada = request.Detalles.ToArray();
                 OrdenTrabajoDetalle[] detallesActualizados = detallesEntrada
                     .Select(detalleEntrada =>
                     {
@@ -187,7 +110,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
                 OrdenTrabajoDetalleActivo[] activosActualizados = new OrdenTrabajoDetalleActivo[detallesEntrada.Length];
                 for (int i = 0; i < detallesEntrada.Length; i++)
                 {
-                    OrdenTrabajoMantenimientoExternoDetalleActivoRegistro activo = detallesEntrada[i].Activo;
+                    var activo = detallesEntrada[i].Activo;
                     var modificarActivoCommand = new OrdenTrabajoDetalleActivoModificarCommand(
                         activo.Id,
                         cabecera.EmpresaId,
@@ -198,12 +121,13 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
                 }
                 await detalleActivoRepository.FusionarRange(originalesActivos, activosActualizados);
 
-                await unitOfWork.CommitAsync();
+                await unitOfWork.CommitAsync(cancellationToken);
                 return await repository.ObtenerPorId(cabecera.Id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await unitOfWork.RollbackAsync();
+                await unitOfWork.RollbackAsync(cancellationToken);
+                logger.LogError(ex, "Error al modificar la orden de trabajo de mantenimiento externo {OrdenTrabajoId}", request.Id);
                 throw;
             }
             finally
@@ -211,7 +135,5 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajo
                 await unitOfWork.DisposeAsync();
             }
         }
-
-        public Task Eliminar(long id) => repository.Eliminar(id);
     }
 }

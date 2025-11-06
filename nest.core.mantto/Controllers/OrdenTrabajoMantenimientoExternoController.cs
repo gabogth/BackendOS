@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.mantto.OrdenTrabajo;
 using nest.core.aplicacion.mantto.OrdenTrabajo.Commands;
+using nest.core.aplicacion.mantto.OrdenTrabajo.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 
@@ -18,17 +20,17 @@ namespace nest.core.mantto.Controllers
     [ApiController]
     public class OrdenTrabajoMantenimientoExternoController : ControllerBase
     {
-        private readonly OrdenTrabajoMantenimientoExternoService service;
+        private readonly ISender sender;
         private readonly ILogger<OrdenTrabajoMantenimientoExternoController> logger;
 
         /// <summary>
         /// Inicializa una nueva instancia del controlador.
         /// </summary>
-        /// <param name="service">Servicio de negocio de órdenes de trabajo de mantenimiento externo.</param>
+        /// <param name="sender">Mediador usado para enviar comandos y consultas.</param>
         /// <param name="logger">Logger para auditoría y trazabilidad.</param>
-        public OrdenTrabajoMantenimientoExternoController(OrdenTrabajoMantenimientoExternoService service, ILogger<OrdenTrabajoMantenimientoExternoController> logger)
+        public OrdenTrabajoMantenimientoExternoController(ISender sender, ILogger<OrdenTrabajoMantenimientoExternoController> logger)
         {
-            this.service = service;
+            this.sender = sender;
             this.logger = logger;
         }
 
@@ -43,7 +45,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await service.ObtenerTodos();
+                var data = await sender.Send(new ObtenerTodosQuery());
                 return Ok(data);
             }
             catch (Exception ex)
@@ -65,7 +67,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorId(id);
+                var data = await sender.Send(new ObtenerPorIdQuery(id));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -87,7 +89,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                var data = await service.ObtenerPorOrdenServicio(ordenServicioCabeceraId);
+                var data = await sender.Send(new ObtenerPorOrdenServicioQuery(ordenServicioCabeceraId));
                 return Ok(data);
             }
             catch (Exception ex)
@@ -100,16 +102,16 @@ namespace nest.core.mantto.Controllers
         /// <summary>
         /// Crea una nueva orden de trabajo de mantenimiento externo con sus detalles y activos.
         /// </summary>
-        /// <param name="registro">Información de cabecera y detalle a registrar.</param>
+        /// <param name="command">Comando con la información de cabecera, detalles y personal.</param>
         /// <returns>Orden de trabajo creada.</returns>
         [HttpPost]
         [ProducesResponseType(typeof(OrdenTrabajoCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenTrabajoCabecera>> Agregar([FromBody] OrdenTrabajoMantenimientoExternoRegistroCommand registro)
+        public async Task<ActionResult<OrdenTrabajoCabecera>> Agregar([FromBody] OTMantenimientoExternoCrearCommand command)
         {
             try
             {
-                var data = await service.Agregar(registro);
+                var data = await sender.Send(command);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -123,16 +125,17 @@ namespace nest.core.mantto.Controllers
         /// Modifica una orden de trabajo de mantenimiento externo existente.
         /// </summary>
         /// <param name="id">Identificador de la orden de trabajo.</param>
-        /// <param name="registro">Información actualizada de cabecera y detalle.</param>
+        /// <param name="command">Comando con la información actualizada de cabecera, detalles y personal.</param>
         /// <returns>Orden de trabajo actualizada.</returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(OrdenTrabajoCabecera), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<OrdenTrabajoCabecera>> Modificar(long id, [FromBody] OrdenTrabajoMantenimientoExternoRegistroCommand registro)
+        public async Task<ActionResult<OrdenTrabajoCabecera>> Modificar(long id, [FromBody] OTMantenimientoExternoModificarCommand command)
         {
             try
             {
-                var data = await service.Modificar(id, registro);
+                var cmd = command with { Id = id };
+                var data = await sender.Send(cmd);
                 return Ok(data);
             }
             catch (Exception ex)
@@ -154,7 +157,7 @@ namespace nest.core.mantto.Controllers
         {
             try
             {
-                await service.Eliminar(id);
+                await sender.Send(new OTMantenimientoExternoEliminarCommand(id));
                 return Ok(true);
             }
             catch (Exception ex)

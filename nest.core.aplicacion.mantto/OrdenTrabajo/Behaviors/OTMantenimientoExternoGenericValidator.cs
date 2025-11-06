@@ -6,9 +6,10 @@ using nest.core.aplicacion.mantto.OrdenTrabajoPersonales.Behaviors;
 
 namespace nest.core.aplicacion.mantto.OrdenTrabajo.Behaviors
 {
-    public sealed class OrdenTrabajoMantenimientoExternoRegistroValidator : AbstractValidator<OrdenTrabajoMantenimientoExternoRegistroCommand>
+    public class OTMantenimientoExternoGenericValidator<TCommand> : AbstractValidator<TCommand>
+        where TCommand : IOTMantenimientoExternoGenericCommand
     {
-        public OrdenTrabajoMantenimientoExternoRegistroValidator()
+        public OTMantenimientoExternoGenericValidator()
         {
             RuleFor(x => x.Cabecera)
                 .NotNull()
