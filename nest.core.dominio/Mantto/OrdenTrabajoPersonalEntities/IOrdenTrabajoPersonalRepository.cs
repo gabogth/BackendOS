@@ -5,6 +5,7 @@ namespace nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities
     public interface IOrdenTrabajoPersonalRepository
     {
         Task<OrdenTrabajoPersonal> ObtenerPorId(long id);
+        Task<List<OrdenTrabajoPersonal>> ObtenerTodos();
         Task<List<OrdenTrabajoPersonal>> ObtenerPorIds(List<long> ids);
         Task<List<OrdenTrabajoPersonal>> ObtenerPorCabecera(long ordenTrabajoCabeceraId);
         Task<OrdenTrabajoPersonal> Agregar(OrdenTrabajoPersonal entity);

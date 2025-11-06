@@ -31,6 +31,27 @@ namespace nest.core.mantto.Controllers
         }
 
         /// <summary>
+        /// Obtiene el listado completo de personal asignado a órdenes de trabajo.
+        /// </summary>
+        /// <returns>Lista de registros de personal.</returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(List<OrdenTrabajoPersonal>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<List<OrdenTrabajoPersonal>>> ObtenerTodos()
+        {
+            try
+            {
+                var data = await sender.Send(new ObtenerTodosQuery());
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error al obtener el personal asignado");
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Obtiene un registro de personal por su identificador.
         /// </summary>
         /// <param name="id">Identificador del registro.</param>
