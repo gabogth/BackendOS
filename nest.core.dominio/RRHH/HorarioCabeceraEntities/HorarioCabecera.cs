@@ -1,4 +1,5 @@
-﻿using nest.core.dominio.RRHH.HorarioDetalleEntities;
+﻿using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
+using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.HorarioCabeceraEntities
@@ -11,5 +12,6 @@ namespace nest.core.dominio.RRHH.HorarioCabeceraEntities
         public string Descripcion { get; set; }
         public bool Activo { get; set; }
         public List<HorarioDetalle> HorarioDetalles { get; set; } = new List<HorarioDetalle>();
+        public List<OrdenTrabajoHorario> OrdenTrabajoHorarios { get; set; }
     }
 }

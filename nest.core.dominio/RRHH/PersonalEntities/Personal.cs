@@ -1,5 +1,6 @@
 ﻿using nest.core.dominio.General.PersonaEntities;
 using nest.core.dominio.Legal.ContratoCabeceraEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
@@ -27,5 +28,6 @@ namespace nest.core.dominio.RRHH.PersonalEntities
         public Personal Superior { get; set; }
         public List<Personal> Children { get; set; }
         public ApplicationUser Usuario { get; set; }
+        public List<OrdenTrabajoHorario> OrdenTrabajoHorarios { get; set; }
     }
 }
