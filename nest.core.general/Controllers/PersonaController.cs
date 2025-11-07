@@ -5,6 +5,7 @@ using nest.core.aplicacion.general.Personas.Commands;
 using nest.core.aplicacion.general.Personas.Queries;
 using nest.core.dominio;
 using nest.core.dominio.General.PersonaEntities;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace nest.core.general.Controllers
 {
@@ -32,9 +33,9 @@ namespace nest.core.general.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Persona), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Persona>> ObtenerPorId([FromQuery] ObtenerPorIdQuery command, CancellationToken ct)
+        public async Task<ActionResult<Persona>> ObtenerPorId([FromRoute] int id, CancellationToken ct)
         {
-            var entidad = await sender.Send(command);
+            var entidad = await sender.Send(new ObtenerPorIdQuery(id));
             return Ok(entidad);
         }
         [HttpGet("activos")]
@@ -65,9 +66,9 @@ namespace nest.core.general.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult> Eliminar([FromBody] PersonaEliminarCommand command, CancellationToken ct)
+        public async Task<ActionResult> Eliminar([FromRoute] int id, CancellationToken ct)
         {
-            var entidad = await sender.Send(command);
+            var entidad = await sender.Send(new PersonaEliminarCommand(id));
             return Ok();
         }
     }
