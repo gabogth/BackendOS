@@ -1,8 +1,8 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
-using System.Data.Entity;
 
 namespace nest.core.infraestructura.mantto
 {

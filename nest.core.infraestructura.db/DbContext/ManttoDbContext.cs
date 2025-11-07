@@ -7,6 +7,7 @@ using nest.core.dominio.Mantto.OrdenServicioTipoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities;
 
 namespace nest.core.infraestructura.db.DbContext
@@ -22,6 +23,7 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<OrdenTrabajoDetalle> OrdenTrabajoDetalle { get; set; }
         public DbSet<OrdenTrabajoDetalleActivo> OrdenTrabajoDetalleActivo { get; set; }
         public DbSet<OrdenTrabajoPersonal> OrdenTrabajoPersonal { get; set; }
+        public DbSet<OrdenTrabajoHorario> OrdenTrabajoHorario { get; set; }
         public void OnModelCreatingMantto(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<OrdenServicioCabecera>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
@@ -30,6 +32,7 @@ namespace nest.core.infraestructura.db.DbContext
             modelBuilder.Entity<OrdenTrabajoDetalle>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
             modelBuilder.Entity<OrdenTrabajoDetalleActivo>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
             modelBuilder.Entity<OrdenTrabajoPersonal>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<OrdenTrabajoHorario>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
         }
     }
 }
