@@ -8,8 +8,14 @@ namespace nest.core.aplicacion.costos.Mapper
     {
         public AutoMapperProfiles()
         {
+            MapAllEntities();
             CreateMap<CentroDeCostosCrearCommand, CentroDeCostos>();
             CreateMap<CentroDeCostosModificarCommand, CentroDeCostos>();
+        }
+
+        private void MapAllEntities()
+        {
+            CreateMap<CentroDeCostos, CentroDeCostos>();
         }
     }
 }

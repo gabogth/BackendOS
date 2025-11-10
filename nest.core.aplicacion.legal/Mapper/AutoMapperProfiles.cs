@@ -8,8 +8,14 @@ namespace nest.core.aplicacion.legal.Mapper
     {
         public AutoMapperProfiles()
         {
+            MapAllEntities();
             CreateMap<ContratoTipoCrearCommand, ContratoTipo>();
             CreateMap<ContratoTipoModificarCommand, ContratoTipo>();
+        }
+
+        private void MapAllEntities()
+        {
+            CreateMap<ContratoTipo, ContratoTipo>();
         }
     }
 }

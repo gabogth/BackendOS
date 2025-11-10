@@ -33,6 +33,7 @@ namespace nest.core.aplicacion.general.Mapper
     {
         public AutoMapperProfiles()
         {
+            MapAllEntities();
             CreateMap<AdjuntoConfigProviderCrearCommand, AdjuntoConfigProvider>();
             CreateMap<AdjuntoConfigProviderModificarCommand, AdjuntoConfigProvider>();
             CreateMap<AdjuntoCrearCommand, Adjunto>();
@@ -61,6 +62,23 @@ namespace nest.core.aplicacion.general.Mapper
             CreateMap<ProvinciaModificarCommand, Provincia>();
             CreateMap<SexoCrearCommand, Sexo>();
             CreateMap<SexoModificarCommand, Sexo>();
+        }
+
+        private void MapAllEntities()
+        {
+            CreateMap<AdjuntoConfigProvider, AdjuntoConfigProvider>();
+            CreateMap<Adjunto, Adjunto>();
+            CreateMap<AdjuntoTipo, AdjuntoTipo>();
+            CreateMap<Departamento, Departamento>();
+            CreateMap<Distrito, Distrito>();
+            CreateMap<DocumentoIdentidadTipo, DocumentoIdentidadTipo>();
+            CreateMap<DocumentoTipo, DocumentoTipo>();
+            CreateMap<LicenciaConducir, LicenciaConducir>();
+            CreateMap<Pais, Pais>();
+            CreateMap<PersonaAdjunto, PersonaAdjunto>();
+            CreateMap<Persona, Persona>();
+            CreateMap<Provincia, Provincia>();
+            CreateMap<Sexo, Sexo>();
         }
     }
 }

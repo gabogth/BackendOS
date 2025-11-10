@@ -15,6 +15,7 @@ namespace nest.core.aplicacion.security.Mapper
     {
         public AutoMapperProfiles()
         {
+            MapAllEntities();
             CreateMap<RoleCrearCommand, ApplicationRole>();
             CreateMap<RoleModificarCommand, ApplicationRole>();
             CreateMap<FormularioCrearCommand, Formulario>();
@@ -25,6 +26,15 @@ namespace nest.core.aplicacion.security.Mapper
             CreateMap<UsuarioModificarCommand, ApplicationUser>();
             CreateMap<ModuloCrearCommand, Modulo>();
             CreateMap<ModuloModificarCommand, Modulo>();
+        }
+
+        private void MapAllEntities()
+        {
+            CreateMap<ApplicationRole, ApplicationRole>();
+            CreateMap<Formulario, Formulario>();
+            CreateMap<UsuarioEmpresa, UsuarioEmpresa>();
+            CreateMap<ApplicationUser, ApplicationUser>();
+            CreateMap<Modulo, Modulo>();
         }
     }
 }

@@ -10,10 +10,17 @@ namespace nest.core.aplicacion.contabilidad.Mapper
     {
         public AutoMapperProfiles()
         {
+            MapAllEntities();
             CreateMap<CuentaContableTipoCrearCommand, CuentaContableTipo>();
             CreateMap<CuentaContableTipoModificarCommand, CuentaContableTipo>();
             CreateMap<CuentaContableCrearCommand, CuentaContable>();
             CreateMap<CuentaContableModificarCommand, CuentaContable>();
+        }
+
+        private void MapAllEntities()
+        {
+            CreateMap<CuentaContableTipo, CuentaContableTipo>();
+            CreateMap<CuentaContable, CuentaContable>();
         }
     }
 }
