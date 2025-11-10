@@ -15,7 +15,9 @@ namespace nest.core.aplicacion.costos.Mapper
 
         private void MapAllEntities()
         {
-            CreateMap<CentroDeCostos, CentroDeCostos>();
+            CreateMap<CentroDeCostos, CentroDeCostos>()
+                .ForMember(dest => dest.Padre, opt => opt.Ignore())
+                .ForMember(dest => dest.Children, opt => opt.Ignore());
         }
     }
 }

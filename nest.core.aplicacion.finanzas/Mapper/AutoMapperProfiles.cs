@@ -43,12 +43,27 @@ namespace nest.core.aplicacion.finanzas.Mapper
 
         private void MapAllEntities()
         {
-            CreateMap<FinancieroCabecera, FinancieroCabecera>();
+            CreateMap<FinancieroCabecera, FinancieroCabecera>()
+                .ForMember(dest => dest.PuntoFinanciero, opt => opt.Ignore())
+                .ForMember(dest => dest.OrigenFinanciero, opt => opt.Ignore())
+                .ForMember(dest => dest.TerceroGen, opt => opt.Ignore())
+                .ForMember(dest => dest.DocumentoTipoGen, opt => opt.Ignore())
+                .ForMember(dest => dest.FinancieroDetalles, opt => opt.Ignore());
             CreateMap<EntidadFinanciera, EntidadFinanciera>();
-            CreateMap<FinancieroDetalle, FinancieroDetalle>();
-            CreateMap<Tercero, Tercero>();
+            CreateMap<FinancieroDetalle, FinancieroDetalle>()
+                .ForMember(dest => dest.FinancieroCabecera, opt => opt.Ignore())
+                .ForMember(dest => dest.Tercero, opt => opt.Ignore())
+                .ForMember(dest => dest.DocumentoTipo, opt => opt.Ignore())
+                .ForMember(dest => dest.CuentaCorriente, opt => opt.Ignore());
+            CreateMap<Tercero, Tercero>()
+                .ForMember(dest => dest.DocumentoIdentidadTipoFinanciero, opt => opt.Ignore())
+                .ForMember(dest => dest.CuentaContablePorCobrar, opt => opt.Ignore())
+                .ForMember(dest => dest.CuentaContablePorPagar, opt => opt.Ignore())
+                .ForMember(dest => dest.Persona, opt => opt.Ignore());
             CreateMap<PuntoFinanciero, PuntoFinanciero>();
-            CreateMap<CuentaCorriente, CuentaCorriente>();
+            CreateMap<CuentaCorriente, CuentaCorriente>()
+                .ForMember(dest => dest.EntidadFinanciera, opt => opt.Ignore())
+                .ForMember(dest => dest.CuentaContable, opt => opt.Ignore());
             CreateMap<Moneda, Moneda>();
             CreateMap<OrigenFinanciero, OrigenFinanciero>();
         }

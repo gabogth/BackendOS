@@ -31,8 +31,13 @@ namespace nest.core.aplicacion.security.Mapper
         private void MapAllEntities()
         {
             CreateMap<ApplicationRole, ApplicationRole>();
-            CreateMap<Formulario, Formulario>();
-            CreateMap<UsuarioEmpresa, UsuarioEmpresa>();
+            CreateMap<Formulario, Formulario>()
+                .ForMember(dest => dest.Parent, opt => opt.Ignore())
+                .ForMember(dest => dest.Modulo, opt => opt.Ignore())
+                .ForMember(dest => dest.Children, opt => opt.Ignore());
+            CreateMap<UsuarioEmpresa, UsuarioEmpresa>()
+                .ForMember(dest => dest.Usuario, opt => opt.Ignore())
+                .ForMember(dest => dest.Empresa, opt => opt.Ignore());
             CreateMap<ApplicationUser, ApplicationUser>();
             CreateMap<Modulo, Modulo>();
         }

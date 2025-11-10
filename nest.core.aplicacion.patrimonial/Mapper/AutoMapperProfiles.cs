@@ -23,9 +23,18 @@ namespace nest.core.aplicacion.patrimonial.Mapper
 
         private void MapAllEntities()
         {
-            CreateMap<Activo, Activo>();
-            CreateMap<UbicacionActivo, UbicacionActivo>();
-            CreateMap<UbicacionTecnica, UbicacionTecnica>();
+            CreateMap<Activo, Activo>()
+                .ForMember(dest => dest.ProductoLote, opt => opt.Ignore())
+                .ForMember(dest => dest.CentroDeCostos, opt => opt.Ignore())
+                .ForMember(dest => dest.Tercero, opt => opt.Ignore());
+            CreateMap<UbicacionActivo, UbicacionActivo>()
+                .ForMember(dest => dest.Activo, opt => opt.Ignore())
+                .ForMember(dest => dest.UbicacionTecnica, opt => opt.Ignore())
+                .ForMember(dest => dest.ContratoCabecera, opt => opt.Ignore());
+            CreateMap<UbicacionTecnica, UbicacionTecnica>()
+                .ForMember(dest => dest.Tercero, opt => opt.Ignore())
+                .ForMember(dest => dest.Padre, opt => opt.Ignore())
+                .ForMember(dest => dest.Children, opt => opt.Ignore());
         }
     }
 }
