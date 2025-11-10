@@ -12,12 +12,20 @@ namespace nest.core.aplicacion.patrimonial.Mapper
     {
         public AutoMapperProfiles()
         {
+            MapAllEntities();
             CreateMap<ActivoCrearCommand, Activo>();
             CreateMap<ActivoModificarCommand, Activo>();
             CreateMap<UbicacionActivoCrearCommand, UbicacionActivo>();
             CreateMap<UbicacionActivoModificarCommand, UbicacionActivo>();
             CreateMap<UbicacionTecnicaCrearCommand, UbicacionTecnica>();
             CreateMap<UbicacionTecnicaModificarCommand, UbicacionTecnica>();
+        }
+
+        private void MapAllEntities()
+        {
+            CreateMap<Activo, Activo>();
+            CreateMap<UbicacionActivo, UbicacionActivo>();
+            CreateMap<UbicacionTecnica, UbicacionTecnica>();
         }
     }
 }

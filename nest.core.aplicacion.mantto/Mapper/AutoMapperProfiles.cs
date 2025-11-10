@@ -27,6 +27,7 @@ namespace nest.core.aplicacion.mantto.Mapper
     {
         public AutoMapperProfiles()
         {
+            MapAllEntities();
             CreateMap<LaborCrearCommand, Labor>();
             CreateMap<LaborModificarCommand, Labor>();
             CreateMap<MantenimientoTipoCrearCommand, MantenimientoTipo>();
@@ -47,6 +48,20 @@ namespace nest.core.aplicacion.mantto.Mapper
             CreateMap<OrdenTrabajoPersonalModificarCommand, OrdenTrabajoPersonal>();
             CreateMap<OrdenTrabajoHorarioCrearCommand, OrdenTrabajoHorario>();
             CreateMap<OrdenTrabajoHorarioModificarCommand, OrdenTrabajoHorario>();
+        }
+
+        private void MapAllEntities()
+        {
+            CreateMap<Labor, Labor>();
+            CreateMap<MantenimientoTipo, MantenimientoTipo>();
+            CreateMap<OrdenServicioCabecera, OrdenServicioCabecera>();
+            CreateMap<OrdenServicioMantenimientoExterno, OrdenServicioMantenimientoExterno>();
+            CreateMap<OrdenServicioTipo, OrdenServicioTipo>();
+            CreateMap<OrdenTrabajoCabecera, OrdenTrabajoCabecera>();
+            CreateMap<OrdenTrabajoDetalleActivo, OrdenTrabajoDetalleActivo>();
+            CreateMap<OrdenTrabajoDetalle, OrdenTrabajoDetalle>();
+            CreateMap<OrdenTrabajoPersonal, OrdenTrabajoPersonal>();
+            CreateMap<OrdenTrabajoHorario, OrdenTrabajoHorario>();
         }
     }
 }

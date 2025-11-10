@@ -22,6 +22,7 @@ namespace nest.core.aplicacion.finanzas.Mapper
     {
         public AutoMapperProfiles()
         {
+            MapAllEntities();
             CreateMap<FinancieroCabeceraCrearCommand, FinancieroCabecera>();
             CreateMap<FinancieroCabeceraModificarCommand, FinancieroCabecera>();
             CreateMap<EntidadFinancieraCrearCommand, EntidadFinanciera>();
@@ -38,6 +39,18 @@ namespace nest.core.aplicacion.finanzas.Mapper
             CreateMap<MonedaModificarCommand, Moneda>();
             CreateMap<OrigenFinancieroCrearCommand, OrigenFinanciero>();
             CreateMap<OrigenFinancieroModificarCommand, OrigenFinanciero>();
+        }
+
+        private void MapAllEntities()
+        {
+            CreateMap<FinancieroCabecera, FinancieroCabecera>();
+            CreateMap<EntidadFinanciera, EntidadFinanciera>();
+            CreateMap<FinancieroDetalle, FinancieroDetalle>();
+            CreateMap<Tercero, Tercero>();
+            CreateMap<PuntoFinanciero, PuntoFinanciero>();
+            CreateMap<CuentaCorriente, CuentaCorriente>();
+            CreateMap<Moneda, Moneda>();
+            CreateMap<OrigenFinanciero, OrigenFinanciero>();
         }
     }
 }

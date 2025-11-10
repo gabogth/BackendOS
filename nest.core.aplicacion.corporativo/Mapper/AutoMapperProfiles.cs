@@ -12,12 +12,20 @@ namespace nest.core.aplicacion.corporativo.Mapper
     {
         public AutoMapperProfiles()
         {
+            MapAllEntities();
             CreateMap<EmpresaCrearCommand, Empresa>();
             CreateMap<EmpresaModificarCommand, Empresa>();
             CreateMap<EstructuraOrganizacionalCrearCommand, EstructuraOrganizacional>();
             CreateMap<EstructuraOrganizacionalModificarCommand, EstructuraOrganizacional>();
             CreateMap<EstructuraOrganizacionalTipoCrearCommand, EstructuraOrganizacionalTipo>();
             CreateMap<EstructuraOrganizacionalTipoModificarCommand, EstructuraOrganizacionalTipo>();
+        }
+
+        private void MapAllEntities()
+        {
+            CreateMap<Empresa, Empresa>();
+            CreateMap<EstructuraOrganizacional, EstructuraOrganizacional>();
+            CreateMap<EstructuraOrganizacionalTipo, EstructuraOrganizacionalTipo>();
         }
     }
 }
