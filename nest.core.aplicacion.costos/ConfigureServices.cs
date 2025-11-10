@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.costos.CentroCostos.Behaviors;
 using nest.core.aplicacion.costos.Mapper;
 using nest.core.aplicacion.utils.Behaviors;
+using nest.core.aplicacion.utils.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.Costos.CentroDeCostosEntities;
 using nest.core.dominio.Security.Tenant;
@@ -17,7 +18,7 @@ namespace nest.core.aplicacion.costos
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(DbMapperProfile));
             services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((provider) => AuthClaim.constructClaimsAuth(provider, configuration));

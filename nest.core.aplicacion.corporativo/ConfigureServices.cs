@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.corporativo.Empresas.Behaviors;
 using nest.core.aplicacion.corporativo.Mapper;
 using nest.core.aplicacion.utils.Behaviors;
+using nest.core.aplicacion.utils.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.Corporativo.Empresa;
 using nest.core.dominio.Corporativo.EstructuraOrganizacionalEntities;
@@ -21,7 +22,7 @@ namespace nest.core.aplicacion.corporativo
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(DbMapperProfile));
             services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((provider) => AuthClaim.constructClaimsAuth(provider, configuration));

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.mantto.Labores.Behaviors;
 using nest.core.aplicacion.mantto.Mapper;
 using nest.core.aplicacion.utils.Behaviors;
+using nest.core.aplicacion.utils.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.Mantto.LaborEntities;
 using nest.core.dominio.Mantto.MantenimientoTipoEntities;
@@ -11,9 +12,9 @@ using nest.core.dominio.Mantto.OrdenServicioCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenServicioMantenimientoExternoEntities;
 using nest.core.dominio.Mantto.OrdenServicioTipoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
-using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleActivoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoDetalleEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoMantenimientoExternoEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoPersonalEntities;
 using nest.core.dominio.Security.Tenant;
@@ -28,7 +29,7 @@ namespace nest.core.aplicacion.mantto
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(DbMapperProfile));
             services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));

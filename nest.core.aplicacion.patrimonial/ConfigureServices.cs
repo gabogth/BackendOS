@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.patrimonial.Activos.Behaviors;
 using nest.core.aplicacion.patrimonial.Mapper;
 using nest.core.aplicacion.utils.Behaviors;
+using nest.core.aplicacion.utils.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.Patrimonial.ActivoEntities;
 using nest.core.dominio.Patrimonial.UbicacionActivoEntities;
@@ -19,7 +20,7 @@ namespace nest.core.aplicacion.patrimonial
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(DbMapperProfile));
             services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));
