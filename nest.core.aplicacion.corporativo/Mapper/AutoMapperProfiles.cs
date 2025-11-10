@@ -24,7 +24,10 @@ namespace nest.core.aplicacion.corporativo.Mapper
         private void MapAllEntities()
         {
             CreateMap<Empresa, Empresa>();
-            CreateMap<EstructuraOrganizacional, EstructuraOrganizacional>();
+            CreateMap<EstructuraOrganizacional, EstructuraOrganizacional>()
+                .ForMember(dest => dest.EstructuraOrganizacionalTipo, opt => opt.Ignore())
+                .ForMember(dest => dest.Parent, opt => opt.Ignore())
+                .ForMember(dest => dest.Children, opt => opt.Ignore());
             CreateMap<EstructuraOrganizacionalTipo, EstructuraOrganizacionalTipo>();
         }
     }

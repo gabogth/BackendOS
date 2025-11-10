@@ -20,7 +20,10 @@ namespace nest.core.aplicacion.contabilidad.Mapper
         private void MapAllEntities()
         {
             CreateMap<CuentaContableTipo, CuentaContableTipo>();
-            CreateMap<CuentaContable, CuentaContable>();
+            CreateMap<CuentaContable, CuentaContable>()
+                .ForMember(dest => dest.Children, opt => opt.Ignore())
+                .ForMember(dest => dest.Padre, opt => opt.Ignore())
+                .ForMember(dest => dest.CuentaContableTipo, opt => opt.Ignore());
         }
     }
 }

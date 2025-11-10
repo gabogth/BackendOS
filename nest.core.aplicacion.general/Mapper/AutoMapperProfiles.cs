@@ -67,17 +67,35 @@ namespace nest.core.aplicacion.general.Mapper
         private void MapAllEntities()
         {
             CreateMap<AdjuntoConfigProvider, AdjuntoConfigProvider>();
-            CreateMap<Adjunto, Adjunto>();
+            CreateMap<Adjunto, Adjunto>()
+                .ForMember(dest => dest.PersonaAdjunto, opt => opt.Ignore())
+                .ForMember(dest => dest.RegistroAsistenciaAdjunto, opt => opt.Ignore());
             CreateMap<AdjuntoTipo, AdjuntoTipo>();
-            CreateMap<Departamento, Departamento>();
-            CreateMap<Distrito, Distrito>();
+            CreateMap<Departamento, Departamento>()
+                .ForMember(dest => dest.Pais, opt => opt.Ignore())
+                .ForMember(dest => dest.Provincias, opt => opt.Ignore());
+            CreateMap<Distrito, Distrito>()
+                .ForMember(dest => dest.Provincia, opt => opt.Ignore());
             CreateMap<DocumentoIdentidadTipo, DocumentoIdentidadTipo>();
             CreateMap<DocumentoTipo, DocumentoTipo>();
             CreateMap<LicenciaConducir, LicenciaConducir>();
-            CreateMap<Pais, Pais>();
-            CreateMap<PersonaAdjunto, PersonaAdjunto>();
-            CreateMap<Persona, Persona>();
-            CreateMap<Provincia, Provincia>();
+            CreateMap<Pais, Pais>()
+                .ForMember(dest => dest.Departamentos, opt => opt.Ignore());
+            CreateMap<PersonaAdjunto, PersonaAdjunto>()
+                .ForMember(dest => dest.Persona, opt => opt.Ignore())
+                .ForMember(dest => dest.Adjunto, opt => opt.Ignore())
+                .ForMember(dest => dest.AdjuntoTipo, opt => opt.Ignore());
+            CreateMap<Persona, Persona>()
+                .ForMember(dest => dest.Distrito, opt => opt.Ignore())
+                .ForMember(dest => dest.DocumentoIdentidadTipo, opt => opt.Ignore())
+                .ForMember(dest => dest.LicenciaConducir, opt => opt.Ignore())
+                .ForMember(dest => dest.Sexo, opt => opt.Ignore())
+                .ForMember(dest => dest.Tercero, opt => opt.Ignore())
+                .ForMember(dest => dest.Personal, opt => opt.Ignore())
+                .ForMember(dest => dest.PersonaAdjuntos, opt => opt.Ignore());
+            CreateMap<Provincia, Provincia>()
+                .ForMember(dest => dest.Departamento, opt => opt.Ignore())
+                .ForMember(dest => dest.Distritos, opt => opt.Ignore());
             CreateMap<Sexo, Sexo>();
         }
     }
