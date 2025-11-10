@@ -18,7 +18,7 @@ namespace nest.core.infraestructura.db.Utils
 
         protected virtual IQueryable<TEntity> Query() =>
             context.Set<TEntity>().AsNoTracking();
-        protected virtual async Task<TEntity?> GetByIdAsync(TKey id) => await Query().FirstOrDefaultAsync(e => e.Id!.Equals(id));
+        protected virtual async Task<TEntity?> GetByIdAsync(TKey id) => await Query().FirstOrDefaultAsync(e => e.Id.ToString() == id.ToString());
         protected virtual async Task<List<TEntity?>> GetByIdsAsync(List<TKey> ids) => await Query().Where(e => ids.Contains(e.Id)).ToListAsync();
         protected virtual async Task<List<TEntity>> GetAllAsync() => await Query().ToListAsync();
         protected virtual async Task<TEntity> AddAsync(TEntity entry)
@@ -134,6 +134,7 @@ namespace nest.core.infraestructura.db.Utils
             TEntity[] inserted = await AddRangeAsync(personasInsertar);
             TEntity[] updated = await UpdateRangeAsync(personasActualizar);
             await DeleteRangeAsync(personasEliminar);
+            await context.SaveChangesAsync();
 
             for (int x = 0; x < entries.Length; x++)
                 finalEntities[x] = keysInsertar.ContainsKey(x) ? inserted[keysInsertar[x]] : updated[keysModificar[x]];

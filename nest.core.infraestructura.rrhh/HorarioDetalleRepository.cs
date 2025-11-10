@@ -38,8 +38,12 @@ public class HorarioDetalleRepository : CrudRepositoryBase<HorarioDetalle, long>
     public Task EliminarRange(long[] ids) => DeleteRangeAsync(ids);
     public async Task<HorarioDetalle[]> FusionarRange(HorarioDetalle[] originalEntities, HorarioDetalle[] entidad)
     {
+        HorarioDetalle hd1 = context.HorarioDetalles.Where(x => x.Id == 45).FirstOrDefault();
         HorarioDetalle[] results = await MergeRangeAsync(originalEntities, entidad);
-        List<HorarioDetalle> completed = await GetByIdsAsync(results.Select(x => x.Id).ToList());
+        List<long> ids = results.Select(x => x.Id).ToList();
+        List<HorarioDetalle> completed = await GetByIdsAsync(ids);
+        HorarioDetalle hd = context.HorarioDetalles.Where(x => x.Id == 45).FirstOrDefault();
+        if (completed.Count != results.Length) throw new Exception("Error al fusionar HorarioDetalle: no se encontraron todos los registros esperados.");
         return GetOrderedArrayFrom(completed, results);
     }
 }

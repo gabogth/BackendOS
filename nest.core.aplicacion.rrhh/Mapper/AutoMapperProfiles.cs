@@ -67,16 +67,42 @@ namespace nest.core.aplicacion.rrhh.Mapper
         {
             CreateMap<Cargo, Cargo>();
             CreateMap<FrecuenciaPago, FrecuenciaPago>();
-            CreateMap<GrupoTrabajo, GrupoTrabajo>();
-            CreateMap<GrupoTrabajoPersona, GrupoTrabajoPersona>();
-            CreateMap<HorarioCabecera, HorarioCabecera>();
-            CreateMap<HorarioDetalle, HorarioDetalle>();
-            CreateMap<HorarioDetalleEvento, HorarioDetalleEvento>();
-            CreateMap<Personal, Personal>();
+            CreateMap<GrupoTrabajo, GrupoTrabajo>()
+                .ForMember(dest => dest.GrupoTrabajoPersonas, opt => opt.Ignore());
+            CreateMap<GrupoTrabajoPersona, GrupoTrabajoPersona>()
+                .ForMember(dest => dest.Persona, opt => opt.Ignore())
+                .ForMember(dest => dest.GrupoTrabajo, opt => opt.Ignore());
+            CreateMap<HorarioCabecera, HorarioCabecera>()
+                .ForMember(dest => dest.HorarioDetalles, opt => opt.Ignore())
+                .ForMember(dest => dest.OrdenTrabajoHorarios, opt => opt.Ignore());
+            CreateMap<HorarioDetalle, HorarioDetalle>()
+                .ForMember(dest => dest.HorarioCabecera, opt => opt.Ignore())
+                .ForMember(dest => dest.HorarioDetalleEventos, opt => opt.Ignore());
+            CreateMap<HorarioDetalleEvento, HorarioDetalleEvento>()
+                .ForMember(dest => dest.HorarioDetalle, opt => opt.Ignore());
+            CreateMap<Personal, Personal>()
+                .ForMember(dest => dest.HorarioCabecera, opt => opt.Ignore())
+                .ForMember(dest => dest.RegistroAsistenciaPolitica, opt => opt.Ignore())
+                .ForMember(dest => dest.ContratoCabecera, opt => opt.Ignore())
+                .ForMember(dest => dest.Persona, opt => opt.Ignore())
+                .ForMember(dest => dest.PersonalEstado, opt => opt.Ignore())
+                .ForMember(dest => dest.Superior, opt => opt.Ignore())
+                .ForMember(dest => dest.Children, opt => opt.Ignore())
+                .ForMember(dest => dest.Usuario, opt => opt.Ignore())
+                .ForMember(dest => dest.OrdenTrabajoHorarios, opt => opt.Ignore());
             CreateMap<PersonalEstado, PersonalEstado>();
-            CreateMap<RegistroAsistenciaAdjunto, RegistroAsistenciaAdjunto>();
-            CreateMap<RegistroAsistencia, RegistroAsistencia>();
-            CreateMap<RegistroAsistenciaOrdenTrabajo, RegistroAsistenciaOrdenTrabajo>();
+            CreateMap<RegistroAsistenciaAdjunto, RegistroAsistenciaAdjunto>()
+                .ForMember(dest => dest.RegistroAsistencia, opt => opt.Ignore())
+                .ForMember(dest => dest.Adjunto, opt => opt.Ignore());
+            CreateMap<RegistroAsistencia, RegistroAsistencia>()
+                .ForMember(dest => dest.Personal, opt => opt.Ignore())
+                .ForMember(dest => dest.HorarioDetalleEvento, opt => opt.Ignore())
+                .ForMember(dest => dest.RegistroAsistenciaPolitica, opt => opt.Ignore())
+                .ForMember(dest => dest.RegistroAsistenciaOrdenTrabajo, opt => opt.Ignore())
+                .ForMember(dest => dest.RegistroAsistenciaAdjunto, opt => opt.Ignore());
+            CreateMap<RegistroAsistenciaOrdenTrabajo, RegistroAsistenciaOrdenTrabajo>()
+                .ForMember(dest => dest.RegistroAsistencia, opt => opt.Ignore())
+                .ForMember(dest => dest.OrdenTrabajoCabecera, opt => opt.Ignore());
             CreateMap<RegistroAsistenciaPolitica, RegistroAsistenciaPolitica>();
         }
     }
