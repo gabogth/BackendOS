@@ -13,5 +13,5 @@ public record PersonalCrearCommand(
     int? SuperiorId,
     byte PersonalEstadoId,
     long RegistroAsistenciaPoliticaId,
-    int? UsuarioId
+    string UsuarioId
 ) : IRequest<Personal>, IPersonalGenericCommand;

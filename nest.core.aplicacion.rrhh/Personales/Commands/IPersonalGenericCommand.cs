@@ -12,6 +12,6 @@ namespace nest.core.aplicacion.rrhh.Personales.Commands
         int? SuperiorId { get; }
         byte PersonalEstadoId { get; }
         long RegistroAsistenciaPoliticaId { get; }
-        int? UsuarioId { get; }
+        string UsuarioId { get; }
     }
 }
