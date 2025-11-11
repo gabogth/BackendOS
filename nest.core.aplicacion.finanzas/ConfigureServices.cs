@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.finanzas.CuentaCorrientes.Behaviors;
 using nest.core.aplicacion.finanzas.Mapper;
 using nest.core.aplicacion.utils.Behaviors;
-using nest.core.aplicacion.utils.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.Finanzas.ClienteEntities;
 using nest.core.dominio.Finanzas.CuentaCorrienteEntities;
@@ -25,7 +24,7 @@ namespace nest.core.aplicacion.finanzas
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(DbMapperProfile));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));

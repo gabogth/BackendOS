@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.security.Formularios.Behaviors;
 using nest.core.aplicacion.security.Mapper;
 using nest.core.aplicacion.utils.Behaviors;
-using nest.core.aplicacion.utils.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.Aplicacion.Formulario;
 using nest.core.dominio.Aplicacion.Modulo.Repository;
@@ -38,7 +37,7 @@ namespace nest.core.aplicacion.security
                 );
             });
             services.ConfigureValidation(configuration);
-            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(DbMapperProfile));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((services) => AuthClaim.constructClaimsAuth(services, configuration));
             services.AddTransient<IClaimsGenerator, JwtGenerator>();

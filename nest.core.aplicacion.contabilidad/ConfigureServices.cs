@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.contabilidad.CuentaContables.Behaviors;
 using nest.core.aplicacion.contabilidad.Mapper;
 using nest.core.aplicacion.utils.Behaviors;
-using nest.core.aplicacion.utils.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.Contabilidad.CuentaContableEntities;
 using nest.core.dominio.Contabilidad.CuentaContableTipoEntities;
@@ -19,7 +18,7 @@ namespace nest.core.aplicacion.contabilidad
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(DbMapperProfile));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));

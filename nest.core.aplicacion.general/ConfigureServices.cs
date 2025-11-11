@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.general.Adjuntos.Behaviors;
 using nest.core.aplicacion.general.Mapper;
 using nest.core.aplicacion.utils.Behaviors;
-using nest.core.aplicacion.utils.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.General.AdjuntoEntities;
 using nest.core.dominio.General.AdjuntoProviderEntities;
@@ -33,7 +32,7 @@ namespace nest.core.aplicacion.general
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(DbMapperProfile));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>(provider => AuthClaim.constructClaimsAuth(provider, configuration));

@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.legal.ContratoTipos.Behaviors;
 using nest.core.aplicacion.legal.Mapper;
 using nest.core.aplicacion.utils.Behaviors;
-using nest.core.aplicacion.utils.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.Legal.ContratoCabeceraEntities;
 using nest.core.dominio.Legal.ContratoTipoEntities;
@@ -19,7 +18,7 @@ namespace nest.core.aplicacion.legal
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(DbMapperProfile));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));

@@ -1,11 +1,6 @@
-﻿using FluentValidation;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using nest.core.aplicacion.rrhh.Cargos.Behaviors;
 using nest.core.aplicacion.rrhh.Mapper;
-using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Behaviors;
-using nest.core.aplicacion.utils.Behaviors;
-using nest.core.aplicacion.utils.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.RRHH.CargoEntities;
@@ -33,7 +28,7 @@ namespace nest.core.aplicacion.rrhh
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(DbMapperProfile));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<ICargoRepository, CargoRepository>();

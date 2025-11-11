@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.mantto.Labores.Behaviors;
 using nest.core.aplicacion.mantto.Mapper;
 using nest.core.aplicacion.utils.Behaviors;
-using nest.core.aplicacion.utils.Mapper;
 using nest.core.aplication.auth;
 using nest.core.dominio.Mantto.LaborEntities;
 using nest.core.dominio.Mantto.MantenimientoTipoEntities;
@@ -29,7 +28,7 @@ namespace nest.core.aplicacion.mantto
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles), typeof(DbMapperProfile));
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
