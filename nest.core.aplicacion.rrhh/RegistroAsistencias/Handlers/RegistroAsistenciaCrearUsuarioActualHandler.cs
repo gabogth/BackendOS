@@ -23,10 +23,9 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             IPersonalRepository personalRepository,
             IHorarioDetalleRepository horarioDetalleRepository,
             IConnectionStringService connectionStringService,
-            IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository,
             IMapper mapper,
             ILogger<RegistroAsistenciaCrearUsuarioActualHandler> logger)
-            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository, ordenTrabajoHorarioRepository)
+            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository)
         {
             this.connectionStringService = connectionStringService;
             this.mapper = mapper;
@@ -38,11 +37,13 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             try
             {
                 var registro = mapper.Map<RegistroAsistencia>(request);
+                Personal actual = await personalRepository.ObtenerPorIdUsuario(connectionStringService.UserId);
+                if(actual == null) throw new Exception("Tienes que tener que tener un codigo de personal asignado a tu usuario.");
                 registro.EmpresaId = connectionStringService.EmpresaId ?? throw new Exception("Usuario no autenticado");
-                registro.PersonalId = int.Parse(connectionStringService.UserId);
+                registro.PersonalId = actual.Id;
                 registro.Fecha = DateTime.Now;
 
-                registro = await PrepararRegistroAsync(registro);
+                registro = await PrepararRegistroAsync(registro, actual.HorarioCabecera);
                 registro = await repository.Agregar(registro);
                 return await repository.ObtenerPorId(registro.Id);
             }

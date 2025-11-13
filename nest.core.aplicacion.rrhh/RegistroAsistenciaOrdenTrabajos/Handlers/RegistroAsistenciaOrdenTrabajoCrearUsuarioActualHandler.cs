@@ -13,6 +13,7 @@ using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities;
 using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Transaccional;
+using nest.core.infraestructura.mantto;
 using nest.core.infraestructura.rrhh;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
@@ -23,6 +24,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
         private readonly IOrdenTrabajoCabeceraRepository ordenTrabajoCabeceraRepository;
         private readonly IConnectionStringService connectionStringService;
         private readonly IRegistroAsistenciaAdjuntoRepository registroAsistenciaAdjuntoRepository;
+        private readonly IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly ILogger<RegistroAsistenciaOrdenTrabajoCrearUsuarioActualHandler> logger;
@@ -40,11 +42,12 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             IUnitOfWork unitOfWork,
             IMapper mapper,
             ILogger<RegistroAsistenciaOrdenTrabajoCrearUsuarioActualHandler> logger)
-            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository, ordenTrabajoHorarioRepository)
+            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository)
         {
             this.registroOrdenTrabajoRepository = registroOrdenTrabajoRepository;
             this.ordenTrabajoCabeceraRepository = ordenTrabajoCabeceraRepository;
             this.registroAsistenciaAdjuntoRepository = registroAsistenciaAdjuntoRepository;
+            this.ordenTrabajoHorarioRepository = ordenTrabajoHorarioRepository;
             this.connectionStringService = connectionStringService;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
@@ -61,31 +64,29 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
                 registro.EmpresaId = connectionStringService.EmpresaId ?? throw new Exception("Usuario no autenticado");
                 var personal = await personalRepository.ObtenerPorIdUsuario(connectionStringService.UserId) ?? throw new Exception("El usuario debe tener el atributo IdUsuario");
                 registro.PersonalId = personal.Id;
-                registro.Fecha = DateTime.Now;
 
-                registro = await PrepararRegistroAsync(registro);
+                var otHorario = await ordenTrabajoHorarioRepository.ObtenerPorPersonalYFecha(registro.PersonalId, registro.Fecha);
+
+                HorarioCabecera horarioActual = otHorario == null ? personal.HorarioCabecera : otHorario.HorarioCabecera;
+                registro = await PrepararRegistroAsync(registro, horarioActual);
                 registro = await repository.Agregar(registro);
 
-                var ordenTrabajo = await ordenTrabajoCabeceraRepository.ObtenerPorPersonaFechaInicialFechaFinal(registro.PersonalId, registro.Fecha);
-                if (ordenTrabajo == null)
-                    throw new Exception($"No existe una orden de trabajo asignada para el personal en la fecha {registro.Fecha:yyyy-MM-dd HH:mm:ss}.");
-
-                var relacion = new RegistroAsistenciaOrdenTrabajo
+                if (otHorario != null)
                 {
-                    EmpresaId = registro.EmpresaId,
-                    Id = registro.Id,
-                    OrdenTrabajoCabeceraId = ordenTrabajo.Id
-                };
-
-                await registroOrdenTrabajoRepository.Agregar(relacion);
-
+                    var relacion = new RegistroAsistenciaOrdenTrabajo
+                    {
+                        EmpresaId = registro.EmpresaId,
+                        Id = registro.Id,
+                        OrdenTrabajoCabeceraId = horarioActual.Id
+                    };
+                    await registroOrdenTrabajoRepository.Agregar(relacion);
+                }
                 var adjunto = new RegistroAsistenciaAdjunto
                 {
                     EmpresaId = registro.EmpresaId,
                     Id = registro.Id,
                     AdjuntoId = request.AdjuntoId
                 };
-
                 await registroAsistenciaAdjuntoRepository.Agregar(adjunto);
 
                 await unitOfWork.CommitAsync();

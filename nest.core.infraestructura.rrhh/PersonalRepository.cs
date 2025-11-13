@@ -12,19 +12,18 @@ public class PersonalRepository : CrudRepositoryBase<Personal, int>, IPersonalRe
         .AsNoTracking()
         .Include(x => x.Superior)
         .Include(x => x.PersonalEstado)
-        .Include(x => x.HorarioCabecera)
-        .Include(x => x.HorarioCabecera).ThenInclude(x => x.HorarioDetalles)
-        .Include(x => x.ContratoCabecera)
+        .Include(x => x.HorarioCabecera).ThenInclude(x => x.HorarioDetalles).ThenInclude(x => x.HorarioDetalleEventos)
         .Include(x => x.ContratoCabecera).ThenInclude(x => x.Detalles)
         .Include(x => x.ContratoCabecera).ThenInclude(x => x.ContratoTipo)
-        .Include(x => x.Persona)
         .Include(x => x.Persona).ThenInclude(x => x.Sexo)
         .Include(x => x.Persona).ThenInclude(x => x.LicenciaConducir)
         .Include(x => x.Persona).ThenInclude(x => x.Distrito)
         .Include(x => x.Persona).ThenInclude(x => x.DocumentoIdentidadTipo)
         .Include(x => x.RegistroAsistenciaPolitica)
         .Include(x => x.Usuario)
-        .Include(x => x.Children);
+        .Include(x => x.Children)
+        .AsNoTracking()
+        .AsSplitQuery();
     public PersonalRepository(NestDbContext context, IMapper mapper): base(context, mapper) { }
     public async Task<Personal> ObtenerPorId(int id) => await GetByIdAsync(id);
     public async Task<Personal> ObtenerPorDocumentoIdentidad(int tipoDocumentoId, string documentoIdentidad)

@@ -1,11 +1,8 @@
-using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
 {
@@ -15,23 +12,20 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
         protected readonly IHorarioRepository horarioRepository;
         protected readonly IPersonalRepository personalRepository;
         protected readonly IHorarioDetalleRepository horarioDetalleRepository;
-        protected readonly IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository;
 
         protected RegistroAsistenciaHandlerBase(
             IRegistroAsistenciaRepository repository,
             IHorarioRepository horarioRepository,
             IPersonalRepository personalRepository,
-            IHorarioDetalleRepository horarioDetalleRepository,
-            IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository)
+            IHorarioDetalleRepository horarioDetalleRepository)
         {
             this.repository = repository;
             this.horarioRepository = horarioRepository;
             this.personalRepository = personalRepository;
             this.horarioDetalleRepository = horarioDetalleRepository;
-            this.ordenTrabajoHorarioRepository = ordenTrabajoHorarioRepository;
         }
 
-        protected async Task<RegistroAsistencia> PrepararRegistroAsync(RegistroAsistencia registro)
+        protected async Task<RegistroAsistencia> PrepararRegistroAsync(RegistroAsistencia registro, HorarioCabecera horario)
         {
             var ultimaMarca = await repository.BuscarUltimaMarca(registro.PersonalId);
             if (ultimaMarca != null)
@@ -44,9 +38,8 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
                 }
             }
 
-            var otHorario = await ordenTrabajoHorarioRepository.ObtenerPorPersonalYFecha(registro.PersonalId, registro.Fecha);
             var politica = (await personalRepository.ObtenerPorId(registro.PersonalId)).RegistroAsistenciaPolitica;
-            var jornal = GetDiaLaboral(otHorario.HorarioCabecera, registro.Fecha);
+            var jornal = GetDiaLaboral(horario, registro.Fecha);
 
             if (jornal == null) //  Sin coincidencia de fechas
             {
@@ -58,14 +51,8 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
                 registro.HorarioDetalleEventoId = null;
                 registro.RegistroAsistenciaPoliticaId = null;
             }
-            else // coincidencia de fechas
+            else
             {
-                //var entrada = await repository.BuscarPorRangoFecha(
-                //    registro.PersonalId,
-                //    jornal.FechaEntradaConRango,
-                //    jornal.FechaSalidaConRango,
-                //    HorarioDetalleEventoTipoEnum.Entrada);
-
                 (HorarioDetalleEvento? evento, DateTime FechaEvento) = ObtenerEvento(jornal, registro.Fecha);
                 if (evento == null)
                 {
@@ -86,38 +73,6 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
                     registro.HorarioDetalleEventoId = evento.Id;
                     registro.RegistroAsistenciaPoliticaId = politica.Id;
                 }
-
-                //if (entrada == null)
-                //{
-                //    registro.TipoEvento = HorarioDetalleEventoTipoEnum.Entrada;
-                //    registro.FechaJornal = DateOnly.FromDateTime(jornal.FechaEntrada);
-                //    registro.DiferenciaMinutos = (int)Math.Ceiling(registro.Fecha.Subtract(jornal.FechaEntrada).TotalMinutes);
-                //    registro.EsTardanza = registro.DiferenciaMinutos > politica.MinutosTardanzaIngreso;
-                //    registro.HorarioDetalleEventoId = jornal.Evento.Id;
-                //    registro.RegistroAsistenciaPoliticaId = politica.Id;
-                //}
-                //else
-                //{
-                //    var evento = await GetMarcaAsync(entrada.HorarioDetalleEventoId!.Value, entrada.FechaJornal, registro.Fecha);
-                //    if (evento.HasValue)
-                //    {
-                //        registro.TipoEvento = evento.Value.Item1.TipoEvento;
-                //        registro.FechaJornal = entrada.FechaJornal;
-                //        registro.DiferenciaMinutos = (int)Math.Ceiling(registro.Fecha.Subtract(evento.Value.Item2).TotalMinutes);
-                //        registro.EsTardanza = false;
-                //        registro.HorarioDetalleEventoId = evento.Value.Item1.Id;
-                //        registro.RegistroAsistenciaPoliticaId = politica.Id;
-                //    }
-                //    else
-                //    {
-                //        registro.TipoEvento = HorarioDetalleEventoTipoEnum.Otros;
-                //        registro.FechaJornal = entrada.FechaJornal;
-                //        registro.DiferenciaMinutos = 0;
-                //        registro.EsTardanza = false;
-                //        registro.HorarioDetalleEventoId = null;
-                //        registro.RegistroAsistenciaPoliticaId = politica.Id;
-                //    }
-                //}
             }
             return registro;
         }
@@ -135,23 +90,6 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
                 return (evento, fechaReferencia.AddDays(evento.DiferenciaDia).Add(evento.Hora.ToTimeSpan()));
             else
                 return (null, DateTime.Now);
-        }
-
-        protected async Task<(HorarioDetalleEvento, DateTime)?> GetMarcaAsync(long marcaEntradaId, DateOnly fechaJornal, DateTime fechaRegistro)
-        {
-            var detalle = await horarioDetalleRepository.ObtenerPorId(marcaEntradaId);
-            foreach (var evento in detalle.HorarioDetalleEventos)
-            {
-                var fecha = fechaJornal.AddDays(evento.DiferenciaDia).ToDateTime(evento.Hora);
-                var fechaVentanaMin = fecha.AddMinutes(evento.VentanaMin);
-                var fechaVentanaMax = fecha.AddMinutes(evento.VentanaMax);
-                if (fechaVentanaMin <= fechaRegistro && fechaVentanaMax >= fechaRegistro)
-                {
-                    return (evento, fecha);
-                }
-            }
-
-            return null;
         }
 
         private JornalParams? GetDiaLaboral(HorarioCabecera horario, DateTime fechaRegistro)
