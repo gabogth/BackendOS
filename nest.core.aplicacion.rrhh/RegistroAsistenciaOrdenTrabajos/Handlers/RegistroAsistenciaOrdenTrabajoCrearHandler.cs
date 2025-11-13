@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
@@ -32,10 +33,11 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             IRegistroAsistenciaOrdenTrabajoRepository registroOrdenTrabajoRepository,
             IOrdenTrabajoCabeceraRepository ordenTrabajoCabeceraRepository,
             IRegistroAsistenciaAdjuntoRepository registroAsistenciaAdjuntoRepository,
+            IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             ILogger<RegistroAsistenciaOrdenTrabajoCrearHandler> logger)
-            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository)
+            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository, ordenTrabajoHorarioRepository)
         {
             this.registroOrdenTrabajoRepository = registroOrdenTrabajoRepository;
             this.ordenTrabajoCabeceraRepository = ordenTrabajoCabeceraRepository;

@@ -67,9 +67,29 @@ namespace nest.core.rrhh.Controllers
         [HttpGet("personal/{personalId}")]
         [ProducesResponseType(typeof(List<RegistroAsistencia>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<List<RegistroAsistencia>>> BuscarPorRangoFecha(int personalId, [FromQuery] DateTime fechaInicio, [FromQuery] DateTime fechaFin, CancellationToken ct)
+        public async Task<ActionResult<List<RegistroAsistencia>>> BuscarPorPersonalIdRangoFecha(int personalId, [FromQuery] DateTime fechaInicio, [FromQuery] DateTime fechaFin, CancellationToken ct)
         {
-            var query = new BuscarPorRangoFechaQuery(personalId, fechaInicio, fechaFin);
+            var query = new BuscarPorPersonalIdRangoFechaQuery(personalId, fechaInicio, fechaFin);
+            var data = await sender.Send(query, ct);
+            return Ok(data);
+        }
+
+        [HttpGet("range_date")]
+        [ProducesResponseType(typeof(List<RegistroAsistenciaQueryView>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<List<RegistroAsistenciaQueryView>>> BuscarPorRangoFecha([FromQuery] DateTime fechaInicio, [FromQuery] DateTime fechaFin, CancellationToken ct)
+        {
+            var query = new BuscarPorRangoFechaQuery(fechaInicio, fechaFin);
+            var data = await sender.Send(query, ct);
+            return Ok(data);
+        }
+
+        [HttpGet("personal_range_date")]
+        [ProducesResponseType(typeof(List<RegistroAsistencia>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<List<RegistroAsistencia>>> BuscarPersonalAsistenciasRangoFechas([FromQuery] DateTime fechaInicio, [FromQuery] DateTime fechaFin, CancellationToken ct)
+        {
+            var query = new BuscarPersonalAsistenciasRangoFechasQuery(fechaInicio, fechaFin);
             var data = await sender.Send(query, ct);
             return Ok(data);
         }

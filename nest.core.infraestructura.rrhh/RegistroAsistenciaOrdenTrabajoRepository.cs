@@ -13,20 +13,22 @@ namespace nest.core.infraestructura.rrhh
         {
         }
 
-        protected override IQueryable<RegistroAsistenciaOrdenTrabajo> Query() => context.RegistroAsistenciaOrdenTrabajo
+        protected override IQueryable<RegistroAsistenciaOrdenTrabajo> Query()
+        {
+            return this.Query()
             .AsNoTracking()
             .Include(x => x.RegistroAsistencia)
             .Include(x => x.OrdenTrabajoCabecera);
+        }
 
-        public async Task<RegistroAsistenciaOrdenTrabajo> ObtenerPorId(long id) =>
-            await GetByIdAsync(id) ?? throw new RegistroNoEncontradoException<RegistroAsistenciaOrdenTrabajo>(id.ToString());
+        public Task<RegistroAsistenciaOrdenTrabajo> ObtenerPorId(long id) => GetByIdAsync(id);
 
         public Task<List<RegistroAsistenciaOrdenTrabajo>> ObtenerTodos() => GetAllAsync();
 
         public async Task<RegistroAsistenciaOrdenTrabajo> Agregar(RegistroAsistenciaOrdenTrabajo entry)
         {
             var registro = await AddAsync(entry);
-            return await ObtenerPorId(registro.Id);
+            return registro;
         }
 
         public async Task<RegistroAsistenciaOrdenTrabajo> Modificar(RegistroAsistenciaOrdenTrabajo entry)

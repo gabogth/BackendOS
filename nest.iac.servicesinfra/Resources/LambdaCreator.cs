@@ -13,7 +13,8 @@ namespace nest.iac.servicesinfra.Resources
         private Aws.Iam.Role role = null!;
         private Aws.Lambda.Function function = null!;
         private Output<string> endpointUrl { get; set; }
-        public LambdaCreator(string lambdaName, Awsx.Ecr.Image image, string basePath, Aws.Iam.Role role, string cwName, Output<string> endpointUrl)
+        private bool isEventBridgeAttached = false;
+        public LambdaCreator(string lambdaName, Awsx.Ecr.Image image, string basePath, Aws.Iam.Role role, string cwName, bool isEventBridgeAttached, Output<string> endpointUrl)
         {
             this.lambdaName = lambdaName;
             this.image = image;
@@ -21,11 +22,14 @@ namespace nest.iac.servicesinfra.Resources
             this.role = role;
             this.cwName = cwName;
             this.endpointUrl = endpointUrl;
+            this.isEventBridgeAttached = isEventBridgeAttached;
         }
         public Aws.Lambda.Function Build()
         {
             this.function = this.Create();
             CreateCW();
+            if(this.isEventBridgeAttached)
+                AttachEventBridge();
             return function;
         }
         private Aws.Lambda.Function Create()
@@ -67,6 +71,32 @@ namespace nest.iac.servicesinfra.Resources
                 Name = this.function.Name.Apply(name => $"/aws/lambda/{name}"),
                 RetentionInDays = 1
             });
+        }
+
+        public Aws.CloudWatch.EventRule AttachEventBridge()
+        {
+            string permissionName = $"{this.lambdaName}-permission";
+            string eventName = $"{this.lambdaName}-event";
+            string targetName = $"{this.lambdaName}-target";
+            var rule = new Aws.CloudWatch.EventRule(eventName, new Aws.CloudWatch.EventRuleArgs
+            {
+                Name = eventName,
+                ScheduleExpression = "rate(5 minutes)",
+                State = "ENABLED"
+            });
+            var permission = new Aws.Lambda.Permission(permissionName, new Aws.Lambda.PermissionArgs
+            {
+                Action = "lambda:InvokeFunction",
+                Function = this.function.Arn,
+                Principal = "events.amazonaws.com",
+                SourceArn = rule.Arn
+            });
+            var target = new Aws.CloudWatch.EventTarget(targetName, new Aws.CloudWatch.EventTargetArgs
+            {
+                Arn = this.function.Arn,
+                Rule = rule.Name,
+            });
+            return rule;
         }
     }
 }

@@ -1,11 +1,11 @@
 using MediatR;
 using nest.core.aplicacion.utils.Queries;
-using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
+using nest.core.dominio.RRHH.PersonalEntities;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Queries
 {
-    public sealed record BuscarPorRangoFechaQuery(
+    public sealed record BuscarPersonalAsistenciasRangoFechasQuery(
         DateTime FechaInicio,
         DateTime FechaFin
-    ) : IRequest<List<RegistroAsistenciaQueryView>>, IQueryBase;
+    ) : IRequest<List<Personal>>, IQueryBase;
 }

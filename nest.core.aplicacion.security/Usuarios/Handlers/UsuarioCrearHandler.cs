@@ -28,6 +28,7 @@ namespace nest.core.aplicacion.security.Usuarios.Handlers
                 ApplicationUser usuario = new ApplicationUser
                 {
                     UserName = request.Email,
+                    Email = request.Email,
                     NormalizedUserName = request.Email?.ToUpperInvariant(),
                     NormalizedEmail = request.Email?.ToUpperInvariant(),
                     PhoneNumber = request.PhoneNumber

@@ -15,7 +15,7 @@ namespace nest.core.infraestructura.db.RRHH
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<long>>();
             builder.HasOne(x => x.Personal)
-                .WithMany()
+                .WithMany(x => x.RegistroAsistencias)
                 .HasForeignKey(x => x.PersonalId)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.Property(x => x.Latitud)

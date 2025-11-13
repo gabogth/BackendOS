@@ -35,7 +35,7 @@ namespace nest.iac.servicesinfra
                 //var route = new ApiGatewayCreator(prefix, stageMain, listener, routePath, i == 0).Build();
                 var ecrImage2 = new EcrCreator(ecrName, imageName, currentService.contextDocker, currentService.pathProject, "latest").Build();
                 var lambdaRole = new RoleCreator(lambdaRoleName, prefix, Deployment.Instance.ProjectName).BuildLambda();
-                var lambda = new LambdaCreator(lambdaName, ecrImage2, routePath, lambdaRole, cwName, api.EndpointUrl()).Build();
+                var lambda = new LambdaCreator(lambdaName, ecrImage2, routePath, lambdaRole, cwName, true, api.EndpointUrl()).Build();
                 var route2 = new ApiGatewayCreator(prefix, stageMain, lambda, routePath, i == 0).BuildLambda();
             }
         }

@@ -29,9 +29,9 @@ public class RoleCrearHandler : IRequestHandler<RoleCrearCommand, ApplicationRol
         {
             string lastValue = await context.Roles
                 .IgnoreQueryFilters()
-                .Select(x => x.Id)
-                .DefaultIfEmpty("0")
-                .MaxAsync(cancellationToken) ?? "0";
+                .OrderByDescending(r => r.Id)
+                .Select(r => r.Id)
+                .FirstOrDefaultAsync(cancellationToken) ?? "0";
 
             var newRole = new ApplicationRole
             {

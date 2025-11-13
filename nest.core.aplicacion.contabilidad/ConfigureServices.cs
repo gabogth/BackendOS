@@ -18,6 +18,7 @@ namespace nest.core.aplicacion.contabilidad
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration)
         {
+            Console.WriteLine("text");
             services.AddAutoMapper(typeof(AutoMapperProfiles));
             services.ConfigureValidation(configuration);
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();

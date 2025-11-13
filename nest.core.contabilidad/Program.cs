@@ -68,6 +68,7 @@ builder.Services.AddSwaggerGen(c => {
         new string[] {} }
     });
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+    c.CustomSchemaIds(type => type.FullName!.Replace("+", "."));
 });
 builder.Services.AddAuthentication(option =>
 {
@@ -100,8 +101,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors("CorsPolicy");
-if(!ConfigVariables.IsLambda)
-    app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = check => check.Tags.Contains("live") });
+app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = check => check.Tags.Contains("live") });
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 app.Run();

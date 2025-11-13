@@ -2,6 +2,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
+using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
@@ -21,10 +22,11 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             IHorarioRepository horarioRepository,
             IPersonalRepository personalRepository,
             IHorarioDetalleRepository horarioDetalleRepository,
+            IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository,
             IConnectionStringService connectionStringService,
             IMapper mapper,
             ILogger<RegistroAsistenciaCrearUsuarioActualHandler> logger)
-            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository)
+            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository, ordenTrabajoHorarioRepository)
         {
             this.connectionStringService = connectionStringService;
             this.mapper = mapper;

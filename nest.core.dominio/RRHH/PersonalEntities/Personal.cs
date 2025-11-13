@@ -3,6 +3,7 @@ using nest.core.dominio.Legal.ContratoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
+using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
 using nest.core.dominio.Security;
 using nest.core.dominio.Security.Audit;
@@ -29,5 +30,6 @@ namespace nest.core.dominio.RRHH.PersonalEntities
         public List<Personal> Children { get; set; }
         public ApplicationUser Usuario { get; set; }
         public List<OrdenTrabajoHorario> OrdenTrabajoHorarios { get; set; }
+        public List<RegistroAsistencia> RegistroAsistencias { get; set; }
     }
 }

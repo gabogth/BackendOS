@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
+using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
@@ -14,15 +15,77 @@ namespace nest.core.infraestructura.rrhh
         {
         }
 
-        protected override IQueryable<RegistroAsistencia> Query() => context.Set<RegistroAsistencia>()
-            .AsNoTracking()
-            .Include(x => x.Personal)
-            .Include(x => x.Personal).ThenInclude(x => x.Persona)
-            .Include(x => x.Personal).ThenInclude(x => x.Persona).ThenInclude(x => x.DocumentoIdentidadTipo)
-            .Include(x => x.Personal).ThenInclude(x => x.Persona).ThenInclude(x => x.LicenciaConducir)
-            .Include(x => x.Personal).ThenInclude(x => x.Persona).ThenInclude(x => x.Sexo)
-            .Include(x => x.RegistroAsistenciaPolitica)
-            .Include(x => x.HorarioDetalleEvento);
+        protected override IQueryable<RegistroAsistencia> Query()
+        {
+            return base.Query()
+                .Include(x => x.Personal).ThenInclude(x => x.Persona).ThenInclude(x => x.DocumentoIdentidadTipo)
+                .Include(x => x.Personal).ThenInclude(x => x.Persona).ThenInclude(x => x.LicenciaConducir)
+                .Include(x => x.Personal).ThenInclude(x => x.Persona).ThenInclude(x => x.Sexo)
+                .Include(x => x.RegistroAsistenciaPolitica)
+                .Include(x => x.HorarioDetalleEvento)
+                .AsNoTracking()
+                .AsSplitQuery();
+        }
+
+        protected IQueryable<RegistroAsistenciaQueryView> QueryOt()
+        {
+            var resultado = base.Query()
+                .Include(x => x.Personal).ThenInclude(x => x.Persona)
+                .Include(x => x.RegistroAsistenciaAdjunto)
+                .Include(x => x.RegistroAsistenciaOrdenTrabajo).ThenInclude(x => x.OrdenTrabajoCabecera).ThenInclude(x => x.OrdenServicioCabecera)
+                .AsNoTracking()
+                .AsSplitQuery()
+                .Select(x => new RegistroAsistenciaQueryView { 
+                    EmpresaId = x.EmpresaId,
+                    Id = x.Id,
+                    PersonalId = x.PersonalId,
+                    Fecha = x.Fecha,
+                    FechaJornal = x.FechaJornal,
+                    TipoEvento = x.TipoEvento,
+                    EsTardanza = x.EsTardanza,
+                    DiferenciaMinutos = x.DiferenciaMinutos,
+                    Latitud = x.Latitud,
+                    Longitud = x.Longitud,
+                    AdjuntoId = x.RegistroAsistenciaAdjunto.AdjuntoId,
+                    Personal = new PersonalQueryView {
+                        Id = x.Personal.Id,
+                        MarcaAsistencia = x.Personal.MarcaAsistencia,
+                        ContratoCabeceraId = x.Personal.ContratoCabeceraId,
+                        HorarioCabeceraId = x.Personal.HorarioCabeceraId,
+                        RegistroAsistenciaPoliticaId = x.Personal.RegistroAsistenciaPoliticaId
+                    },
+                    Persona = new PersonaQueryView {
+                        Id = x.Personal.Persona.Id,
+                        Nombres = x.Personal.Persona.Nombres,
+                        ApellidoPaterno = x.Personal.Persona.ApellidoPaterno,
+                        ApellidoMaterno = x.Personal.Persona.ApellidoMaterno,
+                        FechaNacimiento = x.Personal.Persona.FechaNacimiento,
+                        DocumentoIdentidad = x.Personal.Persona.DocumentoIdentidad,
+                        Correo = x.Personal.Persona.Correo,
+                        Celular = x.Personal.Persona.Celular,
+                        Direccion = x.Personal.Persona.Direccion
+                    },
+                    OrdenTrabajo = new OrdenTrabajoQueryView { 
+                        Id = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.Id,
+                        Nombre = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.Nombre,
+                        Descripcion = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.Descripcion,
+                        FechaInicio = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.FechaInicio,
+                        FechaCompromiso = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.FechaCompromiso,
+                        FechaFin = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.FechaFin
+                    },
+                    OrdenServicio = new OrdenServicioQueryView
+                    {
+                        Id = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.Id,
+                        OrdenServicioTipoId = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.OrdenServicioTipoId,
+                        CodigoOrdenInterna = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.CodigoOrdenInterna,
+                        CodigoReferencial = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.CodigoReferencial,
+                        Descripcion = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.Descripcion,
+                        FechaInicial = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.FechaInicial,
+                        FechaFinal = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.FechaFinal
+                    }
+                });
+            return resultado;
+        }
 
         public async Task<RegistroAsistencia> ObtenerPorId(long id) =>
             await GetByIdAsync(id) ?? throw new RegistroNoEncontradoException<RegistroAsistencia>(id.ToString());
@@ -50,6 +113,20 @@ namespace nest.core.infraestructura.rrhh
                 .OrderByDescending(x => x.Fecha)
                 .FirstOrDefaultAsync();
         }
+        public Task<List<Personal>> BuscarPersonalAsistenciasRangoFechas(DateTime fechaInicio, DateTime fechaFin)
+        {
+            if (fechaFin < fechaInicio)
+                (fechaInicio, fechaFin) = (fechaFin, fechaInicio);
+
+            return context.Personales
+                .AsNoTracking()
+                .Include(x => x.Persona)
+                .Include(x => x.RegistroAsistencias.Where(x => x.Fecha >= fechaInicio && x.Fecha <= fechaFin))
+                    .ThenInclude(x => x.RegistroAsistenciaOrdenTrabajo)
+                        .ThenInclude(x => x.OrdenTrabajoCabecera)
+                        .ThenInclude(x => x.OrdenServicioCabecera)
+                .ToListAsync();
+        }
         public Task<List<RegistroAsistencia>> ObtenerPorIdUsuarioYRangoFecha(string UsuarioId, DateTime fechaInicio, DateTime fechaFin)
         {
             if (fechaFin < fechaInicio)
@@ -61,14 +138,13 @@ namespace nest.core.infraestructura.rrhh
                 .OrderByDescending(x => x.Fecha)
                 .ToListAsync();
         }
-        public Task<List<RegistroAsistencia>> ObtenerPorRangoFecha(DateTime fechaInicio, DateTime fechaFin)
+        public Task<List<RegistroAsistenciaQueryView>> BuscarPorRangoFecha(DateTime fechaInicio, DateTime fechaFin)
         {
             if (fechaFin < fechaInicio)
                 (fechaInicio, fechaFin) = (fechaFin, fechaInicio);
 
-            return Query()
+            return this.QueryOt()
                 .Where(x => x.Fecha >= fechaInicio && x.Fecha <= fechaFin)
-                .OrderByDescending(x => x.Fecha)
                 .ToListAsync();
         }
         public async Task<RegistroAsistencia> BuscarUltimaMarca(int personalId)

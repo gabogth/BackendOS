@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
@@ -34,11 +35,12 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             IRegistroAsistenciaOrdenTrabajoRepository registroOrdenTrabajoRepository,
             IOrdenTrabajoCabeceraRepository ordenTrabajoCabeceraRepository,
             IRegistroAsistenciaAdjuntoRepository registroAsistenciaAdjuntoRepository,
+            IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository,
             IConnectionStringService connectionStringService,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             ILogger<RegistroAsistenciaOrdenTrabajoCrearUsuarioActualHandler> logger)
-            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository)
+            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository, ordenTrabajoHorarioRepository)
         {
             this.registroOrdenTrabajoRepository = registroOrdenTrabajoRepository;
             this.ordenTrabajoCabeceraRepository = ordenTrabajoCabeceraRepository;
@@ -55,6 +57,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             try
             {
                 var registro = mapper.Map<RegistroAsistencia>(request);
+                registro.Fecha = DateTime.Now;
                 registro.EmpresaId = connectionStringService.EmpresaId ?? throw new Exception("Usuario no autenticado");
                 var personal = await personalRepository.ObtenerPorIdUsuario(connectionStringService.UserId) ?? throw new Exception("El usuario debe tener el atributo IdUsuario");
                 registro.PersonalId = personal.Id;
@@ -65,9 +68,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
 
                 var ordenTrabajo = await ordenTrabajoCabeceraRepository.ObtenerPorPersonaFechaInicialFechaFinal(registro.PersonalId, registro.Fecha);
                 if (ordenTrabajo == null)
-                {
                     throw new Exception($"No existe una orden de trabajo asignada para el personal en la fecha {registro.Fecha:yyyy-MM-dd HH:mm:ss}.");
-                }
 
                 var relacion = new RegistroAsistenciaOrdenTrabajo
                 {

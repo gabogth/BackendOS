@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		README.md = README.md
 		security.dockerfile = security.dockerfile
 		wait-for-db.sh = wait-for-db.sh
+		uploadimage.ps1 = uploadimage.ps1
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.infrastructura.utils", "nest.core.infrastructura.utils\nest.core.infrastructura.utils.csproj", "{DB1613AE-66FB-484A-A7AC-3594D86A137E}"
