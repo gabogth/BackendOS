@@ -2,7 +2,6 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
-using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
@@ -13,7 +12,6 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
 {
     public class RegistroAsistenciaCrearServerDtHandler : RegistroAsistenciaHandlerBase, IRequestHandler<RegistroAsistenciaCrearServerDtCommand, RegistroAsistencia>
     {
-        private readonly IConnectionStringService connectionStringService;
         private readonly IMapper mapper;
         private readonly ILogger<RegistroAsistenciaCrearUsuarioActualHandler> logger;
 
@@ -22,13 +20,11 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             IHorarioRepository horarioRepository,
             IPersonalRepository personalRepository,
             IHorarioDetalleRepository horarioDetalleRepository,
-            IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository,
             IConnectionStringService connectionStringService,
             IMapper mapper,
             ILogger<RegistroAsistenciaCrearUsuarioActualHandler> logger)
-            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository, ordenTrabajoHorarioRepository)
+            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository)
         {
-            this.connectionStringService = connectionStringService;
             this.mapper = mapper;
             this.logger = logger;
         }
@@ -39,8 +35,8 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             {
                 var registro = mapper.Map<RegistroAsistencia>(request);
                 registro.Fecha = DateTime.Now;
-
-                registro = await PrepararRegistroAsync(registro);
+                var personal = await personalRepository.ObtenerPorId(request.PersonalId);
+                registro = await PrepararRegistroAsync(registro, personal.HorarioCabecera);
                 registro = await repository.Agregar(registro);
                 return await repository.ObtenerPorId(registro.Id);
             }

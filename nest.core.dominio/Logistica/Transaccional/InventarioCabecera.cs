@@ -10,6 +10,7 @@ namespace nest.core.dominio.Logistica.Transaccional
         public long Id { get; set; }
         public int AlmacenId { get; set; }
         public int LogisticaTransaccionId { get; set; }
+        public int NumTtra { get; set; }
         public DateTime Fecha { get; set; }
         public int DocumentoTipoId { get; set; }
         public string DocumentoSerie { get; set; }
