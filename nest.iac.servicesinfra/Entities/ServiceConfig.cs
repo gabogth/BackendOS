@@ -7,5 +7,6 @@
         public string contextDocker { get; set; } = null!;
         public string pathProject { get; set; } = null!;
         public int port { get; set; }
+        public string healthPath { get; set; } = null!;
     }
 }

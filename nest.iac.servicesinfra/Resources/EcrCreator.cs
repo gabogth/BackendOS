@@ -18,10 +18,11 @@ namespace nest.iac.servicesinfra.Resources
             this.dockerFile = dockerFile;
             this.versionImage = versionImage;
         }
-        public Awsx.Ecr.Image Build()
+        public Awsx.Ecr.Repository Build()
         {
             this.currentRepository = Create();
-            return this.CreateImage();
+            return this.currentRepository;
+            //return this.CreateImage();
         }
         private Awsx.Ecr.Repository Create()
         {
@@ -52,16 +53,16 @@ namespace nest.iac.servicesinfra.Resources
             });
         }
 
-        public Awsx.Ecr.Image CreateImage()
-        {
-            return new Awsx.Ecr.Image(this.imageName, new Awsx.Ecr.ImageArgs
-            {
-                ImageName = this.imageName,
-                RepositoryUrl = this.currentRepository.Url,
-                Context = this.contextPath,
-                Dockerfile = this.dockerFile,
-                ImageTag = this.versionImage
-            });
-        }
+        //public Awsx.Ecr.Image CreateImage()
+        //{
+        //    return new Awsx.Ecr.Image(this.imageName, new Awsx.Ecr.ImageArgs
+        //    {
+        //        ImageName = this.imageName,
+        //        RepositoryUrl = this.currentRepository.Url,
+        //        Context = this.contextPath,
+        //        Dockerfile = this.dockerFile,
+        //        ImageTag = this.versionImage
+        //    });
+        //}
     }
 }

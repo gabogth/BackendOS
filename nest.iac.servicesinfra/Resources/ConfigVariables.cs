@@ -9,6 +9,7 @@ namespace nest.iac.servicesinfra.Resources
         public static string ProjectName { get { return Deployment.Instance.ProjectName; } }
         public static string Region { get { return Pulumi.Aws.Config.Region ?? "us-east-1"; } }
         public static string AwsVpcId { get { return ConfigAws.Require("vpcId"); } }
+        public static string AwsAccountId { get { return ConfigAws.Require("accountId"); } }
         public static string[] AwsSubnets { get { return ConfigAws.RequireObject<string[]>("subnets"); } }
         public static string[] AwsSecurityGroups { get { return ConfigAws.RequireObject<string[]>("securityGroups"); } }
         public static string AwsClusterArn { get { return ConfigAws.Require("clusterArn"); } }

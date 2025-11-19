@@ -2,6 +2,7 @@ name: nest-servicesinfra
 runtime: dotnet
 description: Proyecto para el despliegue de nest-servicesinfra
 config:
+  cld:accountId: "949982764789"
   cld:vpcId: "vpc-0e4732954a376035b"
   cld:subnets:
     - "subnet-0f3d175d481a07575"
@@ -18,58 +19,70 @@ config:
       contextDocker: "../"
       pathProject: "../nest.core.security/lambda.Dockerfile"
       port: 8080
+      healthPath: "/health/live"
     - serviceName: "rrhh"  
       routepath: "/rrhh"
       contextDocker: "../"
       pathProject: "../nest.core.rrhh/lambda.Dockerfile"
       port: 8080
+      healthPath: "/health/live"
     - serviceName: "mantto"  
       routepath: "/mantto"
       contextDocker: "../"
       pathProject: "../nest.core.mantto/lambda.Dockerfile"
       port: 8080
+      healthPath: "/health/live"
     - serviceName: "logistica"  
       routepath: "/logistica"
       contextDocker: "../"
       pathProject: "../nest.core.logistica/lambda.Dockerfile"
       port: 8080
+      healthPath: "/health/live"
     - serviceName: "legal"  
       routepath: "/legal"
       contextDocker: "../"
       pathProject: "../nest.core.legal/lambda.Dockerfile"
       port: 8080
+      healthPath: "/health/live"
     - serviceName: "general"  
       routepath: "/general"
       contextDocker: "../"
       pathProject: "../nest.core.general/lambda.Dockerfile"
       port: 8080
+      healthPath: "/health/live"
     - serviceName: "finanzas"  
       routepath: "/finanzas"
       contextDocker: "../"
       pathProject: "../nest.core.finanzas/lambda.Dockerfile"
       port: 8080
+      healthPath: "/health/live"
     - serviceName: "costos"  
       routepath: "/costos"
       contextDocker: "../"
       pathProject: "../nest.core.costos/lambda.Dockerfile"
       port: 8080
+      healthPath: "/health/live"
     - serviceName: "corporativo"  
       routepath: "/corporativo"
       contextDocker: "../"
       pathProject: "../nest.core.corporativo/lambda.Dockerfile"
       port: 8080
+      healthPath: "/health/live"
     - serviceName: "contabilidad"  
       routepath: "/contabilidad"
       contextDocker: "../"
       pathProject: "../nest.core.contabilidad/lambda.Dockerfile"
       port: 8080
+      healthPath: "/health/live"
     - serviceName: "patrimonial"  
       routepath: "/patrimonial"
       contextDocker: "../"
       pathProject: "../nest.core.patrimonial/lambda.Dockerfile"
       port: 8080
+      healthPath: "/health/live"
     - serviceName: "datasource"  
       routepath: "/datasource"
       contextDocker: "../"
       pathProject: "../nest.core.datasource/lambda.Dockerfile"
       port: 8080
+      healthPath: null
