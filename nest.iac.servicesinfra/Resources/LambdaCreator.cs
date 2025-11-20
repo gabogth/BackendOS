@@ -84,7 +84,7 @@ namespace nest.iac.servicesinfra.Resources
             var rule = new Aws.CloudWatch.EventRule(eventName, new Aws.CloudWatch.EventRuleArgs
             {
                 Name = eventName,
-                ScheduleExpression = "rate(5 minutes)",
+                ScheduleExpression = "rate(2 minutes)",
                 State = "ENABLED"
             });
             var permission = new Aws.Lambda.Permission(permissionName, new Aws.Lambda.PermissionArgs

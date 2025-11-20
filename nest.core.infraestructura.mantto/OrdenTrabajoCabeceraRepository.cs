@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using nest.core.dominio.Mantto.OrdenServicioCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
@@ -24,6 +25,44 @@ namespace nest.core.infraestructura.mantto
                 .Include(x => x.OrdenTrabajoDetalles).ThenInclude(x => x.UbicacionTecnica)
                 .AsNoTracking()
                 .AsSplitQuery();
+        }
+
+        protected IQueryable<object> QueryView()
+        {
+            return base.Query()
+                .Include(x => x.OrdenServicioCabecera)
+                .Include(x => x.Personales).ThenInclude(x => x.Persona)
+                .Include(x => x.OrdenTrabajoCabeceraPadre)
+                .Include(x => x.GrupoTrabajo)
+                .Include(x => x.OrdenTrabajoHorarios).ThenInclude(x => x.Personal)
+                .Include(x => x.OrdenTrabajoDetalles).ThenInclude(x => x.Labor)
+                .Include(x => x.OrdenTrabajoDetalles).ThenInclude(x => x.UbicacionTecnica)
+                .AsNoTracking()
+                .AsSplitQuery()
+                .Select(x => new
+                {
+                    x.EmpresaId,
+                    x.Id,
+                    x.OrdenServicioCabeceraId,
+                    x.Nombre,
+                    x.Descripcion,
+                    x.FechaInicio,
+                    x.FechaCompromiso,
+                    x.FechaFin,
+                    x.GrupoTrabajoId,
+                    x.OrdenTrabajoCabeceraPadreId,
+                    x.Estado,
+                    OrdenServicioCabecera = new
+                    {
+                        x.OrdenServicioCabecera.EmpresaId,
+                        x.OrdenServicioCabecera.Id,
+                        x.OrdenServicioCabecera.OrdenServicioTipoId,
+                        x.OrdenServicioCabecera.CodigoOrdenInterna,
+                        x.OrdenServicioCabecera.CodigoReferencial,
+                        x.OrdenServicioCabecera.Descripcion,
+                        x.OrdenServicioCabecera.Activo
+                    }
+                });
         }
 
         public async Task<OrdenTrabajoCabecera> ObtenerPorId(long id) => await GetByIdAsync(id);
