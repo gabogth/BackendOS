@@ -54,14 +54,24 @@ namespace nest.core.infraestructura.mantto
                     Estado = x.Estado,
                     OrdenServicioCabecera = new OrdenServicioCabeceraQueryView
                     {
-                        EmpresaId = x.OrdenServicioCabecera.EmpresaId,
                         Id = x.OrdenServicioCabecera.Id,
                         OrdenServicioTipoId = x.OrdenServicioCabecera.OrdenServicioTipoId,
                         CodigoOrdenInterna = x.OrdenServicioCabecera.CodigoOrdenInterna,
                         CodigoReferencial = x.OrdenServicioCabecera.CodigoReferencial,
                         Descripcion = x.OrdenServicioCabecera.Descripcion,
                         Activo = x.OrdenServicioCabecera.Activo
-                    }
+                    },
+                    Personales = x.Personales.Select(p => new OrdenTrabajoPersonalQueryView
+                    {
+                        Id = p.Id,
+                        EsLider = p.EsLider,
+                        PersonaId = p.PersonaId,
+                        NombreCompleto = p.Persona.NombreCompleto,
+                        DocumentoIdentidad = p.Persona.DocumentoIdentidad,
+                        Correo = p.Persona.Correo,
+                        Celular = p.Persona.Celular,
+                        Estado = p.Persona.Estado
+                    }).ToList()
                 });
         }
 

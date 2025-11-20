@@ -14,16 +14,29 @@ namespace nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities
         public long? OrdenTrabajoCabeceraPadreId { get; set; }
         public OrdenTrabajoEstado Estado { get; set; }
         public OrdenServicioCabeceraQueryView OrdenServicioCabecera { get; set; }
+        public List<OrdenTrabajoPersonalQueryView> Personales { get; set; }
     }
 
     public class OrdenServicioCabeceraQueryView
     {
-        public int EmpresaId { get; set; }
         public long Id { get; set; }
         public short OrdenServicioTipoId { get; set; }
         public string CodigoOrdenInterna { get; set; }
         public string CodigoReferencial { get; set; }
         public string Descripcion { get; set; }
         public bool Activo { get; set; }
+    }
+
+    public class OrdenTrabajoPersonalQueryView
+    {
+        public long Id { get; set; }
+        public int PersonaId { get; set; }
+        public bool EsLider { get; set; }
+        public string NombreCompleto { get; set; }
+        public string DocumentoIdentidad { get; set; }
+        public string Correo { get; set; }
+        public string Celular { get; set; }
+        public bool Estado { get; set; }
+
     }
 }
