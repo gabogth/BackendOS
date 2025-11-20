@@ -27,7 +27,7 @@ namespace nest.core.infraestructura.mantto
                 .AsSplitQuery();
         }
 
-        protected IQueryable<object> QueryView()
+        protected IQueryable<OrdenTrabajoCabeceraQueryView> QueryView()
         {
             return base.Query()
                 .Include(x => x.OrdenServicioCabecera)
@@ -39,28 +39,28 @@ namespace nest.core.infraestructura.mantto
                 .Include(x => x.OrdenTrabajoDetalles).ThenInclude(x => x.UbicacionTecnica)
                 .AsNoTracking()
                 .AsSplitQuery()
-                .Select(x => new
+                .Select(x => new OrdenTrabajoCabeceraQueryView
                 {
-                    x.EmpresaId,
-                    x.Id,
-                    x.OrdenServicioCabeceraId,
-                    x.Nombre,
-                    x.Descripcion,
-                    x.FechaInicio,
-                    x.FechaCompromiso,
-                    x.FechaFin,
-                    x.GrupoTrabajoId,
-                    x.OrdenTrabajoCabeceraPadreId,
-                    x.Estado,
-                    OrdenServicioCabecera = new
+                    EmpresaId = x.EmpresaId,
+                    Id = x.Id,
+                    OrdenServicioCabeceraId = x.OrdenServicioCabeceraId,
+                    Nombre = x.Nombre,
+                    Descripcion = x.Descripcion,
+                    FechaInicio = x.FechaInicio,
+                    FechaCompromiso = x.FechaCompromiso,
+                    FechaFin = x.FechaFin,
+                    GrupoTrabajoId = x.GrupoTrabajoId,
+                    OrdenTrabajoCabeceraPadreId = x.OrdenTrabajoCabeceraPadreId,
+                    Estado = x.Estado,
+                    OrdenServicioCabecera = new OrdenServicioCabeceraQueryView
                     {
-                        x.OrdenServicioCabecera.EmpresaId,
-                        x.OrdenServicioCabecera.Id,
-                        x.OrdenServicioCabecera.OrdenServicioTipoId,
-                        x.OrdenServicioCabecera.CodigoOrdenInterna,
-                        x.OrdenServicioCabecera.CodigoReferencial,
-                        x.OrdenServicioCabecera.Descripcion,
-                        x.OrdenServicioCabecera.Activo
+                        EmpresaId = x.OrdenServicioCabecera.EmpresaId,
+                        Id = x.OrdenServicioCabecera.Id,
+                        OrdenServicioTipoId = x.OrdenServicioCabecera.OrdenServicioTipoId,
+                        CodigoOrdenInterna = x.OrdenServicioCabecera.CodigoOrdenInterna,
+                        CodigoReferencial = x.OrdenServicioCabecera.CodigoReferencial,
+                        Descripcion = x.OrdenServicioCabecera.Descripcion,
+                        Activo = x.OrdenServicioCabecera.Activo
                     }
                 });
         }
@@ -88,6 +88,11 @@ namespace nest.core.infraestructura.mantto
         }
 
         public async Task<List<OrdenTrabajoCabecera>> ObtenerTodos() => await GetAllAsync();
+
+        public async Task<List<OrdenTrabajoCabeceraQueryView>> ObtenerTodosSimplificado()
+        {
+            return await QueryView().ToListAsync();
+        }
 
         public async Task<List<OrdenTrabajoCabecera>> ObtenerPorOrdenServicio(long ordenServicioCabeceraId)
         {
