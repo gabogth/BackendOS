@@ -39,7 +39,7 @@ namespace nest.core.infraestructura.mantto
         {
             return base.Query()
                 .Include(x => x.OrdenTrabajoCabecera)
-                .Include(x => x.HorarioCabecera)
+                .Include(x => x.HorarioCabecera).ThenInclude(x => x.HorarioDetalles).ThenInclude(x => x.HorarioDetalleEventos)
                 .AsNoTracking()
                 .AsSplitQuery()
                 .Where(x => x.OrdenTrabajoCabeceraId == OrdenTrabajoCabeceraId  && x.Fecha >= Inicio && x.Fecha <= Fin)
@@ -54,6 +54,7 @@ namespace nest.core.infraestructura.mantto
                 .Where(o => estadosActivo.Contains(o.OrdenTrabajoCabecera.Estado)) // que esten activos
                 .Where(o => o.PersonalId == personaId) // que contengan a la persona y que tenga horario asignado
                 .Where(o => o.Fecha == fechaMarca) // que la fecha coincida
+                .OrderByDescending(x => x.Id)
                 .FirstOrDefaultAsync();
         }
 
