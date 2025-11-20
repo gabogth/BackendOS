@@ -36,6 +36,15 @@ namespace nest.core.mantto.Controllers
             => Ok(await sender.Send(new ObtenerTodosQuery()));
 
         /// <summary>
+        /// Obtiene todas las cabeceras de orden de trabajo de manera simplificada.
+        /// </summary>
+        [HttpGet("simplificado")]
+        [ProducesResponseType(typeof(List<OrdenTrabajoCabeceraQueryView>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<List<OrdenTrabajoCabeceraQueryView>>> ObtenerTodosSimplificado()
+            => Ok(await sender.Send(new ObtenerTodosSimplificadoQuery()));
+
+        /// <summary>
         /// Obtiene una cabecera de orden de trabajo por su identificador.
         /// </summary>
         [HttpGet("{id}")]

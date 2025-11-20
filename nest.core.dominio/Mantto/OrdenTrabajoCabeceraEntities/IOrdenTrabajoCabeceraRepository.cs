@@ -4,6 +4,7 @@ namespace nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities
     {
         Task<OrdenTrabajoCabecera> ObtenerPorId(long id);
         Task<List<OrdenTrabajoCabecera>> ObtenerTodos();
+        Task<List<OrdenTrabajoCabeceraQueryView>> ObtenerTodosSimplificado();
         Task<List<OrdenTrabajoCabecera>> ObtenerPorOrdenServicio(long ordenServicioCabeceraId);
         Task<OrdenTrabajoCabecera> ObtenerPorPersonaFechaInicialFechaFinal(int personaId, DateTime fecha);
         Task<OrdenTrabajoCabecera> Agregar(OrdenTrabajoCabecera dto);
