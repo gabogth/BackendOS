@@ -24,7 +24,7 @@ namespace nest.core.infraestructura.rrhh
                 .Include(x => x.Personal).ThenInclude(x => x.Persona).ThenInclude(x => x.LicenciaConducir)
                 .Include(x => x.Personal).ThenInclude(x => x.Persona).ThenInclude(x => x.Sexo)
                 .Include(x => x.RegistroAsistenciaPolitica)
-                .Include(x => x.HorarioDetalleEvento)
+                .Include(x => x.HorarioDetalleEvento).ThenInclude(x => x.HorarioDetalle).ThenInclude(x => x.HorarioCabecera)
                 .AsNoTracking()
                 .AsSplitQuery();
         }
@@ -50,6 +50,8 @@ namespace nest.core.infraestructura.rrhh
                     Longitud = x.Longitud,
                     AdjuntoId = x.RegistroAsistenciaAdjunto.AdjuntoId,
                     AdjuntoUrl = $"{ConfigVariables.GeneralService}/Adjunto/download/{x.RegistroAsistenciaAdjunto.AdjuntoId}",
+                    MinutosDescanso = x.HorarioDetalleEvento.HorarioDetalle.HorarioCabecera.MinutosDescanso,
+                    MinutosTraslado = x.HorarioDetalleEvento.HorarioDetalle.HorarioCabecera.MinutosTraslado,
                     Personal = new PersonalQueryView {
                         Id = x.Personal.Id,
                         MarcaAsistencia = x.Personal.MarcaAsistencia,

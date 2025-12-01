@@ -15,6 +15,8 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
         public decimal? Longitud { get; set; }
         public long? AdjuntoId { get; set; }
         public string AdjuntoUrl { get; set; }
+        public int? MinutosDescanso { get; set; }
+        public int? MinutosTraslado { get; set; }
         public PersonalQueryView? Personal { get; set; }
         public PersonaQueryView? Persona { get; set; }
         public OrdenTrabajoQueryView? OrdenTrabajo { get; set; }
