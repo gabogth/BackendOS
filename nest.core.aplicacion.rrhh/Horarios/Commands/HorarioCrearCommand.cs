@@ -8,6 +8,8 @@ namespace nest.core.aplicacion.rrhh.Horarios.Commands
         string Nombre,
         string Descripcion,
         bool Activo,
+        int MinutosDescanso,
+        int MinutosTraslado,
         IReadOnlyCollection<HorarioDetalleCommand> Detalles
     ) : IRequest<HorarioCabecera>, IHorarioGenericCommand;
 }

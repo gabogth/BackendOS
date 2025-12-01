@@ -71,6 +71,16 @@ public class FormularioController : Controller
         return Ok(data);
     }
 
+    [HttpGet("current_user")]
+    [ProducesResponseType(typeof(List<Formulario>), 200)]
+    [ProducesResponseType(typeof(ErrorMessage), 400)]
+    [ProducesResponseType(401)]
+    public async Task<ActionResult<List<Formulario>>> ObtenerPorUserId(CancellationToken ct)
+    {
+        var data = await sender.Send(new ObtenerFormularioPorUserIdQuery(), ct);
+        return Ok(data);
+    }
+
     [HttpPost]
     [ProducesResponseType(typeof(Formulario), 200)]
     [ProducesResponseType(typeof(ErrorMessage), 400)]

@@ -77,7 +77,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
                     {
                         EmpresaId = registro.EmpresaId,
                         Id = registro.Id,
-                        OrdenTrabajoCabeceraId = horarioActual.Id
+                        OrdenTrabajoCabeceraId = otHorario.OrdenTrabajoCabeceraId
                     };
                     await registroOrdenTrabajoRepository.Agregar(relacion);
                 }

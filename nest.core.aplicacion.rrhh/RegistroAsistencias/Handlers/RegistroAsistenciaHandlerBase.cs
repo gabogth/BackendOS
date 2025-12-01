@@ -45,7 +45,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             {
                 //throw new Exception("FUERA DE HORA");
                 registro.TipoEvento = HorarioDetalleEventoTipoEnum.Otros;
-                registro.FechaJornal = new DateOnly(1900, 1, 1);
+                registro.FechaJornal = DateOnly.FromDateTime(registro.Fecha);
                 registro.DiferenciaMinutos = 0;
                 registro.EsTardanza = false;
                 registro.HorarioDetalleEventoId = null;
@@ -112,11 +112,11 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
                 return null;
 
             var eventos = (
-                detalle.HorarioDetalleEventos.FirstOrDefault(x => x.TipoEvento == HorarioDetalleEventoTipoEnum.Entrada),
-                detalle.HorarioDetalleEventos.FirstOrDefault(x => x.TipoEvento == HorarioDetalleEventoTipoEnum.Salida)
+                entrada: detalle.HorarioDetalleEventos.FirstOrDefault(x => x.TipoEvento == HorarioDetalleEventoTipoEnum.Entrada),
+                salida: detalle.HorarioDetalleEventos.FirstOrDefault(x => x.TipoEvento == HorarioDetalleEventoTipoEnum.Salida)
             );
 
-            if (eventos.Item1 is null || eventos.Item2 is null)
+            if (eventos.entrada is null || eventos.salida is null)
             {
                 throw new Exception("El detalle de horario no tiene eventos de entrada y salida configurados.");
             }
@@ -124,11 +124,11 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             var fechaBase = DateOnly.FromDateTime(fecha);
             return new JornalParams
             {
-                FechaEntrada = fechaBase.AddDays(eventos.Item1.DiferenciaDia).ToDateTime(eventos.Item1.Hora, DateTimeKind.Local),
-                FechaSalida = fechaBase.AddDays(eventos.Item2.DiferenciaDia).ToDateTime(eventos.Item2.Hora, DateTimeKind.Local),
-                FechaEntradaConRango = fechaBase.AddDays(eventos.Item1.DiferenciaDia).ToDateTime(eventos.Item1.Hora, DateTimeKind.Local).AddMinutes(-Math.Abs(eventos.Item1.VentanaMin)),
-                FechaSalidaConRango = fechaBase.AddDays(eventos.Item2.DiferenciaDia).ToDateTime(eventos.Item2.Hora, DateTimeKind.Local).AddMinutes(Math.Abs(eventos.Item2.VentanaMax)),
-                Evento = eventos.Item1,
+                FechaEntrada = fechaBase.AddDays(eventos.entrada.DiferenciaDia).ToDateTime(eventos.entrada.Hora, DateTimeKind.Local),
+                FechaSalida = fechaBase.AddDays(eventos.salida.DiferenciaDia).ToDateTime(eventos.salida.Hora, DateTimeKind.Local),
+                FechaEntradaConRango = fechaBase.AddDays(eventos.entrada.DiferenciaDia).ToDateTime(eventos.entrada.Hora, DateTimeKind.Local).AddMinutes(-Math.Abs(eventos.entrada.VentanaMin)),
+                FechaSalidaConRango = fechaBase.AddDays(eventos.salida.DiferenciaDia).ToDateTime(eventos.salida.Hora, DateTimeKind.Local).AddMinutes(Math.Abs(eventos.salida.VentanaMax)),
+                Evento = eventos.entrada,
                 Detalle = detalle
             };
         }

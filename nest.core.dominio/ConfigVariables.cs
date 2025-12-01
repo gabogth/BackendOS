@@ -1,5 +1,11 @@
-﻿namespace nest.core.aplication.auth
-{        
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace nest.core.dominio
+{
     public static class ConfigVariables
     {
         public static string Engine { get { return GetString("ENGINE"); } }

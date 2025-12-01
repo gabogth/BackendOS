@@ -38,19 +38,16 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
                 registro = await registroAsistenciaRepository.Modificar(registro);
 
                 var ordenTrabajo = await ordenTrabajoCabeceraRepository.ObtenerPorId(request.OrdenTrabajoCabeceraId);
-                if (ordenTrabajo == null)
-                {
-                    throw new Exception($"No existe una orden de trabajo con el identificador {request.OrdenTrabajoCabeceraId}.");
-                }
-
                 var relacion = new RegistroAsistenciaOrdenTrabajo
                 {
                     EmpresaId = registro.EmpresaId,
                     Id = registro.Id,
                     OrdenTrabajoCabeceraId = ordenTrabajo.Id
                 };
-
-                await registroOrdenTrabajoRepository.Modificar(relacion);
+                if (ordenTrabajo == null)
+                    await registroOrdenTrabajoRepository.Agregar(relacion);
+                else
+                    await registroOrdenTrabajoRepository.Modificar(relacion);
                 return await registroAsistenciaRepository.ObtenerPorId(registro.Id);
             }
             catch (Exception ex)

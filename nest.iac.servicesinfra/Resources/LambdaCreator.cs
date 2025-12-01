@@ -84,7 +84,7 @@ namespace nest.iac.servicesinfra.Resources
             var rule = new Aws.CloudWatch.EventRule(eventName, new Aws.CloudWatch.EventRuleArgs
             {
                 Name = eventName,
-                ScheduleExpression = "rate(2 minutes)",
+                ScheduleExpression = "rate(1 minute)",
                 State = "ENABLED"
             });
             var permission = new Aws.Lambda.Permission(permissionName, new Aws.Lambda.PermissionArgs
@@ -102,14 +102,12 @@ namespace nest.iac.servicesinfra.Resources
             return rule;
         }
 
-        public static Aws.Lambda.Function CreateHealthCheck(string currLambdaName, Aws.Iam.Role currRole, string dynamoDbTable)
+        public static Aws.Lambda.Function CreateHealthCheck(string currLambdaName, Aws.Iam.Role currRole)
         {
             var lambdaCode = @"
 const { LambdaClient, InvokeCommand } = require(""@aws-sdk/client-lambda"");
-const { DynamoDBClient, PutItemCommand } = require(""@aws-sdk/client-dynamodb"");
 
 const lambdaClient = new LambdaClient({});
-const dynamoClient = new DynamoDBClient({});
 
 const payload = Buffer.from(JSON.stringify({
   version: ""2.0"",
@@ -120,7 +118,6 @@ const payload = Buffer.from(JSON.stringify({
 
 exports.handler = async () => {
   console.log(""executed at:"", new Date().toISOString());
-  const tableName = process.env.TABLE;
   const arns = process.env.TARGET_ARNS.split("","");
   const promises = arns.map(async (arn) => {
     // Invocar Lambda
@@ -130,18 +127,7 @@ exports.handler = async () => {
       InvocationType: ""RequestResponse""
     }));
     const resultPayload = Buffer.from(res.Payload).toString();
-    const parsed = JSON.parse(resultPayload);
-    const statusCode = parsed.statusCode ?? 500;
-    const body = parsed.body ?? """";
-    await dynamoClient.send(new PutItemCommand({
-      TableName: tableName,
-      Item: {
-        serviceName: { S: arn.trim() },
-        lastResultStatusCode: { N: statusCode.toString() },
-        lastResultMessage: { S: body },
-        createdAt: { S: new Date().toISOString() }
-      }
-    }));
+    console.log(`""Response from ${arn}: ${resultPayload}""`);
   });
   await Promise.all(promises);
 };";
@@ -172,7 +158,6 @@ exports.handler = async () => {
                     Variables =
                     {
                         { "TARGET_ARNS", arns },
-                        { "TABLE", dynamoDbTable },
                         { "TZ", "America/Lima" }
                     }
                 }

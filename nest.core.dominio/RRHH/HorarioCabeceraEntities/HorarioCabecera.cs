@@ -11,6 +11,8 @@ namespace nest.core.dominio.RRHH.HorarioCabeceraEntities
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public bool Activo { get; set; }
+        public int? MinutosDescanso { get; set; }
+        public int? MinutosTraslado { get; set; }
         public List<HorarioDetalle> HorarioDetalles { get; set; }
         public List<OrdenTrabajoHorario> OrdenTrabajoHorarios { get; set; }
     }

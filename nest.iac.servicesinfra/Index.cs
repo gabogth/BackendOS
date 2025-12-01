@@ -27,17 +27,17 @@ namespace nest.iac.servicesinfra
                 var lambda = new LambdaCreator(lambdaName, routePath, lambdaRole, cwName, api.EndpointUrl()).Build();
                 var route2 = new ApiGatewayCreator(prefix, stageMain, lambda, routePath, i == 0).BuildLambda();
             }
-            var tableName = CreateDynamoDbTable();
-            CreateHealthCheck(tableName);
+            //var tableName = CreateDynamoDbTable();
+            CreateHealthCheck();
         }
 
-        private void CreateHealthCheck(string tableName)
+        private void CreateHealthCheck()
         {
             string healthPrefix = $"{Deployment.Instance.ProjectName}-healthcheck";
             string healthLambdaName = $"{Deployment.Instance.ProjectName}-healthcheck-lambda";
             string healthRoleName = $"{Deployment.Instance.ProjectName}-healthcheck-role";
             var healthLambdaRole = new RoleCreator(healthRoleName, healthPrefix, Deployment.Instance.ProjectName).BuildLambda();
-            LambdaCreator.CreateHealthCheck(healthLambdaName, healthLambdaRole, tableName);
+            LambdaCreator.CreateHealthCheck(healthLambdaName, healthLambdaRole);
         }
 
         private string CreateDynamoDbTable()

@@ -1,5 +1,7 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Connections;
 using Microsoft.EntityFrameworkCore;
+using nest.core.dominio;
 using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
@@ -47,6 +49,7 @@ namespace nest.core.infraestructura.rrhh
                     Latitud = x.Latitud,
                     Longitud = x.Longitud,
                     AdjuntoId = x.RegistroAsistenciaAdjunto.AdjuntoId,
+                    AdjuntoUrl = $"{ConfigVariables.GeneralService}/Adjunto/download/{x.RegistroAsistenciaAdjunto.AdjuntoId}",
                     Personal = new PersonalQueryView {
                         Id = x.Personal.Id,
                         MarcaAsistencia = x.Personal.MarcaAsistencia,

@@ -1,6 +1,7 @@
 using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using nest.core.dominio.Aplicacion.Formulario;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
@@ -49,6 +50,43 @@ namespace nest.core.infraestructura.security.Aplicacion
         {
             List<string> claims = await context.RoleClaims.Where(x => x.RoleId == roleId).Select(x => x.ClaimType).ToListAsync();
             return await context.Formulario.Where(x => claims.Contains(x.ClaimType)).ToListAsync();
+        }
+
+        public async Task<List<Formulario>> ObtenerPorUserId(string userId)
+        {
+            List<string> tempClaims = new List<string>();
+            var roleIds = await context.UserRoles.Where(x => x.UserId == userId).Select(y => y.RoleId).ToListAsync();
+            var currentRoleClaims = await context.RoleClaims.Where(x => roleIds.Contains(x.RoleId)).Select(x => x.ClaimType).ToListAsync();
+            var currentUserClaims = await context.UserClaims.Where(x => x.UserId == userId).Select(x => x.ClaimType).ToListAsync();
+            if(currentRoleClaims != null && currentRoleClaims.Count > 0)
+                tempClaims.AddRange(currentRoleClaims);
+            if(currentUserClaims != null && currentUserClaims.Count > 0)
+                tempClaims.AddRange(currentUserClaims);
+            var finalClaims = tempClaims.Distinct();
+            if(!finalClaims.Any())
+                return Array.Empty<Formulario>().ToList();
+            List<Formulario> allForms = await this.GetAllAsync();
+            Dictionary<int, Formulario> allMenuId = allForms.ToDictionary(x => x.Id);
+            Dictionary<int, Formulario> customMenu = new Dictionary<int, Formulario>();
+            List<int> finalIds = allForms.Where(x => finalClaims.Any(f => x.ClaimType == f)).Select(x => x.Id).ToList();
+
+            Dictionary<string, Formulario> formIndex = new Dictionary<string, Formulario>();
+            foreach (var form in finalIds)
+                GetParents(form, allMenuId, customMenu);
+            return customMenu.Values.ToList();
+        }
+
+        private void GetParents(int claimForm, Dictionary<int, Formulario> allMenuId, Dictionary<int, Formulario> customMenu)
+        {
+            if (!allMenuId.ContainsKey(claimForm))
+                return;
+            var currForm = allMenuId[claimForm];
+            if (!customMenu.ContainsKey(claimForm))
+                customMenu.Add(claimForm, currForm);
+            if (currForm.ParentId == null || currForm.ParentId == 0)
+                return;
+            var parentForm = allMenuId[currForm.ParentId.Value];
+            GetParents(parentForm.Id, allMenuId, customMenu);
         }
 
         public async Task<Formulario> Agregar(Formulario entry)
