@@ -1,9 +1,14 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.OData;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
 using nest.core.aplication.auth;
 using nest.core.datasource.Extensions;
+using nest.core.dominio.Contabilidad.CuentaContableEntities;
+using nest.core.dominio.Logistica;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -20,7 +25,6 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: true)
                      .AddEnvironmentVariables();
 DbContextSelector.SelectProvider(builder, true);
 builder.Services.ConfigureAplication(builder.Configuration);
-builder.Services.AddHealthChecks().AddCheck("self", () => HealthCheckResult.Healthy(), ["live"]);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", builder =>
@@ -71,6 +75,12 @@ builder.Services
             return err.WithMessage(err.Exception.ToString());
         return err;
     });
+builder.Services
+    .AddControllers()
+    .AddOData(options =>
+        options.AddRouteComponents("odata", GetEdmModel())
+               .Select().Filter().OrderBy().Expand().Count().SetMaxTop(null));
+
 
 var app = builder.Build();
 if (!string.IsNullOrEmpty(ConfigVariables.BaseUrl))
@@ -79,9 +89,16 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors("CorsPolicy");
-app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = check => check.Tags.Contains("live") });
 app.MapGraphQL($"/graphql");
 app.MapNitroApp($"/my-graphql-ui");
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 app.Run();
+
+
+static IEdmModel GetEdmModel()
+{
+    var builder = new ODataConventionModelBuilder();
+    builder.EntitySet<CuentaContable>("CuentaContable");
+    return builder.GetEdmModel();
+}

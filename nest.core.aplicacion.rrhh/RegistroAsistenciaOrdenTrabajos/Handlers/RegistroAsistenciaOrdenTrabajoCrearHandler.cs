@@ -70,18 +70,20 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
                     {
                         EmpresaId = registro.EmpresaId,
                         Id = registro.Id,
-                        OrdenTrabajoCabeceraId = horarioActual.Id
+                        OrdenTrabajoCabeceraId = otHorario.OrdenTrabajoCabeceraId
                     };
                     await registroOrdenTrabajoRepository.Agregar(relacion);
                 }
-                var adjunto = new RegistroAsistenciaAdjunto
+                if (request.AdjuntoId > 0) 
                 {
-                    EmpresaId = registro.EmpresaId,
-                    Id = registro.Id,
-                    AdjuntoId = request.AdjuntoId
-                };
-                await registroAsistenciaAdjuntoRepository.Agregar(adjunto);
-
+                    var adjunto = new RegistroAsistenciaAdjunto
+                    {
+                        EmpresaId = registro.EmpresaId,
+                        Id = registro.Id,
+                        AdjuntoId = request.AdjuntoId
+                    };
+                    await registroAsistenciaAdjuntoRepository.Agregar(adjunto);
+                }
                 await unitOfWork.CommitAsync();
                 return await repository.ObtenerPorId(registro.Id);
             }

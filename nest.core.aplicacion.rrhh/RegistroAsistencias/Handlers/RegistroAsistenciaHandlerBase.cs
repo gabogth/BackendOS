@@ -30,7 +30,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             var ultimaMarca = await repository.BuscarUltimaMarca(registro.PersonalId);
             if (ultimaMarca != null)
             {
-                double minutosUltimaMarca = registro.Fecha.Subtract(ultimaMarca.Fecha).TotalMinutes;
+                double minutosUltimaMarca = Math.Abs(registro.Fecha.Subtract(ultimaMarca.Fecha).TotalMinutes);
                 const double minutosThreshold = 10;
                 if (minutosUltimaMarca <= minutosThreshold)
                 {
