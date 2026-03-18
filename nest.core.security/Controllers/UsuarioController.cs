@@ -179,5 +179,30 @@ namespace nest.core.security.Controllers
                 throw;
             }
         }
+
+        /// <summary>
+        /// Modifica un usuario existente.
+        /// </summary>
+        /// <param name="id">Id del usuario.</param>
+        /// <param name="comando">Comando con los datos actualizados del usuario.</param>
+        /// <returns>Usuario modificado.</returns>
+        /// <response code="200">Usuario modificado exitosamente.</response>
+        /// <response code="400">Error en la solicitud.</response>
+        [HttpPut("resetpw")]
+        [ProducesResponseType(typeof(ApplicationUser), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<ApplicationUser>> ResetPw([FromBody] UsuarioResetPwCommand comando)
+        {
+            try
+            {
+                var data = await mediator.Send(comando);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw;
+            }
+        }
     }
 }
