@@ -6,6 +6,7 @@ import { catchError, map, of, tap } from 'rxjs';
 import { UserEntity } from '../entities/user.entity';
 import { AuthResponse } from './models/auth-response.model';
 import { LoginRequest } from './models/login-request.model';
+import { environment } from '../../../environments/environment';
 
 const ACCESS_TOKEN_KEY = 'security.access_token';
 
@@ -22,7 +23,7 @@ export class AuthService {
   readonly currentUser = computed<UserEntity | null>(() => this.mapUserFromToken(this.accessToken()));
 
   login(request: LoginRequest) {
-    return this.httpClient.post<AuthResponse>('/Auth/login', request).pipe(
+    return this.httpClient.post<AuthResponse>(`${environment.apiBaseUrl}/Auth/login`, request).pipe(
       tap((response) => this.setAccessToken(response.accessToken)),
       map(() => true),
       catchError(() => of(false)),
