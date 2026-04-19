@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal, inject } from '@angular/core';
 
+import { AuthService } from '../auth/auth.service';
 import { UserEntity } from '../entities/user.entity';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  getCurrentUser(): UserEntity {
-    return {
-      id: 1,
-      username: 'admin',
-      displayName: 'Administrador Demo',
-      email: 'admin@demo.local',
-    };
+  private readonly authService = inject(AuthService);
+
+  getCurrentUser(): Signal<UserEntity | null> {
+    return this.authService.currentUser;
   }
 }

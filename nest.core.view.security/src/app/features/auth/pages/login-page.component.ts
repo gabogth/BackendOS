@@ -1,0 +1,108 @@
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../../../core/auth/auth.service';
+
+@Component({
+  selector: 'app-login-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="container d-flex min-vh-100 align-items-center justify-content-center py-5">
+      <article class="card shadow-sm border-0 login-card w-100">
+        <div class="card-body p-4 p-md-5">
+          <header class="mb-4 text-center">
+            <h1 class="h3 mb-1">Iniciar sesión</h1>
+            <p class="text-muted mb-0">Accede con tus credenciales de Security.</p>
+          </header>
+
+          <form [formGroup]="loginForm" (ngSubmit)="submit()" novalidate>
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input
+                id="email"
+                type="email"
+                class="form-control"
+                formControlName="email"
+                [class.is-invalid]="showError('email')"
+                autocomplete="username"
+              />
+              @if (showError('email')) {
+                <div class="invalid-feedback">Ingresa un correo válido.</div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input
+                id="password"
+                type="password"
+                class="form-control"
+                formControlName="password"
+                [class.is-invalid]="showError('password')"
+                autocomplete="current-password"
+              />
+              @if (showError('password')) {
+                <div class="invalid-feedback">La contraseña es obligatoria.</div>
+              }
+            </div>
+
+            @if (hasError()) {
+              <div class="alert alert-danger py-2" role="alert">
+                No se pudo iniciar sesión. Verifica tus credenciales.
+              </div>
+            }
+
+            <button class="btn btn-primary w-100" type="submit" [disabled]="isSubmitting()">
+              @if (isSubmitting()) {
+                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+              }
+              Entrar
+            </button>
+          </form>
+        </div>
+      </article>
+    </section>
+  `,
+  styleUrl: './login-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class LoginPageComponent {
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
+  protected readonly isSubmitting = signal(false);
+  protected readonly hasError = signal(false);
+
+  protected readonly loginForm = this.formBuilder.nonNullable.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
+  });
+
+  protected submit(): void {
+    if (this.loginForm.invalid || this.isSubmitting()) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    this.hasError.set(false);
+    this.isSubmitting.set(true);
+
+    this.authService.login(this.loginForm.getRawValue()).subscribe((isValid) => {
+      this.isSubmitting.set(false);
+
+      if (!isValid) {
+        this.hasError.set(true);
+        return;
+      }
+
+      void this.router.navigate(['/']);
+    });
+  }
+
+  protected showError(controlName: 'email' | 'password'): boolean {
+    const control = this.loginForm.controls[controlName];
+    return control.invalid && (control.touched || control.dirty);
+  }
+}

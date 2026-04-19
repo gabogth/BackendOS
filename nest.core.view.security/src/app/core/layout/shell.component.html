@@ -1,4 +1,4 @@
-<div class="page-shell d-flex flex-column">
+<div class="page-shell d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom shadow-sm">
     <div class="container-fluid">
       <a class="navbar-brand fw-semibold" routerLink="/">Security View</a>
@@ -19,13 +19,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           @for (menu of menuItems; track trackByLabel($index, menu)) {
             <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ menu.label }}
               </a>
               @if (menu.children?.length) {
@@ -33,13 +27,7 @@
                   @for (child of menu.children; track trackByLabel($index, child)) {
                     <li [class.dropdown-submenu]="child.children?.length">
                       @if (child.children?.length) {
-                        <a
-                          class="dropdown-item dropdown-toggle"
-                          href="#"
-                          role="button"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                        >
+                        <a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           {{ child.label }}
                         </a>
                         <ul class="dropdown-menu">
@@ -71,31 +59,25 @@
           }
         </ul>
 
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {{ currentUser.displayName }}
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><span class="dropdown-item-text text-muted small">{{ currentUser.email }}</span></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Perfil</a></li>
-              <li><a class="dropdown-item" href="#">Configuración</a></li>
-              <li><a class="dropdown-item text-danger" href="#">Cerrar sesión</a></li>
-            </ul>
-          </li>
-        </ul>
+        @if (currentUser(); as user) {
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ user.displayName }}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><span class="dropdown-item-text text-muted small">{{ user.email }}</span></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><button class="dropdown-item text-danger" type="button" (click)="logout()">Cerrar sesión</button></li>
+              </ul>
+            </li>
+          </ul>
+        }
       </div>
     </div>
   </nav>
 
   <main class="container py-4 flex-grow-1">
-    <ng-content></ng-content>
+    <router-outlet></router-outlet>
   </main>
 </div>
