@@ -13,17 +13,7 @@ export class MenuService {
         children: [
           {
             label: 'Usuarios',
-            children: [
-              {
-                label: 'Perfiles',
-                children: [
-                  {
-                    label: 'Permisos (Nivel 4)',
-                    route: '/',
-                  },
-                ],
-              },
-            ],
+            route: '/usuarios',
           },
           {
             label: 'Roles',

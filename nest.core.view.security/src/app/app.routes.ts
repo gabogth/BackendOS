@@ -4,6 +4,7 @@ import { authGuard } from './core/auth/auth.guard';
 import { ShellComponent } from './core/layout/shell/shell.component';
 import { LoginPageComponent } from './features/auth/pages/login-page.component';
 import { MainPageComponent } from './features/main/pages/main-page.component';
+import { UsuariosPageComponent } from './features/usuarios/pages/usuarios-page.component';
 
 export const appRoutes: Routes = [
   {
@@ -20,6 +21,11 @@ export const appRoutes: Routes = [
         path: '',
         component: MainPageComponent,
         title: 'Index',
+      },
+      {
+        path: 'usuarios',
+        component: UsuariosPageComponent,
+        title: 'Usuarios',
       },
     ],
   },
