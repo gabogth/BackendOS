@@ -63,10 +63,10 @@
           <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ user.displayName }}
+                {{ user.userName }}
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><span class="dropdown-item-text text-muted small">{{ user.email }}</span></li>
+                <li><span class="dropdown-item-text text-muted small">{{ user.userName }}</span></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li><button class="dropdown-item text-danger" type="button" (click)="logout()">Cerrar sesión</button></li>
               </ul>

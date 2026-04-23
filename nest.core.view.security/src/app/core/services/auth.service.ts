@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, map, of, tap } from 'rxjs';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
 
 import { UserEntity } from '../entities/user.entity';
-import { AuthResponse } from './models/auth-response.model';
-import { LoginRequest } from './models/login-request.model';
-import { environment } from '../../../environments/environment';
-
-const ACCESS_TOKEN_KEY = 'security.access_token';
+import { AuthResponse } from '../auth/models/auth-response.model';
+import { LoginRequest } from '../auth/models/login-request.model';
+import { environment } from '@environment/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,17 +15,25 @@ export class AuthService {
   private readonly httpClient = inject(HttpClient);
   private readonly router = inject(Router);
 
-  private readonly accessToken = signal<string | null>(localStorage.getItem(ACCESS_TOKEN_KEY));
+  private readonly accessToken = signal<string | null>(localStorage.getItem(environment.accessTokenKey));
+  private readonly accessTokenData = signal<string | null>(localStorage.getItem(environment.accessTokenDataKey));
 
   readonly isAuthenticated = computed(() => Boolean(this.accessToken()));
   readonly currentUser = computed<UserEntity | null>(() => this.mapUserFromToken(this.accessToken()));
 
-  login(request: LoginRequest) {
-    return this.httpClient.post<AuthResponse>(`${environment.apiBaseUrl}/Auth/login`, request).pipe(
-      tap((response) => this.setAccessToken(response.accessToken)),
-      map(() => true),
-      catchError(() => of(false)),
+  login(request: LoginRequest): Observable<boolean> {
+    const requestUrl = `${environment.apiBaseUrl}/security/Auth/login`;
+    const result = this.httpClient.post<AuthResponse>(requestUrl, request).pipe(
+      tap((response) => { 
+        this.setAccessToken(response.accessToken);
+        this.setTokenData(JSON.stringify(response));
+      }),
+      map((data) => true),
+      catchError((ex) => {
+        return throwError(() => ex);
+      }),
     );
+    return result;
   }
 
   logout(): void {
@@ -41,13 +47,20 @@ export class AuthService {
 
   private setAccessToken(token: string | null): void {
     this.accessToken.set(token);
-
     if (token) {
-      localStorage.setItem(ACCESS_TOKEN_KEY, token);
-      return;
+      localStorage.setItem(environment.accessTokenKey, token);
+    } else {
+      localStorage.removeItem(environment.accessTokenKey);
     }
+  }
 
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
+  private setTokenData(token: any): void {
+    this.accessTokenData.set(token);
+    if (token) {
+      localStorage.setItem(environment.accessTokenDataKey, token);
+    } else {
+      localStorage.removeItem(environment.accessTokenDataKey);
+    }
   }
 
   private mapUserFromToken(token: string | null): UserEntity | null {
@@ -60,16 +73,14 @@ export class AuthService {
       return null;
     }
 
-    const email = this.getStringClaim(payload, ['email', 'upn']);
-    const username = this.getStringClaim(payload, ['preferred_username', 'unique_name']) ?? email;
-    const displayName = this.getStringClaim(payload, ['name', 'given_name']) ?? username ?? 'Usuario';
-    const id = Number(this.getStringClaim(payload, ['nameid', 'sub']) ?? 0);
+    const userId = this.getStringClaim(payload, [environment.accessTokenUserIdKey]);
+    const userName = this.getStringClaim(payload, [environment.accessTokenUserKey]);
+    const empresaId = parseInt(this.getStringClaim(payload, [environment.accessTokenEmpresaIdKey]) ?? '0');
 
     return {
-      id: Number.isNaN(id) ? 0 : id,
-      username: username ?? 'usuario',
-      displayName,
-      email: email ?? 'no-email',
+      userId: userId ?? '0',
+      userName: userName ?? '',
+      empresaId: empresaId
     };
   }
 

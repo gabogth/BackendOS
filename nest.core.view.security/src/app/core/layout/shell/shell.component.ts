@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
-import { AuthService } from '../auth/auth.service';
-import { MenuService } from '../services/menu.service';
-import { UserService } from '../services/user.service';
-import { MenuItem } from './models/menu-item.model';
+import { AuthService } from '../../services/auth.service';
+import { MenuService } from '../../services/menu.service';
+import { UserService } from '../../services/user.service';
+import { MenuItem } from '../models/menu-item.model';
 
 @Component({
   selector: 'app-shell',
@@ -19,7 +19,7 @@ export class ShellComponent {
   private readonly authService = inject(AuthService);
 
   protected readonly menuItems = this.menuService.getMenu();
-  protected readonly currentUser = this.userService.getCurrentUser();
+  protected readonly currentUser = this.userService.currentUser;
 
   protected trackByLabel(_index: number, item: MenuItem): string {
     return item.label;

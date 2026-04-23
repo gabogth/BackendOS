@@ -8,7 +8,7 @@
 
       <form [formGroup]="loginForm" (ngSubmit)="submit()" novalidate>
         <div class="mb-3">
-          <label for="email" class="form-label">Correo electrónico</label>
+          <label for="email" class="form-label">Correo electrónico:</label>
           <input
             id="email"
             type="email"
@@ -17,13 +17,11 @@
             [class.is-invalid]="showError('email')"
             autocomplete="username"
           />
-          @if (showError('email')) {
-            <div class="invalid-feedback">Ingresa un correo válido.</div>
-          }
+          <app-input-error [control]="loginForm.controls['email']"></app-input-error>
         </div>
 
         <div class="mb-3">
-          <label for="password" class="form-label">Contraseña</label>
+          <label for="password" class="form-label">Contraseña:</label>
           <input
             id="password"
             type="password"
@@ -32,14 +30,12 @@
             [class.is-invalid]="showError('password')"
             autocomplete="current-password"
           />
-          @if (showError('password')) {
-            <div class="invalid-feedback">La contraseña es obligatoria.</div>
-          }
+          <app-input-error [control]="loginForm.controls['password']"></app-input-error>
         </div>
 
         @if (hasError()) {
           <div class="alert alert-danger py-2" role="alert">
-            No se pudo iniciar sesión. Verifica tus credenciales.
+            {{errorMessage()}}
           </div>
         }
 
