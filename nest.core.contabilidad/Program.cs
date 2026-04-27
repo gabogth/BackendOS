@@ -98,9 +98,9 @@ if (!string.IsNullOrWhiteSpace(ConfigVariables.BaseUrl))
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("CorsPolicy");
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = check => check.Tags.Contains("live") });
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();

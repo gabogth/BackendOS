@@ -86,9 +86,9 @@ var app = builder.Build();
 if (!string.IsNullOrEmpty(ConfigVariables.BaseUrl))
     app.UsePathBase(ConfigVariables.BaseUrl);
 app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("CorsPolicy");
 app.MapGraphQL($"/graphql");
 app.MapNitroApp($"/my-graphql-ui");
 app.UseMiddleware<ErrorHandlingMiddleware>();

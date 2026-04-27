@@ -31,7 +31,9 @@ builder.Services.AddCors(options =>
     {
         builder.AllowAnyOrigin()
                .AllowAnyMethod()
-               .AllowAnyHeader();
+               .AllowAnyHeader()
+               .WithExposedHeaders("Content-Disposition", "X-Custom-Header", "Authorization");
+        builder.SetIsOriginAllowed(_ => true);
     });
 });
 // End services custom
@@ -101,9 +103,9 @@ if(!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BASE_URL")))
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("CorsPolicy");
 app.MapHealthChecks("/health/live", new HealthCheckOptions {
     ResponseWriter = async (ctx, report) =>
     {

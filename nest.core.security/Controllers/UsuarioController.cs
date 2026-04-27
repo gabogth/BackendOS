@@ -1,6 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +7,9 @@ using nest.core.aplicacion.security.Usuarios.Commands;
 using nest.core.aplicacion.security.Usuarios.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Security;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace nest.core.security.Controllers
 {
@@ -49,6 +51,29 @@ namespace nest.core.security.Controllers
             try
             {
                 var data = await mediator.Send(new ObtenerTodosQuery());
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene todos los usuarios registrados.
+        /// </summary>
+        /// <returns>Lista de usuarios.</returns>
+        /// <response code="200">Devuelve la lista de usuarios.</response>
+        /// <response code="400">Error en la solicitud.</response>
+        [HttpPost("filter")]
+        [ProducesResponseType(typeof(List<ApplicationUser>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<LoadResult>> ObtenerFiltro(DataSourceLoadOptionsBase loadOptions)
+        {
+            try
+            {
+                var data = await mediator.Send(new ObtenerFilterQuery(loadOptions));
                 return Ok(data);
             }
             catch (Exception ex)
