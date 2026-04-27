@@ -2,11 +2,16 @@
   color-scheme: light;
 }
 
+:root[data-bs-theme='dark'] {
+  color-scheme: dark;
+}
+
 body {
   margin: 0;
   font-family: Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f8f9fa;
-  color: #212529;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 .page-shell {
@@ -34,7 +39,7 @@ body {
 }
 
 .dx-error-message {
-    white-space: pre-line !important;
+  white-space: pre-line !important;
 }
 
 .swal-on-top {
