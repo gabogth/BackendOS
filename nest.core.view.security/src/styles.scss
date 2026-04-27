@@ -32,3 +32,11 @@ body {
 .multi-level-menu .dropdown-toggle::after {
   margin-left: 0.45rem;
 }
+
+.dx-error-message {
+    white-space: pre-line !important;
+}
+
+.swal-on-top {
+  z-index: 20000 !important;
+}

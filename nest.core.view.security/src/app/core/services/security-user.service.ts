@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SecurityUserCreatePayload, SecurityUserEntity, SecurityUserUpdatePayload } from '../entities/security-user.entity';
+import { SecurityUserCreatePayload, SecurityUserEntity, SecurityUserResetPwPayload, SecurityUserUpdatePayload } from '../entities/security-user.entity';
 import { environment } from '@environment/environment';
+import { LoadOptions, LoadResult } from 'devextreme/common/data';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,10 @@ export class SecurityUserService {
 
   getAll(): Observable<SecurityUserEntity[]> {
     return this.httpClient.get<SecurityUserEntity[]>(this.endpoint);
+  }
+
+  getByFilter(loadOptions: LoadOptions): Observable<LoadResult<SecurityUserEntity[]>> {
+    return this.httpClient.post<LoadResult<SecurityUserEntity[]>>(`${this.endpoint}/filter`, loadOptions);
   }
 
   getById(id: string): Observable<SecurityUserEntity> {
@@ -30,5 +35,9 @@ export class SecurityUserService {
 
   delete(id: string): Observable<boolean> {
     return this.httpClient.delete<boolean>(`${this.endpoint}/${id}`);
+  }
+
+  resetPw(payload: SecurityUserResetPwPayload): Observable<SecurityUserEntity> {
+    return this.httpClient.put<SecurityUserEntity>(`${this.endpoint}/resetpw`, payload);
   }
 }

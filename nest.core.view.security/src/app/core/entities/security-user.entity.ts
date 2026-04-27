@@ -6,6 +6,7 @@ export interface SecurityUserEntity {
   normalizedEmail: string;
   emailConfirmed: boolean;
   passwordHash: string;
+  password: string;
   securityStamp: string;
   concurrencyStamp: string;
   phoneNumber: string | null;
@@ -24,4 +25,9 @@ export interface SecurityUserCreatePayload {
 
 export interface SecurityUserUpdatePayload extends SecurityUserCreatePayload {
   id: string;
+}
+
+export interface SecurityUserResetPwPayload {
+  id: string;
+  password: string;
 }

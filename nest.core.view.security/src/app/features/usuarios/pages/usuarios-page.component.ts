@@ -1,95 +1,123 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import CustomStore from 'devextreme/data/custom_store';
-import { DxDataGridModule } from 'devextreme-angular';
-
+import { 
+  DxDataGridModule, 
+  DxTextBoxComponent, 
+  DxButtonComponent, 
+  DxPopupComponent, 
+  DxValidatorComponent ,
+  DxValidationGroupComponent
+} from 'devextreme-angular';
 import { SecurityUserEntity } from '@app/core/entities/security-user.entity';
 import { SecurityUserService } from '@app/core/services/security-user.service';
+import { NestUtils } from '@app/core/services/nestUtils';
+import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LoadOptions, LoadResult } from 'devextreme/common/data';
 
 @Component({
   selector: 'app-usuarios-page',
-  imports: [DxDataGridModule],
+  imports: [
+    DxDataGridModule, 
+    DxPopupComponent, 
+    DxTextBoxComponent, 
+    DxButtonComponent, 
+    DxValidatorComponent,
+    DxValidationGroupComponent
+  ],
   templateUrl: './usuarios-page.component.html',
   styleUrl: './usuarios-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsuariosPageComponent {
   private readonly securityUserService = inject(SecurityUserService);
+  protected detallesErrores: any = [];
+  protected showPasswordPopup = signal(false);
+  protected newPassword = '';
+  protected confirmNewPassword = '';
+  private selectedUser?: SecurityUserEntity;
+  protected openPasswordPopup = () => this.showPasswordPopup.set(true);
+  protected closePasswordPopup = () => this.showPasswordPopup.set(false);
+  protected togglePasswordPopup = (value: boolean) => this.showPasswordPopup.set(value);
 
-  protected readonly errorMessage = signal<string | null>(null);
-  protected readonly users = signal<SecurityUserEntity[]>([]);
-  protected readonly hasData = computed(() => this.users().length > 0);
-
-  /**
-   * DataSource de DevExpress con CRUD explícito.
-   *
-   * Métodos implementados:
-   * - load: consulta al endpoint GET /security/Usuario.
-   * - byKey: consulta GET /security/Usuario/{id}.
-   * - insert: crea usuario con POST /security/Usuario.
-   * - update: modifica usuario con PUT /security/Usuario/{id}.
-   * - remove: elimina usuario con DELETE /security/Usuario/{id}.
-   */
   protected readonly userDataSource = new CustomStore<SecurityUserEntity, string>({
     key: 'id',
-
-    load: async (): Promise<SecurityUserEntity[]> => {
+    load: async (options: LoadOptions): Promise<LoadResult<SecurityUserEntity[]>> => {
       try {
-        const data = await firstValueFrom(this.securityUserService.getAll());
-        this.users.set(data);
-        this.errorMessage.set(null);
-        return data;
-      } catch {
-        this.errorMessage.set('No se pudo cargar el listado de usuarios.');
-        throw new Error('Error loading users');
+        return await firstValueFrom(this.securityUserService.getByFilter(options));
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
       }
     },
-
     byKey: async (key: string): Promise<SecurityUserEntity> => {
-      const row = this.users().find((item) => item.id === key);
-      if (row) {
-        return row;
-      }
-
       return firstValueFrom(this.securityUserService.getById(key));
     },
-
     insert: async (values: Partial<SecurityUserEntity>): Promise<SecurityUserEntity> => {
       const email = values.email?.trim() ?? '';
-      const password = values.passwordHash?.trim() ?? '';
+      const password = values.password?.trim() ?? '';
       const phoneNumber = values.phoneNumber?.trim() ?? '';
-
-      const created = await firstValueFrom(
-        this.securityUserService.create({
-          email,
-          password,
-          phoneNumber,
-        }),
-      );
-
-      this.users.update((current) => [...current, created]);
+      const created = {} as SecurityUserEntity;
+      try{
+        await firstValueFrom(
+          this.securityUserService.create({
+            email,
+            password,
+            phoneNumber,
+          }),
+        );
+      } catch (e: any){
+        throw NestUtils.formatValidationErrors(e);
+      }
       return created;
     },
-
     update: async (key: string, values: Partial<SecurityUserEntity>): Promise<SecurityUserEntity> => {
-      const current = this.users().find((item) => item.id === key) ?? await firstValueFrom(this.securityUserService.getById(key));
-
+      const current = await firstValueFrom(this.securityUserService.getById(key));
       const updated = await firstValueFrom(
         this.securityUserService.update({
           id: key,
           email: values.email?.trim() ?? current.email,
-          password: values.passwordHash?.trim() || current.passwordHash,
+          password: '',
           phoneNumber: values.phoneNumber?.trim() ?? current.phoneNumber ?? '',
         }),
       );
-
-      this.users.update((list) => list.map((item) => (item.id === key ? updated : item)));
       return updated;
     },
-
     remove: async (key: string): Promise<void> => {
-      await firstValueFrom(this.securityUserService.delete(key));
-      this.users.update((current) => current.filter((item) => item.id !== key));
+      await this.securityUserService.delete(key);
     },
   });
+
+  onEditorPreparing(e: DxDataGridTypes.EditorPreparingEvent<SecurityUserEntity>) {
+    if (e.dataField === 'password') {
+      e.editorOptions.visible = e.row?.isNewRow ? true : false;
+    }
+  }
+
+  onChangePasswordClick = async (e: DxDataGridTypes.CellClickEvent<SecurityUserEntity>) => {
+    const user = e.row?.data;
+    this.selectedUser = user;
+    this.newPassword = '';
+    this.confirmNewPassword = '';
+    this.openPasswordPopup();
+  }
+
+  async savePassword(validationGroup: DxValidationGroupComponent) {
+    const resultValidate = validationGroup.instance.validate();
+    if(!resultValidate.isValid){
+      return;
+    }
+    
+    await NestUtils.showConfirmationDialog({
+      title: '¿Cambiar contraseña?',
+      text: '¿Estás seguro de que deseas cambiar la contraseña de este usuario?',
+      funtionToExecute: () => this.securityUserService.resetPw({
+        id: this.selectedUser!.id,
+        password: this.newPassword
+      })
+    });
+    this.closePasswordPopup();
+    this.newPassword = '';
+    this.confirmNewPassword = '';
+  }
 }
