@@ -29,9 +29,6 @@ export class AuthService {
         this.setTokenData(JSON.stringify(response));
       }),
       map((data) => true),
-      catchError((ex) => {
-        return throwError(() => ex);
-      }),
     );
     return result;
   }
