@@ -1,5 +1,5 @@
 <div class="page-shell d-flex flex-column min-vh-100">
-  <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom shadow-sm">
+  <nav class="navbar navbar-expand-lg border-bottom shadow-sm">
     <div class="container-fluid">
       <a class="navbar-brand fw-semibold" routerLink="/">Security View</a>
 
@@ -59,8 +59,26 @@
           }
         </ul>
 
-        @if (currentUser(); as user) {
-          <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Tema: {{ currentTheme() === 'dark' ? 'Oscuro' : 'Claro' }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <button class="dropdown-item" type="button" [class.active]="currentTheme() === 'light'" (click)="changeTheme('light')">
+                  Claro
+                </button>
+              </li>
+              <li>
+                <button class="dropdown-item" type="button" [class.active]="currentTheme() === 'dark'" (click)="changeTheme('dark')">
+                  Oscuro
+                </button>
+              </li>
+            </ul>
+          </li>
+
+          @if (currentUser(); as user) {
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ user.userName }}
@@ -71,8 +89,8 @@
                 <li><button class="dropdown-item text-danger" type="button" (click)="logout()">Cerrar sesión</button></li>
               </ul>
             </li>
-          </ul>
-        }
+          }
+        </ul>
       </div>
     </div>
   </nav>
