@@ -2,7 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SecurityUserCreatePayload, SecurityUserEntity, SecurityUserResetPwPayload, SecurityUserUpdatePayload } from '../entities/security-user.entity';
+import { 
+  SecurityUserCreatePayload, 
+  SecurityUserEntity, 
+  SecurityUserResetPwPayload, 
+  SecurityUserUpdatePayload 
+} from '@app/core/entities/security-user.entity';
 import { environment } from '@environment/environment';
 import { LoadOptions, LoadResult } from 'devextreme/common/data';
 

@@ -10,10 +10,9 @@ import {
   DxValidationGroupComponent
 } from 'devextreme-angular';
 import { SecurityUserEntity } from '@app/core/entities/security-user.entity';
-import { SecurityUserService } from '@app/core/services/security-user.service';
-import { NestUtils } from '@app/core/services/nestUtils';
+import { SecurityUserService } from '@app/core/services/users/security-user.service';
+import { NestUtils } from '@app/core/services/util/nestUtils';
 import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
-import { HttpErrorResponse } from '@angular/common/http';
 import { LoadOptions, LoadResult } from 'devextreme/common/data';
 
 @Component({
@@ -84,7 +83,7 @@ export class UsuariosPageComponent {
       return updated;
     },
     remove: async (key: string): Promise<void> => {
-      await this.securityUserService.delete(key);
+      await firstValueFrom(this.securityUserService.delete(key));
     },
   });
 

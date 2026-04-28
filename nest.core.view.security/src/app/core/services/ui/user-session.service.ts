@@ -1,0 +1,10 @@
+import { Injectable, inject } from '@angular/core';
+import { AuthService } from '../security/auth.service';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class UserSessionService {
+  private readonly authService = inject(AuthService);
+  currentUser = this.authService.currentUser;
+}

@@ -12,11 +12,11 @@ export class ThemeService {
   private readonly themeMap: Record<ThemeMode, { bootstrap: string; devextreme: string }> = {
     light: {
       bootstrap: 'light',
-      devextreme: '/assets/devextreme/dx.light.compact.css',
+      devextreme: '/assets/devextreme/dx.light.css',
     },
     dark: {
       bootstrap: 'dark',
-      devextreme: '/assets/devextreme/dx.dark.compact.css',
+      devextreme: '/assets/devextreme/dx.dark.css',
     },
   };
 
@@ -30,8 +30,8 @@ export class ThemeService {
   async setTheme(mode: ThemeMode): Promise<void> {
     const selectedTheme = this.themeMap[mode];
     const dxThemeName = mode === 'dark' 
-            ? 'generic.dark.compact' 
-            : 'generic.light.compact';
+            ? 'generic.dark' 
+            : 'generic.light';
     localStorage.setItem(ThemeService.STORAGE_KEY, mode);
     this.currentTheme.set(mode);
     this.document.documentElement.setAttribute('data-bs-theme', selectedTheme.bootstrap);

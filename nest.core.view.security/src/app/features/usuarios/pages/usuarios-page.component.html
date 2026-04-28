@@ -72,26 +72,28 @@
     >
       <div *dxTemplate="let data of 'content'">
         <dx-validation-group #validationGroup>
-          <div class="row">
-            <div class="col-md-6">
-              <label class="form-label">Nueva contraseña</label>
+          <div class="d-flex gap-3 flex-wrap">
+            <div class="flex-fill">
               <dx-text-box
                 [(value)]="newPassword"
                 mode="password"
-                [inputAttr]="{ autocomplete: 'new-password', name: 'no-es-no-1' }"
-                placeholder="Nueva contraseña">
+                label="Nueva contraseña:"
+                labelMode="outside"
+                [inputAttr]="{ autocomplete: 'new-password' }"
+                >
                 <dx-validator>
                   <dxi-validation-rule type="required" message="La contraseña es obligatoria" />
                 </dx-validator>
               </dx-text-box>
             </div>
-            <div class="col-md-6">
-              <label class="form-label">Confirmar contraseña</label>
+            <div class="flex-fill">
               <dx-text-box
                 [(value)]="confirmNewPassword"
                 mode="password"
-                [inputAttr]="{ autocomplete: 'new-password', name: 'no-es-no-2' }"
-                placeholder="Confirmar contraseña">
+                label="Confirmar contraseña:"
+                labelMode="outside"
+                [inputAttr]="{ autocomplete: 'new-password' }"
+                >
                 <dx-validator>
                   <dxi-validation-rule type="required" message="Debes confirmar la contraseña" />
                   <dxi-validation-rule type="compare" message="Las contraseñas no coinciden" [comparisonTarget]="() => this.newPassword" />

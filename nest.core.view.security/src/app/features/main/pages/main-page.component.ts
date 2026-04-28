@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { UserService } from '@app/core/services/user.service';
+import { UserSessionService } from '@app/core/services/ui/user-session.service';
 
 @Component({
   selector: 'app-main-page',
@@ -8,6 +8,6 @@ import { UserService } from '@app/core/services/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainPageComponent {
-  userService = inject(UserService);
+  userService = inject(UserSessionService);
   currentUser = this.userService.currentUser();
 }

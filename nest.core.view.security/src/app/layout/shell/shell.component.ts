@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
-import { AuthService } from '@app/core/services/auth.service';
-import { MenuService } from '@app/core/services/menu.service';
-import { ThemeMode, ThemeService } from '@app/core/services/theme.service';
-import { UserService } from '@app/core/services/user.service';
+import { AuthService } from '@app/core/services/security/auth.service';
+import { MenuService } from '@app/core/services/ui/menu.service';
+import { ThemeMode, ThemeService } from '@app/core/services/ui/theme.service';
+import { UserSessionService } from '@app/core/services/ui/user-session.service';
 import { MenuItem } from '../models/menu-item.model';
 
 @Component({
@@ -16,7 +16,7 @@ import { MenuItem } from '../models/menu-item.model';
 })
 export class ShellComponent {
   private readonly menuService = inject(MenuService);
-  private readonly userService = inject(UserService);
+  private readonly userService = inject(UserSessionService);
   private readonly authService = inject(AuthService);
   private readonly themeService = inject(ThemeService);
 

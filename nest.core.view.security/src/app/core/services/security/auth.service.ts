@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable, tap } from 'rxjs';
-import { UserEntity } from '../entities/user.entity';
-import { AuthResponse } from '../auth/models/auth-response.model';
-import { LoginRequest } from '../auth/models/login-request.model';
+import { UserEntity } from '@app/core/entities/user.entity';
+import { AuthResponse } from '@app/core/auth/models/auth-response.model';
+import { LoginRequest } from '@app/core/auth/models/login-request.model';
 import { environment } from '@environment/environment';
 
 @Injectable({
