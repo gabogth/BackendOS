@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import CustomStore from 'devextreme/data/custom_store';
 import { DxDataGridModule } from 'devextreme-angular';
-import { LoadOptions, LoadResult } from 'devextreme/common/data';
+import { CustomStoreOptions, DataSource, DataSourceOptions, LoadOptions, LoadResult } from 'devextreme/common/data';
 
 import { SecurityRoleCreatePayload, SecurityRoleEntity } from '@app/core/entities/security-role.entity';
 import { SecurityRoleService } from '@app/core/services/roles/security-role.service';
@@ -11,6 +11,7 @@ import { NestUtils } from '@app/core/services/util/nestUtils';
 import { ɵInternalFormsSharedModule } from '@angular/forms';
 import { EmpresaEntity } from '@app/core/entities/empresa.entity';
 import { EmpresaService } from '@app/core/services/empresas/empresa.service';
+import { DxSelectBoxTypes } from 'devextreme-angular/ui/select-box';
 
 @Component({
   selector: 'app-roles-page',
@@ -24,22 +25,31 @@ export class RolesPageComponent {
   private readonly empresaService = inject(EmpresaService);
   private readonly userService = inject(UserSessionService);
   protected readonly empresaId = this.userService.empresaId;
-
+  
   protected readonly empresasDataSource = new CustomStore<EmpresaEntity, number>({
     key: 'id',
-    loadMode: 'raw',
-    load: async (options: LoadOptions): Promise<EmpresaEntity[]> => {
-      const result = await firstValueFrom(this.empresaService.getActivosByFilter(options));
-      const rawData = Array.isArray(result) ? result : (result as { data?: EmpresaEntity[] }).data;
-      return rawData ?? [];
+    useDefaultSearch: true,
+    load: async (options: LoadOptions): Promise<LoadResult<EmpresaEntity[]>> => {
+      try {
+        return await firstValueFrom(this.empresaService.getActivosByFilter(options));
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
+      }
     },
     byKey: async (key: number): Promise<EmpresaEntity> => {
       return await firstValueFrom(this.empresaService.getById(Number(key)));
     },
   });
 
+  protected readonly empresasDsWrapper: DataSourceOptions<EmpresaEntity, number> = {
+    store: this.empresasDataSource,
+    paginate: true,
+    pageSize: 10,
+  };
+
   protected readonly rolesDataSource = new CustomStore<SecurityRoleEntity, string>({
     key: 'id',
+    useDefaultSearch: true,
     load: async (options: LoadOptions): Promise<LoadResult<SecurityRoleEntity[]>> => {
       try {
         return await firstValueFrom(this.securityRoleService.getByFilter(options));

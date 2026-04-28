@@ -1,3 +1,4 @@
+import { LoadOptions } from "devextreme/data";
 import { firstValueFrom } from "rxjs";
 import Swal from "sweetalert2";
 
@@ -30,6 +31,12 @@ export class NestUtils {
             return `${error.message}`;
         }
         return 'Ha ocurrido un error desconocido.';
+    }
+
+    public static normalizeLookUpSearch(options: LoadOptions){
+        if(!options.filter && options.searchExpr && options.searchValue)
+            options.filter = [[options.searchExpr, options.searchOperation, options.searchValue]];
+        return options;
     }
 
     public static async showConfirmationDialog(options: any) {

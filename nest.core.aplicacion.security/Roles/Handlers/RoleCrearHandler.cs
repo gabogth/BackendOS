@@ -29,7 +29,7 @@ public class RoleCrearHandler : IRequestHandler<RoleCrearCommand, ApplicationRol
         {
             string lastValue = await context.Roles
                 .IgnoreQueryFilters()
-                .OrderByDescending(r => r.Id)
+                .OrderByDescending(r => Convert.ToInt64(r.Id))
                 .Select(r => r.Id)
                 .FirstOrDefaultAsync(cancellationToken) ?? "0";
 

@@ -20,28 +20,12 @@
       <dxo-paging [pageSize]="10"></dxo-paging>
       <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 50]" [showInfo]="true"></dxo-pager>
       <dxo-editing
-        mode="popup"
+        mode="form"
         [allowAdding]="true"
         [allowUpdating]="true"
         [allowDeleting]="true"
         [useIcons]="true"
       >
-        <dxo-popup title="Rol" [showTitle]="true"></dxo-popup>
-        <dxo-form [colCount]="2">
-          <dxi-item dataField="name" [isRequired]="true"></dxi-item>
-          <dxi-item
-            dataField="empresaId"
-            [isRequired]="true"
-            editorType="dxSelectBox"
-            [editorOptions]="{
-              dataSource: empresasDataSource,
-              valueExpr: 'id',
-              displayExpr: 'nombreCorto',
-              searchEnabled: true,
-              showClearButton: false
-            }"
-          ></dxi-item>
-        </dxo-form>
       </dxo-editing>
 
       <dxi-column dataField="id" caption="Id" [allowEditing]="false" [visible]="false"></dxi-column>
@@ -49,11 +33,12 @@
       <dxi-column
         dataField="empresaId"
         caption="Empresa"
-        dataType="number"
-        [visible]="true"
-        [allowEditing]="true"
-      >
-        <dxo-lookup [dataSource]="empresasDataSource" valueExpr="id" displayExpr="nombreCorto"></dxo-lookup>
+        dataType="number">
+        <dxo-lookup
+          [dataSource]="this.empresasDsWrapper" 
+          valueExpr="id"
+          displayExpr="nombre">
+        </dxo-lookup>
       </dxi-column>
       <dxi-column dataField="normalizedName" caption="Nombre Normalizado" [allowEditing]="false"></dxi-column>
       <dxi-column type="buttons">

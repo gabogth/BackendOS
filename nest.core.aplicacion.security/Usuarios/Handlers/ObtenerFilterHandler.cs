@@ -1,16 +1,10 @@
-using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.security.Usuarios.Queries;
 using nest.core.dominio.Security;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using nest.core.infrastructura.utils.DataLoader;
 
 namespace nest.core.aplicacion.security.Usuarios.Handlers
 {
@@ -29,7 +23,7 @@ namespace nest.core.aplicacion.security.Usuarios.Handlers
         {
             try
             {
-                return await DataSourceLoader.LoadAsync(userManager.Users, request.loadOptions);
+                return await DataSourceLoaderLw.LoadAsync(userManager.Users, request.loadOptions);
             }
             catch (Exception ex)
             {
