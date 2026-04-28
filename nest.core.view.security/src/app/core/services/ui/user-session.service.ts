@@ -7,4 +7,5 @@ import { AuthService } from '../security/auth.service';
 export class UserSessionService {
   private readonly authService = inject(AuthService);
   currentUser = this.authService.currentUser;
+  empresaId = this.authService.currentUser()!.empresaId;
 }

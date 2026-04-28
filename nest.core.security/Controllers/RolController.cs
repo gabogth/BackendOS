@@ -1,3 +1,5 @@
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using System.Collections.Generic;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +30,16 @@ public class RolController : Controller
     public async Task<ActionResult<List<ApplicationRole>>> ObtenerTodos(CancellationToken ct)
     {
         var data = await sender.Send(new ObtenerRolesQuery(), ct);
+        return Ok(data);
+    }
+
+    [HttpPost("filter")]
+    [ProducesResponseType(typeof(LoadResult), 200)]
+    [ProducesResponseType(typeof(ErrorMessage), 400)]
+    [ProducesResponseType(401)]
+    public async Task<ActionResult<LoadResult>> ObtenerFiltro([FromBody] DataSourceLoadOptionsBase loadOptions, CancellationToken ct)
+    {
+        var data = await sender.Send(new ObtenerRolesFilterQuery(loadOptions), ct);
         return Ok(data);
     }
 

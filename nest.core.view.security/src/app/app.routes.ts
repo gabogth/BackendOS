@@ -3,6 +3,7 @@ import { authGuard } from './core/auth/auth.guard';
 import { ShellComponent } from './layout/shell/shell.component';
 import { LoginPageComponent } from './features/auth/pages/login-page.component';
 import { MainPageComponent } from './features/main/pages/main-page.component';
+import { RolesPageComponent } from './features/roles/pages/roles-page.component';
 import { UsuariosPageComponent } from './features/usuarios/pages/usuarios-page.component';
 
 export const appRoutes: Routes = [
@@ -25,6 +26,11 @@ export const appRoutes: Routes = [
         path: 'usuarios',
         component: UsuariosPageComponent,
         title: 'Usuarios',
+      },
+      {
+        path: 'roles',
+        component: RolesPageComponent,
+        title: 'Roles',
       },
     ],
   },

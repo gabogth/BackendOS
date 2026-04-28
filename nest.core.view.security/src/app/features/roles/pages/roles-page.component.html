@@ -1,0 +1,46 @@
+<section class="card shadow-sm border-0">
+  <header class="card-header border-bottom">
+    <h5 class="mb-0">Mantenimiento de Roles</h5>
+  </header>
+
+  <div class="card-body">
+    <dx-data-grid
+      class="roles-grid"
+      [dataSource]="rolesDataSource"
+      [showBorders]="true"
+      [rowAlternationEnabled]="true"
+      [remoteOperations]="true"
+      [columnAutoWidth]="true"
+      [selection]="{ mode: 'single' }"
+      [showRowLines]="true"
+    >
+      <dxo-search-panel [visible]="true" [highlightCaseSensitive]="false"></dxo-search-panel>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-data-grid-header-filter [visible]="true"></dxo-data-grid-header-filter>
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 50]" [showInfo]="true"></dxo-pager>
+      <dxo-editing
+        mode="popup"
+        [allowAdding]="true"
+        [allowUpdating]="true"
+        [allowDeleting]="true"
+        [useIcons]="true"
+      >
+        <dxo-popup title="Rol" [showTitle]="true"></dxo-popup>
+        <dxo-form [colCount]="2">
+          <dxi-item dataField="name" [isRequired]="true"></dxi-item>
+          <dxi-item dataField="empresaId" [isRequired]="true"></dxi-item>
+        </dxo-form>
+      </dxo-editing>
+
+      <dxi-column dataField="id" caption="Id" [allowEditing]="false" [visible]="false"></dxi-column>
+      <dxi-column dataField="name" caption="Nombre" [validationRules]="[{ type: 'required' }]"></dxi-column>
+      <dxi-column dataField="empresaId" caption="Empresa" dataType="number" [visible]="true" [allowEditing]="true"></dxi-column>
+      <dxi-column dataField="normalizedName" caption="Nombre Normalizado" [allowEditing]="false"></dxi-column>
+      <dxi-column type="buttons">
+        <dxi-button name="edit"></dxi-button>
+        <dxi-button name="delete"></dxi-button>
+      </dxi-column>
+    </dx-data-grid>
+  </div>
+</section>
