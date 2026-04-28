@@ -1,5 +1,6 @@
-using System.Linq;
 using AutoMapper;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.Cache;
 using nest.core.dominio.Corporativo.Empresa;
@@ -21,6 +22,8 @@ namespace nest.core.infraestructura.corporativo
                 .OrderBy(x => x.Nombre);
         }
         public async Task<Empresa?> ObtenerPorId(int id) => await GetByIdAsync(id);
+        public async Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
+        public async Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query().Where(x => x.Estado), options, cancellationToken);
         public async Task<List<Empresa>> ObtenerTodos() => await GetAllAsync();
         public async Task<List<Empresa>> ObtenerActivos() => (await GetCachedListAsync()).Where(x => x.Estado).ToList();
         public async Task<Empresa> Agregar(Empresa entidad) => await AddAsync(entidad);

@@ -1,3 +1,5 @@
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -56,6 +58,30 @@ namespace nest.core.corporativo.Controllers
         public async Task<ActionResult<List<Empresa>>> ObtenerActivos(CancellationToken ct)
         {
             var entidades = await sender.Send(new ObtenerActivosQuery(), ct);
+            return Ok(entidades);
+        }
+
+        /// <summary>
+        /// Obtiene todas las empresas aplicando filtros y paginación según las opciones de carga proporcionadas.
+        /// </summary>
+        [HttpGet("filter")]
+        [ProducesResponseType(typeof(List<Empresa>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<LoadResult>> ObtenerFiltro([FromBody] DataSourceLoadOptionsBase loadOptions, CancellationToken ct)
+        {
+            var entidades = await sender.Send(new ObtenerFilterQuery(loadOptions), ct);
+            return Ok(entidades);
+        }
+
+        /// <summary>
+        /// Obtiene todas las empresas activas aplicando filtros y paginación según las opciones de carga proporcionadas.
+        /// </summary>
+        [HttpGet("filter_activos")]
+        [ProducesResponseType(typeof(List<Empresa>), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<LoadResult>> ObtenerFiltroActivos([FromBody] DataSourceLoadOptionsBase loadOptions, CancellationToken ct)
+        {
+            var entidades = await sender.Send(new ObtenerFilterActivosQuery(loadOptions), ct);
             return Ok(entidades);
         }
 
