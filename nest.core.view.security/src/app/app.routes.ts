@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
-
 import { authGuard } from './core/auth/auth.guard';
-import { ShellComponent } from './core/layout/shell/shell.component';
+import { ShellComponent } from './layout/shell/shell.component';
 import { LoginPageComponent } from './features/auth/pages/login-page.component';
 import { MainPageComponent } from './features/main/pages/main-page.component';
 import { UsuariosPageComponent } from './features/usuarios/pages/usuarios-page.component';

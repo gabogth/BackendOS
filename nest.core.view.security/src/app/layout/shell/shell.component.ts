@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
-import { AuthService } from '../../services/auth.service';
-import { MenuService } from '../../services/menu.service';
-import { ThemeMode, ThemeService } from '../../services/theme.service';
-import { UserService } from '../../services/user.service';
+import { AuthService } from '@app/core/services/auth.service';
+import { MenuService } from '@app/core/services/menu.service';
+import { ThemeMode, ThemeService } from '@app/core/services/theme.service';
+import { UserService } from '@app/core/services/user.service';
 import { MenuItem } from '../models/menu-item.model';
 
 @Component({

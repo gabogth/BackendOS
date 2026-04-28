@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, map, Observable, tap, throwError } from 'rxjs';
-
+import { map, Observable, tap } from 'rxjs';
 import { UserEntity } from '../entities/user.entity';
 import { AuthResponse } from '../auth/models/auth-response.model';
 import { LoginRequest } from '../auth/models/login-request.model';

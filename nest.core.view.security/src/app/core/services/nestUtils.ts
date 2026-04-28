@@ -1,5 +1,5 @@
 import { firstValueFrom } from "rxjs";
-import Swal, { SweetAlertOptions } from "sweetalert2";
+import Swal from "sweetalert2";
 
 export class NestUtils {
     public static formatValidationErrors(error: any): string {

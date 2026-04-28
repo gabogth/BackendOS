@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
-import { InputErrorComponent } from '@app/core/layout/inputError/inputError.component';
+import { InputErrorComponent } from '@app/shared/components/inputError/inputError.component';
 
 @Component({
   selector: 'app-login-page',
