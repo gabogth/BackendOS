@@ -8,7 +8,9 @@ import { SecurityRoleCreatePayload, SecurityRoleEntity } from '@app/core/entitie
 import { SecurityRoleService } from '@app/core/services/roles/security-role.service';
 import { UserSessionService } from '@app/core/services/ui/user-session.service';
 import { NestUtils } from '@app/core/services/util/nestUtils';
-import { ɵInternalFormsSharedModule } from "@angular/forms";
+import { ɵInternalFormsSharedModule } from '@angular/forms';
+import { EmpresaEntity } from '@app/core/entities/empresa.entity';
+import { EmpresaService } from '@app/core/services/empresas/empresa.service';
 
 @Component({
   selector: 'app-roles-page',
@@ -19,8 +21,22 @@ import { ɵInternalFormsSharedModule } from "@angular/forms";
 })
 export class RolesPageComponent {
   private readonly securityRoleService = inject(SecurityRoleService);
+  private readonly empresaService = inject(EmpresaService);
   private readonly userService = inject(UserSessionService);
   protected readonly empresaId = this.userService.empresaId;
+
+  protected readonly empresasDataSource = new CustomStore<EmpresaEntity, number>({
+    key: 'id',
+    loadMode: 'raw',
+    load: async (options: LoadOptions): Promise<EmpresaEntity[]> => {
+      const result = await firstValueFrom(this.empresaService.getActivosByFilter(options));
+      const rawData = Array.isArray(result) ? result : (result as { data?: EmpresaEntity[] }).data;
+      return rawData ?? [];
+    },
+    byKey: async (key: number): Promise<EmpresaEntity> => {
+      return await firstValueFrom(this.empresaService.getById(Number(key)));
+    },
+  });
 
   protected readonly rolesDataSource = new CustomStore<SecurityRoleEntity, string>({
     key: 'id',
@@ -35,7 +51,7 @@ export class RolesPageComponent {
       return firstValueFrom(this.securityRoleService.getById(key));
     },
     insert: async (values: Partial<SecurityRoleEntity>): Promise<SecurityRoleEntity> => {
-      values.empresaId = this.empresaId;
+      values.empresaId = values.empresaId ? Number(values.empresaId) : this.empresaId;
       try {
         return await firstValueFrom(this.securityRoleService.create(values as SecurityRoleCreatePayload));
       } catch (e: any) {
