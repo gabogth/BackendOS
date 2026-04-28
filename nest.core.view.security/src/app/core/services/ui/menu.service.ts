@@ -16,7 +16,7 @@ export class MenuService {
           },
           {
             label: 'Roles',
-            route: '/',
+            route: '/roles',
           },
         ],
       },
