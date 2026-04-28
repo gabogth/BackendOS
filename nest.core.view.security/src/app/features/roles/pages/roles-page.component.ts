@@ -4,19 +4,23 @@ import CustomStore from 'devextreme/data/custom_store';
 import { DxDataGridModule } from 'devextreme-angular';
 import { LoadOptions, LoadResult } from 'devextreme/common/data';
 
-import { SecurityRoleEntity } from '@app/core/entities/security-role.entity';
+import { SecurityRoleCreatePayload, SecurityRoleEntity } from '@app/core/entities/security-role.entity';
 import { SecurityRoleService } from '@app/core/services/roles/security-role.service';
+import { UserSessionService } from '@app/core/services/ui/user-session.service';
 import { NestUtils } from '@app/core/services/util/nestUtils';
+import { ɵInternalFormsSharedModule } from "@angular/forms";
 
 @Component({
   selector: 'app-roles-page',
-  imports: [DxDataGridModule],
+  imports: [DxDataGridModule, ɵInternalFormsSharedModule],
   templateUrl: './roles-page.component.html',
   styleUrl: './roles-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RolesPageComponent {
   private readonly securityRoleService = inject(SecurityRoleService);
+  private readonly userService = inject(UserSessionService);
+  protected readonly empresaId = this.userService.empresaId;
 
   protected readonly rolesDataSource = new CustomStore<SecurityRoleEntity, string>({
     key: 'id',
@@ -31,11 +35,9 @@ export class RolesPageComponent {
       return firstValueFrom(this.securityRoleService.getById(key));
     },
     insert: async (values: Partial<SecurityRoleEntity>): Promise<SecurityRoleEntity> => {
-      const name = values.name?.trim() ?? '';
-      const empresaId = Number(values.empresaId ?? 0);
-
+      values.empresaId = this.empresaId;
       try {
-        return await firstValueFrom(this.securityRoleService.create({ empresaId, name }));
+        return await firstValueFrom(this.securityRoleService.create(values as SecurityRoleCreatePayload));
       } catch (e: any) {
         throw NestUtils.formatValidationErrors(e);
       }
