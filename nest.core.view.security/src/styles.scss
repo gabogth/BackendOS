@@ -45,3 +45,26 @@ body {
 .swal-on-top {
   z-index: 20000 !important;
 }
+
+dx-license, .dx-license {
+  display: none !important;
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: #2a2a2a;
+  --bs-body-color: #e0e0e0;
+  --bs-secondary-bg: #1e1e1e;
+  --bs-tertiary-bg: #2a2a2a;
+  --bs-border-color: #333;
+  --bs-primary: #9b59b6;
+  --bs-navbar-bg: #1e1e1e;
+  --bs-navbar-color: #d1d1d1;
+  --bs-navbar-hover-color: #ffffff;
+  --bs-navbar-active-color: #bb86fc;
+  --bs-navbar-brand-color: #ffffff;
+  --bs-navbar-brand-hover-color: #ffffff;
+  --bs-navbar-toggler-border-color: #444;
+  --bs-nav-link-color: #d1d1d1;
+  --bs-nav-link-hover-color: #ffffff;
+  --bs-nav-link-disabled-color: #777;
+}

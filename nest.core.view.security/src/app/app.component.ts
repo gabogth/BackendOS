@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { ThemeService } from './core/services/theme.service';
@@ -10,10 +10,11 @@ import { ThemeService } from './core/services/theme.service';
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private readonly themeService = inject(ThemeService);
+  constructor() {}
 
-  constructor() {
-    this.themeService.initialize();
+  async ngOnInit(): Promise<void> {
+    await this.themeService.initialize();
   }
 }
