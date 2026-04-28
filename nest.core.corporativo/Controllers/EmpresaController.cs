@@ -64,7 +64,7 @@ namespace nest.core.corporativo.Controllers
         /// <summary>
         /// Obtiene todas las empresas aplicando filtros y paginación según las opciones de carga proporcionadas.
         /// </summary>
-        [HttpGet("filter")]
+        [HttpPost("filter")]
         [ProducesResponseType(typeof(List<Empresa>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<LoadResult>> ObtenerFiltro([FromBody] DataSourceLoadOptionsBase loadOptions, CancellationToken ct)
@@ -76,7 +76,7 @@ namespace nest.core.corporativo.Controllers
         /// <summary>
         /// Obtiene todas las empresas activas aplicando filtros y paginación según las opciones de carga proporcionadas.
         /// </summary>
-        [HttpGet("filter_activos")]
+        [HttpPost("filter_activos")]
         [ProducesResponseType(typeof(List<Empresa>), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<LoadResult>> ObtenerFiltroActivos([FromBody] DataSourceLoadOptionsBase loadOptions, CancellationToken ct)

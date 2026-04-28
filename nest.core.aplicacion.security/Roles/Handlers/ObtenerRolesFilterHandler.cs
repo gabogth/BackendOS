@@ -1,10 +1,10 @@
-using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.security.Roles.Queries;
 using nest.core.dominio.Security;
+using nest.core.infrastructura.utils.DataLoader;
 
 namespace nest.core.aplicacion.security.Roles.Handlers;
 
@@ -23,7 +23,7 @@ public class ObtenerRolesFilterHandler : IRequestHandler<ObtenerRolesFilterQuery
     {
         try
         {
-            return await DataSourceLoader.LoadAsync(roleManager.Roles, request.LoadOptions, cancellationToken);
+            return await DataSourceLoaderLw.LoadAsync(roleManager.Roles, request.LoadOptions, cancellationToken);
         }
         catch (Exception ex)
         {
