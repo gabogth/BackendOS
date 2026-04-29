@@ -50,6 +50,18 @@ dx-license, .dx-license {
   display: none !important;
 }
 
+.dropdown-compact {
+  min-width: auto;
+  width: auto;
+  padding: 0.25rem;
+}
+
+.dropdown-compact .dropdown-item {
+  width: auto;
+  padding: 0.25rem 0.5rem;
+  text-align: center;
+}
+
 [data-bs-theme="dark"] {
   --bs-body-bg: #2a2a2a;
   --bs-body-color: #e0e0e0;

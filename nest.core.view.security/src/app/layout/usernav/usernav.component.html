@@ -1,19 +1,19 @@
 <ul class="navbar-nav">
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Tema: {{ currentTheme() === 'dark' ? 'Oscuro' : 'Claro' }}
+            <i class="fa fa-solid fa-{{ currentTheme() === 'dark' ? 'moon' : 'sun' }} me-2" aria-hidden="true"></i>
         </a>
-        <ul class="dropdown-menu dropdown-menu-end">
-        <li>
-            <button class="dropdown-item" type="button" [class.active]="currentTheme() === 'light'" (click)="changeTheme('light')">
-            Claro
-            </button>
-        </li>
-        <li>
-            <button class="dropdown-item" type="button" [class.active]="currentTheme() === 'dark'" (click)="changeTheme('dark')">
-            Oscuro
-            </button>
-        </li>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-compact">
+            <li>
+                <button class="dropdown-item" type="button" [class.active]="currentTheme() === 'light'" (click)="changeTheme('light')">
+                <i class="fa fa-solid fa-sun me-2" aria-hidden="true"></i>
+                </button>
+            </li>
+            <li>
+                <button class="dropdown-item" type="button" [class.active]="currentTheme() === 'dark'" (click)="changeTheme('dark')">
+                <i class="fa fa-solid fa-moon me-2" aria-hidden="true"></i>
+                </button>
+            </li>
         </ul>
     </li>
 
