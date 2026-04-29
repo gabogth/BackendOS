@@ -1,0 +1,41 @@
+<section class="card shadow-sm border-0">
+  <header class="card-header border-bottom d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Asignación Role - Claim</h5>
+    <dx-button text="Guardar claims" type="success" icon="save" (onClick)="saveClaims()"></dx-button>
+  </header>
+
+  <div class="card-body role-claim-layout">
+    <div class="roles-panel">
+      <h6>Roles</h6>
+      <dx-data-grid
+        [dataSource]="rolesDataSource"
+        [showBorders]="true"
+        [rowAlternationEnabled]="true"
+        [remoteOperations]="true"
+        [columnAutoWidth]="true"
+        [selection]="{ mode: 'single' }"
+        [showRowLines]="true"
+        (onSelectionChanged)="onRoleSelectionChanged($event)">
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxi-column dataField="id" caption="Id" [visible]="false"></dxi-column>
+        <dxi-column dataField="name" caption="Nombre"></dxi-column>
+      </dx-data-grid>
+    </div>
+
+    <div class="claims-panel">
+      <h6>Formularios (Claims)</h6>
+      <dx-tree-view
+        [items]="treeItems()"
+        dataStructure="plain"
+        keyExpr="id"
+        parentIdExpr="parentId"
+        displayExpr="nombre"
+        selectionMode="multiple"
+        showCheckBoxesMode="normal"
+        selectNodesRecursive="true">
+      </dx-tree-view>
+    </div>
+  </div>
+</section>

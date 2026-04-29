@@ -26,6 +26,11 @@ export class MenuService {
             icon: 'fa-solid fa-file-lines',
             route: '/formularios',
           },
+          {
+            label: 'Role Claim',
+            icon: 'fa-solid fa-diagram-project',
+            route: '/role-claim',
+          },
         ],
       },
       {

@@ -18,6 +18,10 @@ export class FormularioService {
     return this.httpClient.get<FormularioEntity>(`${this.endpoint}/${id}`);
   }
 
+  getByRoleId(roleId: string): Observable<FormularioEntity[]> {
+    return this.httpClient.get<FormularioEntity[]>(`${this.endpoint}/rol/${roleId}`);
+  }
+
   create(payload: FormularioCreatePayload): Observable<FormularioEntity> {
     return this.httpClient.post<FormularioEntity>(this.endpoint, payload);
   }

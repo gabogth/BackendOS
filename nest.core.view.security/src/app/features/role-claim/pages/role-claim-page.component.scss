@@ -1,0 +1,10 @@
+.role-claim-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.roles-panel,
+.claims-panel {
+  min-width: 0;
+}
