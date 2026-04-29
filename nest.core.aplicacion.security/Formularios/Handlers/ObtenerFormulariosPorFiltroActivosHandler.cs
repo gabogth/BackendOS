@@ -7,12 +7,12 @@ using nest.core.dominio.Aplicacion.Formulario;
 
 namespace nest.core.aplicacion.security.Formularios.Handlers;
 
-public class ObtenerFormulariosPorFiltroHandler : IRequestHandler<ObtenerFormulariosPorFiltroQuery, LoadResult>
+public class ObtenerFormulariosPorFiltroActivosHandler : IRequestHandler<ObtenerFormulariosPorFiltroQuery, LoadResult>
 {
     private readonly IFormularioRepository repository;
-    private readonly ILogger<ObtenerFormulariosPorFiltroHandler> logger;
+    private readonly ILogger<ObtenerFormulariosPorFiltroActivosHandler> logger;
 
-    public ObtenerFormulariosPorFiltroHandler(IFormularioRepository repository, ILogger<ObtenerFormulariosPorFiltroHandler> logger)
+    public ObtenerFormulariosPorFiltroActivosHandler(IFormularioRepository repository, ILogger<ObtenerFormulariosPorFiltroActivosHandler> logger)
     {
         this.repository = repository;
         this.logger = logger;
@@ -22,7 +22,7 @@ public class ObtenerFormulariosPorFiltroHandler : IRequestHandler<ObtenerFormula
     {
         try
         {
-            return await repository.ObtenerFilter(request.options, cancellationToken);
+            return await repository.ObtenerFilterActivos(request.options, cancellationToken);
         }
         catch (Exception ex)
         {

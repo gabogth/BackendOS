@@ -4,6 +4,6 @@ using MediatR;
 
 namespace nest.core.aplicacion.security.Formularios.Queries;
 
-public record ObtenerFormulariosPorFiltroQuery(
+public record ObtenerFormulariosPorFiltroActivosQuery(
     DataSourceLoadOptionsBase options) 
     : IRequest<LoadResult>;

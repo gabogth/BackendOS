@@ -1,12 +1,15 @@
-using System.Linq;
 using AutoMapper;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using nest.core.dominio.Aplicacion.Formulario;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 using nest.core.infraestructura.db.DbContext;
+using nest.core.infrastructura.utils.DataLoader;
 using nest.core.infrastructura.utils.Excepciones;
+using System.Linq;
 
 namespace nest.core.infraestructura.security.Aplicacion
 {
@@ -26,6 +29,9 @@ namespace nest.core.infraestructura.security.Aplicacion
                 .ToListAsync();
 
         public async Task<List<Formulario>> ObtenerTodos() => await GetAllAsync();
+
+        public async Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoaderLw.LoadAsync(Query(), options, cancellationToken);
+        public async Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoaderLw.LoadAsync(Query().Where(x => x.Estado), options, cancellationToken);
 
         public async Task<List<Formulario>> ObtenerPorUnaPropiedad(Dictionary<string, object?> filtros)
         {
