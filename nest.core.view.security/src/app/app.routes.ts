@@ -5,6 +5,7 @@ import { LoginPageComponent } from './features/auth/pages/login-page.component';
 import { MainPageComponent } from './features/main/pages/main-page.component';
 import { RolesPageComponent } from './features/roles/pages/roles-page.component';
 import { UsuariosPageComponent } from './features/usuarios/pages/usuarios-page.component';
+import { FormulariosPageComponent } from './features/formularios/pages/formularios-page.component';
 
 export const appRoutes: Routes = [
   {
@@ -31,6 +32,11 @@ export const appRoutes: Routes = [
         path: 'roles',
         component: RolesPageComponent,
         title: 'Roles',
+      },
+      {
+        path: 'formularios',
+        component: FormulariosPageComponent,
+        title: 'Formularios',
       },
     ],
   },

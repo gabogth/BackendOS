@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -42,12 +44,22 @@ public class ModuloController : Controller
     }
 
     [HttpPost("filter")]
-    [ProducesResponseType(typeof(List<Modulo>), 200)]
+    [ProducesResponseType(typeof(LoadResult), 200)]
     [ProducesResponseType(typeof(ErrorMessage), 400)]
     [ProducesResponseType(401)]
-    public async Task<ActionResult<List<Modulo>>> ObtenerPorUnaPropiedad([FromBody] Dictionary<string, object?> filtros, CancellationToken ct)
+    public async Task<ActionResult<LoadResult>> ObtenerPorFiltro([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
     {
-        var data = await sender.Send(new ObtenerModulosPorFiltroQuery(filtros), ct);
+        var data = await sender.Send(new ObtenerModulosPorFiltroDataSourceQuery(options), ct);
+        return Ok(data);
+    }
+
+    [HttpPost("filter_activos")]
+    [ProducesResponseType(typeof(LoadResult), 200)]
+    [ProducesResponseType(typeof(ErrorMessage), 400)]
+    [ProducesResponseType(401)]
+    public async Task<ActionResult<LoadResult>> ObtenerPorFiltroActivos([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+    {
+        var data = await sender.Send(new ObtenerModulosPorFiltroActivosQuery(options), ct);
         return Ok(data);
     }
 

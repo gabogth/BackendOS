@@ -1,0 +1,36 @@
+<section class="card shadow-sm border-0">
+  <header class="card-header border-bottom">
+    <h5 class="mb-0">Mantenimiento de Formularios</h5>
+  </header>
+
+  <div class="card-body">
+    <dx-tree-list
+      [dataSource]="formulariosDataSource"
+      keyExpr="id"
+      parentIdExpr="parentId"
+      [showBorders]="true"
+      [columnAutoWidth]="true"
+      [showRowLines]="true"
+      [rowAlternationEnabled]="true"
+      remoteOperations="auto"
+      [expandedRowKeys]="[0]">
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-editing mode="form" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true" [useIcons]="true"></dxo-editing>
+
+      <dxi-column dataField="id" [visible]="false" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="nombre" caption="Nombre" [validationRules]="[{ type: 'required' }]"></dxi-column>
+      <dxi-column dataField="nombreCorto" caption="Nombre Corto" [validationRules]="[{ type: 'required' }]"></dxi-column>
+      <dxi-column dataField="moduloId" caption="Módulo" dataType="number">
+        <dxo-lookup [dataSource]="modulosDataSource" valueExpr="id" displayExpr="nombre"></dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="parentId" caption="Padre" dataType="number"></dxi-column>
+      <dxi-column dataField="controlador" caption="Controlador"></dxi-column>
+      <dxi-column dataField="action" caption="Action"></dxi-column>
+      <dxi-column dataField="claimType" caption="Claim"></dxi-column>
+      <dxi-column dataField="orden" caption="Orden" dataType="number"></dxi-column>
+      <dxi-column dataField="estado" caption="Activo" dataType="boolean"></dxi-column>
+    </dx-tree-list>
+  </div>
+</section>
