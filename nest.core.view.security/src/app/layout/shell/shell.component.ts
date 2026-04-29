@@ -1,38 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
-
-import { AuthService } from '@app/core/services/security/auth.service';
-import { MenuService } from '@app/core/services/ui/menu.service';
-import { ThemeMode, ThemeService } from '@app/core/services/ui/theme.service';
-import { UserSessionService } from '@app/core/services/ui/user-session.service';
-import { MenuItem } from '../models/menu-item.model';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NavComponent } from '../nav/nav.component';
+import { UsernavComponent } from '../usernav/usernav.component';
 
 @Component({
   selector: 'app-shell',
-  imports: [RouterLink, RouterOutlet],
+  imports: [RouterLink, NavComponent, UsernavComponent],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShellComponent {
-  private readonly menuService = inject(MenuService);
-  private readonly userService = inject(UserSessionService);
-  private readonly authService = inject(AuthService);
-  private readonly themeService = inject(ThemeService);
-
-  protected readonly menuItems = this.menuService.getMenu();
-  protected readonly currentUser = this.userService.currentUser;
-  protected readonly currentTheme = this.themeService.currentTheme;
-
-  protected trackByLabel(_index: number, item: MenuItem): string {
-    return item.label;
-  }
-
-  protected changeTheme(mode: ThemeMode): void {
-    this.themeService.setTheme(mode);
-  }
-
-  protected logout(): void {
-    this.authService.logout();
-  }
+  
 }

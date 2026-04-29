@@ -1,5 +1,7 @@
 using System.Linq;
 using AutoMapper;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.Aplicacion.Modulo;
 using nest.core.dominio.Aplicacion.Modulo.Repository;
@@ -20,6 +22,8 @@ namespace nest.core.infraestructura.security.Aplicacion
             await GetByIdAsync(id) ?? throw new RegistroNoEncontradoException<Modulo>(id.ToString());
 
         public async Task<List<Modulo>> ObtenerTodos() => await GetAllAsync();
+        public async Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
+        public async Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query().Where(x => x.Estado), options, cancellationToken);
 
         public async Task<List<Modulo>> ObtenerPorUnaPropiedad(Dictionary<string, object?> filtros)
         {

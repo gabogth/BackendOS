@@ -1,0 +1,32 @@
+<ul class="navbar-nav">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Tema: {{ currentTheme() === 'dark' ? 'Oscuro' : 'Claro' }}
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <button class="dropdown-item" type="button" [class.active]="currentTheme() === 'light'" (click)="changeTheme('light')">
+            Claro
+            </button>
+        </li>
+        <li>
+            <button class="dropdown-item" type="button" [class.active]="currentTheme() === 'dark'" (click)="changeTheme('dark')">
+            Oscuro
+            </button>
+        </li>
+        </ul>
+    </li>
+
+    @if (currentUser(); as user) {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ user.userName }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><span class="dropdown-item-text text-muted small">{{ user.userName }}</span></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><button class="dropdown-item text-danger" type="button" (click)="logout()">Cerrar sesión</button></li>
+            </ul>
+        </li>
+    }
+</ul>

@@ -1,0 +1,43 @@
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    @for (menu of menuItems; track trackByLabel($index, menu)) {
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ menu.label }}
+        </a>
+        @if (menu.children?.length) {
+        <ul class="dropdown-menu">
+            @for (child of menu.children; track trackByLabel($index, child)) {
+            <li [class.dropdown-submenu]="child.children?.length">
+                @if (child.children?.length) {
+                <a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    {{ child.label }}
+                </a>
+                <ul class="dropdown-menu">
+                    @for (level3 of child.children; track trackByLabel($index, level3)) {
+                    <li [class.dropdown-submenu]="level3.children?.length">
+                        @if (level3.children?.length) {
+                        <a class="dropdown-item dropdown-toggle" href="#">{{ level3.label }}</a>
+                        <ul class="dropdown-menu">
+                            @for (level4 of level3.children; track trackByLabel($index, level4)) {
+                            <li>
+                                <a class="dropdown-item" [routerLink]="level4.route ?? '/'">{{ level4.label }}</a>
+                            </li>
+                            }
+                        </ul>
+                        } @else {
+                        <a class="dropdown-item" [routerLink]="level3.route ?? '/'">{{ level3.label }}</a>
+                        }
+                    </li>
+                    }
+                </ul>
+                } @else {
+                <a class="dropdown-item" [routerLink]="child.route ?? '/'">{{ child.label }}</a>
+                }
+            </li>
+            }
+        </ul>
+        }
+    </li>
+    }
+</ul>

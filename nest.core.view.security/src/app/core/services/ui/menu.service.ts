@@ -18,6 +18,10 @@ export class MenuService {
             label: 'Roles',
             route: '/roles',
           },
+          {
+            label: 'Formularios',
+            route: '/formularios',
+          },
         ],
       },
       {
