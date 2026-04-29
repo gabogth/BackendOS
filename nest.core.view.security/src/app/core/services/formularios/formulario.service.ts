@@ -8,7 +8,7 @@ import { FormularioCreatePayload, FormularioEntity, FormularioUpdatePayload } fr
 @Injectable({ providedIn: 'root' })
 export class FormularioService {
   private readonly httpClient = inject(HttpClient);
-  private readonly endpoint = `${environment.apiBaseUrl}/Formulario`;
+  private readonly endpoint = `${environment.apiBaseUrl}/security/Formulario`;
 
   getByFilter(loadOptions: LoadOptions): Observable<LoadResult<FormularioEntity[]>> {
     return this.httpClient.post<LoadResult<FormularioEntity[]>>(`${this.endpoint}/filter`, loadOptions);

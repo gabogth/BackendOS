@@ -8,7 +8,7 @@ import { ModuloEntity } from '@app/core/entities/modulo.entity';
 @Injectable({ providedIn: 'root' })
 export class ModuloService {
   private readonly httpClient = inject(HttpClient);
-  private readonly endpoint = `${environment.apiBaseUrl}/Modulo`;
+  private readonly endpoint = `${environment.apiBaseUrl}/security/Modulo`;
 
   getByFilter(loadOptions: LoadOptions): Observable<LoadResult<ModuloEntity[]>> {
     return this.httpClient.post<LoadResult<ModuloEntity[]>>(`${this.endpoint}/filter`, loadOptions);

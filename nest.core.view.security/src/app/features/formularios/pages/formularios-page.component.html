@@ -13,6 +13,7 @@
       [showRowLines]="true"
       [rowAlternationEnabled]="true"
       remoteOperations="auto"
+      [selection]="{mode: 'single'}"
       [expandedRowKeys]="[0]">
       <dxo-search-panel [visible]="true"></dxo-search-panel>
       <dxo-filter-row [visible]="true"></dxo-filter-row>
@@ -25,7 +26,7 @@
       <dxi-column dataField="moduloId" caption="Módulo" dataType="number">
         <dxo-lookup [dataSource]="modulosDataSource" valueExpr="id" displayExpr="nombre"></dxo-lookup>
       </dxi-column>
-      <dxi-column dataField="parentId" caption="Padre" dataType="number"></dxi-column>
+      <dxi-column dataField="parentId" caption="Padre" dataType="number" [allowEditing]="false" [visible]="false"></dxi-column>
       <dxi-column dataField="controlador" caption="Controlador"></dxi-column>
       <dxi-column dataField="action" caption="Action"></dxi-column>
       <dxi-column dataField="claimType" caption="Claim"></dxi-column>

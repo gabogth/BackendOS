@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/auth.guard';
-import { ShellComponent } from './layout/shell/shell.component';
 import { LoginPageComponent } from './features/auth/pages/login-page.component';
 import { MainPageComponent } from './features/main/pages/main-page.component';
 import { RolesPageComponent } from './features/roles/pages/roles-page.component';
 import { UsuariosPageComponent } from './features/usuarios/pages/usuarios-page.component';
 import { FormulariosPageComponent } from './features/formularios/pages/formularios-page.component';
+import { MasterComponent } from './layout/master/master.component';
 
 export const appRoutes: Routes = [
   {
@@ -15,7 +15,7 @@ export const appRoutes: Routes = [
   },
   {
     path: '',
-    component: ShellComponent,
+    component: MasterComponent,
     canActivate: [authGuard],
     children: [
       {
