@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/auth.guard';
 import { LoginPageComponent } from './features/auth/pages/login-page.component';
-import { AccessDeniedPageComponent } from './features/auth/pages/access-denied-page.component';
+import { AccessDeniedPageComponent } from './features/access-denied/access-denied-page.component';
 import { MainPageComponent } from './features/main/pages/main-page.component';
 import { RolesPageComponent } from './features/roles/pages/roles-page.component';
 import { UsuariosPageComponent } from './features/usuarios/pages/usuarios-page.component';
