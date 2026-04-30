@@ -26,9 +26,11 @@
       <dxi-column dataField="moduloId" caption="Módulo" dataType="number">
         <dxo-lookup [dataSource]="modulosDataSource" valueExpr="id" displayExpr="nombre"></dxo-lookup>
       </dxi-column>
+      <dxi-column dataField="descripcion" caption="Descripción"></dxi-column>
       <dxi-column dataField="parentId" caption="Padre" dataType="number" [allowEditing]="false" [visible]="false"></dxi-column>
       <dxi-column dataField="controlador" caption="Controlador"></dxi-column>
       <dxi-column dataField="action" caption="Action"></dxi-column>
+      <dxi-column dataField="icono" caption="Ícono"></dxi-column>
       <dxi-column dataField="claimType" caption="Claim"></dxi-column>
       <dxi-column dataField="orden" caption="Orden" dataType="number"></dxi-column>
       <dxi-column dataField="estado" caption="Activo" dataType="boolean"></dxi-column>
