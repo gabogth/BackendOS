@@ -6,6 +6,7 @@ import { RolesPageComponent } from './features/roles/pages/roles-page.component'
 import { UsuariosPageComponent } from './features/usuarios/pages/usuarios-page.component';
 import { FormulariosPageComponent } from './features/formularios/pages/formularios-page.component';
 import { MasterComponent } from './layout/master/master.component';
+import { RoleClaimPageComponent } from './features/role-claim/pages/role-claim-page.component';
 
 export const appRoutes: Routes = [
   {
@@ -37,6 +38,11 @@ export const appRoutes: Routes = [
         path: 'formularios',
         component: FormulariosPageComponent,
         title: 'Formularios',
+      },
+      {
+        path: 'role-claim',
+        component: RoleClaimPageComponent,
+        title: 'Role Claim',
       },
     ],
   },

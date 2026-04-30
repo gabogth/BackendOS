@@ -10,6 +10,7 @@ using nest.core.dominio.Aplicacion.Formulario;
 using nest.core.dominio.Aplicacion.Modulo.Repository;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.Security.Auth;
+using nest.core.dominio.Security.Repositorios;
 using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Security.UsuarioEmpresa;
 using nest.core.dominio.Transaccional;
@@ -45,6 +46,7 @@ namespace nest.core.aplicacion.security
             services.AddTransient<IFormularioRepository, FormularioRepository>();
             services.AddTransient<IUsuarioEmpresaRepository, UsuarioEmpresaRepository>();
             services.AddTransient<IPersonalRepository, PersonalRepository>();
+            services.AddTransient<IIdentityRoleClaimRepository, IdentityRoleClaimRepository>();
             return services;
         }
         private static void ConfigureValidation(this IServiceCollection services, IConfigurationManager configuration)

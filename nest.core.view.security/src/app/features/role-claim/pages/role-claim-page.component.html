@@ -1,0 +1,58 @@
+<section class="card shadow-sm border-0">
+  <header class="card-header border-bottom d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Asignación Role - Claim</h5>
+  </header>
+
+  <div class="card-body role-claim-layout">
+    <div class="row">
+      <div class="col-lg-4">
+        <h6>Roles</h6>
+        <dx-data-grid
+          [dataSource]="rolesDataSource"
+          [showBorders]="true"
+          [rowAlternationEnabled]="true"
+          [remoteOperations]="true"
+          [columnAutoWidth]="true"
+          [selection]="{ mode: 'single' }"
+          [showRowLines]="true"
+          (onSelectionChanged)="onRoleSelectionChanged($event)">
+          <dxo-search-panel [visible]="true"></dxo-search-panel>
+          <dxo-filter-row [visible]="true"></dxo-filter-row>
+          <dxo-paging [pageSize]="10"></dxo-paging>
+          <dxi-column dataField="id" caption="Id"></dxi-column>
+          <dxi-column dataField="name" caption="Nombre"></dxi-column>
+        </dx-data-grid>
+        <div class="text-end">
+          <dx-button text="Guardar claims" type="success" icon="save" (onClick)="saveClaims()"></dx-button>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <h6>Formularios</h6>
+        <dx-tree-list
+          [dataSource]="this.formularios()"
+          keyExpr="id"
+          parentIdExpr="parentId"
+          [showBorders]="true"
+          [columnAutoWidth]="true"
+          [showRowLines]="true"
+          [rowAlternationEnabled]="true"
+          remoteOperations="auto"
+          [selection]="{mode: 'multiple', recursive: true}"
+          [selectedRowKeys]="this.selectedIds()"
+          (onSelectionChanged)="this.onFormsSelectionChanged($event)"
+          [autoExpandAll]="true"
+          >
+          <dxo-search-panel [visible]="true"></dxo-search-panel>
+          <dxo-filter-row [visible]="true"></dxo-filter-row>
+          <dxo-header-filter [visible]="true"></dxo-header-filter>
+          <dxi-column dataField="id" [visible]="false" [allowEditing]="false"></dxi-column>
+          <dxi-column dataField="nombre" caption="Nombre" [validationRules]="[{ type: 'required' }]"></dxi-column>
+          <dxi-column dataField="moduloId" caption="Módulo" dataType="number">
+            <dxo-lookup [dataSource]="modulosDataSource" valueExpr="id" displayExpr="nombre"></dxo-lookup>
+          </dxi-column>
+          <dxi-column dataField="estado" caption="Activo" dataType="boolean"></dxi-column>
+        </dx-tree-list>
+      </div>
+    </div>
+  </div>
+</section>
