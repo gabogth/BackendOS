@@ -28,31 +28,37 @@ export const appRoutes: Routes = [
         canActivate: [claimGuard('aplicacion-home')]
       },
       {
-        path: 'usuarios',
+        path: 'Index',
+        component: MainPageComponent,
+        title: 'Index',
+        canActivate: [claimGuard('aplicacion-home')]
+      },
+      {
+        path: 'mantenimiento/usuario',
         component: UsuariosPageComponent,
         title: 'Usuarios',
         canActivate: [claimGuard('seguridad-usuario')]
       },
       {
-        path: 'roles',
+        path: 'seguridad/rol',
         component: RolesPageComponent,
         title: 'Roles',
         canActivate: [claimGuard('seguridad-rol')]
       },
       {
-        path: 'formularios',
+        path: 'seguridad/menu',
         component: FormulariosPageComponent,
         title: 'Formularios',
         canActivate: [claimGuard('seguridad-menu')]
       },
       {
-        path: 'role-claim',
+        path: 'seguridad/rolMenu',
         component: RoleClaimPageComponent,
         title: 'Role Claim',
         canActivate: [claimGuard('seguridad-rolMenu')]
       },
       {
-        path: 'role-user',
+        path: 'seguridad/rolUsuario',
         component: RoleUserPageComponent,
         title: 'Role Usuario',
         canActivate: [claimGuard('seguridad-rolUsuario')]

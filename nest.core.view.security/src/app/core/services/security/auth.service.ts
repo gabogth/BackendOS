@@ -34,11 +34,19 @@ export class AuthService {
 
   logout(): void {
     this.setAccessToken(null);
+    this.cleanVariables();
     void this.router.navigate(['/login']);
   }
 
   getToken(): string | null {
     return this.accessToken();
+  }
+
+  private cleanVariables(){
+    localStorage.removeItem(environment.accessTokenDataKey);
+    localStorage.removeItem(environment.accessTokenEmpresaIdKey);
+    localStorage.removeItem(environment.accessTokenUserIdKey);
+    localStorage.removeItem(environment.menuKey);
   }
 
   private setAccessToken(token: string | null): void {

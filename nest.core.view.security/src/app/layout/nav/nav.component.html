@@ -1,68 +1,79 @@
 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-  @for (menu of menuItems; track trackByLabel($index, menu)) {
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        @if (menu.icon) {
-          <i [class]="menu.icon + ' me-2'" aria-hidden="true"></i>
-        }
-        {{ menu.label }}
-      </a>
-      @if (menu.children?.length) {
-        <ul class="dropdown-menu">
-          @for (child of menu.children; track trackByLabel($index, child)) {
-            <li [class.dropdown-submenu]="child.children?.length">
-              @if (child.children?.length) {
-                <a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  @if (child.icon) {
-                    <i [class]="child.icon + ' me-2'" aria-hidden="true"></i>
-                  }
-                  {{ child.label }}
-                </a>
-                <ul class="dropdown-menu">
-                  @for (level3 of child.children; track trackByLabel($index, level3)) {
-                    <li [class.dropdown-submenu]="level3.children?.length">
-                      @if (level3.children?.length) {
-                        <a class="dropdown-item dropdown-toggle" href="#">
-                          @if (level3.icon) {
-                            <i [class]="level3.icon + ' me-2'" aria-hidden="true"></i>
-                          }
-                          {{ level3.label }}
-                        </a>
-                        <ul class="dropdown-menu">
-                          @for (level4 of level3.children; track trackByLabel($index, level4)) {
-                            <li>
-                              <a class="dropdown-item" [routerLink]="level4.route ?? '/'">
-                                @if (level4.icon) {
-                                  <i [class]="level4.icon + ' me-2'" aria-hidden="true"></i>
-                                }
-                                {{ level4.label }}
-                              </a>
-                            </li>
-                          }
-                        </ul>
-                      } @else {
-                        <a class="dropdown-item" [routerLink]="level3.route ?? '/'">
-                          @if (level3.icon) {
-                            <i [class]="level3.icon + ' me-2'" aria-hidden="true"></i>
-                          }
-                          {{ level3.label }}
-                        </a>
-                      }
-                    </li>
-                  }
-                </ul>
-              } @else {
-                <a class="dropdown-item" [routerLink]="child.route ?? '/'">
-                  @if (child.icon) {
-                    <i [class]="child.icon + ' me-2'" aria-hidden="true"></i>
-                  }
-                  {{ child.label }}
-                </a>
-              }
-            </li>
+  @for (menu of menuItems(); track trackByLabel($index, menu)) {
+    @if (menu.children?.length) {
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          @if (menu.icon) {
+            <i [class]="this.getIcon(menu.icon)" aria-hidden="true"></i>
           }
-        </ul>
-      }
-    </li>
+          {{ menu.label }}
+        </a>
+        @if (menu.children?.length) {
+          <ul class="dropdown-menu">
+            @for (child of menu.children; track trackByLabel($index, child)) {
+              <li [class.dropdown-submenu]="child.children?.length">
+                @if (child.children?.length) {
+                  <a class="dropdown-item dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    @if (child.icon) {
+                      <i [class]="this.getIcon(child.icon)" aria-hidden="true"></i>
+                    }
+                    {{ child.label }}
+                  </a>
+                  <ul class="dropdown-menu">
+                    @for (level3 of child.children; track trackByLabel($index, level3)) {
+                      <li [class.dropdown-submenu]="level3.children?.length">
+                        @if (level3.children?.length) {
+                          <a class="dropdown-item dropdown-toggle" href="#">
+                            @if (level3.icon) {
+                              <i [class]="this.getIcon(level3.icon)" aria-hidden="true"></i>
+                            }
+                            {{ level3.label }}
+                          </a>
+                          <ul class="dropdown-menu">
+                            @for (level4 of level3.children; track trackByLabel($index, level4)) {
+                              <li>
+                                <a class="dropdown-item" [routerLink]="level4.route ?? '/'">
+                                  @if (level4.icon) {
+                                    <i [class]="this.getIcon(level4.icon)" aria-hidden="true"></i>
+                                  }
+                                  {{ level4.label }}
+                                </a>
+                              </li>
+                            }
+                          </ul>
+                        } @else {
+                          <a class="dropdown-item" [routerLink]="level3.route ?? '/'">
+                            @if (level3.icon) {
+                              <i [class]="this.getIcon(level3.icon)" aria-hidden="true"></i>
+                            }
+                            {{ level3.label }}
+                          </a>
+                        }
+                      </li>
+                    }
+                  </ul>
+                } @else {
+                  <a class="dropdown-item" [routerLink]="child.route ?? '/'">
+                    @if (child.icon) {
+                      <i [class]="this.getIcon(child.icon)" aria-hidden="true"></i>
+                    }
+                    {{ child.label }}
+                  </a>
+                }
+              </li>
+            }
+          </ul>
+        }
+      </li>
+    } @else {
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="menu.route ?? '/'">
+          @if (menu.icon) {
+            <i [class]="this.getIcon(menu.icon)"></i>
+          }
+          {{ menu.label }}
+        </a>
+      </li>
+    }
   }
 </ul>
