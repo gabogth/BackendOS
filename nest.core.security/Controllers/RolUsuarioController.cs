@@ -19,13 +19,13 @@ public class RolUsuarioController : Controller
         this.sender = sender;
     }
 
-    [HttpPost("{roleName}")]
+    [HttpPost("{roleId}")]
     [ProducesResponseType(typeof(bool), 200)]
     [ProducesResponseType(typeof(ErrorMessage), 400)]
     [ProducesResponseType(401)]
-    public async Task<ActionResult<bool>> Merge(string roleName, [FromBody] List<string> usersId, CancellationToken ct)
+    public async Task<ActionResult<bool>> Merge(string roleId, [FromBody] List<string> usersId, CancellationToken ct)
     {
-        await sender.Send(new RoleUsuarioMergeCommand(roleName, usersId), ct);
+        await sender.Send(new RoleUsuarioMergeCommand(roleId, usersId), ct);
         return Ok(true);
     }
 }

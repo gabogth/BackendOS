@@ -1,42 +1,21 @@
-using System.Security.Claims;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 using nest.core.aplicacion.security.Login.Queries;
-using nest.core.dominio.Security;
-using nest.core.dominio.Security.Auth;
+using nest.core.dominio.Security.Repositorios;
 
 namespace nest.core.aplicacion.security.Login.Handlers;
 
 public class ObtenerClaimsPorUsuarioHandler : IRequestHandler<ObtenerClaimsPorUsuarioQuery, List<Claim>>
 {
-    private readonly UserManager<ApplicationUser> userManager;
-    private readonly RoleManager<ApplicationRole> roleManager;
+    private readonly IIdentityUserRepository repository;
 
-    public ObtenerClaimsPorUsuarioHandler(
-        UserManager<ApplicationUser> userManager,
-        RoleManager<ApplicationRole> roleManager)
+    public ObtenerClaimsPorUsuarioHandler(IIdentityUserRepository repository)
     {
-        this.userManager = userManager;
-        this.roleManager = roleManager;
+        this.repository = repository;
     }
 
     public async Task<List<Claim>> Handle(ObtenerClaimsPorUsuarioQuery request, CancellationToken cancellationToken)
     {
-        IList<string> roles = await userManager.GetRolesAsync(request.Usuario);
-        var roleClaims = new List<Claim>();
-
-        foreach (string roleName in roles)
-        {
-            var role = await roleManager.FindByNameAsync(roleName);
-            if (role is null)
-            {
-                continue;
-            }
-
-            var claims = await roleManager.GetClaimsAsync(role);
-            roleClaims.AddRange(claims);
-        }
-
-        return roleClaims;
+        return await this.repository.ObtenerClaims(request.Usuario.Id, cancellationToken);
     }
 }
