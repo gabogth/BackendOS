@@ -7,8 +7,8 @@ public class RoleUsuarioMergeValidator : AbstractValidator<RoleUsuarioMergeComma
 {
     public RoleUsuarioMergeValidator()
     {
-        RuleFor(x => x.RoleName)
-            .NotEmpty().WithMessage("El nombre del rol es obligatorio.");
+        RuleFor(x => x.RoleId)
+            .NotEmpty().WithMessage("El Id del rol es obligatorio.");
         RuleFor(x => x.UsersId)
             .NotNull().WithMessage("Debe proporcionar usuarios.")
             .Must(x => x.Count > 0).WithMessage("Debe proporcionar al menos un usuario.");

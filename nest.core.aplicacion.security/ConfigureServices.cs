@@ -47,6 +47,8 @@ namespace nest.core.aplicacion.security
             services.AddTransient<IUsuarioEmpresaRepository, UsuarioEmpresaRepository>();
             services.AddTransient<IPersonalRepository, PersonalRepository>();
             services.AddTransient<IIdentityRoleClaimRepository, IdentityRoleClaimRepository>();
+            services.AddTransient<IIdentityRoleUserRepository, IdentityRoleUserRepository>();
+            
             return services;
         }
         private static void ConfigureValidation(this IServiceCollection services, IConfigurationManager configuration)
