@@ -26,6 +26,10 @@ export class SecurityUserService {
     return this.httpClient.post<LoadResult<SecurityUserEntity[]>>(`${this.endpoint}/filter`, loadOptions);
   }
 
+  getByRoleName(roleName: string): Observable<SecurityUserEntity[]> {
+    return this.httpClient.get<SecurityUserEntity[]>(`${this.endpoint}/rol/${encodeURIComponent(roleName)}`);
+  }
+
   getById(id: string): Observable<SecurityUserEntity> {
     return this.httpClient.get<SecurityUserEntity>(`${this.endpoint}/${id}`);
   }

@@ -25,7 +25,7 @@ export class RoleUserPageComponent {
   private readonly securityUserService = inject(SecurityUserService);
   private readonly roleUserService = inject(RoleUserService);
 
-  protected readonly selectedRoleName = signal<string | null>(null);
+  protected readonly selectedRoleId = signal<string | null>(null);
   protected readonly selectedUserIds = signal<string[]>([]);
 
   protected readonly rolesDataSource = new CustomStore<SecurityRoleEntity, string>({
@@ -52,9 +52,16 @@ export class RoleUserPageComponent {
     },
   });
 
-  protected onRoleSelectionChanged(event: DxDataGridTypes.SelectionChangedEvent<SecurityRoleEntity>) {
+  protected async onRoleSelectionChanged(event: DxDataGridTypes.SelectionChangedEvent<SecurityRoleEntity>) {
     const role = event.selectedRowsData[0];
-    this.selectedRoleName.set(role?.name ?? null);
+    this.selectedRoleId.set(role?.id ?? null);
+    await this.loadTreeForRole(role.name);
+  }
+
+  private async loadTreeForRole(roleName: string) {
+    const result = await firstValueFrom(this.securityUserService.getByRoleName(roleName));
+    const selectedUsers = result.map((f) => f.id);
+    this.selectedUserIds.set(selectedUsers);
   }
 
   protected onUsersSelectionChanged(event: DxDataGridTypes.SelectionChangedEvent<SecurityUserEntity>) {
@@ -62,8 +69,8 @@ export class RoleUserPageComponent {
   }
 
   protected async saveRoleUsers() {
-    const roleName = this.selectedRoleName();
-    if (!roleName) {
+    const roleId = this.selectedRoleId();
+    if (!roleId) {
       notify('Seleccione un rol.', 'warning', 2500);
       return;
     }
@@ -71,7 +78,7 @@ export class RoleUserPageComponent {
     await NestUtils.showConfirmationDialog({
       title: 'Advertencia',
       text: '¿Estás seguro que desea guardar los usuarios asociados a este rol?',
-      funtionToExecute: () => this.roleUserService.merge(roleName, this.selectedUserIds()),
+      funtionToExecute: () => this.roleUserService.merge(roleId, this.selectedUserIds()),
     });
   }
 }

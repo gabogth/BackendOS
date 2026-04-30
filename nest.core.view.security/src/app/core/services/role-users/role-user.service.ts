@@ -9,7 +9,7 @@ export class RoleUserService {
   private readonly httpClient = inject(HttpClient);
   private readonly endpoint = `${environment.apiBaseUrl}/security/RolUsuario`;
 
-  merge(roleName: string, usersId: string[]): Observable<boolean> {
-    return this.httpClient.post<boolean>(`${this.endpoint}/${encodeURIComponent(roleName)}`, usersId);
+  merge(roleId: string, usersId: string[]): Observable<boolean> {
+    return this.httpClient.post<boolean>(`${this.endpoint}/${encodeURIComponent(roleId)}`, usersId);
   }
 }

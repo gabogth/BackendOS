@@ -31,6 +31,11 @@ export class MenuService {
             icon: 'fa-solid fa-diagram-project',
             route: '/role-claim',
           },
+          {
+            label: 'Role User',
+            icon: 'fa-solid fa-diagram-project',
+            route: '/role-user',
+          },
         ],
       },
       {
