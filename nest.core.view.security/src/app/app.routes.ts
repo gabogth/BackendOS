@@ -8,6 +8,7 @@ import { FormulariosPageComponent } from './features/formularios/pages/formulari
 import { MasterComponent } from './layout/master/master.component';
 import { RoleClaimPageComponent } from './features/role-claim/pages/role-claim-page.component';
 import { RoleUserPageComponent } from './features/role-user/pages/role-user-page.component';
+import { claimGuard } from './core/auth/claim.guard';
 
 export const appRoutes: Routes = [
   {
@@ -24,31 +25,37 @@ export const appRoutes: Routes = [
         path: '',
         component: MainPageComponent,
         title: 'Index',
+        canActivate: [claimGuard('aplicacion-home')]
       },
       {
         path: 'usuarios',
         component: UsuariosPageComponent,
         title: 'Usuarios',
+        canActivate: [claimGuard('seguridad-usuario')]
       },
       {
         path: 'roles',
         component: RolesPageComponent,
         title: 'Roles',
+        canActivate: [claimGuard('seguridad-rol')]
       },
       {
         path: 'formularios',
         component: FormulariosPageComponent,
         title: 'Formularios',
+        canActivate: [claimGuard('seguridad-menu')]
       },
       {
         path: 'role-claim',
         component: RoleClaimPageComponent,
         title: 'Role Claim',
+        canActivate: [claimGuard('seguridad-rolMenu')]
       },
       {
         path: 'role-user',
         component: RoleUserPageComponent,
         title: 'Role Usuario',
+        canActivate: [claimGuard('seguridad-rolUsuario')]
       },
     ],
   },

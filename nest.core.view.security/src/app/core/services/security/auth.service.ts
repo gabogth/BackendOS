@@ -113,4 +113,15 @@ export class AuthService {
 
     return null;
   }
+
+  hasClaim(claimName: string): boolean {
+    const token = this.getToken();
+    if (!token) return false;
+    try {
+      const decoded: any = this.decodeTokenPayload(token);
+      return decoded[claimName] === 'true';
+    } catch (error) {
+      return false;
+    }
+  }
 }
