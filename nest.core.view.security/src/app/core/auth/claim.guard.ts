@@ -6,6 +6,6 @@ export const claimGuard = (claimName: string): CanActivateFn => {
   return () => {
     const authService = inject(AuthService);
     const router = inject(Router);
-    return authService.hasClaim(claimName) ? true : router.parseUrl('/index');
+    return authService.hasClaim(claimName) ? true : router.parseUrl('/acceso-denegado');
   };
 };
