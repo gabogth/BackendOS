@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, inject, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import CustomStore from 'devextreme/data/custom_store';
-import { DxButtonModule, DxDataGridComponent, DxDataGridModule, DxTreeViewComponent, DxTreeViewModule } from 'devextreme-angular';
+import { DxButtonModule, DxDataGridComponent, DxDataGridModule, DxTreeViewComponent, DxTreeListComponent } from 'devextreme-angular';
 import { LoadOptions, LoadResult } from 'devextreme/common/data';
 import notify from 'devextreme/ui/notify';
 
@@ -13,24 +13,35 @@ import { RoleClaimService } from '@app/core/services/role-claims/role-claim.serv
 import { SecurityRoleService } from '@app/core/services/roles/security-role.service';
 import { NestUtils } from '@app/core/services/util/nestUtils';
 import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
+import { ModuloService } from '@app/core/services/modulos/modulo.service';
+import { ModuloEntity } from '@app/core/entities/modulo.entity';
+import { DxTreeListTypes } from 'devextreme-angular/ui/tree-list';
 
 @Component({
   selector: 'app-role-claim-page',
-  imports: [DxButtonModule, DxDataGridModule, DxTreeViewModule],
+  imports: [DxButtonModule, DxDataGridModule, DxTreeListComponent],
   templateUrl: './role-claim-page.component.html',
   styleUrl: './role-claim-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RoleClaimPageComponent {
-  private readonly securityRoleService = inject(SecurityRoleService);
-  private readonly formularioService = inject(FormularioService);
-  private readonly roleClaimService = inject(RoleClaimService);
-
+export class RoleClaimPageComponent implements OnInit {
   @ViewChild(DxTreeViewComponent) treeView?: DxTreeViewComponent;
   @ViewChild(DxDataGridComponent) roleGrid?: DxDataGridComponent;
 
+  private readonly securityRoleService = inject(SecurityRoleService);
+  private readonly formularioService = inject(FormularioService);
+  private readonly roleClaimService = inject(RoleClaimService);
+  private readonly moduloService = inject(ModuloService);
+
   protected readonly selectedRoleId = signal<string | null>(null);
-  protected readonly treeItems = signal<FormularioEntity[]>([]);
+  protected readonly formularios = signal<FormularioEntity[]>([]);
+  protected readonly selectedIds = signal<number[]>([]);
+
+  protected readonly modulosDataSource = new CustomStore<ModuloEntity, number>({
+    key: 'id',
+    load: async (options: LoadOptions): Promise<LoadResult<ModuloEntity[]>> => firstValueFrom(this.moduloService.getActivosByFilter(options)),
+    byKey: async (key: number): Promise<ModuloEntity> => firstValueFrom(this.moduloService.getById(Number(key))),
+  });
 
   protected readonly rolesDataSource = new CustomStore<SecurityRoleEntity, string>({
     key: 'id',
@@ -44,16 +55,23 @@ export class RoleClaimPageComponent {
     },
   });
 
+  ngOnInit(): void {
+    this.loadFormularios();
+  }
+
+  protected async loadFormularios() {
+    const formularios = await firstValueFrom(this.formularioService.getByAll());
+    this.formularios.set(formularios);
+  }
+
   protected async onRoleSelectionChanged(event: DxDataGridTypes.SelectionChangedEvent<SecurityRoleEntity>) {
     const role = event.selectedRowsData[0];
     if (!role?.id) {
       this.selectedRoleId.set(null);
-      this.treeItems.set([]);
       return;
     }
-
-    this.selectedRoleId.set(role.id.toString());
-    await this.loadTreeForRole(role.id.toString());
+    this.selectedRoleId.set(role.id);
+    await this.loadTreeForRole(role.id);
   }
 
   protected async saveClaims() {
@@ -62,35 +80,39 @@ export class RoleClaimPageComponent {
       notify('Seleccione un rol.', 'warning', 2500);
       return;
     }
-
-    const selectedIds = (this.treeView?.instance.getSelectedNodeKeys() ?? []) as number[];
-    const selectedLeafNodes = this.treeItems().filter((node) => selectedIds.includes(node.id) && node.parentId !== null && node.parentId !== 0);
-
-    const claims: ClaimEntity[] = selectedLeafNodes.map((node) => ({
-      type: node.claimType,
-      value: 'true',
-    }));
-
     try {
-      await firstValueFrom(this.roleClaimService.merge(roleId, claims));
-      notify('Claims guardados correctamente.', 'success', 2500);
+      const claims = await this.getSelectedClaims();
+      await NestUtils.showConfirmationDialog({
+        title: `Advertencia`,
+        text: '¿Estás seguro que desea guardar los cambios de este rol?',
+        funtionToExecute: () => this.roleClaimService.merge(roleId, claims)
+      });
     } catch (e: any) {
       throw NestUtils.formatValidationErrors(e);
     }
   }
 
-  private async loadTreeForRole(roleId: string) {
-    const [allForms, formsByRole] = await Promise.all([
-      firstValueFrom(this.formularioService.getByFilter({ take: 5000 } as LoadOptions)).then((res) => (res.data ?? []) as FormularioEntity[]),
-      firstValueFrom(this.formularioService.getByRoleId(roleId)),
-    ]);
+  protected async onFormsSelectionChanged(event: DxTreeListTypes.SelectionChangedEvent<FormularioEntity>){
+    this.selectedIds.set([...event.selectedRowKeys]);
+  }
 
-    const selectedClaims = new Set(formsByRole.map((form) => form.claimType));
-    const next = allForms.map((form) => ({ ...form, selected: selectedClaims.has(form.claimType) }));
-    this.treeItems.set(next);
-    queueMicrotask(() => {
-      this.treeView?.instance.unselectAll();
-      next.filter((x) => x.selected).forEach((x) => this.treeView?.instance.selectItem(x.id));
+  private async loadTreeForRole(roleId: string) {
+    const result = await firstValueFrom(this.formularioService.getByRoleId(roleId));
+    const selectedClaims = result.map((f) => f.id);
+    console.log('Claims asociados al rol:', selectedClaims);
+    this.selectedIds.set(selectedClaims);
+  }
+
+  private getSelectedClaims(): ClaimEntity[] {
+    const dict = Object.fromEntries(
+      this.formularios().map(item => [item.id, item])
+    );
+    return this.selectedIds().map((id) => {
+      const form = dict[id];
+      return {
+        type: form.claimType,
+        value: 'true'
+      } as ClaimEntity;
     });
   }
 }

@@ -14,6 +14,10 @@ export class FormularioService {
     return this.httpClient.post<LoadResult<FormularioEntity[]>>(`${this.endpoint}/filter`, loadOptions);
   }
 
+  getByAll(): Observable<FormularioEntity[]> {
+    return this.httpClient.get<FormularioEntity[]>(`${this.endpoint}`);
+  }
+
   getById(id: number): Observable<FormularioEntity> {
     return this.httpClient.get<FormularioEntity>(`${this.endpoint}/${id}`);
   }
