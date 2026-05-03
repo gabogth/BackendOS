@@ -18,6 +18,10 @@ export class ModuloService {
     return this.httpClient.post<LoadResult<ModuloEntity[]>>(`${this.endpoint}/filter_activos`, loadOptions);
   }
 
+  getAll(): Observable<ModuloEntity[]> {
+    return this.httpClient.get<ModuloEntity[]>(this.endpoint);
+  }
+
   getById(id: number): Observable<ModuloEntity> {
     return this.httpClient.get<ModuloEntity>(`${this.endpoint}/${id}`);
   }

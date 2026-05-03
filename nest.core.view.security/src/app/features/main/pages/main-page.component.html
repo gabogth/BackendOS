@@ -1,4 +1,13 @@
 <section class="text-center py-5">
-  <h1 class="display-5 fw-bold">INDEX</h1>
-  <h1>{{currentUser?.userName}}</h1>
+  <div class="row">
+    @for (item of this.modulos(); track $index) {
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="container d-flex flex-column align-items-center" style="cursor: pointer;" (click)="onModuleClick(item)">
+          <img [src]="getImage(item.rutaImagen)" class="img-fluid" alt="Descripción" width="15%">
+          <p class="text-center mt-2">{{item.nombre}}</p>
+          <span class="text-body-secondary"><p class="text-center mt-2 text-truncate">{{item.descripcion}}</p></span>
+        </div>
+      </div>
+    }
+  </div>
 </section>
