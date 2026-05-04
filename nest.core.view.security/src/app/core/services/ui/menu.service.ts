@@ -11,33 +11,70 @@ import { environment } from '@environment/environment';
 export class MenuService {
   protected formulariosService = inject(FormularioService);
   public menuItems = signal<MenuItem[]>([]);
+  public selectedModuleId = signal<number | null>(this.getSelectedModuleId());
 
-  public async loadMenu(){
+  public async loadMenu() {
     const menu = await this.getMenu();
     this.menuItems.set(menu);
   }
 
-  setMenu(items: MenuItem[]){
+  public async setSelectedModule(moduleId: number | null) {
+    this.selectedModuleId.set(moduleId);
+
+    if (moduleId === null) {
+      localStorage.removeItem(environment.selectedModuleKey);
+    } else {
+      localStorage.setItem(environment.selectedModuleKey, moduleId.toString());
+    }
+
+    localStorage.removeItem(environment.menuKey);
+    await this.loadMenu();
+  }
+
+  public clearMenuCache() {
+    localStorage.removeItem(environment.menuKey);
+    localStorage.removeItem(environment.selectedModuleKey);
+    this.menuItems.set([]);
+    this.selectedModuleId.set(null);
+  }
+
+  private setMenu(items: MenuItem[]) {
     localStorage.setItem(environment.menuKey, JSON.stringify(items));
   }
 
-  async getMenu() : Promise<MenuItem[]> {
+  private async getMenu(): Promise<MenuItem[]> {
     const menu = localStorage.getItem(environment.menuKey);
-    if(menu)
+    if (menu) {
       return JSON.parse(menu) as MenuItem[];
-    else {
-      const formularios = await firstValueFrom(this.formulariosService.getByCurrentUser());
-      const newforms = (formularios && formularios.length > 0) ? formularios.filter(x => x.moduloId == 1) : [];
-      if(newforms && newforms.length > 0) {
-        const menuBuild = this.buildMenu(newforms);
-        this.setMenu(menuBuild);
-        return menuBuild;
-      }
-      return [];
     }
+
+    const formularios = await firstValueFrom(this.formulariosService.getByCurrentUser());
+    const selectedModuleId = this.selectedModuleId();
+    const filteredForms =
+      selectedModuleId === null
+        ? []
+        : (formularios ?? []).filter((form) => form.moduloId === selectedModuleId);
+
+    if (filteredForms.length > 0) {
+      const menuBuild = this.buildMenu(filteredForms);
+      this.setMenu(menuBuild);
+      return menuBuild;
+    }
+
+    return [];
   }
 
-  private buildMenu(items: FormularioEntity[]) : MenuItem[]{
+  private getSelectedModuleId(): number | null {
+    const moduleId = localStorage.getItem(environment.selectedModuleKey);
+    if (!moduleId) {
+      return null;
+    }
+
+    const parsedId = Number(moduleId);
+    return Number.isNaN(parsedId) ? null : parsedId;
+  }
+
+  private buildMenu(items: FormularioEntity[]): MenuItem[] {
     const map = new Map<number, MenuItem & { id: number; parentId: number | null }>();
     items.forEach(item => {
       map.set(item.id, {

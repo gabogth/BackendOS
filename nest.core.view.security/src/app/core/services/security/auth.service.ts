@@ -6,6 +6,7 @@ import { UserEntity } from '@app/core/entities/user.entity';
 import { AuthResponse } from '@app/core/auth/models/auth-response.model';
 import { LoginRequest } from '@app/core/auth/models/login-request.model';
 import { environment } from '@environment/environment';
+import { MenuService } from '../ui/menu.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ import { environment } from '@environment/environment';
 export class AuthService {
   private readonly httpClient = inject(HttpClient);
   private readonly router = inject(Router);
+  private readonly menuService = inject(MenuService);
 
   private readonly accessToken = signal<string | null>(localStorage.getItem(environment.accessTokenKey));
   private readonly accessTokenData = signal<string | null>(localStorage.getItem(environment.accessTokenDataKey));
@@ -46,7 +48,7 @@ export class AuthService {
     localStorage.removeItem(environment.accessTokenDataKey);
     localStorage.removeItem(environment.accessTokenEmpresaIdKey);
     localStorage.removeItem(environment.accessTokenUserIdKey);
-    localStorage.removeItem(environment.menuKey);
+    this.menuService.clearMenuCache();
   }
 
   private setAccessToken(token: string | null): void {
