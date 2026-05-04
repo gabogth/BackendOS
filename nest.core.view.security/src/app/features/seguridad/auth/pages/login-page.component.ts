@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from '@app/core/services/seguridad/security/auth.service';
+import { AuthService } from '@app/core/services/seguridad/auth/auth.service';
 import { InputErrorComponent } from '@app/shared/components/inputError/inputError.component';
 
 @Component({
