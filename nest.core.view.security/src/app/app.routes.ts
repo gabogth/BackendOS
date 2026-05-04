@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/auth.guard';
-import { LoginPageComponent } from './features/auth/pages/login-page.component';
-import { AccessDeniedPageComponent } from './features/access-denied/access-denied-page.component';
-import { MainPageComponent } from './features/main/pages/main-page.component';
-import { RolesPageComponent } from './features/roles/pages/roles-page.component';
-import { UsuariosPageComponent } from './features/usuarios/pages/usuarios-page.component';
-import { FormulariosPageComponent } from './features/formularios/pages/formularios-page.component';
+import { LoginPageComponent } from './features/seguridad/auth/pages/login-page.component';
+import { AccessDeniedPageComponent } from './layout/access-denied/access-denied-page.component';
+import { MainPageComponent } from './layout/main/pages/main-page.component';
+import { RolesPageComponent } from './features/seguridad/roles/pages/roles-page.component';
+import { UsuariosPageComponent } from './features/seguridad/usuarios/pages/usuarios-page.component';
+import { FormulariosPageComponent } from './features/seguridad/formularios/pages/formularios-page.component';
 import { MasterComponent } from './layout/master/master.component';
-import { RoleClaimPageComponent } from './features/role-claim/pages/role-claim-page.component';
-import { RoleUserPageComponent } from './features/role-user/pages/role-user-page.component';
-import { ModulosPageComponent } from './features/modulos/pages/modulos-page.component';
+import { RoleClaimPageComponent } from './features/seguridad/role-claim/pages/role-claim-page.component';
+import { RoleUserPageComponent } from './features/seguridad/role-user/pages/role-user-page.component';
+import { ModulosPageComponent } from './features/seguridad/modulos/pages/modulos-page.component';
 import { claimGuard } from './core/auth/claim.guard';
 
 export const appRoutes: Routes = [

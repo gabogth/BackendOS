@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '@app/core/services/security/auth.service';
+import { AuthService } from '@app/core/services/seguridad/security/auth.service';
 
 export const claimGuard = (claimName: string): CanActivateFn => {
   return () => {

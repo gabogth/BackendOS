@@ -10,7 +10,7 @@ import {
   DxValidationGroupComponent
 } from 'devextreme-angular';
 import { SecurityUserEntity } from '@app/core/entities/security-user.entity';
-import { SecurityUserService } from '@app/core/services/users/security-user.service';
+import { SecurityUserService } from '@app/core/services/seguridad/users/security-user.service';
 import { NestUtils } from '@app/core/services/util/nestUtils';
 import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
 import { LoadOptions, LoadResult } from 'devextreme/common/data';

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { UserSessionService } from '@app/core/services/ui/user-session.service';
-import { ModuloService } from '@app/core/services/modulos/modulo.service';
+import { ModuloService } from '@app/core/services/seguridad/modulos/modulo.service';
 import { ModuloEntity } from '@app/core/entities/modulo.entity';
 import { MenuService } from '@app/core/services/ui/menu.service';
 import { firstValueFrom } from 'rxjs';
@@ -18,6 +18,7 @@ export class MainPageComponent implements OnInit {
   protected currentUser = this.userService.currentUser();
   protected modulos = signal<ModuloEntity[]>([]);
   private readonly menuService = inject(MenuService);
+  protected currentModule = this.menuService.selectedModule;
 
   ngOnInit(): void {
     this.loadModules();
@@ -33,7 +34,6 @@ export class MainPageComponent implements OnInit {
   }
 
   async onModuleClick(modulo: ModuloEntity){
-    await this.menuService.setSelectedModule(modulo.id);
+    await this.menuService.setSelectedModule(modulo);
   }
-
 }
