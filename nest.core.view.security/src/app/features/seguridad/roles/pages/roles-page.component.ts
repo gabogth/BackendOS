@@ -5,12 +5,12 @@ import { DxDataGridModule } from 'devextreme-angular';
 import { CustomStoreOptions, DataSource, DataSourceOptions, LoadOptions, LoadResult } from 'devextreme/common/data';
 
 import { SecurityRoleCreatePayload, SecurityRoleEntity } from '@app/core/entities/security-role.entity';
-import { SecurityRoleService } from '@app/core/services/roles/security-role.service';
+import { SecurityRoleService } from '@app/core/services/seguridad/roles/security-role.service';
 import { UserSessionService } from '@app/core/services/ui/user-session.service';
 import { NestUtils } from '@app/core/services/util/nestUtils';
 import { ɵInternalFormsSharedModule } from '@angular/forms';
 import { EmpresaEntity } from '@app/core/entities/empresa.entity';
-import { EmpresaService } from '@app/core/services/empresas/empresa.service';
+import { EmpresaService } from '@app/core/services/seguridad/empresas/empresa.service';
 import { DxSelectBoxTypes } from 'devextreme-angular/ui/select-box';
 
 @Component({

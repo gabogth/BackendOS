@@ -6,19 +6,26 @@ import { UserEntity } from '@app/core/entities/user.entity';
 import { AuthResponse } from '@app/core/auth/models/auth-response.model';
 import { LoginRequest } from '@app/core/auth/models/login-request.model';
 import { environment } from '@environment/environment';
+import { ICleanState } from '@app/core/interfaces/ICleanState';
+import { StateService } from '../../ui/state.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements ICleanState {
   private readonly httpClient = inject(HttpClient);
   private readonly router = inject(Router);
+  private readonly stateRegistry = inject(StateService);
 
   private readonly accessToken = signal<string | null>(localStorage.getItem(environment.accessTokenKey));
   private readonly accessTokenData = signal<string | null>(localStorage.getItem(environment.accessTokenDataKey));
 
   readonly isAuthenticated = computed(() => Boolean(this.accessToken()));
   readonly currentUser = computed<UserEntity | null>(() => this.mapUserFromToken(this.accessToken()));
+
+  constructor() {
+    this.stateRegistry.register(this);
+  }
 
   login(request: LoginRequest): Observable<boolean> {
     const requestUrl = `${environment.apiBaseUrl}/security/Auth/login`;
@@ -35,6 +42,7 @@ export class AuthService {
   logout(): void {
     this.setAccessToken(null);
     this.cleanVariables();
+    this.stateRegistry.resetAll();
     void this.router.navigate(['/login']);
   }
 
@@ -47,6 +55,7 @@ export class AuthService {
     localStorage.removeItem(environment.accessTokenEmpresaIdKey);
     localStorage.removeItem(environment.accessTokenUserIdKey);
     localStorage.removeItem(environment.menuKey);
+    localStorage.removeItem(environment.selectedModuleKey);
   }
 
   private setAccessToken(token: string | null): void {
@@ -131,5 +140,10 @@ export class AuthService {
     } catch (error) {
       return false;
     }
+  }
+
+  cleanState(): void {
+    this.accessToken.set(null);
+    this.accessTokenData.set(null);
   }
 }

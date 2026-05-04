@@ -8,9 +8,9 @@ import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
 
 import { SecurityRoleEntity } from '@app/core/entities/security-role.entity';
 import { SecurityUserEntity } from '@app/core/entities/security-user.entity';
-import { SecurityRoleService } from '@app/core/services/roles/security-role.service';
-import { SecurityUserService } from '@app/core/services/users/security-user.service';
-import { RoleUserService } from '@app/core/services/role-users/role-user.service';
+import { SecurityRoleService } from '@app/core/services/seguridad/roles/security-role.service';
+import { SecurityUserService } from '@app/core/services/seguridad/users/security-user.service';
+import { RoleUserService } from '@app/core/services/seguridad/role-users/role-user.service';
 import { NestUtils } from '@app/core/services/util/nestUtils';
 
 @Component({

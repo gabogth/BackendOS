@@ -8,12 +8,12 @@ import notify from 'devextreme/ui/notify';
 import { ClaimEntity } from '@app/core/entities/claim.entity';
 import { FormularioEntity } from '@app/core/entities/formulario.entity';
 import { SecurityRoleEntity } from '@app/core/entities/security-role.entity';
-import { FormularioService } from '@app/core/services/formularios/formulario.service';
-import { RoleClaimService } from '@app/core/services/role-claims/role-claim.service';
-import { SecurityRoleService } from '@app/core/services/roles/security-role.service';
+import { FormularioService } from '@app/core/services/seguridad/formularios/formulario.service';
+import { RoleClaimService } from '@app/core/services/seguridad/role-claims/role-claim.service';
+import { SecurityRoleService } from '@app/core/services/seguridad/roles/security-role.service';
 import { NestUtils } from '@app/core/services/util/nestUtils';
 import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
-import { ModuloService } from '@app/core/services/modulos/modulo.service';
+import { ModuloService } from '@app/core/services/seguridad/modulos/modulo.service';
 import { ModuloEntity } from '@app/core/entities/modulo.entity';
 import { DxTreeListTypes } from 'devextreme-angular/ui/tree-list';
 

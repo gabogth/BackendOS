@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { AuthService } from '@app/core/services/security/auth.service';
+import { AuthService } from '@app/core/services/seguridad/security/auth.service';
 import { ThemeMode, ThemeService } from '@app/core/services/ui/theme.service';
 import { UserSessionService } from '@app/core/services/ui/user-session.service';
 

@@ -1,43 +1,74 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { FormularioService } from '../formularios/formulario.service';
+import { FormularioService } from '../seguridad/formularios/formulario.service';
 import { firstValueFrom } from 'rxjs';
 import { MenuItem } from '@app/layout/models/menu-item.model';
 import { FormularioEntity } from '@app/core/entities/formulario.entity';
 import { environment } from '@environment/environment';
+import { ModuloEntity } from '@app/core/entities/modulo.entity';
+import { ICleanState } from '@app/core/interfaces/ICleanState';
+import { StateService } from '../ui/state.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MenuService {
+export class MenuService implements ICleanState{
   protected formulariosService = inject(FormularioService);
-  public menuItems = signal<MenuItem[]>([]);
+  protected stateRegistry = inject(StateService);
 
-  public async loadMenu(){
-    const menu = await this.getMenu();
-    this.menuItems.set(menu);
+  public menuItems = signal<MenuItem[]>([]);
+  public selectedModule = signal<ModuloEntity | null>(this.getSelectedModule());
+
+  constructor() {
+    this.stateRegistry.register(this);
   }
 
-  setMenu(items: MenuItem[]){
+  public async loadMenu() {
+    const menu = await this.getMenu();
+    const filteredMenu = this.filterCurrentMenu(menu);
+    this.setMenu(menu);
+    this.menuItems.set(filteredMenu);
+  }
+
+  public async setSelectedModule(module: ModuloEntity) {
+    this.selectedModule.set(module);
+    if (module === null)
+      localStorage.removeItem(environment.selectedModuleKey);
+    else
+      localStorage.setItem(environment.selectedModuleKey, JSON.stringify(module));
+    await this.loadMenu();
+  }
+
+  private setMenu(items: MenuItem[]) {
     localStorage.setItem(environment.menuKey, JSON.stringify(items));
   }
 
-  async getMenu() : Promise<MenuItem[]> {
+  private async getMenu(): Promise<MenuItem[]> {
     const menu = localStorage.getItem(environment.menuKey);
-    if(menu)
+    if (menu) {
       return JSON.parse(menu) as MenuItem[];
-    else {
+    } else{
       const formularios = await firstValueFrom(this.formulariosService.getByCurrentUser());
-      const newforms = (formularios && formularios.length > 0) ? formularios.filter(x => x.moduloId == 1) : [];
-      if(newforms && newforms.length > 0) {
-        const menuBuild = this.buildMenu(newforms);
-        this.setMenu(menuBuild);
-        return menuBuild;
-      }
-      return [];
+      return this.buildMenu(formularios);
     }
   }
 
-  private buildMenu(items: FormularioEntity[]) : MenuItem[]{
+  private filterCurrentMenu(menu: MenuItem[]): MenuItem[]{
+    const selectedModule = this.getSelectedModule();
+    const filteredMenu = selectedModule === null
+      ? []
+      : (menu ?? []).filter((form) => form.module === selectedModule.id);
+    return filteredMenu;
+  }
+
+  private getSelectedModule(): ModuloEntity | null {
+    const moduleString = localStorage.getItem(environment.selectedModuleKey);
+    if (!moduleString) {
+      return null;
+    }
+    return JSON.parse(moduleString) as ModuloEntity;
+  }
+
+  private buildMenu(items: FormularioEntity[]): MenuItem[] {
     const map = new Map<number, MenuItem & { id: number; parentId: number | null }>();
     items.forEach(item => {
       map.set(item.id, {
@@ -45,6 +76,7 @@ export class MenuService {
         parentId: item.parentId,
         label: item.nombre,
         icon: item.icono,
+        module: item.moduloId,
         route: item.action || undefined,
         children: []
       });
@@ -74,4 +106,9 @@ export class MenuService {
       }
     });
   };
+
+  cleanState(): void {
+    this.menuItems.set([]);
+    this.selectedModule.set(null);
+  }
 }

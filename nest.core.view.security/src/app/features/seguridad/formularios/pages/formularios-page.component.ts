@@ -6,8 +6,8 @@ import { LoadOptions, LoadResult } from 'devextreme/common/data';
 
 import { FormularioEntity } from '@app/core/entities/formulario.entity';
 import { ModuloEntity } from '@app/core/entities/modulo.entity';
-import { FormularioService } from '@app/core/services/formularios/formulario.service';
-import { ModuloService } from '@app/core/services/modulos/modulo.service';
+import { FormularioService } from '@app/core/services/seguridad/formularios/formulario.service';
+import { ModuloService } from '@app/core/services/seguridad/modulos/modulo.service';
 import { NestUtils } from '@app/core/services/util/nestUtils';
 
 @Component({

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavComponent } from '../nav/nav.component';
 import { UsernavComponent } from '../usernav/usernav.component';
+import { MenuService } from '@app/core/services/ui/menu.service';
 
 @Component({
   selector: 'app-shell',
@@ -11,5 +12,10 @@ import { UsernavComponent } from '../usernav/usernav.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShellComponent {
-  
+  private readonly menuService = inject(MenuService);
+  protected currentModule = this.menuService.selectedModule;
+
+  getImage(image: string){
+    return `assets/images/${image}`;
+  }
 }
