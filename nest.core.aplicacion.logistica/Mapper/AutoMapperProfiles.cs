@@ -2,6 +2,7 @@ using AutoMapper;
 using nest.core.dominio.Logistica;
 using nest.core.dominio.Logistica.AlmacenEN;
 using nest.core.dominio.Logistica.Transaccional;
+using nest.core.aplicacion.logistica.Almacenes.Commands;
 
 namespace nest.core.aplicacion.logistica.Mapper
 {
@@ -14,6 +15,8 @@ namespace nest.core.aplicacion.logistica.Mapper
 
         private void MapAllEntities()
         {
+            CreateMap<AlmacenCrearCommand, Almacen>();
+            CreateMap<AlmacenModificarCommand, Almacen>();
             CreateMap<Almacen, Almacen>()
                 .ForMember(dest => dest.Distrito, opt => opt.Ignore());
             CreateMap<InventarioCabecera, InventarioCabecera>()

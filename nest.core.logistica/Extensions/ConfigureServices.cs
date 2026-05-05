@@ -1,5 +1,4 @@
 ﻿using nest.core.aplicacion.logistica;
-using nest.core.aplicacion.logistica.AlmacenServices;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -11,7 +10,6 @@ namespace nest.core.logistica.Extensions
         {
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
-            services.AddScoped<AlmacenService>();
             return services;
         }
         private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)
