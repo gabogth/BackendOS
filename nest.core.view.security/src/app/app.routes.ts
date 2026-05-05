@@ -11,6 +11,7 @@ import { RoleClaimPageComponent } from './features/seguridad/role-claim/pages/ro
 import { RoleUserPageComponent } from './features/seguridad/role-user/pages/role-user-page.component';
 import { ModulosPageComponent } from './features/seguridad/modulos/pages/modulos-page.component';
 import { claimGuard } from './core/auth/claim.guard';
+import { AlmacenesPageComponent } from './features/logistica/almacenes/pages/almacenes-page.component';
 
 export const appRoutes: Routes = [
   {
@@ -70,6 +71,13 @@ export const appRoutes: Routes = [
         component: RoleUserPageComponent,
         title: 'Nest | Role Usuario',
         canActivate: [claimGuard('seguridad-rolUsuario')]
+      },
+
+      {
+        path: 'logistica/almacen',
+        component: AlmacenesPageComponent,
+        title: 'Nest | Almacenes',
+        canActivate: [claimGuard('logistica-almacen')]
       },
       {
         path: 'acceso-denegado',
