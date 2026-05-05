@@ -6,6 +6,10 @@ namespace nest.core.aplicacion.logistica.Almacenes.Commands;
 public record AlmacenModificarCommand(
     int Id,
     string Nombre,
-    bool Estado,
-    int DistritoId
+    string NombreCorto,
+    int DistritoId,
+    string Direccion,
+    decimal latitud,
+    decimal lonitud,
+    bool Activo
 ) : IRequest<Almacen>, IAlmacenGenericCommand;

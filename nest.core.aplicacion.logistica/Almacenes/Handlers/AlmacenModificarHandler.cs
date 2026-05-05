@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.logistica.Almacenes.Commands;
 using nest.core.dominio.Logistica.AlmacenEN;
 
@@ -9,13 +10,26 @@ public class AlmacenModificarHandler : IRequestHandler<AlmacenModificarCommand, 
 {
     private readonly IAlmacenRepository repository;
     private readonly IMapper mapper;
+    private readonly ILogger<AlmacenModificarHandler> logger;
 
-    public AlmacenModificarHandler(IAlmacenRepository repository, IMapper mapper)
+    public AlmacenModificarHandler(IAlmacenRepository repository, IMapper mapper, ILogger<AlmacenModificarHandler> logger)
     {
         this.repository = repository;
         this.mapper = mapper;
+        this.logger = logger;
     }
 
-    public Task<Almacen> Handle(AlmacenModificarCommand request, CancellationToken cancellationToken)
-        => repository.Modificar(mapper.Map<Almacen>(request));
+    public async Task<Almacen> Handle(AlmacenModificarCommand request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var entity = mapper.Map<Almacen>(request);
+            return await this.repository.Modificar(entity);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error al crear el almacén {Nombre}", request.Nombre);
+            throw;
+        }
+    }
 }

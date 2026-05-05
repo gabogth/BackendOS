@@ -1,4 +1,7 @@
-﻿using nest.core.aplicacion.logistica;
+﻿using FluentValidation;
+using nest.core.aplicacion.logistica;
+using nest.core.aplicacion.logistica.Almacenes.Behaviors;
+using nest.core.aplicacion.logistica.Almacenes.Commands;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
 
@@ -10,6 +13,11 @@ namespace nest.core.logistica.Extensions
         {
             ConfigureCache(services, configuration);
             services.ConfigureInfraestructura(configuration);
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(AlmacenCrearCommand).Assembly);
+            });
+            services.AddValidatorsFromAssemblyContaining<AlmacenCrearValidator>();
             return services;
         }
         private static void ConfigureCache(IServiceCollection services, IConfigurationManager configuration)
