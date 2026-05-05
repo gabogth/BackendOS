@@ -33,6 +33,11 @@ export class MainPageComponent implements OnInit {
     return `assets/images/${image}`;
   }
 
+  isSelectedModule(idModule: number){
+    const module = this.currentModule();
+    return module?.id === idModule;
+  }
+
   async onModuleClick(modulo: ModuloEntity){
     await this.menuService.setSelectedModule(modulo);
   }

@@ -1,3 +1,40 @@
+// dx-license, 
+// dx-license-trigger, 
+// [is="dx-license"], 
+// [is="dx-license-trigger"] {
+//   display: none !important;
+//   visibility: hidden !important;
+//   opacity: 0 !important;
+//   height: 0 !important;
+//   width: 0 !important;
+//   position: absolute !important;
+//   left: -9999px !important;
+//   clip-path: inset(100%) !important;
+//   clip: rect(1px, 1px, 1px, 1px) !important;
+//   overflow: hidden !important;
+//   pointer-events: none !important;
+//   z-index: -9999 !important;
+//   background: transparent !important;
+//   border: none !important;
+//   margin: 0 !important;
+//   padding: 0 !important;
+//   font-size: 0 !important;
+//   line-height: 0 !important;
+// }
+
+// /* También atacar cualquier div dentro que pueda mostrarse */
+// dx-license > div,
+// dx-license-trigger > div {
+//   display: none !important;
+// }
+
+// /* Prevenir que cualquier elemento hijo sea visible */
+// dx-license *,
+// dx-license-trigger * {
+//   display: none !important;
+//   visibility: hidden !important;
+// }
+
 :root {
   color-scheme: light;
 }

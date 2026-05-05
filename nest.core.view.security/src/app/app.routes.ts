@@ -26,55 +26,55 @@ export const appRoutes: Routes = [
       {
         path: '',
         component: MainPageComponent,
-        title: 'Index',
+        title: 'Nest',
         canActivate: [claimGuard('aplicacion-home')]
       },
       {
         path: 'Index',
         component: MainPageComponent,
-        title: 'Index',
+        title: 'Nest',
         canActivate: [claimGuard('aplicacion-home')]
       },
       {
         path: 'mantenimiento/usuario',
         component: UsuariosPageComponent,
-        title: 'Usuarios',
+        title: 'Nest | Usuarios',
         canActivate: [claimGuard('seguridad-usuario')]
       },
       {
         path: 'seguridad/rol',
         component: RolesPageComponent,
-        title: 'Roles',
+        title: 'Nest | Roles',
         canActivate: [claimGuard('seguridad-rol')]
       },
       {
         path: 'seguridad/menu',
         component: FormulariosPageComponent,
-        title: 'Formularios',
+        title: 'Nest | Formularios',
         canActivate: [claimGuard('seguridad-menu')]
       },
       {
         path: 'seguridad/modulo',
         component: ModulosPageComponent,
-        title: 'Módulos',
+        title: 'Nest | Módulos',
         canActivate: [claimGuard('seguridad-modulo')]
       },
       {
         path: 'seguridad/rolMenu',
         component: RoleClaimPageComponent,
-        title: 'Role Claim',
+        title: 'Nest | Role Claim',
         canActivate: [claimGuard('seguridad-rolMenu')]
       },
       {
         path: 'seguridad/rolUsuario',
         component: RoleUserPageComponent,
-        title: 'Role Usuario',
+        title: 'Nest | Role Usuario',
         canActivate: [claimGuard('seguridad-rolUsuario')]
       },
       {
         path: 'acceso-denegado',
         component: AccessDeniedPageComponent,
-        title: 'Acceso denegado',
+        title: 'Nest | Acceso denegado',
       },
     ],
   },
