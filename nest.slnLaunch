@@ -18,11 +18,6 @@
         "DebugTarget": "https"
       },
       {
-        "Path": "nest.core.finanzas\\nest.core.finanzas.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
         "Path": "nest.core.rrhh\\nest.core.rrhh.csproj",
         "Action": "Start",
         "DebugTarget": "https"
@@ -33,27 +28,12 @@
         "DebugTarget": "https"
       },
       {
-        "Path": "nest.core.legal\\nest.core.legal.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
         "Path": "nest.core.mantto\\nest.core.mantto.csproj",
         "Action": "Start",
         "DebugTarget": "https"
       },
       {
-        "Path": "nest.core.contabilidad\\nest.core.contabilidad.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
-        "Path": "nest.core.patrimonial\\nest.core.patrimonial.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
-        "Path": "nest.core.datasource\\nest.core.datasource.csproj",
+        "Path": "nest.core.logistica\\nest.core.logistica.csproj",
         "Action": "Start",
         "DebugTarget": "https"
       }
