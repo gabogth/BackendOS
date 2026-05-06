@@ -5,6 +5,8 @@ import { DxDataGridModule } from 'devextreme-angular';
 import { LoadOptions, LoadResult } from 'devextreme/common/data';
 
 import { AlmacenCreatePayload, AlmacenEntity, AlmacenUpdatePayload } from '@app/core/entities/almacen.entity';
+import { DistritoEntity } from '@app/core/entities/distrito.entity';
+import { DistritoService } from '@app/core/services/general/distritos/distrito.service';
 import { AlmacenService } from '@app/core/services/logistica/almacenes/almacen.service';
 import { NestUtils } from '@app/core/services/util/nestUtils';
 import { UserSessionService } from '@app/core/services/ui/user-session.service';
@@ -18,8 +20,21 @@ import { UserSessionService } from '@app/core/services/ui/user-session.service';
 })
 export class AlmacenesPageComponent {
   private readonly almacenService = inject(AlmacenService);
+  private readonly distritoService = inject(DistritoService);
   protected readonly sessionService = inject(UserSessionService);
 
+
+  protected readonly distritosDataSource = new CustomStore<DistritoEntity, number>({
+    key: 'id',
+    useDefaultSearch: true,
+    load: async (options: LoadOptions): Promise<LoadResult<DistritoEntity[]>> => {
+      try {
+        return await firstValueFrom(this.distritoService.getByFilterActivos(options));
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
+      }
+    },
+  });
   protected readonly almacenesDataSource = new CustomStore<AlmacenEntity, number>({
     key: 'id',
     useDefaultSearch: true,
