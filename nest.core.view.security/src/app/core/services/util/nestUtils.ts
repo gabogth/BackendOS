@@ -17,8 +17,8 @@ export class NestUtils {
             }, {});
             console.log('Agrupados:', agrupados);
             let errorMessages = '';
-            Object.keys(agrupados).forEach(campo => {
-                errorMessages += `${campo}: \n\r`;
+            Object.keys(agrupados).forEach((campo, index) => {
+                errorMessages += (index > 0 ? '\n\r' : '') + `${campo}: \n\r`;
                 errorMessages += agrupados[campo].map((msg: string) => `\t\t\t > ${msg}`).join('\n\r');
             });
             return errorMessages;

@@ -17,6 +17,10 @@ export class AlmacenService {
     return this.httpClient.post<LoadResult<AlmacenEntity[]>>(`${this.endpoint}/filter`, loadOptions);
   }
 
+  getByFilterActivos(loadOptions: LoadOptions): Observable<LoadResult<AlmacenEntity[]>> {
+    return this.httpClient.post<LoadResult<AlmacenEntity[]>>(`${this.endpoint}/filter_activos`, loadOptions);
+  }
+
   getById(id: number): Observable<AlmacenEntity> {
     return this.httpClient.get<AlmacenEntity>(`${this.endpoint}/${id}`);
   }

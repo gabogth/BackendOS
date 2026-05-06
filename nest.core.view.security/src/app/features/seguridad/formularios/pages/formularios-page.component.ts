@@ -36,14 +36,34 @@ export class FormulariosPageComponent {
         throw NestUtils.formatValidationErrors(e);
       }
     },
-    byKey: async (key: number): Promise<FormularioEntity> => firstValueFrom(this.formularioService.getById(Number(key))),
-    insert: async (values: Partial<FormularioEntity>): Promise<FormularioEntity> => firstValueFrom(this.formularioService.create(values as any)),
+    byKey: async (key: number): Promise<FormularioEntity> => {
+      try {
+        return await firstValueFrom(this.formularioService.getById(key));
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
+      }
+    },
+    insert: async (values: Partial<FormularioEntity>): Promise<FormularioEntity> => {
+      try {
+        return await firstValueFrom(this.formularioService.create(values as any));
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
+      }
+    },
     update: async (key: number, values: Partial<FormularioEntity>): Promise<FormularioEntity> => {
-      const current = await firstValueFrom(this.formularioService.getById(Number(key)));
-      return firstValueFrom(this.formularioService.update({ ...current, ...values, id: Number(key) }));
+      try {
+        const current = await firstValueFrom(this.formularioService.getById(key));
+        return firstValueFrom(this.formularioService.update({ ...current, ...values, id: key }));
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
+      }
     },
     remove: async (key: number): Promise<void> => {
-      await firstValueFrom(this.formularioService.delete(Number(key)));
+      try {
+        await firstValueFrom(this.formularioService.delete(key));
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
+      }
     },
   });
 }

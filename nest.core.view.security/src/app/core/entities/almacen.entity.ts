@@ -6,7 +6,7 @@ export interface AlmacenEntity {
   distritoId: number;
   direccion: string;
   latitud: number;
-  longitud: number;
+  lonitud: number;
   activo: boolean;
 }
 
