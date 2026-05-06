@@ -1,3 +1,5 @@
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +39,27 @@ namespace nest.core.general.Controllers
             var entidad = await sender.Send(new ObtenerPersonaConAdjuntosPorIdQuery(id), ct);
             return Ok(entidad);
         }
+        [HttpPost("filter")]
+        [ProducesResponseType(typeof(LoadResult), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        [ProducesResponseType(401)]
+        public async Task<ActionResult<LoadResult>> ObtenerPorFiltro([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+        {
+            var data = await sender.Send(new ObtenerPorFiltroQuery(options), ct);
+            return Ok(data);
+        }
+
+        [HttpPost("filter_activos")]
+        [ProducesResponseType(typeof(LoadResult), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        [ProducesResponseType(401)]
+        public async Task<ActionResult<LoadResult>> ObtenerPorFiltroActivos([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+        {
+            var data = await sender.Send(new ObtenerPorFiltroActivosQuery(options), ct);
+            return Ok(data);
+        }
+
+
 
         [HttpPost]
         [ProducesResponseType(typeof(Persona), 200)]
