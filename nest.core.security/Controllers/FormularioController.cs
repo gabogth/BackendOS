@@ -64,10 +64,10 @@ public class FormularioController : Controller
     }
 
     [HttpPost("filter_activos")]
-    [ProducesResponseType(typeof(List<Formulario>), 200)]
+    [ProducesResponseType(typeof(LoadResult), 200)]
     [ProducesResponseType(typeof(ErrorMessage), 400)]
     [ProducesResponseType(401)]
-    public async Task<ActionResult<List<Formulario>>> ObtenerPorFiltroActivos([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+    public async Task<ActionResult<LoadResult>> ObtenerPorFiltroActivos([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
     {
         var data = await sender.Send(new ObtenerFormulariosPorFiltroActivosQuery(options), ct);
         return Ok(data);
