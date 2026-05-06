@@ -25,7 +25,9 @@
       <dxi-column dataField="empresaId" caption="Empresa Id" [allowEditing]="false" [visible]="false" [calculateCellValue]="($event) => this.sessionService.currentUser()?.empresaId"></dxi-column>
       <dxi-column dataField="nombre" caption="Nombre" [validationRules]="[{ type: 'required' }]" ></dxi-column>
       <dxi-column dataField="nombreCorto" caption="Nombre Corto" [validationRules]="[{ type: 'required' }]" ></dxi-column>
-      <dxi-column dataField="distritoId" caption="Distrito Id" dataType="number" [validationRules]="[{ type: 'required' }]" ></dxi-column>
+      <dxi-column dataField="distritoId" caption="Distrito" dataType="number" [validationRules]="[{ type: 'required' }]" >
+        <dxo-lookup [dataSource]="distritosDataSource" valueExpr="id" displayExpr="nombre"></dxo-lookup>
+      </dxi-column>
       <dxi-column dataField="direccion" caption="Dirección" [validationRules]="[{ type: 'required' }]" ></dxi-column>
       <dxi-column dataField="latitud" caption="Latitud" dataType="number"></dxi-column>
       <dxi-column dataField="lonitud" caption="Longitud" dataType="number"></dxi-column>
