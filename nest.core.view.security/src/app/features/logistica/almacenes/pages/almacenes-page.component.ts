@@ -3,7 +3,6 @@ import { firstValueFrom } from 'rxjs';
 import CustomStore from 'devextreme/data/custom_store';
 import { DxDataGridModule } from 'devextreme-angular';
 import { LoadOptions, LoadResult } from 'devextreme/common/data';
-
 import { AlmacenCreatePayload, AlmacenEntity, AlmacenUpdatePayload } from '@app/core/entities/almacen.entity';
 import { DistritoEntity } from '@app/core/entities/distrito.entity';
 import { DistritoService } from '@app/core/services/general/distritos/distrito.service';
@@ -21,8 +20,7 @@ import { UserSessionService } from '@app/core/services/ui/user-session.service';
 export class AlmacenesPageComponent {
   private readonly almacenService = inject(AlmacenService);
   private readonly distritoService = inject(DistritoService);
-  protected readonly sessionService = inject(UserSessionService);
-
+  private readonly sessionService = inject(UserSessionService);
 
   protected readonly distritosDataSource = new CustomStore<DistritoEntity, number>({
     key: 'id',
@@ -33,6 +31,9 @@ export class AlmacenesPageComponent {
       } catch (e: any) {
         throw NestUtils.formatValidationErrors(e);
       }
+    },
+    byKey: async (key: number): Promise<DistritoEntity> => {
+      return await firstValueFrom(this.distritoService.getById(key));
     },
   });
   protected readonly almacenesDataSource = new CustomStore<AlmacenEntity, number>({
@@ -50,7 +51,10 @@ export class AlmacenesPageComponent {
     },
     insert: async (values: Partial<AlmacenEntity>): Promise<AlmacenEntity> => {
       try {
-        return await firstValueFrom(this.almacenService.create(values as AlmacenCreatePayload));
+        return await firstValueFrom(this.almacenService.create({ 
+          ...values, 
+          empresaId: this.sessionService.currentUser()!.empresaId 
+        } as AlmacenCreatePayload));
       } catch (e: any) {
         throw NestUtils.formatValidationErrors(e);
       }
@@ -58,7 +62,10 @@ export class AlmacenesPageComponent {
     update: async (key: number, values: Partial<AlmacenEntity>): Promise<AlmacenEntity> => {
       try {
         const current = await firstValueFrom(this.almacenService.getById(key));
-        return await firstValueFrom(this.almacenService.update({ ...current, ...values, id: key }));
+        return await firstValueFrom(this.almacenService.update({ 
+          ...current, 
+          ...values
+        } as AlmacenUpdatePayload));
       } catch (e: any) {
         throw NestUtils.formatValidationErrors(e);
       }

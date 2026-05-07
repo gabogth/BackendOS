@@ -16,4 +16,8 @@ export class DistritoService {
   getByFilterActivos(loadOptions: LoadOptions): Observable<LoadResult<DistritoEntity[]>> {
     return this.httpClient.post<LoadResult<DistritoEntity[]>>(`${this.endpoint}/filter_activos`, loadOptions);
   }
+
+  getById(id: number): Observable<DistritoEntity> {
+    return this.httpClient.get<DistritoEntity>(`${this.endpoint}/${id}`);
+  }
 }
