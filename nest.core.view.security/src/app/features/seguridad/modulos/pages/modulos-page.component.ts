@@ -32,25 +32,31 @@ export class ModulosPageComponent {
       return firstValueFrom(this.moduloService.getById(Number(key)));
     },
     insert: async (values: Partial<ModuloEntity>): Promise<ModuloEntity> => {
-      return await firstValueFrom(this.moduloService.create(values as ModuloCreatePayload));
+      try {
+        return await firstValueFrom(this.moduloService.create(values as ModuloCreatePayload));
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
+      }
     },
     update: async (key: number, values: Partial<ModuloEntity>): Promise<ModuloEntity> => {
-      const current = await firstValueFrom(this.moduloService.getById(Number(key)));
-      return await firstValueFrom(
-        this.moduloService.update({
-          id: Number(key),
-          nombre: values.nombre?.trim() ?? current.nombre,
-          nombreCorto: values.nombreCorto?.trim() ?? current.nombreCorto,
-          descripcion: values.descripcion?.trim() ?? current.descripcion,
-          rutaImagen: values.rutaImagen?.trim() ?? current.rutaImagen,
-          action: values.action?.trim() ?? current.action,
-          controlador: values.controlador?.trim() ?? current.controlador,
-          estado: values.estado ?? current.estado,
-        }),
-      );
+      try {
+        const current = await firstValueFrom(this.moduloService.getById(Number(key)));
+        return await firstValueFrom(
+          this.moduloService.update({
+            ...current, 
+            ...values
+          }),
+        );
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
+      }
     },
     remove: async (key: number): Promise<void> => {
-      await firstValueFrom(this.moduloService.delete(Number(key)));
+      try {
+        await firstValueFrom(this.moduloService.delete(Number(key)));
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
+      }
     },
   });
 }

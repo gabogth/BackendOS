@@ -12,6 +12,6 @@ export interface SecurityRoleCreatePayload {
 }
 
 export interface SecurityRoleUpdatePayload {
-  id: number;
+  id: string;
   name: string;
 }

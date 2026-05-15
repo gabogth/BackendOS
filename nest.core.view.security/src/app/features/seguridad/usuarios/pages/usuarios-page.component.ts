@@ -9,7 +9,7 @@ import {
   DxValidatorComponent ,
   DxValidationGroupComponent
 } from 'devextreme-angular';
-import { SecurityUserEntity } from '@app/core/entities/security-user.entity';
+import { SecurityUserCreatePayload, SecurityUserEntity, SecurityUserUpdatePayload } from '@app/core/entities/security-user.entity';
 import { SecurityUserService } from '@app/core/services/seguridad/users/security-user.service';
 import { NestUtils } from '@app/core/services/util/nestUtils';
 import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
@@ -53,37 +53,32 @@ export class UsuariosPageComponent {
       return firstValueFrom(this.securityUserService.getById(key));
     },
     insert: async (values: Partial<SecurityUserEntity>): Promise<SecurityUserEntity> => {
-      const email = values.email?.trim() ?? '';
-      const password = values.password?.trim() ?? '';
-      const phoneNumber = values.phoneNumber?.trim() ?? '';
-      const created = {} as SecurityUserEntity;
-      try{
-        await firstValueFrom(
-          this.securityUserService.create({
-            email,
-            password,
-            phoneNumber,
-          }),
-        );
-      } catch (e: any){
+      try {
+        return await firstValueFrom(this.securityUserService.create(values as SecurityUserCreatePayload));
+      } catch (e) {
         throw NestUtils.formatValidationErrors(e);
       }
-      return created;
     },
     update: async (key: string, values: Partial<SecurityUserEntity>): Promise<SecurityUserEntity> => {
-      const current = await firstValueFrom(this.securityUserService.getById(key));
-      const updated = await firstValueFrom(
-        this.securityUserService.update({
-          id: key,
-          email: values.email?.trim() ?? current.email,
-          password: '',
-          phoneNumber: values.phoneNumber?.trim() ?? current.phoneNumber ?? '',
-        }),
-      );
-      return updated;
+      try {
+        const current = await firstValueFrom(this.securityUserService.getById(key));
+        return await firstValueFrom(
+          this.securityUserService.update({
+            ...current,
+            ...values,
+            password: '',
+          } as SecurityUserUpdatePayload),
+        );
+      } catch (e) {
+        throw NestUtils.formatValidationErrors(e);
+      }
     },
     remove: async (key: string): Promise<void> => {
-      await firstValueFrom(this.securityUserService.delete(key));
+      try {
+        await firstValueFrom(this.securityUserService.delete(key));
+      } catch (e) {
+        throw NestUtils.formatValidationErrors(e);
+      }
     },
   });
 

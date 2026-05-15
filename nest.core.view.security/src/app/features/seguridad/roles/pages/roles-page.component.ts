@@ -4,7 +4,7 @@ import CustomStore from 'devextreme/data/custom_store';
 import { DxDataGridModule } from 'devextreme-angular';
 import { CustomStoreOptions, DataSource, DataSourceOptions, LoadOptions, LoadResult } from 'devextreme/common/data';
 
-import { SecurityRoleCreatePayload, SecurityRoleEntity } from '@app/core/entities/security-role.entity';
+import { SecurityRoleCreatePayload, SecurityRoleEntity, SecurityRoleUpdatePayload } from '@app/core/entities/security-role.entity';
 import { SecurityRoleService } from '@app/core/services/seguridad/roles/security-role.service';
 import { UserSessionService } from '@app/core/services/ui/user-session.service';
 import { NestUtils } from '@app/core/services/util/nestUtils';
@@ -23,8 +23,7 @@ import { DxSelectBoxTypes } from 'devextreme-angular/ui/select-box';
 export class RolesPageComponent {
   private readonly securityRoleService = inject(SecurityRoleService);
   private readonly empresaService = inject(EmpresaService);
-  private readonly userService = inject(UserSessionService);
-  protected readonly empresaId = this.userService.empresaId;
+  private readonly sessionService = inject(UserSessionService);
   
   protected readonly empresasDataSource = new CustomStore<EmpresaEntity, number>({
     key: 'id',
@@ -61,24 +60,34 @@ export class RolesPageComponent {
       return firstValueFrom(this.securityRoleService.getById(key));
     },
     insert: async (values: Partial<SecurityRoleEntity>): Promise<SecurityRoleEntity> => {
-      values.empresaId = values.empresaId ? Number(values.empresaId) : this.empresaId;
       try {
-        return await firstValueFrom(this.securityRoleService.create(values as SecurityRoleCreatePayload));
+        return await firstValueFrom(this.securityRoleService.create({
+          ...values, 
+          empresaId: this.sessionService.currentUser()!.empresaId 
+        } as SecurityRoleCreatePayload));
       } catch (e: any) {
         throw NestUtils.formatValidationErrors(e);
       }
     },
     update: async (key: string, values: Partial<SecurityRoleEntity>): Promise<SecurityRoleEntity> => {
-      const current = await firstValueFrom(this.securityRoleService.getById(key));
-      return await firstValueFrom(
-        this.securityRoleService.update({
-          id: Number(key),
-          name: values.name?.trim() ?? current.name,
-        }),
-      );
+      try {
+        const current = await firstValueFrom(this.securityRoleService.getById(key));
+        return await firstValueFrom(
+          this.securityRoleService.update({
+            ...current,
+            ...values
+          } as SecurityRoleUpdatePayload),
+        );
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
+      }
     },
     remove: async (key: string): Promise<void> => {
-      await firstValueFrom(this.securityRoleService.delete(Number(key)));
+      try {
+        await firstValueFrom(this.securityRoleService.delete(Number(key)));
+      } catch (e: any) {
+        throw NestUtils.formatValidationErrors(e);
+      }
     },
   });
 }
