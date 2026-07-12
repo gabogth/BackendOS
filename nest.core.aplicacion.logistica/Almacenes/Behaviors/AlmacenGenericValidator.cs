@@ -16,10 +16,10 @@ namespace nest.core.aplicacion.rrhh.Cargos.Behaviors
                 .NotEmpty().WithMessage("El nombre corto es obligatorio.")
                 .MaximumLength(200).WithMessage("El nombre corto no puede exceder los 9 caracteres.");
 
-            RuleFor(x => x.latitud)
+            RuleFor(x => x.Latitud)
                 .NotEmpty().WithMessage("La latitud es obligatoria.");
 
-            RuleFor(x => x.lonitud)
+            RuleFor(x => x.Longitud)
                 .NotEmpty().WithMessage("La longitud es obligatoria.");
 
             RuleFor(x => x.Activo)
@@ -30,6 +30,8 @@ namespace nest.core.aplicacion.rrhh.Cargos.Behaviors
 
             RuleFor(x => x.DistritoId)
                 .NotEmpty().WithMessage("El distrito es obligatorio.");
+            RuleFor(x => x.EmpresaId)
+                .NotEmpty().WithMessage("La Empresa es necesaria.");
         }
     }
 }

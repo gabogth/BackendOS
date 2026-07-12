@@ -1,6 +1,7 @@
 ﻿using nest.iac.servicesinfra.Entities;
 using nest.iac.servicesinfra.Resources;
 using Pulumi;
+using Pulumi.Awsx.Ecr;
 
 namespace nest.iac.servicesinfra
 {
@@ -10,6 +11,7 @@ namespace nest.iac.servicesinfra
         {
             ApiGatewayCreator api = new ApiGatewayCreator();
             ServiceConfig[] services = ConfigVariables.AwsServices;
+            Image imageTest = null;
             for (int i = 0; i < services.Length; i++)
             {
                 ServiceConfig currentService = services[i];
@@ -23,8 +25,10 @@ namespace nest.iac.servicesinfra
                 string stageMain = "$default";
                 string routePath = currentService.routepath;
                 var ecrImage2 = new EcrCreator(ecrName, imageName, currentService.contextDocker, currentService.pathProject, "latest").Build();
+                if(i == 0)
+                    imageTest = new ImageCreator(imageName, ecrImage2, ".", "test.dockerfile", "latest").Build();
                 var lambdaRole = new RoleCreator(lambdaRoleName, prefix, Deployment.Instance.ProjectName).BuildLambda();
-                var lambda = new LambdaCreator(lambdaName, routePath, lambdaRole, cwName, api.EndpointUrl()).Build();
+                var lambda = new LambdaCreator(lambdaName, routePath, lambdaRole, cwName, api.EndpointUrl(), imageTest).Build();
                 var route2 = new ApiGatewayCreator(prefix, stageMain, lambda, routePath, i == 0).BuildLambda();
             }
             //var tableName = CreateDynamoDbTable();

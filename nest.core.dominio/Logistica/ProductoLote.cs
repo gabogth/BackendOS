@@ -7,7 +7,7 @@ namespace nest.core.dominio.Logistica
     {
         public int EmpresaId { get; set; }
         public long Id { get; set; }
-        public int ProductoId { get; set; }
+        public long ProductoId { get; set; }
         public int SerialId { get; set; }
         public DateTime? FechaVencimiento { get; set; }
         public int MonedaId { get; set; }

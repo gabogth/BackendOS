@@ -14,7 +14,7 @@ namespace nest.iac.servicesinfra.Resources
         private Aws.Iam.Role role = null!;
         private Aws.Lambda.Function function = null!;
         private Output<string> endpointUrl { get; set; }
-        public LambdaCreator(string lambdaName, string basePath, Aws.Iam.Role role, string cwName, Output<string> endpointUrl)
+        public LambdaCreator(string lambdaName, string basePath, Aws.Iam.Role role, string cwName, Output<string> endpointUrl, Awsx.Ecr.Image image)
         {
             this.lambdaName = lambdaName;
             this.image = image;
@@ -35,7 +35,7 @@ namespace nest.iac.servicesinfra.Resources
             {
                 Name = this.lambdaName,
                 PackageType = "Image",
-                //ImageUri = this.image.ImageUri,
+                ImageUri = this.image.ImageUri,
                 MemorySize = 512,
                 Timeout = 120,
                 Role = this.role.Arn,
@@ -58,12 +58,6 @@ namespace nest.iac.servicesinfra.Resources
                     SubnetIds = ConfigVariables.AwsSubnets,
                     SecurityGroupIds = ConfigVariables.AwsSecurityGroups
                 },
-            }, new CustomResourceOptions {
-                IgnoreChanges = { 
-                    "image_uri", "imageUri",
-                    "package_type", "packageType",
-                    "image_digest", "imageDigest"
-                }
             });
         }
 

@@ -8,7 +8,7 @@ namespace nest.core.dominio.Logistica.Transaccional
         public long Id { get; set; }
         public long InventarioCabeceraId { get; set; }
         public short Item { get; set; }
-        public int ProductoId { get; set; }
+        public long ProductoId { get; set; }
         public long ProductoLoteId { get; set; }
         public Producto Producto { get; set; }
         public ProductoLote ProductoLote { get; set; }

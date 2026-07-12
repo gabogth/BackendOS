@@ -1,0 +1,1 @@
+﻿FROM pulumi/pulumi-dotnet:latest

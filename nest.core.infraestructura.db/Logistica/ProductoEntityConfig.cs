@@ -13,7 +13,7 @@ namespace nest.core.infraestructura.db.Logistica
             builder.HasIndex(x => x.EmpresaId);
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
-                .HasValueGenerator<GenericValueGenerator<int>>();
+                .HasValueGenerator<GenericValueGenerator<long>>();
             builder.Property(x => x.NombreCorto)
                 .HasMaxLength(25);
             builder.HasOne(ic => ic.UnidadMedidaCompra)

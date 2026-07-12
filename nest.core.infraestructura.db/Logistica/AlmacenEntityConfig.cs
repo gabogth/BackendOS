@@ -45,7 +45,7 @@ namespace nest.core.infraestructura.db.Logistica
     public class AlmacenValueGenerator : ValueGenerator<int>
     {
         public override bool GeneratesTemporaryValues => false;
-        public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).Almacen.Max(x => x.Id));
-        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).Almacen.Max(x => x.Id), cancellationToken);
+        public override int Next(EntityEntry entry) => GeneradorCorrelativo.GetValue<int>(entry, object () => ((NestDbContext)entry.Context).Almacen.IgnoreQueryFilters().Max(x => (int?)x.Id) ?? 0);
+        public override async ValueTask<int> NextAsync(EntityEntry entry, CancellationToken cancellationToken = default) => await GeneradorCorrelativo.GetValueAsync<int>(entry, object () => ((NestDbContext)entry.Context).Almacen.IgnoreQueryFilters().Max(x => (int?)x.Id) ?? 0, cancellationToken);
     }
 }

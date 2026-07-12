@@ -2,10 +2,10 @@
 
 namespace nest.core.dominio.Logistica
 {
-    public class Producto : IAuditable, IEntity<int>, ITenantEntity
+    public class Producto : IAuditable, IEntity<long>, ITenantEntity
     {
         public int EmpresaId { get; set; }
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Nombre { get; set; }
         public string NombreCorto { get; set; }
         public int UnidadMedidaCompraId { get; set; }

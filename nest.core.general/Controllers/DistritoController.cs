@@ -34,9 +34,9 @@ namespace nest.core.general.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Distrito), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<Distrito>> ObtenerPorId([FromQuery] ObtenerPorIdQuery command, CancellationToken ct)
+        public async Task<ActionResult<Distrito>> ObtenerPorId([FromRoute] int id, CancellationToken ct)
         {
-            var entidad = await sender.Send(command);
+            var entidad = await sender.Send(new ObtenerPorIdQuery(id));
             return Ok(entidad);
         }
 

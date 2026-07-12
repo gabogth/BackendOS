@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.34330.188
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.11919.86 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dominio", "dominio", "{9842F033-5A3B-44D2-AE92-A15CB82003E5}"
 EndProject
@@ -30,8 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		nest.slnLaunch.user = nest.slnLaunch.user
 		README.md = README.md
 		security.dockerfile = security.dockerfile
-		wait-for-db.sh = wait-for-db.sh
 		uploadimage.ps1 = uploadimage.ps1
+		wait-for-db.sh = wait-for-db.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.infrastructura.utils", "nest.core.infrastructura.utils\nest.core.infrastructura.utils.csproj", "{DB1613AE-66FB-484A-A7AC-3594D86A137E}"
@@ -123,6 +123,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.utils", "nest.core.aplicacion.utils\nest.core.aplicacion.utils.csproj", "{78548182-FF83-4E13-9F9F-7293805BC214}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.datasource", "nest.core.aplicacion.datasource\nest.core.aplicacion.datasource.csproj", "{7E32C83F-BCBB-42E7-B32C-86CCA10101A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.iclock", "nest.core.iclock\nest.core.iclock.csproj", "{B4C6ED67-F449-4684-9BD2-5CE654BE3030}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -221,6 +223,8 @@ Global
 		{78548182-FF83-4E13-9F9F-7293805BC214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E32C83F-BCBB-42E7-B32C-86CCA10101A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7E32C83F-BCBB-42E7-B32C-86CCA10101A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4C6ED67-F449-4684-9BD2-5CE654BE3030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4C6ED67-F449-4684-9BD2-5CE654BE3030}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -272,6 +276,7 @@ Global
 		{01D453BD-1A3D-4B5F-A4E0-F63E814BA034} = {7FC3797F-B49D-4CA0-858B-239AE3C16389}
 		{78548182-FF83-4E13-9F9F-7293805BC214} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 		{7E32C83F-BCBB-42E7-B32C-86CCA10101A5} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
+		{B4C6ED67-F449-4684-9BD2-5CE654BE3030} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {651F4B0C-740F-4ABF-8B23-D07A56743FFF}

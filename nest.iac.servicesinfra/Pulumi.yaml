@@ -11,7 +11,7 @@ config:
   cld:securityGroups:
     - "sg-03a3776a8702f98c7"
   cld:clusterArn: "arn:aws:ecs:us-east-1:949982764789:cluster/nest-generalinfra-clusterecs"
-  cld:apiId: "7p4yx3l258"
+  cld:apiId: "shy3r9ti3f"
   cld:bucketName: "nest-generalinfra-bucket"
   cld:services:
     - serviceName: "security"  
@@ -86,3 +86,8 @@ config:
       pathProject: "../nest.core.datasource/lambda.Dockerfile"
       port: 8080
       healthPath: null
+    - serviceName: "iclock"  
+      routepath: "/iclock"
+      contextDocker: "../"
+      pathProject: "../nest.core.iclock/lambda.Dockerfile"
+      port: 8080
