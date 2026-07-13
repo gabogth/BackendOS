@@ -49,6 +49,7 @@ namespace nest.core.iclock.Controllers
         {
             using var reader = new StreamReader(Request.Body);
             var payload = await reader.ReadToEndAsync(ct);
+            Console.WriteLine($"cdata SN: {SN}, Payload: {payload}");
             var resultado = await ProcesarMarcaciones(payload, SN, ct);
 
             if (resultado.Errores.Count > 0)
@@ -115,7 +116,7 @@ namespace nest.core.iclock.Controllers
                     continue;
                 }
 
-                await sender.Send(new RegistroAsistenciaCrearCommand(empresaId, personalId, record.Fecha, null, null), ct);
+                //await sender.Send(new RegistroAsistenciaCrearCommand(empresaId, personalId, record.Fecha, null, null), ct);
                 procesados++;
             }
 
