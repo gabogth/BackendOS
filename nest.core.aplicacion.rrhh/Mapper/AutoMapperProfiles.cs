@@ -11,6 +11,7 @@ using nest.core.aplicacion.rrhh.RegistroAsistenciaAdjuntos.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaPoliticas.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
+using nest.core.aplicacion.rrhh.TerminalBiometricos.Commands;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.dominio.RRHH.FrecuenciaPagoEntities;
 using nest.core.dominio.RRHH.GrupoTrabajoEntities;
@@ -24,6 +25,7 @@ using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
+using nest.core.dominio.RRHH.TerminalBiometricoEntities;
 
 namespace nest.core.aplicacion.rrhh.Mapper
 {
@@ -60,6 +62,8 @@ namespace nest.core.aplicacion.rrhh.Mapper
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.RegistroAsistenciaId));
             CreateMap<RegistroAsistenciaAdjuntoModificarCommand, RegistroAsistenciaAdjunto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.RegistroAsistenciaId));
+            CreateMap<TerminalBiometricoCrearCommand, TerminalBiometrico>();
+            CreateMap<TerminalBiometricoModificarCommand, TerminalBiometrico>();
             CreateMap<HorarioCabecera, HorarioCabecera>();
         }
 
@@ -104,6 +108,7 @@ namespace nest.core.aplicacion.rrhh.Mapper
                 .ForMember(dest => dest.RegistroAsistencia, opt => opt.Ignore())
                 .ForMember(dest => dest.OrdenTrabajoCabecera, opt => opt.Ignore());
             CreateMap<RegistroAsistenciaPolitica, RegistroAsistenciaPolitica>();
+            CreateMap<TerminalBiometrico, TerminalBiometrico>();
         }
     }
 }

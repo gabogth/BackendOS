@@ -16,6 +16,7 @@ using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
+using nest.core.dominio.RRHH.TerminalBiometricoEntities;
 using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Transaccional;
 using nest.core.infraestructura.db.Transaccional;
@@ -44,6 +45,7 @@ namespace nest.core.aplicacion.rrhh
             services.AddTransient<IRegistroAsistenciaRepository, RegistroAsistenciaRepository>();
             services.AddTransient<IRegistroAsistenciaOrdenTrabajoRepository, RegistroAsistenciaOrdenTrabajoRepository>();
             services.AddTransient<IRegistroAsistenciaPoliticaRepository, RegistroAsistenciaPoliticaRepository>();
+            services.AddTransient<ITerminalBiometricoRepository, TerminalBiometricoRepository>();
             services.AddTransient<IOrdenTrabajoCabeceraRepository, OrdenTrabajoCabeceraRepository>();
             services.AddTransient<IRegistroAsistencia_OrdenTrabajoRepository, RegistroAsistencia_OrdenTrabajoRepository>();
             services.AddTransient<IOrdenTrabajoHorarioRepository, OrdenTrabajoHorarioRepository>();
