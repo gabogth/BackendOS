@@ -1,3 +1,5 @@
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +37,26 @@ public class TerminalBiometricoController : ControllerBase
     public async Task<ActionResult<TerminalBiometrico>> ObtenerPorId(int id, CancellationToken ct)
     {
         var data = await sender.Send(new ObtenerTerminalBiometricoPorIdQuery(id), ct);
+        return Ok(data);
+    }
+
+    [HttpPost("filter")]
+    [ProducesResponseType(typeof(LoadResult), 200)]
+    [ProducesResponseType(typeof(ErrorMessage), 400)]
+    [ProducesResponseType(401)]
+    public async Task<ActionResult<LoadResult>> ObtenerPorFiltro([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+    {
+        var data = await sender.Send(new ObtenerTerminalBiometricosPorFiltroDataSourceQuery(options), ct);
+        return Ok(data);
+    }
+
+    [HttpPost("filter_activos")]
+    [ProducesResponseType(typeof(LoadResult), 200)]
+    [ProducesResponseType(typeof(ErrorMessage), 400)]
+    [ProducesResponseType(401)]
+    public async Task<ActionResult<LoadResult>> ObtenerPorFiltroActivos([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+    {
+        var data = await sender.Send(new ObtenerTerminalBiometricosPorFiltroActivosQuery(options), ct);
         return Ok(data);
     }
 

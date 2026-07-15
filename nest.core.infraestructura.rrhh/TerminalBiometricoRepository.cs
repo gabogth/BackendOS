@@ -1,4 +1,6 @@
 using AutoMapper;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using nest.core.dominio.RRHH.TerminalBiometricoEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
@@ -16,6 +18,10 @@ public class TerminalBiometricoRepository : CrudRepositoryBase<TerminalBiometric
         await GetByIdAsync(id) ?? throw new RegistroNoEncontradoException<TerminalBiometrico>(id.ToString());
 
     public async Task<List<TerminalBiometrico>> ObtenerTodos() => await GetAllAsync();
+
+    public async Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
+
+    public async Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
 
     public Task<TerminalBiometrico> Agregar(TerminalBiometrico entry) => AddAsync(entry);
 
