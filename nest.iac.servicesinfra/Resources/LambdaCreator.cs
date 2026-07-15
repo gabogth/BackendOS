@@ -41,7 +41,7 @@ namespace nest.iac.servicesinfra.Resources
                 Role = this.role.Arn,
                 Environment = new Aws.Lambda.Inputs.FunctionEnvironmentArgs
                 {
-                    Variables = 
+                    Variables =
                     {
                         { "ASPNETCORE_ENVIRONMENT", "Production" },
                         { "ENGINE", "Npgsql" },
@@ -58,6 +58,10 @@ namespace nest.iac.servicesinfra.Resources
                     SubnetIds = ConfigVariables.AwsSubnets,
                     SecurityGroupIds = ConfigVariables.AwsSecurityGroups
                 },
+            }, new CustomResourceOptions {
+                IgnoreChanges = new List<string> {
+                    "imageUri", "memorySize", "packageType"
+                }
             });
         }
 

@@ -8,8 +8,6 @@ namespace nest.iac.servicesinfra.Resources
         private readonly string nameVpcLink;
         private readonly string nameIntegration;
         private readonly string nameRoute;
-        private readonly string nameStage;
-        private readonly string stageMain;
         private readonly string prefix;
         private readonly string routePath;
         private readonly string permissionName;
@@ -17,10 +15,8 @@ namespace nest.iac.servicesinfra.Resources
         private Aws.ApiGatewayV2.VpcLink vpcLink = null!;
         private Aws.ApiGatewayV2.Integration integration = null!;
         private Aws.ApiGatewayV2.Route route = null!;
-        private Aws.ApiGatewayV2.Stage stage = null!;
         private Aws.Lambda.Function lambda = null!;
         private Aws.Lambda.Permission permission = null!;
-        private bool deploy = false;
         public Output<string> ExecutionArn()
         {
             Output<Aws.ApiGatewayV2.GetApiResult> currentApi = Aws.ApiGatewayV2.GetApi.Invoke(new Aws.ApiGatewayV2.GetApiInvokeArgs { 
@@ -36,30 +32,24 @@ namespace nest.iac.servicesinfra.Resources
             });
             return currentApi.Apply((x) => x.ApiEndpoint);
         }
-        public ApiGatewayCreator(string prefix, string stageMain, Aws.LB.Listener listener, string routePath, bool deploy)
+        public ApiGatewayCreator(string prefix, Aws.LB.Listener listener, string routePath)
         {
             this.prefix = prefix;
             this.nameVpcLink = $"{this.prefix}-vpcLink";
             this.nameIntegration = $"{this.prefix}-integration";
             this.nameRoute = $"{this.prefix}-route";
-            this.nameStage = $"{this.prefix}-stg";
             this.listener = listener;
-            this.stageMain = stageMain;
             this.routePath = routePath;
-            this.deploy = deploy;
         }
 
-        public ApiGatewayCreator(string prefix, string stageMain, Aws.Lambda.Function lambda, string routePath, bool deploy)
+        public ApiGatewayCreator(string prefix, Aws.Lambda.Function lambda, string routePath)
         {
             this.prefix = prefix;
             this.nameIntegration = $"{this.prefix}-integration";
             this.nameRoute = $"{this.prefix}-route";
-            this.nameStage = $"{this.prefix}-stg";
             this.permissionName = $"{this.prefix}-permission";
             this.lambda = lambda;
-            this.stageMain = stageMain;
             this.routePath = routePath;
-            this.deploy = deploy;
         }
 
         public ApiGatewayCreator()
@@ -72,8 +62,6 @@ namespace nest.iac.servicesinfra.Resources
             this.vpcLink = this.CreateVpcLink();
             this.integration = this.CreateIntegration();
             this.route = this.CreateRoutes();
-            if(this.deploy)
-                this.stage = this.CreateStageDeploy();
             return this.route;
         }
 
@@ -82,8 +70,6 @@ namespace nest.iac.servicesinfra.Resources
             this.permission = this.CreatePermissionLambda();
             this.integration = this.CreateIntegrationAws();
             this.route = this.CreateRoutes();
-            if (this.deploy)
-                this.stage = this.CreateStageDeploy();
             return this.route;
         }
         private Aws.ApiGatewayV2.VpcLink CreateVpcLink()
@@ -120,12 +106,15 @@ namespace nest.iac.servicesinfra.Resources
 
         private Aws.Lambda.Permission CreatePermissionLambda()
         {
+            var sourceArnPattern = this.routePath.EndsWith("/")
+                ? $"{this.routePath}*"
+                : $"{this.routePath}*";
             return new Aws.Lambda.Permission(this.permissionName, new Aws.Lambda.PermissionArgs
             {
                 Action = "lambda:InvokeFunction",
                 Function = this.lambda.Name,
                 Principal = "apigateway.amazonaws.com",
-                SourceArn = Output.Format($"{this.ExecutionArn()}/*/*{this.routePath}/*")
+                SourceArn = Output.Format($"{this.ExecutionArn()}/*/*{sourceArnPattern}")
             });
         }
 
@@ -161,15 +150,5 @@ namespace nest.iac.servicesinfra.Resources
                 Target = this.integration.Id.Apply(integrationId => $"integrations/{integrationId}")
             });
         }
-
-        private Aws.ApiGatewayV2.Stage CreateStageDeploy()
-        {
-            return new Aws.ApiGatewayV2.Stage(this.nameStage, new Aws.ApiGatewayV2.StageArgs {
-                Name = this.stageMain,
-                ApiId = ConfigVariables.AwsApiId,
-                AutoDeploy = true
-            });
-	    }
-
     }
 }

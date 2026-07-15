@@ -12,6 +12,7 @@ using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
+using nest.core.dominio.RRHH.TerminalBiometricoEntities;
 
 namespace nest.core.infraestructura.db.DbContext
 {
@@ -29,6 +30,7 @@ namespace nest.core.infraestructura.db.DbContext
         public DbSet<RegistroAsistenciaPolitica> RegistroAsistenciaPolitica { get; set; }
         public DbSet<RegistroAsistenciaOrdenTrabajo> RegistroAsistenciaOrdenTrabajo { get; set; }
         public DbSet<RegistroAsistenciaAdjunto> RegistroAsistenciaAdjunto { get; set; }
+        public DbSet<TerminalBiometrico> TerminalBiometrico { get; set; }
         public void OnModelCreatingRRHH(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<GrupoTrabajo>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
@@ -41,6 +43,7 @@ namespace nest.core.infraestructura.db.DbContext
             modelBuilder.Entity<RegistroAsistenciaPolitica>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
             modelBuilder.Entity<RegistroAsistenciaOrdenTrabajo>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
             modelBuilder.Entity<RegistroAsistenciaAdjunto>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
+            modelBuilder.Entity<TerminalBiometrico>().HasQueryFilter(x => x.EmpresaId == this.EmpresaId);
         }
     }
 }

@@ -34,5 +34,10 @@ namespace nest.core.aplication.auth
                 Console.WriteLine("Error loading ConnectionService", ex.Message);
             }
         }
+
+        public void SetUsuario(string usuario) => this.Usuario = usuario;
+        public void SetEngine(string engine) =>this.Engine = engine;
+        public void SetEmpresaId(int? empresaId) => this.EmpresaId = empresaId;
+        public void SetUserId(string userId) => this.UserId = userId;
     }
 }

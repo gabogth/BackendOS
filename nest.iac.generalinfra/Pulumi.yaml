@@ -4,7 +4,7 @@ description: Proyecto para el despliegue de nest-generalinfra
 config:
   rds:engine: "postgres"
   rds:instanceClass: "db.t3.micro"
-  rds:engineVersion: "17.6"
+  rds:engineVersion: "17.9"
   rds:storageType: "gp2"
   rds:allocatedStorage: "20"
   cld:vpcId: "vpc-0e4732954a376035b"

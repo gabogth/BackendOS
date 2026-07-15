@@ -11,5 +11,10 @@ namespace nest.core.dominio.Security.Tenant
         RequestParameters Request { get; }
         IConfigurationManager Configuration { get; set; }
         string ConnectionString { get; }
+
+        void SetUsuario(string usuario);
+        void SetEngine(string engine);
+        void SetEmpresaId(int? empresaId);
+        void SetUserId(string userId);
     }
 }

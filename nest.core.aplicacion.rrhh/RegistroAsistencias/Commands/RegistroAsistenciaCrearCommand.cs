@@ -1,5 +1,4 @@
 using MediatR;
-using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Commands

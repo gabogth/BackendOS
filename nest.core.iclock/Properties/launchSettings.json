@@ -9,7 +9,7 @@
         "ENGINE": "SqlServer"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:8283"
+      "applicationUrl": "http://localhost:8393"
     },
     "https": {
       "commandName": "Project",
@@ -19,7 +19,7 @@
         "ENGINE": "Npgsql"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:8383;"
+      "applicationUrl": "https://localhost:8393;"
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json"

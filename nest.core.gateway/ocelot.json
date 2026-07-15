@@ -147,6 +147,18 @@
         }
       ]
     },
+    {
+      "UpstreamPathTemplate": "/iclock/{url}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8393
+        }
+      ]
+    },
 
     //Start Region [Swagger config]
 
@@ -305,6 +317,19 @@
           "Port": 8392
         }
       ]
+    },
+    {
+      "SwaggerKey": "iclock",
+      "UpstreamPathTemplate": "/iclock/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8393
+        }
+      ]
     }
     //End Region [Swagger config]
   ],
@@ -426,6 +451,16 @@
           "Name": "API Datasource",
           "Version": "v1",
           "Url": "https://localhost:8392/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "iclock",
+      "Config": [
+        {
+          "Name": "API Iclock",
+          "Version": "v1",
+          "Url": "https://localhost:8393/swagger/v1/swagger.json"
         }
       ]
     }

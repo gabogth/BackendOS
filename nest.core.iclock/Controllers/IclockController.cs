@@ -13,7 +13,7 @@ namespace nest.core.iclock.Controllers
     /// </summary>
     [AllowAnonymous]
     [ApiController]
-    [Route("iclock")]
+    [Route("")]
     public class IclockController : ControllerBase
     {
         private readonly ISender sender;
@@ -25,6 +25,17 @@ namespace nest.core.iclock.Controllers
             this.sender = sender;
             this.logger = logger;
             empresaId = configuration.GetValue<int?>("Iclock:EmpresaId") ?? 1;
+        }
+
+        /// <summary>
+        /// Endpoint de alta/keep-alive del dispositivo iClock.
+        /// </summary>
+        [HttpGet]
+        [ProducesResponseType(typeof(string), 200)]
+        public ActionResult<string> Get()
+        {
+            logger.LogInformation("Get iClock recibido");
+            return Content("OK", "text/plain");
         }
 
         /// <summary>
