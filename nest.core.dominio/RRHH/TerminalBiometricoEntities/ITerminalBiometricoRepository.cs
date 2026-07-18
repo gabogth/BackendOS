@@ -7,6 +7,7 @@ namespace nest.core.dominio.RRHH.TerminalBiometricoEntities
     {
         Task<TerminalBiometrico> ObtenerPorId(int id);
         Task<List<TerminalBiometrico>> ObtenerTodos();
+        Task<TerminalBiometrico> ObtenerPorSerialNumber(string serialNumber);
         Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken);
         Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken);
         Task<TerminalBiometrico> Agregar(TerminalBiometrico entry);

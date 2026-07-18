@@ -28,6 +28,7 @@ namespace nest.core.aplication.auth
                         .AddDbContextCheck<DbContextSqlServer>("Users check", customTestQuery: (db, token) => db.Users.AnyAsync(token));
                     break;
                 case "Npgsql":
+                    Console.WriteLine("INICIANDO PostgreSQL");
                     builder.Services.AddDbContext<NestDbContext, DbContextPsSql>((sp) => {
                         sp.AddInterceptors(new TenantGuardSaveChangesInterceptor());
                     });

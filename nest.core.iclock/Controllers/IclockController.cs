@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
+using nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers;
 using nest.core.dominio;
 using nest.core.iclock.Models;
 using System.Globalization;
@@ -61,11 +62,14 @@ namespace nest.core.iclock.Controllers
             using var reader = new StreamReader(Request.Body);
             var payload = await reader.ReadToEndAsync(ct);
             Console.WriteLine($"cdata SN: {SN}, Payload: {payload}");
-            var resultado = await ProcesarMarcaciones(payload, SN, ct);
+            string dni = payload.Split("\t")[0];
+            string fechaStr = payload.Split("\t")[1];
+            DateTime fecha = DateTime.Parse(fechaStr);
 
-            if (resultado.Errores.Count > 0)
-                logger.LogWarning("Marcaciones iClock procesadas con observaciones para {SerialNumber}: {Errores}", SN, string.Join(" | ", resultado.Errores));
+            RegistroAsistenciaTerminalZKTecoCrearCommand command = new RegistroAsistenciaTerminalZKTecoCrearCommand(SN, 1, dni, fecha);
 
+            var result = await sender.Send(command);
+            Console.WriteLine($"result.Id: {result.Id}");
             return Content("OK", "text/plain");
         }
 
