@@ -3,6 +3,7 @@ using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
+using nest.core.dominio.RRHH.TerminalBiometricoEntities;
 using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
@@ -21,6 +22,8 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
         public decimal? Longitud { get; set; }
         public long? HorarioDetalleEventoId { get; set; }
         public long? RegistroAsistenciaPoliticaId { get; set; }
+        public int? TerminalBiometricoId { get; set; }
+        public TerminalBiometrico TerminalBiometrico { get; set; }
         public RegistroAsistenciaPolitica RegistroAsistenciaPolitica { get; set; }
         public Personal Personal { get; set; }
         public HorarioDetalleEvento HorarioDetalleEvento { get; set; }

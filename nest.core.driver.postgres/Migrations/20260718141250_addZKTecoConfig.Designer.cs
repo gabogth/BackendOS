@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using nest.core.infraestructura.db.DbContext.Provider;
@@ -12,9 +13,11 @@ using nest.core.infraestructura.db.DbContext.Provider;
 namespace nest.core.driver.postgres.Migrations
 {
     [DbContext(typeof(DbContextPsSql))]
-    partial class DbContextPsSqlModelSnapshot : ModelSnapshot
+    [Migration("20260718141250_addZKTecoConfig")]
+    partial class addZKTecoConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -6744,9 +6747,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.Property<long?>("RegistroAsistenciaPoliticaId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("TerminalBiometricoId")
-                        .HasColumnType("integer");
-
                     b.Property<byte>("TipoEvento")
                         .HasColumnType("smallint");
 
@@ -10906,9 +10906,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.Property<long?>("RegistroAsistenciaPoliticaId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("TerminalBiometricoId")
-                        .HasColumnType("integer");
-
                     b.Property<byte>("TipoEvento")
                         .HasColumnType("smallint");
 
@@ -10921,8 +10918,6 @@ namespace nest.core.driver.postgres.Migrations
                     b.HasIndex("PersonalId");
 
                     b.HasIndex("RegistroAsistenciaPoliticaId");
-
-                    b.HasIndex("TerminalBiometricoId");
 
                     b.ToTable("registro_asistencia", "rrhh");
                 });
@@ -12152,18 +12147,11 @@ namespace nest.core.driver.postgres.Migrations
                         .HasForeignKey("RegistroAsistenciaPoliticaId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("nest.core.dominio.RRHH.TerminalBiometricoEntities.TerminalBiometrico", "TerminalBiometrico")
-                        .WithMany()
-                        .HasForeignKey("TerminalBiometricoId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("HorarioDetalleEvento");
 
                     b.Navigation("Personal");
 
                     b.Navigation("RegistroAsistenciaPolitica");
-
-                    b.Navigation("TerminalBiometrico");
                 });
 
             modelBuilder.Entity("nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities.RegistroAsistenciaOrdenTrabajo", b =>

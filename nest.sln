@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		.gitignore = .gitignore
 		connectionstring.txt = connectionstring.txt
 		docker-compose.yml = docker-compose.yml
+		migrar-pg.ps1 = migrar-pg.ps1
 		nest.slnLaunch.user = nest.slnLaunch.user
 		README.md = README.md
 		security.dockerfile = security.dockerfile
