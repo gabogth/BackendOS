@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\nest.core.infraestructura.db\nest.core.infraestructura.db.csproj" />
+    <ProjectReference Include="..\nest.core.infrastructura.utils\nest.core.infrastructura.utils.csproj" />
+  </ItemGroup>
+
+</Project>
