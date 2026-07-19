@@ -1,11 +1,11 @@
 using AutoMapper;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
+using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.RRHH.TerminalBiometricoEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
 using nest.core.infrastructura.utils.Excepciones;
-using System.Data.Entity;
 
 namespace nest.core.infraestructura.rrhh;
 
@@ -18,8 +18,7 @@ public class TerminalBiometricoRepository : CrudRepositoryBase<TerminalBiometric
     public async Task<TerminalBiometrico> ObtenerPorId(int id) =>
         await GetByIdAsync(id) ?? throw new RegistroNoEncontradoException<TerminalBiometrico>(id.ToString());
 
-    public async Task<TerminalBiometrico> ObtenerPorSerialNumber(string serialNumber) =>
-        await Query().Where(x => x.SN.ToLower().Trim() == serialNumber.ToLower().Trim()).FirstOrDefaultAsync() ?? throw new RegistroNoEncontradoException<TerminalBiometrico>(serialNumber);
+    public async Task<TerminalBiometrico> ObtenerPorSerialNumber(string serialNumber) => await Query().Where(x => x.SN.ToLower().Trim() == serialNumber.ToLower().Trim()).FirstOrDefaultAsync() ?? throw new RegistroNoEncontradoException<TerminalBiometrico>(serialNumber);
 
     public async Task<List<TerminalBiometrico>> ObtenerTodos() => await GetAllAsync();
 

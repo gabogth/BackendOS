@@ -7,14 +7,12 @@ using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.TerminalBiometricoEntities;
-using nest.core.dominio.Security.Tenant;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
 {
     public class RegistroAsistenciaTerminalZKTecoCrearHandler : RegistroAsistenciaHandlerBase, IRequestHandler<RegistroAsistenciaTerminalZKTecoCrearCommand, RegistroAsistencia>
     {
         private readonly ILogger<RegistroAsistenciaTerminalZKTecoCrearHandler> logger;
-        private readonly IConnectionStringService connectionStringService;
         private readonly ITerminalBiometricoRepository terminalBiometricoRepository;
 
         public RegistroAsistenciaTerminalZKTecoCrearHandler(
@@ -22,14 +20,12 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             IHorarioRepository horarioRepository,
             IPersonalRepository personalRepository,
             IHorarioDetalleRepository horarioDetalleRepository,
-            IConnectionStringService connectionStringService,
             ITerminalBiometricoRepository terminalBiometricoRepository,
             IMapper mapper,
             ILogger<RegistroAsistenciaTerminalZKTecoCrearHandler> logger)
             : base(repository, horarioRepository, personalRepository, horarioDetalleRepository)
         {
             this.logger = logger;
-            this.connectionStringService = connectionStringService;
             this.terminalBiometricoRepository = terminalBiometricoRepository;
         }
 
@@ -38,9 +34,6 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             try
             {
                 var personal = await personalRepository.ObtenerPorDocumentoIdentidad(request.DocumentoTipo, request.DocumentoNumero);
-                connectionStringService.SetEmpresaId(personal.EmpresaId);
-                connectionStringService.SetUserId(personal.UsuarioId);
-                connectionStringService.SetUsuario(personal.Usuario.UserName);
                 var personalOk = await personalRepository.ObtenerPorId(personal.Id);
                 var terminalBiometrico = await terminalBiometricoRepository.ObtenerPorSerialNumber(request.SerialNumber);
                 RegistroAsistencia registro = new RegistroAsistencia

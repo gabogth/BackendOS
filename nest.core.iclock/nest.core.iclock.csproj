@@ -7,7 +7,7 @@
     <NoWarn>1591</NoWarn>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <UserSecretsId>0f91d37d-0f89-4f33-a53b-7d5f2c7b1bb1</UserSecretsId>
+	<UserSecretsId>d9a145ed-e245-4d4b-a57f-ee1caeb9d575</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

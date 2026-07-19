@@ -143,6 +143,21 @@ namespace nest.core.rrhh.Controllers
         }
 
         /// <summary>
+        /// Crea un nuevo registro de asistencia utilizando los parametros del token como inicio de sesion.
+        /// </summary>
+        /// <returns>Registro de asistencia creado.</returns>
+        /// <response code="200">Registro creado correctamente.</response>
+        /// <response code="400">Error en la solicitud.</response>
+        [HttpPost("zkteco")]
+        [ProducesResponseType(typeof(RegistroAsistencia), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<RegistroAsistencia>> AgregarUsuarioActualZkTeco([FromBody] RegistroAsistenciaTerminalZKTecoCrearCommand command, CancellationToken ct)
+        {
+            var data = await sender.Send(command, ct);
+            return Ok(data);
+        }
+
+        /// <summary>
         /// Actualiza un registro de asistencia existente.
         /// </summary>
         /// <param name="id">Identificador del registro que se desea actualizar.</param>

@@ -32,6 +32,13 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddHttpClient($"admService", client =>
+{
+    client.BaseAddress = new Uri(Environment.GetEnvironmentVariable("URL_ENDPOINT") ?? "");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+    client.Timeout = TimeSpan.FromSeconds(30);
+});
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

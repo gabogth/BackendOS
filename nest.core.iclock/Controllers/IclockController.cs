@@ -2,7 +2,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
-using nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers;
 using nest.core.dominio;
 using nest.core.iclock.Models;
 using System.Globalization;
