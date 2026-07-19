@@ -1,7 +1,7 @@
 using FluentValidation;
 using MediatR;
-using nest.core.aplicacion.rrhh;
-using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Behaviors;
+using nest.core.aplicacion.iclock;
+using nest.core.aplicacion.iclock.Marcaciones.Behaviors;
 using nest.core.aplicacion.utils.Behaviors;
 using nest.core.dominio.Cache;
 using nest.core.infraestructura.db.Cache;
@@ -39,10 +39,10 @@ namespace nest.core.iclock.Extensions
 
         private static void ConfigureValidation(this IServiceCollection services)
         {
-            services.AddValidatorsFromAssembly(typeof(RegistroAsistenciaOrdenTrabajoCrearUsuarioActualValidator).Assembly);
+            services.AddValidatorsFromAssembly(typeof(RecibirMarcacionesValidator).Assembly);
             services.AddMediatR(cnf =>
             {
-                cnf.RegisterServicesFromAssemblyContaining(typeof(RegistroAsistenciaOrdenTrabajoCrearUsuarioActualValidator));
+                cnf.RegisterServicesFromAssemblyContaining(typeof(RecibirMarcacionesValidator));
                 cnf.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
         }

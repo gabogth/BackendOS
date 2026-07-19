@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
+using nest.core.aplicacion.iclock.Marcaciones.Commands;
 using nest.core.dominio;
 using nest.core.iclock.Models;
 using System.Globalization;
@@ -56,19 +56,11 @@ namespace nest.core.iclock.Controllers
         [Consumes("text/plain", "application/octet-stream", "application/x-www-form-urlencoded")]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<string>> RecibirMarcaciones([FromQuery] string SN, CancellationToken ct)
+        public async Task<ActionResult<string>> RecibirMarcaciones([FromQuery] int DocumentoTipo, [FromQuery] string DocumentoNumero, CancellationToken ct)
         {
-            using var reader = new StreamReader(Request.Body);
-            var payload = await reader.ReadToEndAsync(ct);
-            Console.WriteLine($"cdata SN: {SN}, Payload: {payload}");
-            string dni = payload.Split("\t")[0];
-            string fechaStr = payload.Split("\t")[1];
-            DateTime fecha = DateTime.Parse(fechaStr);
+            RecibirMarcacionesCommand command = new RecibirMarcacionesCommand(DocumentoTipo, DocumentoNumero);
 
-            RegistroAsistenciaTerminalZKTecoCrearCommand command = new RegistroAsistenciaTerminalZKTecoCrearCommand(SN, 1, dni, fecha);
-
-            var result = await sender.Send(command);
-            Console.WriteLine($"result.Id: {result.Id}");
+            await sender.Send(command, ct);
             return Content("OK", "text/plain");
         }
 
