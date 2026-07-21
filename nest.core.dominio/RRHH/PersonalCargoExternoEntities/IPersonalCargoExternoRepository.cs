@@ -1,4 +1,7 @@
-﻿namespace nest.core.dominio.RRHH.PersonalCargoExternoEntities
+﻿using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
+
+namespace nest.core.dominio.RRHH.PersonalCargoExternoEntities
 {
     public interface IPersonalCargoExternoRepository
     {
@@ -9,5 +12,7 @@
         Task<PersonalCargoExterno> Agregar(PersonalCargoExterno entidad);
         Task<PersonalCargoExterno> Modificar(PersonalCargoExterno entidad);
         Task Eliminar(long id);
+        Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken ct);
+        Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken ct);
     }
 }

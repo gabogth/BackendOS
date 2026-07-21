@@ -1,3 +1,5 @@
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +55,26 @@ namespace nest.core.rrhh.Controllers
         public async Task<ActionResult<List<PersonalCargoExterno>>> ObtenerPorCargo(int cargoId, CancellationToken ct)
         {
             var data = await sender.Send(new ObtenerPersonalCargoExternosPorCargoQuery(cargoId), ct);
+            return Ok(data);
+        }
+
+        [HttpPost("filter")]
+        [ProducesResponseType(typeof(LoadResult), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        [ProducesResponseType(401)]
+        public async Task<ActionResult<LoadResult>> ObtenerPorFiltro([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+        {
+            var data = await sender.Send(new ObtenerPersonalCargoExternosPorFiltroDataSourceQuery(options), ct);
+            return Ok(data);
+        }
+
+        [HttpPost("filter_activos")]
+        [ProducesResponseType(typeof(LoadResult), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        [ProducesResponseType(401)]
+        public async Task<ActionResult<LoadResult>> ObtenerPorFiltroActivos([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+        {
+            var data = await sender.Send(new ObtenerPersonalCargoExternosPorFiltroActivosQuery(options), ct);
             return Ok(data);
         }
 
