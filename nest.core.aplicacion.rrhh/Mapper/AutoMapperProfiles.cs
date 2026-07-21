@@ -6,6 +6,7 @@ using nest.core.aplicacion.rrhh.HorarioDetalleEventos.Commands;
 using nest.core.aplicacion.rrhh.HorarioDetalles.Commands;
 using nest.core.aplicacion.rrhh.Horarios.Commands;
 using nest.core.aplicacion.rrhh.Personales.Commands;
+using nest.core.aplicacion.rrhh.PersonalCargoExternos.Commands;
 using nest.core.aplicacion.rrhh.PersonalEstados.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaAdjuntos.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands;
@@ -20,6 +21,7 @@ using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
+using nest.core.dominio.RRHH.PersonalCargoExternoEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
@@ -40,6 +42,8 @@ namespace nest.core.aplicacion.rrhh.Mapper
             CreateMap<HorarioModificarCommand, HorarioCabecera>();
             CreateMap<PersonalCrearCommand, Personal>();
             CreateMap<PersonalModificarCommand, Personal>();
+            CreateMap<PersonalCargoExternoCrearCommand, PersonalCargoExterno>();
+            CreateMap<PersonalCargoExternoModificarCommand, PersonalCargoExterno>();
             CreateMap<HorarioDetalleEventoCrearCommand, HorarioDetalleEvento>();
             CreateMap<HorarioDetalleEventoModificarCommand, HorarioDetalleEvento>();
             CreateMap<HorarioDetalleCrearCommand, HorarioDetalle>();
@@ -95,6 +99,9 @@ namespace nest.core.aplicacion.rrhh.Mapper
                 .ForMember(dest => dest.Usuario, opt => opt.Ignore())
                 .ForMember(dest => dest.OrdenTrabajoHorarios, opt => opt.Ignore());
             CreateMap<PersonalEstado, PersonalEstado>();
+            CreateMap<PersonalCargoExterno, PersonalCargoExterno>()
+                .ForMember(dest => dest.Personal, opt => opt.Ignore())
+                .ForMember(dest => dest.Cargo, opt => opt.Ignore());
             CreateMap<RegistroAsistenciaAdjunto, RegistroAsistenciaAdjunto>()
                 .ForMember(dest => dest.RegistroAsistencia, opt => opt.Ignore())
                 .ForMember(dest => dest.Adjunto, opt => opt.Ignore());

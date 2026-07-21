@@ -11,6 +11,7 @@ using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
+using nest.core.dominio.RRHH.PersonalCargoExternoEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
@@ -40,6 +41,7 @@ namespace nest.core.aplicacion.rrhh
             services.AddTransient<IHorarioDetalleRepository, HorarioDetalleRepository>();
             services.AddTransient<IHorarioDetalleEventoRepository, HorarioDetalleEventoRepository>();
             services.AddTransient<IPersonalRepository, PersonalRepository>();
+            services.AddTransient<IPersonalCargoExternoRepository, PersonalCargoExternoRepository>();
             services.AddTransient<IPersonalEstadoRepository, PersonalEstadoRepository>();
             services.AddTransient<IRegistroAsistenciaAdjuntoRepository, RegistroAsistenciaAdjuntoRepository>();
             services.AddTransient<IRegistroAsistenciaRepository, RegistroAsistenciaRepository>();
