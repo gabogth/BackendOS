@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\nest.core.aplicacion.iclock\nest.core.aplicacion.iclock.csproj" />
+    <ProjectReference Include="..\nest.core.aplication.auth\nest.core.aplication.auth.csproj" />
     <ProjectReference Include="..\nest.core.infraestructura.db\nest.core.infraestructura.db.csproj" />
   </ItemGroup>
 

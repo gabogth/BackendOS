@@ -80,12 +80,12 @@ config:
       pathProject: "../nest.core.patrimonial/lambda.Dockerfile"
       port: 8080
       healthPath: "/health/live"
-    - serviceName: "datasource"  
-      routepath: "/datasource"
-      contextDocker: "../"
-      pathProject: "../nest.core.datasource/lambda.Dockerfile"
-      port: 8080
-      healthPath: null
+    # - serviceName: "datasource"  
+    #   routepath: "/datasource"
+    #   contextDocker: "../"
+    #   pathProject: "../nest.core.datasource/lambda.Dockerfile"
+    #   port: 8080
+    #   healthPath: null
     - serviceName: "iclock"  
       routepath: "/iclock"
       contextDocker: "../"

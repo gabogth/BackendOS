@@ -56,11 +56,33 @@ namespace nest.core.iclock.Controllers
         [Consumes("text/plain", "application/octet-stream", "application/x-www-form-urlencoded")]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
-        public async Task<ActionResult<string>> RecibirMarcaciones([FromQuery] int DocumentoTipo, [FromQuery] string DocumentoNumero, CancellationToken ct)
+        public async Task<ActionResult<string>> RecibirMarcaciones([FromQuery] string SN, CancellationToken ct)
         {
-            RecibirMarcacionesCommand command = new RecibirMarcacionesCommand(DocumentoTipo, DocumentoNumero);
+            using var reader = new StreamReader(Request.Body);
+            var payload = await reader.ReadToEndAsync(ct);
 
-            await sender.Send(command, ct);
+            var marcas = payload.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var line in marcas)
+            {
+                try
+                {
+                    string[] paramsMarca = line.Split("\t");
+                    logger.LogWarning($"El registro recibido SN: {SN} | Payload: {line} | Length: {paramsMarca.Length}");
+                    if (!string.IsNullOrWhiteSpace(line) && paramsMarca.Length >= 2)
+                    {
+                        string dni = line.Split("\t")[0];
+                        string fechaStr = line.Split("\t")[1];
+                        RecibirMarcacionesCommand command = new RecibirMarcacionesCommand(1, dni, SN, DateTime.Parse(fechaStr));
+                        await sender.Send(command, ct);
+                    }
+                    else
+                        logger.LogError($"El registro recibido no cumple el formato de marca SN: {SN} | Payload: {line}");
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError("Error: " + ex.Message);
+                }
+            }
             return Content("OK", "text/plain");
         }
 

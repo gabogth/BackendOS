@@ -3,10 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.100.5" />
+    <PackageReference Include="AWSSDK.Lambda" Version="4.0.104.1" />
     <PackageReference Include="FluentValidation" Version="12.0.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="13.1.0" />
@@ -15,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\nest.core.aplicacion.rrhh\nest.core.aplicacion.rrhh.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.security\nest.core.aplicacion.security.csproj" />
     <ProjectReference Include="..\nest.core.aplicacion.utils\nest.core.aplicacion.utils.csproj" />
     <ProjectReference Include="..\nest.core.infraestructura.iclock\nest.core.infraestructura.iclock.csproj" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using nest.core.dominio;
 using nest.core.dominio.Excepciones;
 using System;
 using System.Collections.Generic;
@@ -32,37 +33,37 @@ namespace nest.core.aplication.auth
             catch (IdentityException iex)
             {
                 _logger.LogError(iex, "IdentityException exception: {TraceId}", context.TraceIdentifier);
-                await WriteResponseAsync(context, HttpStatusCode.InternalServerError, new
+                await WriteResponseAsync(context, HttpStatusCode.InternalServerError, new ErrorResponse
                 {
-                    type = $"https://httpstatuses.io/{(int)HttpStatusCode.BadRequest}",
-                    title = "Internal Server Error",
-                    status = (int)HttpStatusCode.BadRequest,
-                    errors = iex.Errors.Select(e => new { field = e.Code, message = e.Description }),
-                    traceId = context.TraceIdentifier
+                    Type = $"https://httpstatuses.io/{(int)HttpStatusCode.BadRequest}",
+                    Title = "Internal Server Error",
+                    Status = (int)HttpStatusCode.BadRequest,
+                    Errors = iex.Errors.Select(e => new ErrorItem { Field = e.Code, Message = e.Description }),
+                    TraceId = context.TraceIdentifier
                 });
             }
             catch (dominio.Excepciones.ValidationException vex)
             {
                 _logger.LogWarning(vex, "Validation failed: {TraceId}", context.TraceIdentifier);
-                await WriteResponseAsync(context, HttpStatusCode.BadRequest, new
+                await WriteResponseAsync(context, HttpStatusCode.BadRequest, new ErrorResponse
                 {
-                    type = $"https://httpstatuses.io/{HttpStatusCode.BadRequest}",
-                    title = "Validation failed",
-                    status = (int)HttpStatusCode.BadRequest,
-                    errors = vex.Errors.Select(e => new { field = e.PropertyName, message = e.ErrorMessage }),
-                    traceId = context.TraceIdentifier
+                    Type = $"https://httpstatuses.io/{HttpStatusCode.BadRequest}",
+                    Title = "Validation failed",
+                    Status = (int)HttpStatusCode.BadRequest,
+                    Errors = vex.Errors.Select(e => new ErrorItem { Field = e.PropertyName, Message = e.ErrorMessage }),
+                    TraceId = context.TraceIdentifier
                 });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unhandled exception: {TraceId}", context.TraceIdentifier);
-                await WriteResponseAsync(context, HttpStatusCode.InternalServerError, new
+                await WriteResponseAsync(context, HttpStatusCode.InternalServerError, new ErrorResponse
                 {
-                    type = $"https://httpstatuses.io/{(int)HttpStatusCode.InternalServerError}",
-                    title = "Internal Server Error",
-                    status = (int)HttpStatusCode.InternalServerError,
-                    detail = GetMessage(ex),
-                    traceId = context.TraceIdentifier
+                    Type = $"https://httpstatuses.io/{(int)HttpStatusCode.InternalServerError}",
+                    Title = "Internal Server Error",
+                    Status = (int)HttpStatusCode.InternalServerError,
+                    Detail = GetMessage(ex),
+                    TraceId = context.TraceIdentifier
                 });
             }
         }

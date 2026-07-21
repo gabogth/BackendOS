@@ -12,6 +12,7 @@ namespace nest.iac.servicesinfra
             ApiGatewayCreator api = new ApiGatewayCreator();
             ServiceConfig[] services = ConfigVariables.AwsServices;
             Image imageTest = null;
+            Dictionary<string, string> servicesMap = services.ToDictionary(x => x.serviceName, y => $"{Deployment.Instance.ProjectName}-{y.serviceName}-lambda");
             for (int i = 0; i < services.Length; i++)
             {
                 ServiceConfig currentService = services[i];
@@ -27,7 +28,7 @@ namespace nest.iac.servicesinfra
                 if(i == 0)
                     imageTest = new ImageCreator(imageName, ecrImage2, ".", "test.dockerfile", "latest").Build();
                 var lambdaRole = new RoleCreator(lambdaRoleName, prefix, Deployment.Instance.ProjectName).BuildLambda();
-                var lambda = new LambdaCreator(lambdaName, routePath, lambdaRole, cwName, api.EndpointUrl(), imageTest).Build();
+                var lambda = new LambdaCreator(lambdaName, routePath, lambdaRole, cwName, api.EndpointUrl(), imageTest, servicesMap).Build();
                 var route2 = new ApiGatewayCreator(prefix, lambda, routePath).BuildLambda();
             }
             //var tableName = CreateDynamoDbTable();

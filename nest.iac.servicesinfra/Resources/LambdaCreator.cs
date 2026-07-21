@@ -13,8 +13,9 @@ namespace nest.iac.servicesinfra.Resources
         private string basePath { get; set; }
         private Aws.Iam.Role role = null!;
         private Aws.Lambda.Function function = null!;
+        private Dictionary<string, string> environmentVaribles;
         private Output<string> endpointUrl { get; set; }
-        public LambdaCreator(string lambdaName, string basePath, Aws.Iam.Role role, string cwName, Output<string> endpointUrl, Awsx.Ecr.Image image)
+        public LambdaCreator(string lambdaName, string basePath, Aws.Iam.Role role, string cwName, Output<string> endpointUrl, Awsx.Ecr.Image image, Dictionary<string, string> environmentVaribles)
         {
             this.lambdaName = lambdaName;
             this.image = image;
@@ -22,6 +23,7 @@ namespace nest.iac.servicesinfra.Resources
             this.role = role;
             this.cwName = cwName;
             this.endpointUrl = endpointUrl;
+            this.environmentVaribles = environmentVaribles;
         }
         public Aws.Lambda.Function Build()
         {
@@ -31,6 +33,22 @@ namespace nest.iac.servicesinfra.Resources
         }
         private Aws.Lambda.Function Create()
         {
+            var envVariables = new InputMap<string>
+            {
+                { "ASPNETCORE_ENVIRONMENT", "Production" },
+                { "ENGINE", "Npgsql" },
+                { "Connections__Npgsql", ConfigVariables.ConnectionString },
+                { "BASE_URL", this.basePath },
+                { "IS_LAMBDA", "True" },
+                { "URL_ENDPOINT", this.endpointUrl },
+                { "MAIN_BUCKET", ConfigVariables.AwsBucketName },
+                { "TZ", "America/Lima" }
+            };
+
+            if (this.environmentVaribles != null)
+                foreach (var kvp in this.environmentVaribles)
+                    envVariables[kvp.Key] = kvp.Value;
+
             return new Aws.Lambda.Function(this.lambdaName, new Aws.Lambda.FunctionArgs
             {
                 Name = this.lambdaName,
@@ -41,23 +59,13 @@ namespace nest.iac.servicesinfra.Resources
                 Role = this.role.Arn,
                 Environment = new Aws.Lambda.Inputs.FunctionEnvironmentArgs
                 {
-                    Variables =
-                    {
-                        { "ASPNETCORE_ENVIRONMENT", "Production" },
-                        { "ENGINE", "Npgsql" },
-                        { "Connections__Npgsql", ConfigVariables.ConnectionString },
-                        { "BASE_URL", this.basePath },
-                        { "IS_LAMBDA", "True" },
-                        { "URL_ENDPOINT", this.endpointUrl },
-                        { "MAIN_BUCKET", ConfigVariables.AwsBucketName },
-                        { "TZ", "America/Lima" }
-                    }
+                    Variables = envVariables
                 },
-                VpcConfig = new Aws.Lambda.Inputs.FunctionVpcConfigArgs
-                {
-                    SubnetIds = ConfigVariables.AwsSubnets,
-                    SecurityGroupIds = ConfigVariables.AwsSecurityGroups
-                },
+                //VpcConfig = new Aws.Lambda.Inputs.FunctionVpcConfigArgs
+                //{
+                //    SubnetIds = ConfigVariables.AwsSubnets,
+                //    SecurityGroupIds = ConfigVariables.AwsSecurityGroups
+                //},
             }, new CustomResourceOptions {
                 IgnoreChanges = new List<string> {
                     "imageUri", "memorySize", "packageType"

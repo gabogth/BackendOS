@@ -41,6 +41,11 @@
         "Path": "nest.core.iclock\\nest.core.iclock.csproj",
         "Action": "Start",
         "DebugTarget": "https"
+      },
+      {
+        "Path": "nest.core.legal\\nest.core.legal.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
       }
     ]
   }

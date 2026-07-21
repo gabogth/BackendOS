@@ -86,7 +86,7 @@ namespace nest.iac.servicesinfra.Resources
                     {
                         { "Effect", "Allow" },
                         { "Action", new [] {
-                            "lambda:InvokeFunction"
+                            "lambda:InvokeFunction", "lambda:InvokeAsync"
                         } },
                         { "Resource", new [] { "*" } }
                     },
