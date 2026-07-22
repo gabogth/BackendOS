@@ -1,4 +1,6 @@
 using AutoMapper;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.infraestructura.db.DbContext;
@@ -36,5 +38,7 @@ namespace nest.core.infraestructura.rrhh
         }
 
         public Task Eliminar(long id) => DeleteAsync(id);
+        public async Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
+        public async Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
     }
 }

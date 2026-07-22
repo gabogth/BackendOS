@@ -1,4 +1,6 @@
 using AutoMapper;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
@@ -26,4 +28,6 @@ public class RegistroAsistenciaPoliticaRepository : CrudRepositoryBase<RegistroA
     }
 
     public Task Eliminar(long id) => DeleteAsync(id);
+    public async Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
+    public async Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
 }

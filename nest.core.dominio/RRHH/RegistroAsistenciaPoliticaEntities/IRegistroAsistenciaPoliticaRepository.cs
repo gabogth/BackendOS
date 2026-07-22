@@ -1,3 +1,6 @@
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
+
 namespace nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities
 {
     public interface IRegistroAsistenciaPoliticaRepository
@@ -7,5 +10,7 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaPoliticaEntities
         Task<RegistroAsistenciaPolitica> Agregar(RegistroAsistenciaPolitica entry);
         Task<RegistroAsistenciaPolitica> Modificar(RegistroAsistenciaPolitica entry);
         Task Eliminar(long id);
+        Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken);
+        Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken);
     }
 }

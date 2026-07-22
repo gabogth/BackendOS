@@ -1,3 +1,5 @@
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +46,26 @@ public class PersonalEstadoController : ControllerBase
     public async Task<ActionResult<List<PersonalEstado>>> ObtenerActivos(CancellationToken ct)
     {
         var data = await sender.Send(new ObtenerPersonalEstadosActivosQuery(), ct);
+        return Ok(data);
+    }
+
+    [HttpPost("filter")]
+    [ProducesResponseType(typeof(LoadResult), 200)]
+    [ProducesResponseType(typeof(ErrorMessage), 400)]
+    [ProducesResponseType(401)]
+    public async Task<ActionResult<LoadResult>> ObtenerPorFiltro([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+    {
+        var data = await sender.Send(new ObtenerPersonalEstadosPorFiltroDataSourceQuery(options), ct);
+        return Ok(data);
+    }
+
+    [HttpPost("filter_activos")]
+    [ProducesResponseType(typeof(LoadResult), 200)]
+    [ProducesResponseType(typeof(ErrorMessage), 400)]
+    [ProducesResponseType(401)]
+    public async Task<ActionResult<LoadResult>> ObtenerPorFiltroActivos([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+    {
+        var data = await sender.Send(new ObtenerPersonalEstadosPorFiltroActivosQuery(options), ct);
         return Ok(data);
     }
 

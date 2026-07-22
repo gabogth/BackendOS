@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 
 namespace nest.core.dominio.RRHH.GrupoTrabajoEntities
 {
@@ -10,5 +11,7 @@ namespace nest.core.dominio.RRHH.GrupoTrabajoEntities
         Task<GrupoTrabajo> Agregar(GrupoTrabajo entidad);
         Task<GrupoTrabajo> Modificar(GrupoTrabajo entidad);
         Task Eliminar(long id);
+        Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken);
+        Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken);
     }
 }

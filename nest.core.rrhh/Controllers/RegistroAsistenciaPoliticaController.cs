@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,10 +41,30 @@ public class RegistroAsistenciaPoliticaController : ControllerBase
         return Ok(data);
     }
 
-    [HttpPost]
-    [ProducesResponseType(typeof(RegistroAsistenciaPolitica), 200)]
-    [ProducesResponseType(typeof(ErrorMessage), 400)]
-    public async Task<ActionResult<RegistroAsistenciaPolitica>> Agregar([FromBody] RegistroAsistenciaPoliticaCrearCommand command, CancellationToken ct)
+        [HttpPost("filter")]
+        [ProducesResponseType(typeof(LoadResult), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        [ProducesResponseType(401)]
+        public async Task<ActionResult<LoadResult>> ObtenerPorFiltro([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+        {
+            var data = await sender.Send(new ObtenerRegistroAsistenciaPoliticasPorFiltroDataSourceQuery(options), ct);
+            return Ok(data);
+        }
+
+        [HttpPost("filter_activos")]
+        [ProducesResponseType(typeof(LoadResult), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        [ProducesResponseType(401)]
+        public async Task<ActionResult<LoadResult>> ObtenerPorFiltroActivos([FromBody] DataSourceLoadOptionsBase options, CancellationToken ct)
+        {
+            var data = await sender.Send(new ObtenerRegistroAsistenciaPoliticasPorFiltroActivosQuery(options), ct);
+            return Ok(data);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(RegistroAsistenciaPolitica), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<RegistroAsistenciaPolitica>> Agregar([FromBody] RegistroAsistenciaPoliticaCrearCommand command, CancellationToken ct)
     {
         var data = await sender.Send(command, ct);
         return Ok(data);

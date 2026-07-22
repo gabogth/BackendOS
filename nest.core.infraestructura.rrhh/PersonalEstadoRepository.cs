@@ -1,4 +1,6 @@
 using AutoMapper;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using nest.core.dominio.Cache;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
 using nest.core.infraestructura.db.Cache;
@@ -20,4 +22,6 @@ public class PersonalEstadoRepository : CachedRepositoryBase<PersonalEstado, byt
         return await ObtenerPorId(updated.Id);
     }
     public Task Eliminar(byte id) => DeleteAsync(id);
+    public async Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
+    public async Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
 }

@@ -1,4 +1,6 @@
 using AutoMapper;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using nest.core.dominio.Cache;
 using nest.core.dominio.RRHH.CargoEntities;
 using nest.core.infraestructura.db.Cache;
@@ -20,5 +22,7 @@ namespace nest.core.infraestructura.rrhh
             return await ObtenerPorId(response.Id);
         }
         public Task Eliminar(int id) => DeleteAsync(id);
+        public async Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
+        public async Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query().Where(c => c.Estado), options, cancellationToken);
     }
 }
