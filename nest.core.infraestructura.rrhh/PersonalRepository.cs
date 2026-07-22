@@ -1,4 +1,6 @@
 using AutoMapper;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.infraestructura.db.DbContext;
@@ -41,6 +43,8 @@ public class PersonalRepository : CrudRepositoryBase<Personal, int>, IPersonalRe
     }
     public async Task<List<Personal>> ObtenerTodos() => await GetAllAsync();
     public async Task<List<Personal>> ObtenerActivos() => await Query().Where(p => p.PersonalEstadoId == 1).ToListAsync();
+    public async Task<LoadResult> ObtenerFilter(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query(), options, cancellationToken);
+    public async Task<LoadResult> ObtenerFilterActivos(DataSourceLoadOptionsBase options, CancellationToken cancellationToken) => await DataSourceLoader.LoadAsync(Query().Where(p => p.PersonalEstadoId == 1), options, cancellationToken);
     public async Task<Personal> Agregar(Personal entry)
     {
         var created = await AddAsync(entry);
