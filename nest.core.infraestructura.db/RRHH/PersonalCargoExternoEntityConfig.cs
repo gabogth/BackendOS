@@ -11,13 +11,14 @@ namespace nest.core.infraestructura.db.RRHH
             builder.ToTable("personal_cargo_externo", "rrhh");
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.EmpresaId);
+            builder.HasIndex(x => new { x.PersonalId }).IsUnique();
             builder.HasIndex(x => new { x.PersonalId, x.CargoId }).IsUnique();
             builder.Property(x => x.Id)
                 .ValueGeneratedNever()
                 .HasValueGenerator<GenericValueGenerator<long>>();
             builder.HasOne(x => x.Personal)
-                .WithMany()
-                .HasForeignKey(x => x.PersonalId)
+                .WithOne(p => p.PersonalCargoExterno)
+                .HasForeignKey<PersonalCargoExterno>(x => x.PersonalId)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(x => x.Cargo)
                 .WithMany()

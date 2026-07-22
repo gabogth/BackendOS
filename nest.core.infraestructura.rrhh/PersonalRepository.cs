@@ -22,6 +22,7 @@ public class PersonalRepository : CrudRepositoryBase<Personal, int>, IPersonalRe
         .Include(x => x.RegistroAsistenciaPolitica)
         .Include(x => x.Usuario)
         .Include(x => x.Children)
+        .Include(x => x.PersonalCargoExterno)
         .AsNoTracking()
         .AsSplitQuery();
     public PersonalRepository(NestDbContext context, IMapper mapper): base(context, mapper) { }
