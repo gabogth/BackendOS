@@ -16,18 +16,9 @@ namespace nest.core.infraestructura.db.DbContext.Provider
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var loggerFactory = LoggerFactory.Create(builder =>
-            {
-                builder
-                    .AddConsole()
-                    .SetMinimumLevel(LogLevel.Debug); // máximo detalle
-            });
-            optionsBuilder
-                .ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning))
-                .EnableSensitiveDataLogging();
+            optionsBuilder.ConfigureWarnings(warnings => warnings.Log(RelationalEventId.PendingModelChangesWarning));
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-            NpgsqlLoggingConfiguration.InitializeLogging(loggerFactory, parameterLoggingEnabled: true);
-            string connectionString = connectionStringService.Configuration.GetValue<string>($"Connections:Npgsql");
+            string connectionString = connectionStringService.Configuration.GetValue<string>("Connections:Npgsql");
             optionsBuilder.UseNpgsql(connectionString, b => {
                 b.MigrationsAssembly("nest.core.driver.postgres");
             });
