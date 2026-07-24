@@ -42,7 +42,11 @@ namespace nest.iac.servicesinfra.Resources
                 { "IS_LAMBDA", "True" },
                 { "URL_ENDPOINT", this.endpointUrl },
                 { "MAIN_BUCKET", ConfigVariables.AwsBucketName },
-                { "TZ", "America/Lima" }
+                { "TZ", "America/Lima" },
+                { "Logging__LogLevel__Default", "Information" },
+                { "Logging__LogLevel__Microsoft.AspNetCore", "Warning" },
+                { "Logging__LogLevel__Microsoft.EntityFrameworkCore", "Warning" },
+                { "Logging__LogLevel__Microsoft.EntityFrameworkCore.Database.Command", "Warning" },
             };
 
             if (this.environmentVaribles != null)
