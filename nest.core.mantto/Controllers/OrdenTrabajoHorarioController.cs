@@ -96,6 +96,22 @@ namespace nest.core.mantto.Controllers
         }
 
         /// <summary>
+        /// Registra un rango horario de orden de trabajo.
+        /// </summary>
+        /// <param name="command">Comando con la información del horario a crear.</param>
+        /// <returns>Horarios creados.</returns>
+        /// <response code="200">Horarios creados exitosamente.</response>
+        /// <response code="400">Error en la solicitud.</response>
+        [HttpPost("range")]
+        [ProducesResponseType(typeof(OrdenTrabajoHorario[]), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<OrdenTrabajoHorario[]>> AgregarRango([FromBody] OrdenTrabajoHorarioCrearRangoCommand command)
+        {
+            var data = await sender.Send(command);
+            return Ok(data);
+        }
+
+        /// <summary>
         /// Modifica un horario de orden de trabajo existente.
         /// </summary>
         /// <param name="id">Identificador del horario a modificar.</param>

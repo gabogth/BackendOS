@@ -59,6 +59,7 @@ namespace nest.core.infraestructura.mantto
         }
 
         public Task<OrdenTrabajoHorario> Agregar(OrdenTrabajoHorario entity) => AddAsync(entity);
+        public Task<OrdenTrabajoHorario[]> Agregar(OrdenTrabajoHorario[] entity) => AddRangeAsync(entity);
 
         public Task<OrdenTrabajoHorario> Modificar(OrdenTrabajoHorario entity) => UpdateAsync(entity);
 
