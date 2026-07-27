@@ -48,6 +48,7 @@ namespace nest.core.aplicacion.mantto.Mapper
             CreateMap<OrdenTrabajoPersonalModificarCommand, OrdenTrabajoPersonal>();
             CreateMap<OrdenTrabajoHorarioCrearCommand, OrdenTrabajoHorario>();
             CreateMap<OrdenTrabajoHorarioModificarCommand, OrdenTrabajoHorario>();
+            CreateMap<OrdenTrabajoHorarioCrearRangoCommand, OrdenTrabajoHorario>();
         }
 
         private void MapAllEntities()

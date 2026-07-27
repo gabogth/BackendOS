@@ -2,6 +2,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
+using nest.core.aplicacion.rrhh.RegistroAsistencias.Services.Interface;
 using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
@@ -11,24 +12,28 @@ using nest.core.dominio.Security.Tenant;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
 {
-    public class RegistroAsistenciaCrearUsuarioActualHandler : RegistroAsistenciaHandlerBase, IRequestHandler<RegistroAsistenciaCrearUsuarioActualCommand, RegistroAsistencia>
+    public class RegistroAsistenciaCrearUsuarioActualHandler : IRequestHandler<RegistroAsistenciaCrearUsuarioActualCommand, RegistroAsistencia>
     {
+        private readonly IRegistroAsistenciaRepository repository;
+        private readonly IPersonalRepository personalRepository;
         private readonly IConnectionStringService connectionStringService;
         private readonly IMapper mapper;
+        private readonly IMarcacionCalculoService calculoService;
         private readonly ILogger<RegistroAsistenciaCrearUsuarioActualHandler> logger;
 
         public RegistroAsistenciaCrearUsuarioActualHandler(
             IRegistroAsistenciaRepository repository,
-            IHorarioRepository horarioRepository,
             IPersonalRepository personalRepository,
-            IHorarioDetalleRepository horarioDetalleRepository,
             IConnectionStringService connectionStringService,
             IMapper mapper,
+            IMarcacionCalculoService calculoService,
             ILogger<RegistroAsistenciaCrearUsuarioActualHandler> logger)
-            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository)
         {
+            this.repository = repository;
+            this.personalRepository = personalRepository;
             this.connectionStringService = connectionStringService;
             this.mapper = mapper;
+            this.calculoService = calculoService;
             this.logger = logger;
         }
 
@@ -43,7 +48,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
                 registro.PersonalId = actual.Id;
                 registro.Fecha = DateTime.Now;
 
-                registro = await PrepararRegistroAsync(registro, actual.HorarioCabecera);
+                registro = await this.calculoService.PrepararRegistroAsync(registro, actual.HorarioCabecera);
                 registro = await repository.Agregar(registro);
                 return await repository.ObtenerPorId(registro.Id);
             }

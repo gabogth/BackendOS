@@ -33,6 +33,7 @@ namespace nest.core.infraestructura.mantto
         }
 
         public Task<OrdenTrabajoHorario> ObtenerPorId(long id) => GetByIdAsync(id);
+        public Task<List<OrdenTrabajoHorario>> ObtenerPorIds(List<long> ids) => GetByIdsAsync(ids);
 
         public Task<List<OrdenTrabajoHorario>> ObtenerTodos() => GetAllAsync();
         public Task<List<OrdenTrabajoHorario>> ObtenerPorOtYRangoFechas(long OrdenTrabajoCabeceraId, DateOnly Inicio, DateOnly Fin)
@@ -59,7 +60,7 @@ namespace nest.core.infraestructura.mantto
         }
 
         public Task<OrdenTrabajoHorario> Agregar(OrdenTrabajoHorario entity) => AddAsync(entity);
-        public Task<OrdenTrabajoHorario[]> Agregar(OrdenTrabajoHorario[] entity) => AddRangeAsync(entity);
+        public async Task<OrdenTrabajoHorario[]> Merge(OrdenTrabajoHorario[] current, OrdenTrabajoHorario[] new_entries) => await this.MergeRangeAsync(current, new_entries);
 
         public Task<OrdenTrabajoHorario> Modificar(OrdenTrabajoHorario entity) => UpdateAsync(entity);
 

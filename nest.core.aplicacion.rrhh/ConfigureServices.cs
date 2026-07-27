@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using nest.core.aplicacion.rrhh.Mapper;
+using nest.core.aplicacion.rrhh.RegistroAsistencias.Services;
+using nest.core.aplicacion.rrhh.RegistroAsistencias.Services.Interface;
 using nest.core.aplication.auth;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
@@ -10,8 +12,8 @@ using nest.core.dominio.RRHH.GrupoTrabajoPersonaEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
-using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.PersonalCargoExternoEntities;
+using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.PersonalEstadoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
@@ -51,6 +53,7 @@ namespace nest.core.aplicacion.rrhh
             services.AddTransient<IOrdenTrabajoCabeceraRepository, OrdenTrabajoCabeceraRepository>();
             services.AddTransient<IRegistroAsistencia_OrdenTrabajoRepository, RegistroAsistencia_OrdenTrabajoRepository>();
             services.AddTransient<IOrdenTrabajoHorarioRepository, OrdenTrabajoHorarioRepository>();
+            services.AddTransient<IMarcacionCalculoService, RegistroAsistenciaCalculoService>();
             return services;
         }
     }

@@ -1,32 +1,33 @@
-using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
-using nest.core.dominio.RRHH.HorarioCabeceraEntities;
-using nest.core.dominio.RRHH.HorarioDetalleEntities;
+using nest.core.aplicacion.rrhh.RegistroAsistencias.Services.Interface;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.TerminalBiometricoEntities;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
 {
-    public class RegistroAsistenciaTerminalZKTecoCrearHandler : RegistroAsistenciaHandlerBase, IRequestHandler<RegistroAsistenciaTerminalZKTecoCrearCommand, RegistroAsistencia>
+    public class RegistroAsistenciaTerminalZKTecoCrearHandler : IRequestHandler<RegistroAsistenciaTerminalZKTecoCrearCommand, RegistroAsistencia>
     {
-        private readonly ILogger<RegistroAsistenciaTerminalZKTecoCrearHandler> logger;
+        private readonly IRegistroAsistenciaRepository repository;
+        private readonly IPersonalRepository personalRepository;
         private readonly ITerminalBiometricoRepository terminalBiometricoRepository;
+        private readonly IMarcacionCalculoService calculoService;
+        private readonly ILogger<RegistroAsistenciaTerminalZKTecoCrearHandler> logger;
 
         public RegistroAsistenciaTerminalZKTecoCrearHandler(
             IRegistroAsistenciaRepository repository,
-            IHorarioRepository horarioRepository,
             IPersonalRepository personalRepository,
-            IHorarioDetalleRepository horarioDetalleRepository,
             ITerminalBiometricoRepository terminalBiometricoRepository,
-            IMapper mapper,
+            IMarcacionCalculoService calculoService,
             ILogger<RegistroAsistenciaTerminalZKTecoCrearHandler> logger)
-            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository)
         {
-            this.logger = logger;
+            this.repository = repository;
+            this.personalRepository = personalRepository;
             this.terminalBiometricoRepository = terminalBiometricoRepository;
+            this.calculoService = calculoService;
+            this.logger = logger;
         }
 
         public async Task<RegistroAsistencia> Handle(RegistroAsistenciaTerminalZKTecoCrearCommand request, CancellationToken cancellationToken)
@@ -43,7 +44,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
                     PersonalId = personalOk.Id,
                     TerminalBiometricoId = terminalBiometrico.Id
                 };
-                registro = await PrepararRegistroAsync(registro, personalOk.HorarioCabecera);
+                registro = await calculoService.PrepararRegistroAsync(registro, personalOk.HorarioCabecera);
                 registro = await repository.Agregar(registro);
                 return await repository.ObtenerPorId(registro.Id);
             }

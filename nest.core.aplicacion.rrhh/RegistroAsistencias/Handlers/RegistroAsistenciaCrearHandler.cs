@@ -2,27 +2,30 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
-using nest.core.dominio.RRHH.HorarioCabeceraEntities;
-using nest.core.dominio.RRHH.HorarioDetalleEntities;
+using nest.core.aplicacion.rrhh.RegistroAsistencias.Services.Interface;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
 {
-    public class RegistroAsistenciaCrearHandler : RegistroAsistenciaHandlerBase, IRequestHandler<RegistroAsistenciaCrearCommand, RegistroAsistencia>
+    public class RegistroAsistenciaCrearHandler : IRequestHandler<RegistroAsistenciaCrearCommand, RegistroAsistencia>
     {
+        private readonly IRegistroAsistenciaRepository repository;
+        private readonly IPersonalRepository personalRepository;
+        private readonly IMarcacionCalculoService calculoService;
         private readonly IMapper mapper;
         private readonly ILogger<RegistroAsistenciaCrearHandler> logger;
 
         public RegistroAsistenciaCrearHandler(
             IRegistroAsistenciaRepository repository,
-            IHorarioRepository horarioRepository,
             IPersonalRepository personalRepository,
-            IHorarioDetalleRepository horarioDetalleRepository,
+            IMarcacionCalculoService calculoService,
             IMapper mapper,
             ILogger<RegistroAsistenciaCrearHandler> logger)
-            : base(repository, horarioRepository, personalRepository, horarioDetalleRepository)
         {
+            this.repository = repository;
+            this.personalRepository = personalRepository;
+            this.calculoService = calculoService;
             this.mapper = mapper;
             this.logger = logger;
         }
@@ -33,7 +36,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             {
                 var registro = mapper.Map<RegistroAsistencia>(request);
                 var personal = await personalRepository.ObtenerPorId(request.PersonalId);
-                registro = await PrepararRegistroAsync(registro, personal.HorarioCabecera);
+                registro = await calculoService.PrepararRegistroAsync(registro, personal.HorarioCabecera);
                 registro = await repository.Agregar(registro);
                 return await repository.ObtenerPorId(registro.Id);
             }

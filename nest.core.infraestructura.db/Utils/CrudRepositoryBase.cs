@@ -53,6 +53,34 @@ namespace nest.core.infraestructura.db.Utils
             return entity;
         }
 
+        protected virtual async Task<TEntity> UpsertAsync(TEntity entry)
+        {
+            var entryFind = await context.Set<TEntity>().FindAsync(entry.Id);
+            if (entryFind == null)
+                return await AddAsync(entry);
+            else
+            {
+                mapper.Map(entry, entryFind);
+                await context.SaveChangesAsync();
+                await context.Entry(entryFind).ReloadAsync();
+                return entryFind;
+            }
+        }
+
+        protected virtual async Task<TEntity> UpsertRangeAsync(TEntity entry)
+        {
+            var entryFind = await context.Set<TEntity>().FindAsync(entry.Id);
+            if (entryFind == null)
+                return await AddAsync(entry);
+            else
+            {
+                mapper.Map(entry, entryFind);
+                await context.SaveChangesAsync();
+                await context.Entry(entryFind).ReloadAsync();
+                return entryFind;
+            }
+        }
+
         // El orden de los entities estan garantizados, osea regresan con el mismo indice con el que fueron enviados los dtos
         protected virtual async Task<TEntity[]> UpdateRangeAsync(TEntity[] entries)
         {

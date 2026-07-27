@@ -24,6 +24,14 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoHorarios.Handlers
             try
             {
                 List<OrdenTrabajoHorario> entries = new List<OrdenTrabajoHorario>();
+                List<OrdenTrabajoHorario> existentes = new List<OrdenTrabajoHorario>();
+
+                if (request.AsignacionFechas == null || request.AsignacionFechas.Count == 0)
+                    throw new Exception("SIN REGISTROS EN EL BODY");
+                List<long> idsUpdate = request.AsignacionFechas.Where(x => x.Id > 0).Select(x => x.Id).ToList();
+                if(idsUpdate.Count > 0)
+                    existentes = await repository.ObtenerPorIds(idsUpdate);
+
                 foreach (var item in request.AsignacionFechas)
                 {
                     var entry = mapper.Map<OrdenTrabajoHorario>(request);
@@ -31,7 +39,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoHorarios.Handlers
                     entry.Fecha = item.Fecha;
                     entries.Add(entry);
                 }
-                return await repository.Agregar(entries.ToArray());
+                return await repository.Merge(existentes.ToArray(), entries.ToArray());
             }
             catch (Exception ex)
             {

@@ -1,19 +1,20 @@
+﻿using nest.core.aplicacion.rrhh.RegistroAsistencias.Services.Interface;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 
-namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
+namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Services
 {
-    public abstract class RegistroAsistenciaHandlerBase
+    public class RegistroAsistenciaCalculoService : IMarcacionCalculoService
     {
         protected readonly IRegistroAsistenciaRepository repository;
         protected readonly IHorarioRepository horarioRepository;
         protected readonly IPersonalRepository personalRepository;
         protected readonly IHorarioDetalleRepository horarioDetalleRepository;
 
-        protected RegistroAsistenciaHandlerBase(
+        public RegistroAsistenciaCalculoService(
             IRegistroAsistenciaRepository repository,
             IHorarioRepository horarioRepository,
             IPersonalRepository personalRepository,
@@ -24,8 +25,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             this.personalRepository = personalRepository;
             this.horarioDetalleRepository = horarioDetalleRepository;
         }
-
-        protected async Task<RegistroAsistencia> PrepararRegistroAsync(RegistroAsistencia registro, HorarioCabecera horario)
+        public async Task<RegistroAsistencia> PrepararRegistroAsync(RegistroAsistencia registro, HorarioCabecera horario)
         {
             var ultimaMarca = await repository.BuscarUltimaMarca(registro.PersonalId);
             if (ultimaMarca != null)
@@ -77,7 +77,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             return registro;
         }
 
-        protected (HorarioDetalleEvento?, DateTime) ObtenerEvento(JornalParams jornal, DateTime fecha)
+        private (HorarioDetalleEvento?, DateTime) ObtenerEvento(JornalParams jornal, DateTime fecha)
         {
             DateTime fechaReferencia = jornal.FechaEntrada.Date;
             HorarioDetalleEvento? evento = jornal.Detalle.HorarioDetalleEventos.Where(x =>
@@ -133,7 +133,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             };
         }
 
-        protected record JornalParams
+        private record JornalParams
         {
             public DateTime FechaEntrada { get; init; }
             public DateTime FechaSalida { get; init; }
