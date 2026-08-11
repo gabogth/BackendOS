@@ -27,8 +27,6 @@ namespace nest.core.aplicacion.general.Personas.Behaviors
                 .EmailAddress().WithMessage("Correo no es un correo válido.");
             RuleFor(x => x.Celular)
                 .NotEmpty().WithMessage("El celular es requerido.");
-            RuleFor(x => x.Estado)
-                .NotEmpty().WithMessage("El estado es requerido.");
             RuleFor(x => x.SexoId)
                 .NotEmpty().WithMessage("El sexo es requerido.");
             RuleFor(x => x.DistritoId)
