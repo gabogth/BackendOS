@@ -7,5 +7,6 @@ public record PersonalCargoExternoModificarCommand(
     long Id,
     int EmpresaId,
     int PersonalId,
-    int CargoId
+    int CargoId,
+    decimal? CostoHombre
 ) : IRequest<PersonalCargoExterno>, IPersonalCargoExternoGenericCommand;

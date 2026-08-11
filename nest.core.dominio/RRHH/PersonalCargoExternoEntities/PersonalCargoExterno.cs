@@ -10,6 +10,7 @@ namespace nest.core.dominio.RRHH.PersonalCargoExternoEntities
         public int EmpresaId { get; set; }
         public int PersonalId { get; set; }
         public int CargoId { get; set; }
+        public decimal? CostoHombre { get; set; }
         public Personal Personal { get; set; }
         public Cargo Cargo { get; set; }
     }

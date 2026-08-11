@@ -7,5 +7,6 @@ namespace nest.core.aplicacion.rrhh.PersonalCargoExternos.Commands
         int EmpresaId { get; }
         int PersonalId { get; }
         int CargoId { get; }
+        decimal? CostoHombre { get; }
     }
 }
