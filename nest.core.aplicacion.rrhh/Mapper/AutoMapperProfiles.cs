@@ -68,6 +68,7 @@ namespace nest.core.aplicacion.rrhh.Mapper
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.RegistroAsistenciaId));
             CreateMap<TerminalBiometricoCrearCommand, TerminalBiometrico>();
             CreateMap<TerminalBiometricoModificarCommand, TerminalBiometrico>();
+            CreateMap<RegistroAsistenciaOrdenTrabajoRegularizarCrearCommand, RegistroAsistencia>();
             CreateMap<HorarioCabecera, HorarioCabecera>();
         }
 

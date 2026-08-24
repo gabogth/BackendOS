@@ -69,6 +69,8 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
                 registro.RegistroAsistenciaPoliticaId = null;
                 registro.Observacion = request.Observacion;
 
+                registro = await repository.Agregar(registro);
+
                 if (request.OrdenTrabajoId.HasValue)
                 {
                     var relacion = new RegistroAsistenciaOrdenTrabajo
