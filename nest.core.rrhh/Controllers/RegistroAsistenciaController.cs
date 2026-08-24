@@ -3,6 +3,7 @@ using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Queries;
 using nest.core.dominio;
@@ -174,6 +175,21 @@ namespace nest.core.rrhh.Controllers
         [ProducesResponseType(typeof(RegistroAsistencia), 200)]
         [ProducesResponseType(typeof(ErrorMessage), 400)]
         public async Task<ActionResult<RegistroAsistencia>> AgregarUsuarioActualZkTeco([FromBody] RegistroAsistenciaTerminalZKTecoCrearCommand command, CancellationToken ct)
+        {
+            var data = await sender.Send(command, ct);
+            return Ok(data);
+        }
+
+        /// <summary>
+        /// Crea un nuevo registro de asistencia utilizando los parametros del token como inicio de sesion.
+        /// </summary>
+        /// <returns>Registro de asistencia creado.</returns>
+        /// <response code="200">Registro creado correctamente.</response>
+        /// <response code="400">Error en la solicitud.</response>
+        [HttpPost("regularizar")]
+        [ProducesResponseType(typeof(RegistroAsistencia), 200)]
+        [ProducesResponseType(typeof(ErrorMessage), 400)]
+        public async Task<ActionResult<RegistroAsistencia>> AgregarMarcaRegularizar([FromBody] RegistroAsistenciaOrdenTrabajoRegularizarCrearCommand command, CancellationToken ct)
         {
             var data = await sender.Send(command, ct);
             return Ok(data);

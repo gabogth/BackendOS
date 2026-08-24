@@ -8,6 +8,11 @@ using nest.core.dominio.Security.Audit;
 
 namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
 {
+    public enum RegistroAsistenciaTipoRegularizacionId : byte
+    {
+        Manual = 0,
+        Automatico = 1
+    }
     public class RegistroAsistencia: IEntity<long>, ITenantEntity, IAuditable
     {
         public int EmpresaId { get; set; }
@@ -23,6 +28,7 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
         public long? HorarioDetalleEventoId { get; set; }
         public long? RegistroAsistenciaPoliticaId { get; set; }
         public int? TerminalBiometricoId { get; set; }
+        public string? Observacion { get; set; }
         public TerminalBiometrico TerminalBiometrico { get; set; }
         public RegistroAsistenciaPolitica RegistroAsistenciaPolitica { get; set; }
         public Personal Personal { get; set; }
