@@ -1,4 +1,5 @@
 ﻿using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
+using nest.core.dominio.RRHH.PersonalCargoExternoEntities;
 namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
 {
     public class RegistroAsistenciaQueryView
@@ -21,6 +22,7 @@ namespace nest.core.dominio.RRHH.RegistroAsistenciaEntities
         public PersonaQueryView? Persona { get; set; }
         public OrdenTrabajoQueryView? OrdenTrabajo { get; set; }
         public OrdenServicioQueryView? OrdenServicio { get; set; }
+        public PersonalCargoExterno PersonalCargoExterno { get; set; }
 
     }
 
