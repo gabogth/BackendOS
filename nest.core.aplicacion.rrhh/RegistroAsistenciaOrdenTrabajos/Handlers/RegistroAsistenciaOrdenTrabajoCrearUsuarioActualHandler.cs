@@ -20,7 +20,6 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
         private readonly IPersonalRepository personalRepository;
         private readonly IRegistroAsistenciaOrdenTrabajoRepository registroOrdenTrabajoRepository;
         private readonly IRegistroAsistenciaAdjuntoRepository registroAsistenciaAdjuntoRepository;
-        private readonly IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository;
         private readonly IConnectionStringService connectionStringService;
         private readonly IMarcacionCalculoService calculoService;
         private readonly IUnitOfWork unitOfWork;
@@ -32,7 +31,6 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             IPersonalRepository personalRepository,
             IRegistroAsistenciaOrdenTrabajoRepository registroOrdenTrabajoRepository,
             IRegistroAsistenciaAdjuntoRepository registroAsistenciaAdjuntoRepository,
-            IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository,
             IConnectionStringService connectionStringService,
             IMarcacionCalculoService calculoService,
             IUnitOfWork unitOfWork,
@@ -43,7 +41,6 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             this.personalRepository = personalRepository;
             this.registroOrdenTrabajoRepository = registroOrdenTrabajoRepository;
             this.registroAsistenciaAdjuntoRepository = registroAsistenciaAdjuntoRepository;
-            this.ordenTrabajoHorarioRepository = ordenTrabajoHorarioRepository;
             this.connectionStringService = connectionStringService;
             this.calculoService = calculoService;
             this.unitOfWork = unitOfWork;
@@ -62,10 +59,9 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
                 var personal = await personalRepository.ObtenerPorIdUsuario(connectionStringService.UserId) ?? throw new Exception("El usuario debe tener el atributo IdUsuario");
                 registro.PersonalId = personal.Id;
 
-                var otHorario = await ordenTrabajoHorarioRepository.ObtenerPorPersonalYFecha(registro.PersonalId, registro.Fecha);
-
-                HorarioCabecera horarioActual = otHorario == null ? personal.HorarioCabecera : otHorario.HorarioCabecera;
-                registro = await calculoService.PrepararRegistroAsync(registro, horarioActual);
+                var calculo = await calculoService.PrepararRegistroOrdenTrabajoAsync(registro);
+                registro = calculo.Registro;
+                var otHorario = calculo.OrdenTrabajoHorario;
                 registro = await repository.Agregar(registro);
 
                 if (otHorario != null)

@@ -22,10 +22,8 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
     public class RegistroAsistenciaOrdenTrabajoCrearHandler : IRequestHandler<RegistroAsistenciaOrdenTrabajoCrearCommand, RegistroAsistencia>
     {
         private readonly IRegistroAsistencia_OrdenTrabajoRepository repository;
-        private readonly IPersonalRepository personalRepository;
         private readonly IRegistroAsistenciaOrdenTrabajoRepository registroOrdenTrabajoRepository;
         private readonly IRegistroAsistenciaAdjuntoRepository registroAsistenciaAdjuntoRepository;
-        private readonly IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository;
         private readonly IMarcacionCalculoService calculoService;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
@@ -33,20 +31,16 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
 
         public RegistroAsistenciaOrdenTrabajoCrearHandler(
             IRegistroAsistencia_OrdenTrabajoRepository repository,
-            IPersonalRepository personalRepository,
             IRegistroAsistenciaOrdenTrabajoRepository registroOrdenTrabajoRepository,
             IRegistroAsistenciaAdjuntoRepository registroAsistenciaAdjuntoRepository,
-            IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository,
             IMarcacionCalculoService calculoService,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             ILogger<RegistroAsistenciaOrdenTrabajoCrearHandler> logger)
         {
             this.repository = repository;
-            this.personalRepository = personalRepository;
             this.registroOrdenTrabajoRepository = registroOrdenTrabajoRepository;
             this.registroAsistenciaAdjuntoRepository = registroAsistenciaAdjuntoRepository;
-            this.ordenTrabajoHorarioRepository = ordenTrabajoHorarioRepository;
             this.calculoService = calculoService;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
@@ -59,11 +53,9 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             try
             {
                 var registro = mapper.Map<RegistroAsistencia>(request);
-                var personal = await personalRepository.ObtenerPorId(registro.PersonalId);
-                var otHorario = await ordenTrabajoHorarioRepository.ObtenerPorPersonalYFecha(registro.PersonalId, registro.Fecha);
-
-                HorarioCabecera horarioActual = otHorario == null ? personal.HorarioCabecera : otHorario.HorarioCabecera;
-                registro = await calculoService.PrepararRegistroAsync(registro, horarioActual);
+                var calculo = await calculoService.PrepararRegistroOrdenTrabajoAsync(registro);
+                registro = calculo.Registro;
+                var otHorario = calculo.OrdenTrabajoHorario;
                 registro = await repository.Agregar(registro);
 
                 if (otHorario != null)
