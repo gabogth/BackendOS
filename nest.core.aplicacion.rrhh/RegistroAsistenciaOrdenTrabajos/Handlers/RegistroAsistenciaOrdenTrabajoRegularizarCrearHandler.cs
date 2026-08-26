@@ -10,7 +10,6 @@ using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities;
 using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Transaccional;
-using nest.core.infraestructura.rrhh;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
 {
@@ -52,7 +51,6 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             await unitOfWork.BeginTransactionAsync();
             try
             {
-                var fecha = DateTime.Now;
                 var registro = mapper.Map<RegistroAsistencia>(request);
 
                 if(request.TipoRegularizacion == RegistroAsistenciaTipoRegularizacionId.Automatico)
@@ -61,8 +59,9 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
                     registro.PersonalId = personal.Id;
                 }
 
+                registro.Fecha = request.Fecha ?? DateTime.Now;
                 registro.TipoEvento = request.EventoTipo;
-                registro.FechaJornal = DateOnly.FromDateTime(fecha);
+                registro.FechaJornal = DateOnly.FromDateTime(registro.Fecha);
                 registro.DiferenciaMinutos = 0;
                 registro.EsTardanza = false;
                 registro.HorarioDetalleEventoId = null;

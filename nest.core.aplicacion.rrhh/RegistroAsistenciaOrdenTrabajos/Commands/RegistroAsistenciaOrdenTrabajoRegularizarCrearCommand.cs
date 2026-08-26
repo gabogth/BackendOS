@@ -13,6 +13,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands
         string? Observacion,
         long? OrdenTrabajoId,
         string? Obseracion,
+        DateTime? Fecha,
         HorarioDetalleEventoTipoEnum EventoTipo,
         RegistroAsistenciaTipoRegularizacionId TipoRegularizacion
     ) : IRequest<RegistroAsistencia>;
