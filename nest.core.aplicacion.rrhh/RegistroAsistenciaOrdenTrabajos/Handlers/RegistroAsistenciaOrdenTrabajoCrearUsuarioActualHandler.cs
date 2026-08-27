@@ -3,8 +3,10 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Services.Interface;
+using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
+using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
@@ -25,6 +27,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
         private readonly IMarcacionCalculoService calculoService;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly IHorarioRepository horarioRepository;
         private readonly ILogger<RegistroAsistenciaOrdenTrabajoCrearUsuarioActualHandler> logger;
 
         public RegistroAsistenciaOrdenTrabajoCrearUsuarioActualHandler(
@@ -35,6 +38,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository,
             IConnectionStringService connectionStringService,
             IMarcacionCalculoService calculoService,
+            IHorarioRepository horarioRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             ILogger<RegistroAsistenciaOrdenTrabajoCrearUsuarioActualHandler> logger)
@@ -47,6 +51,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             this.connectionStringService = connectionStringService;
             this.calculoService = calculoService;
             this.unitOfWork = unitOfWork;
+            this.horarioRepository = horarioRepository;
             this.mapper = mapper;
             this.logger = logger;
         }
@@ -62,19 +67,32 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
                 var personal = await personalRepository.ObtenerPorIdUsuario(connectionStringService.UserId) ?? throw new Exception("El usuario debe tener el atributo IdUsuario");
                 registro.PersonalId = personal.Id;
 
-                var otHorario = await ordenTrabajoHorarioRepository.ObtenerPorPersonalYFecha(registro.PersonalId, registro.Fecha);
+                var fechaBusqueda = registro.Fecha.AddHours(-22);
 
-                HorarioCabecera horarioActual = otHorario == null ? personal.HorarioCabecera : otHorario.HorarioCabecera;
+                var ultimaMarca = await repository.BuscarUltimaMarca(registro.PersonalId, fechaBusqueda);
+                HorarioCabecera? horarioActual = null;
+                OrdenTrabajoCabecera? ordenTrabajoCabecera = null;
+                if (ultimaMarca != null && ultimaMarca.TipoEvento == HorarioDetalleEventoTipoEnum.Entrada)
+                {
+                    horarioActual = await horarioRepository.ObtenerPorId(ultimaMarca.HorarioDetalleEvento.HorarioDetalle.HorarioCabeceraId);
+                    ordenTrabajoCabecera = ultimaMarca.RegistroAsistenciaOrdenTrabajo?.OrdenTrabajoCabecera;
+                }
+                else
+                {
+                    var otHorario = await ordenTrabajoHorarioRepository.ObtenerPorPersonalYFecha(registro.PersonalId, registro.Fecha);
+                    horarioActual = otHorario == null ? personal.HorarioCabecera : otHorario.HorarioCabecera;
+                    ordenTrabajoCabecera = otHorario?.OrdenTrabajoCabecera;
+                }
                 registro = await calculoService.PrepararRegistroAsync(registro, horarioActual);
                 registro = await repository.Agregar(registro);
 
-                if (otHorario != null)
+                if (ordenTrabajoCabecera != null)
                 {
                     var relacion = new RegistroAsistenciaOrdenTrabajo
                     {
                         EmpresaId = registro.EmpresaId,
                         Id = registro.Id,
-                        OrdenTrabajoCabeceraId = otHorario.OrdenTrabajoCabeceraId
+                        OrdenTrabajoCabeceraId = ordenTrabajoCabecera.Id
                     };
                     await registroOrdenTrabajoRepository.Agregar(relacion);
                 }

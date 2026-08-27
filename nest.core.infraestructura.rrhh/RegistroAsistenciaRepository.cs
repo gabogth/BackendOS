@@ -40,7 +40,7 @@ namespace nest.core.infraestructura.rrhh
                 .Include(x => x.Personal).ThenInclude(x => x.PersonalCargoExterno)
                 .AsNoTracking()
                 .AsSplitQuery()
-                .Select(x => new RegistroAsistenciaQueryView { 
+                .Select(x => new RegistroAsistenciaQueryView {
                     EmpresaId = x.EmpresaId,
                     Id = x.Id,
                     PersonalId = x.PersonalId,
@@ -74,7 +74,7 @@ namespace nest.core.infraestructura.rrhh
                         Celular = x.Personal.Persona.Celular,
                         Direccion = x.Personal.Persona.Direccion
                     },
-                    OrdenTrabajo = new OrdenTrabajoQueryView { 
+                    OrdenTrabajo = new OrdenTrabajoQueryView {
                         Id = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.Id,
                         Nombre = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.Nombre,
                         Descripcion = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.Descripcion,
@@ -160,6 +160,14 @@ namespace nest.core.infraestructura.rrhh
         {
             return await Query()
                 .Where(x => x.PersonalId == personalId)
+                .OrderByDescending(x => x.Fecha)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<RegistroAsistencia> BuscarUltimaMarca(int personalId, DateTime fechaRegistro)
+        {
+            return await Query()
+                .Where(x => x.PersonalId == personalId && (x.TipoEvento == HorarioDetalleEventoTipoEnum.Entrada || x.TipoEvento == HorarioDetalleEventoTipoEnum.Salida) && x.Fecha >= fechaRegistro)
                 .OrderByDescending(x => x.Fecha)
                 .FirstOrDefaultAsync();
         }
