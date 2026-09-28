@@ -57,40 +57,41 @@ namespace nest.core.infraestructura.rrhh
                     MinutosTraslado = x.HorarioDetalleEvento.HorarioDetalle.HorarioCabecera.MinutosTraslado,
                     PersonalCargoExterno = x.Personal.PersonalCargoExterno,
                     Personal = new PersonalQueryView {
-                        Id = x.Personal.Id,
-                        MarcaAsistencia = x.Personal.MarcaAsistencia,
-                        ContratoCabeceraId = x.Personal.ContratoCabeceraId,
+                    //    Id = x.Personal.Id,
+                    //    MarcaAsistencia = x.Personal.MarcaAsistencia,
+                    //    ContratoCabeceraId = x.Personal.ContratoCabeceraId,
                         HorarioCabeceraId = x.Personal.HorarioCabeceraId,
-                        RegistroAsistenciaPoliticaId = x.Personal.RegistroAsistenciaPoliticaId
+                    //    RegistroAsistenciaPoliticaId = x.Personal.RegistroAsistenciaPoliticaId
                     },
                     Persona = new PersonaQueryView {
-                        Id = x.Personal.Persona.Id,
-                        Nombres = x.Personal.Persona.Nombres,
-                        ApellidoPaterno = x.Personal.Persona.ApellidoPaterno,
-                        ApellidoMaterno = x.Personal.Persona.ApellidoMaterno,
-                        FechaNacimiento = x.Personal.Persona.FechaNacimiento,
+                    //    Id = x.Personal.Persona.Id,
+                    //    Nombres = x.Personal.Persona.Nombres,
+                    //    ApellidoPaterno = x.Personal.Persona.ApellidoPaterno,
+                    //    ApellidoMaterno = x.Personal.Persona.ApellidoMaterno,
+                    //    FechaNacimiento = x.Personal.Persona.FechaNacimiento,
                         DocumentoIdentidad = x.Personal.Persona.DocumentoIdentidad,
-                        Correo = x.Personal.Persona.Correo,
-                        Celular = x.Personal.Persona.Celular,
-                        Direccion = x.Personal.Persona.Direccion
+                        NombreCompleto = $"{x.Personal.Persona.ApellidoPaterno} {x.Personal.Persona.ApellidoMaterno}, {x.Personal.Persona.Nombres}",
+                        //    Correo = x.Personal.Persona.Correo,
+                        //    Celular = x.Personal.Persona.Celular,
+                        //    Direccion = x.Personal.Persona.Direccion
                     },
                     OrdenTrabajo = new OrdenTrabajoQueryView {
                         Id = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.Id,
                         Nombre = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.Nombre,
                         Descripcion = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.Descripcion,
-                        FechaInicio = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.FechaInicio,
-                        FechaCompromiso = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.FechaCompromiso,
-                        FechaFin = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.FechaFin
+                        //FechaInicio = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.FechaInicio,
+                        //FechaCompromiso = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.FechaCompromiso,
+                        //FechaFin = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.FechaFin
                     },
                     OrdenServicio = new OrdenServicioQueryView
                     {
                         Id = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.Id,
-                        OrdenServicioTipoId = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.OrdenServicioTipoId,
+                        //OrdenServicioTipoId = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.OrdenServicioTipoId,
                         CodigoOrdenInterna = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.CodigoOrdenInterna,
                         CodigoReferencial = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.CodigoReferencial,
                         Descripcion = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.Descripcion,
-                        FechaInicial = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.FechaInicial,
-                        FechaFinal = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.FechaFinal
+                        //FechaInicial = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.FechaInicial,
+                        //FechaFinal = x.RegistroAsistenciaOrdenTrabajo.OrdenTrabajoCabecera.OrdenServicioCabecera.FechaFinal
                     }
                 });
             return resultado;
@@ -164,10 +165,18 @@ namespace nest.core.infraestructura.rrhh
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<RegistroAsistencia> BuscarUltimaMarca(int personalId, DateTime fechaRegistro)
+        public async Task<RegistroAsistencia> BuscarUltimaMarca(int personalId, DateTime fechaDesde)
         {
             return await Query()
-                .Where(x => x.PersonalId == personalId && (x.TipoEvento == HorarioDetalleEventoTipoEnum.Entrada || x.TipoEvento == HorarioDetalleEventoTipoEnum.Salida) && x.Fecha >= fechaRegistro)
+                .Where(x => x.PersonalId == personalId && (x.TipoEvento == HorarioDetalleEventoTipoEnum.Entrada || x.TipoEvento == HorarioDetalleEventoTipoEnum.Salida) && x.Fecha >= fechaDesde)
+                .OrderByDescending(x => x.Fecha)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<RegistroAsistencia> BuscarUltimaMarca(int personalId, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            return await Query()
+                .Where(x => x.PersonalId == personalId && (x.TipoEvento == HorarioDetalleEventoTipoEnum.Entrada || x.TipoEvento == HorarioDetalleEventoTipoEnum.Salida) && x.Fecha >= fechaDesde && x.Fecha <= fechaHasta)
                 .OrderByDescending(x => x.Fecha)
                 .FirstOrDefaultAsync();
         }

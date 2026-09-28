@@ -37,6 +37,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoHorarios.Handlers
                     var entry = mapper.Map<OrdenTrabajoHorario>(request);
                     entry.HorarioCabeceraId = item.HorarioCabeceraId;
                     entry.Fecha = item.Fecha;
+                    entry.FechaVigencia = item.FechaVigencia;
                     entries.Add(entry);
                 }
                 return await repository.Merge(existentes.ToArray(), entries.ToArray());

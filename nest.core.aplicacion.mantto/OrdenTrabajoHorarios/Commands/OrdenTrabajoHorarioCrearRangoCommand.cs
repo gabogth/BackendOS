@@ -15,5 +15,6 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoHorarios.Commands
         public long Id { get; set; }
         public DateOnly Fecha { get; set; }
         public int HorarioCabeceraId { get; set; }
+        public DateTime FechaVigencia { get; set; }
     }
 }

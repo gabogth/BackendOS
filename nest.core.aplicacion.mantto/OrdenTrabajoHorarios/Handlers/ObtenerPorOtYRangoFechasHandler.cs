@@ -2,10 +2,11 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.mantto.OrdenTrabajoHorarios.Queries;
 using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities.Views;
 
 namespace nest.core.aplicacion.mantto.OrdenTrabajoHorarios.Handlers
 {
-    internal class ObtenerPorOtYRangoFechasHandler : IRequestHandler<ObtenerPorOtYRangoFechasQuery, List<OrdenTrabajoHorario>>
+    internal class ObtenerPorOtYRangoFechasHandler : IRequestHandler<ObtenerPorOtYRangoFechasQuery, List<OrdenTrabajoHorarioView_PorOTRangoFechas>>
     {
         private readonly IOrdenTrabajoHorarioRepository repository;
         private readonly ILogger<ObtenerPorOtYRangoFechasHandler> logger;
@@ -16,7 +17,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoHorarios.Handlers
             this.logger = logger;
         }
 
-        public async Task<List<OrdenTrabajoHorario>> Handle(ObtenerPorOtYRangoFechasQuery request, CancellationToken cancellationToken)
+        public async Task<List<OrdenTrabajoHorarioView_PorOTRangoFechas>> Handle(ObtenerPorOtYRangoFechasQuery request, CancellationToken cancellationToken)
         {
             try
             {

@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities.Views;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
 
@@ -36,14 +37,22 @@ namespace nest.core.infraestructura.mantto
         public Task<List<OrdenTrabajoHorario>> ObtenerPorIds(List<long> ids) => GetByIdsAsync(ids);
 
         public Task<List<OrdenTrabajoHorario>> ObtenerTodos() => GetAllAsync();
-        public Task<List<OrdenTrabajoHorario>> ObtenerPorOtYRangoFechas(long OrdenTrabajoCabeceraId, DateOnly Inicio, DateOnly Fin)
+        public Task<List<OrdenTrabajoHorarioView_PorOTRangoFechas>> ObtenerPorOtYRangoFechas(long OrdenTrabajoCabeceraId, DateOnly Inicio, DateOnly Fin)
         {
             return base.Query()
                 .Include(x => x.OrdenTrabajoCabecera)
-                .Include(x => x.HorarioCabecera).ThenInclude(x => x.HorarioDetalles).ThenInclude(x => x.HorarioDetalleEventos)
+                .Include(x => x.HorarioCabecera)
                 .AsNoTracking()
-                .AsSplitQuery()
                 .Where(x => x.OrdenTrabajoCabeceraId == OrdenTrabajoCabeceraId  && x.Fecha >= Inicio && x.Fecha <= Fin)
+                .Select(x => new OrdenTrabajoHorarioView_PorOTRangoFechas
+                {
+                    Id = x.Id,
+                    OrdenTrabajoCabeceraId = x.OrdenTrabajoCabeceraId,
+                    PersonalId = x.PersonalId,
+                    Fecha = x.Fecha,
+                    HorarioCabeceraId = x.HorarioCabeceraId,
+                    NombreOt = x.HorarioCabecera.Nombre
+                })
                 .ToListAsync();
         }
 
@@ -56,6 +65,7 @@ namespace nest.core.infraestructura.mantto
                 .Where(o => o.PersonalId == personaId) // que contengan a la persona y que tenga horario asignado
                 .Where(o => o.Fecha == fechaMarca) // que la fecha coincida
                 .OrderByDescending(x => x.Id)
+                .OrderByDescending(x => x.FechaVigencia)
                 .FirstOrDefaultAsync();
         }
 

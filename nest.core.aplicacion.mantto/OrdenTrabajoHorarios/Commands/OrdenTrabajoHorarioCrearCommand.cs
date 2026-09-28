@@ -8,6 +8,7 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoHorarios.Commands
         long OrdenTrabajoCabeceraId,
         int PersonalId,
         DateOnly Fecha,
-        long HorarioCabeceraId
+        long HorarioCabeceraId,
+        DateTime? FechaVigencia
     ) : IRequest<OrdenTrabajoHorario>, IOrdenTrabajoHorarioGenericCommand;
 }

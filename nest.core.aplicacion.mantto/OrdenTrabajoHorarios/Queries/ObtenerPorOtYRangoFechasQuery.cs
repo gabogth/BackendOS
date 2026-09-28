@@ -1,6 +1,7 @@
 using MediatR;
 using nest.core.aplicacion.utils.Queries;
 using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities.Views;
 
 namespace nest.core.aplicacion.mantto.OrdenTrabajoHorarios.Queries
 {
@@ -8,5 +9,5 @@ namespace nest.core.aplicacion.mantto.OrdenTrabajoHorarios.Queries
         long OrdenTrabajoCabeceraId, 
         DateOnly Inicio, 
         DateOnly Fin
-    ) : IRequest<List<OrdenTrabajoHorario>>, IQueryBase;
+    ) : IRequest<List<OrdenTrabajoHorarioView_PorOTRangoFechas>>, IQueryBase;
 }

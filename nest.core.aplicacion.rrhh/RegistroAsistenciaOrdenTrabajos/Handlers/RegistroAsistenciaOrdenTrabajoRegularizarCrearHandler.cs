@@ -3,13 +3,19 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Services.Interface;
+using nest.core.dominio.General.PersonaEntities;
+using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
+using nest.core.dominio.RRHH.HorarioCabeceraEntities;
+using nest.core.dominio.RRHH.HorarioDetalleEventoEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities;
 using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Transaccional;
+using nest.core.driver.postgres.Migrations;
+using nest.core.infraestructura.mantto;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
 {
@@ -21,7 +27,9 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly IPersonalRepository personalRepository;
+        private readonly IOrdenTrabajoHorarioRepository ordenTrabajoHorarioRepository;
         private readonly IConnectionStringService connectionStringService;
+        private readonly IHorarioRepository horarioRepository;
         private readonly ILogger<RegistroAsistenciaOrdenTrabajoRegularizarCrearHandler> logger;
 
         public RegistroAsistenciaOrdenTrabajoRegularizarCrearHandler(
@@ -33,6 +41,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             IMarcacionCalculoService calculoService,
             IConnectionStringService connectionStringService,
             IUnitOfWork unitOfWork,
+            IHorarioRepository horarioRepository,
             IMapper mapper,
             ILogger<RegistroAsistenciaOrdenTrabajoRegularizarCrearHandler> logger)
         {
@@ -41,6 +50,8 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             this.personalRepository = personalRepository;
             this.registroAsistenciaAdjuntoRepository = registroAsistenciaAdjuntoRepository;
             this.connectionStringService = connectionStringService;
+            this.horarioRepository = horarioRepository;
+            this.ordenTrabajoHorarioRepository = ordenTrabajoHorarioRepository;
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.logger = logger;
@@ -52,19 +63,65 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             try
             {
                 var registro = mapper.Map<RegistroAsistencia>(request);
+                registro.Fecha = request.Fecha ?? DateTime.Now;
 
-                if(request.TipoRegularizacion == RegistroAsistenciaTipoRegularizacionId.Automatico)
+                Personal personal = null;
+
+                if (request.TipoRegularizacion == RegistroAsistenciaTipoRegularizacionId.Automatico)
                 {
-                    var personal = await personalRepository.ObtenerPorIdUsuario(connectionStringService.UserId);
+                    personal = await personalRepository.ObtenerPorIdUsuario(connectionStringService.UserId);
                     registro.PersonalId = personal.Id;
                 }
+                else
+                {
+                    personal = await personalRepository.ObtenerPorId(registro.PersonalId);
+                    registro.PersonalId = request.PersonalId;
+                }
 
-                registro.Fecha = request.Fecha ?? DateTime.Now;
+                var fechaBusqueda = registro.Fecha.AddHours(-22);
+                var ultimaMarca = await repository.BuscarUltimaMarca(registro.PersonalId, fechaBusqueda, registro.Fecha);
+                HorarioCabecera? horarioActual = null;
+
+                if (request.EventoTipo == HorarioDetalleEventoTipoEnum.Entrada)
+                {
+                    if (!(ultimaMarca != null && ultimaMarca.TipoEvento == HorarioDetalleEventoTipoEnum.Entrada))
+                    {
+                        var otHorario = await ordenTrabajoHorarioRepository.ObtenerPorPersonalYFecha(registro.PersonalId, registro.Fecha);
+                        horarioActual = otHorario == null ? personal.HorarioCabecera : otHorario.HorarioCabecera;
+                        registro.FechaJornal = DateOnly.FromDateTime(registro.Fecha);
+                    }
+                    else throw new InvalidOperationException("No se puede registrar una entrada si ya existe una entrada previa.");
+                }
+                else
+                {
+                    if (ultimaMarca != null && ultimaMarca.TipoEvento == HorarioDetalleEventoTipoEnum.Entrada)
+                    {
+                        int? horarioCabeceraId = ultimaMarca.HorarioDetalleEvento?.HorarioDetalle?.HorarioCabeceraId;
+                        if (horarioCabeceraId.HasValue)
+                            horarioActual = await horarioRepository.ObtenerPorId(ultimaMarca.HorarioDetalleEvento.HorarioDetalle.HorarioCabeceraId);
+                        else
+                            horarioActual = personal.HorarioCabecera;
+                        registro.FechaJornal = ultimaMarca.FechaJornal;
+                    }
+                    else throw new InvalidOperationException("No se puede registrar una salida u otro tipo de marca si no existe una entrada previa.");
+                }
+
+                var eventoDia = horarioActual.HorarioDetalles
+                    .Where(x => x.DiaSemana == registro.FechaJornal.DayOfWeek)?.FirstOrDefault();
+
+                if (eventoDia == null)
+                    throw new InvalidOperationException($"No se encontró un horario válido para el día {registro.FechaJornal.DayOfWeek.ToString("dddd")}.");
+
+                var evento = eventoDia.HorarioDetalleEventos
+                    .Where(x => x.TipoEvento == request.EventoTipo)?.FirstOrDefault();
+
+                if (evento == null)
+                    throw new InvalidOperationException($"No se encontró un evento válido para el tipo {request.EventoTipo} para el dia {registro.FechaJornal.DayOfWeek.ToString("dddd")}.");
+
                 registro.TipoEvento = request.EventoTipo;
-                registro.FechaJornal = DateOnly.FromDateTime(registro.Fecha);
                 registro.DiferenciaMinutos = 0;
                 registro.EsTardanza = false;
-                registro.HorarioDetalleEventoId = null;
+                registro.HorarioDetalleEventoId = evento?.Id;
                 registro.RegistroAsistenciaPoliticaId = null;
                 registro.Observacion = request.Observacion;
 

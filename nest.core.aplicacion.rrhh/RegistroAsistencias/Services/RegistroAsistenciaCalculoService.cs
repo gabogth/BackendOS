@@ -10,20 +10,14 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Services
     public class RegistroAsistenciaCalculoService : IMarcacionCalculoService
     {
         protected readonly IRegistroAsistenciaRepository repository;
-        protected readonly IHorarioRepository horarioRepository;
         protected readonly IPersonalRepository personalRepository;
-        protected readonly IHorarioDetalleRepository horarioDetalleRepository;
 
         public RegistroAsistenciaCalculoService(
             IRegistroAsistenciaRepository repository,
-            IHorarioRepository horarioRepository,
-            IPersonalRepository personalRepository,
-            IHorarioDetalleRepository horarioDetalleRepository)
+            IPersonalRepository personalRepository)
         {
             this.repository = repository;
-            this.horarioRepository = horarioRepository;
             this.personalRepository = personalRepository;
-            this.horarioDetalleRepository = horarioDetalleRepository;
         }
         public async Task<RegistroAsistencia> PrepararRegistroAsync(RegistroAsistencia registro, HorarioCabecera horario)
         {

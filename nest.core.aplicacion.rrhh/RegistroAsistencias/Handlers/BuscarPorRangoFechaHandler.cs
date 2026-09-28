@@ -20,7 +20,8 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
         {
             try
             {
-                return await repository.BuscarPorRangoFecha(request.FechaInicio, request.FechaFin);
+                var data = await repository.BuscarPorRangoFecha(request.FechaInicio, request.FechaFin);
+                return data;
             }
             catch (Exception ex)
             {

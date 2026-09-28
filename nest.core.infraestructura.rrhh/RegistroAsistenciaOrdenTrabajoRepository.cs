@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities;
 using nest.core.infraestructura.db.DbContext;
 using nest.core.infraestructura.db.Utils;
-using nest.core.infrastructura.utils.Excepciones;
 
 namespace nest.core.infraestructura.rrhh
 {
@@ -17,7 +16,7 @@ namespace nest.core.infraestructura.rrhh
 
         protected override IQueryable<RegistroAsistenciaOrdenTrabajo> Query()
         {
-            return this.Query()
+            return base.Query()
             .AsNoTracking()
             .Include(x => x.RegistroAsistencia)
             .Include(x => x.OrdenTrabajoCabecera);
