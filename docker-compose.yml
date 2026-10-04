@@ -42,6 +42,7 @@
         - DATABASE_MASTERUSER=${DATABASE_MASTERUSER}
         - DATABASE_MASTERPW=${DATABASE_MASTERPW}
         - DATABASE_PORT=${DATABASE_PORT}
+        - CONNECTION_STRING=${CONNECTION_STRING}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
