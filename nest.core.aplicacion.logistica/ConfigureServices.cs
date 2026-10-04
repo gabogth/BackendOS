@@ -14,7 +14,7 @@ namespace nest.core.aplicacion.logistica
     {
         public static IServiceCollection ConfigureInfraestructura(this IServiceCollection services, IConfigurationManager configuration) 
         {
-            services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfiles>());
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((serviceProvider) => AuthClaim.constructClaimsAuth(serviceProvider, configuration));
             services.AddTransient<IAlmacenRepository, AlmacenRepository>();

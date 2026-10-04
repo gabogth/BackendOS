@@ -21,7 +21,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
@@ -29,14 +29,24 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
-    <PackageReference Include="Swashbuckle.AspNetCore" />
+	<PackageReference Include="Microsoft.AspNetCore.OData" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\nest.core.aplicacion.contabilidad\nest.core.aplicacion.contabilidad.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.corporativo\nest.core.aplicacion.corporativo.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.costos\nest.core.aplicacion.costos.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.datasource\nest.core.aplicacion.datasource.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.finanzas\nest.core.aplicacion.finanzas.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.general\nest.core.aplicacion.general.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.iclock\nest.core.aplicacion.iclock.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.legal\nest.core.aplicacion.legal.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.logistica\nest.core.aplicacion.logistica.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.mantto\nest.core.aplicacion.mantto.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.patrimonial\nest.core.aplicacion.patrimonial.csproj" />
+    <ProjectReference Include="..\nest.core.aplicacion.rrhh\nest.core.aplicacion.rrhh.csproj" />
     <ProjectReference Include="..\nest.core.aplicacion.security\nest.core.aplicacion.security.csproj" />
     <ProjectReference Include="..\nest.core.dominio\nest.core.dominio.csproj" />
-    <ProjectReference Include="..\nest.core.driver.mysql\nest.core.driver.mysql.csproj" />
     <ProjectReference Include="..\nest.core.driver.postgres\nest.core.driver.postgres.csproj" />
     <ProjectReference Include="..\nest.core.driver.sqlserver\nest.core.driver.sqlserver.csproj" />
     <ProjectReference Include="..\nest.core.infraestructura.db\nest.core.infraestructura.db.csproj" />

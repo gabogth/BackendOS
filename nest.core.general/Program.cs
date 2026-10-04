@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+//using Microsoft.OpenApi.Models;
 using nest.core.aplication.auth;
 using nest.core.general.Extensions;
 using System.Reflection;
@@ -41,36 +41,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     }); ;
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => {
-    string proyecto = Assembly.GetExecutingAssembly().GetName().Name.Split('.')[2];
-    proyecto = char.ToUpper(proyecto[0]) + proyecto.Substring(1).ToLower();
-    string apiName = $"{proyecto} Api";
-    c.SwaggerDoc("v1", new OpenApiInfo {
-        Title = apiName,
-        Version = $"v{Assembly.GetExecutingAssembly().GetName().Version}",
-        Description = $"La {apiName} permite gestionar las personas registradas. Todos los endpoints requieren autorización.",
-        Contact = new OpenApiContact { Email = "gabogth@gmail.com", Name = "Gabriel Rodriguez", Url = new Uri("https://es.stackoverflow.com/users/30423") }
-    });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = "Ingrese el token JWT en este formato: Bearer {token}",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement(){{
-        new OpenApiSecurityScheme {
-            Reference = new OpenApiReference {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-            }
-        },
-        new string[] {} }
-    });
-    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
-    c.CustomSchemaIds(type => type.FullName!.Replace("+", "."));
-});
+builder.Services.AddOpenApi();
 builder.Services.AddAuthentication(option =>
 {
     option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -96,8 +67,7 @@ builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BASE_URL")))
     app.UsePathBase(Environment.GetEnvironmentVariable("BASE_URL"));
-app.UseSwagger();
-app.UseSwaggerUI();
+app.MapOpenApi();
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
 app.UseAuthentication();

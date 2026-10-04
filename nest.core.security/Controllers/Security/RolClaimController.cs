@@ -1,16 +1,16 @@
-using System.Collections.Generic;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using nest.core.aplicacion.security.RoleClaims.Commands;
 using nest.core.dominio;
 using nest.core.dominio.Security.Dto;
+using nest.core.security.Extensions;
 
-namespace nest.core.security.Controllers;
+namespace nest.core.security.Controllers.Security;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route($"{ConfigureEndpoints.EndpointsEnum.SECURITY}/[controller]")]
 public class RolClaimController : Controller
 {
     private readonly ISender sender;

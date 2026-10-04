@@ -1,10 +1,14 @@
 FROM pulumi/pulumi-dotnet:latest
 
-WORKDIR /work/infra
+WORKDIR /work
 
-COPY . /work/infra/
+COPY . .
+COPY ./Directory.Packages.props /work/nest.iac.generalinfra
+COPY ./Directory.Packages.props /work/nest.core.security
 
-COPY pulumi_commands.sh /usr/local/bin/pulumi_commands.sh
+WORKDIR /work/nest.iac.generalinfra
+
+COPY ./nest.iac.generalinfra/pulumi_commands.sh /usr/local/bin/pulumi_commands.sh
 RUN sed -i 's/\r$//' /usr/local/bin/pulumi_commands.sh && \
     chmod +x /usr/local/bin/pulumi_commands.sh
 

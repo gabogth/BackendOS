@@ -2,13 +2,12 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using nest.core.aplicacion.security.Login.Commands;
-using nest.core.dominio;
 using nest.core.dominio.Security;
-
-namespace nest.core.security.Controllers;
+using nest.core.security.Extensions;
+namespace nest.core.security.Controllers.Security;
 
 [ApiController]
-[Route("[controller]")]
+[Route($"{ConfigureEndpoints.EndpointsEnum.SECURITY}/[controller]")]
 public class AuthController : Controller
 {
     private readonly ISender sender;

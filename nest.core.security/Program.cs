@@ -2,10 +2,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using nest.core.aplication.auth;
 using nest.core.security.Extensions;
-using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -45,15 +44,26 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     }); ;
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => {
-    string proyecto = Assembly.GetExecutingAssembly().GetName().Name.Split('.')[2];
-    proyecto = char.ToUpper(proyecto[0]) + proyecto.Substring(1).ToLower();
-    string apiName = $"{proyecto} Api";
-    c.SwaggerDoc("v1", new OpenApiInfo { 
-        Title = apiName, 
-        Version = $"v{Assembly.GetExecutingAssembly().GetName().Version}",
-        Description = $"La {apiName} permite administrar usuarios y roles dentro del sistema. Incluye operaciones para crear, modificar, eliminar usuarios, así como asignar roles a usuarios y obtener usuarios por roles.\r\n\r\nTodos los endpoints requieren autorización y autenticación.",
-        Contact = new OpenApiContact { Email = "gabogth@gmail.com", Name = "Gabriel Rodriguez", Url = new Uri("https://es.stackoverflow.com/users/30423") }
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("/", new OpenApiInfo
+    {
+        Title = "Nest Services",
+        Version = "V1"
+    });
+    foreach (var endpoint in ConfigureEndpoints.Endpoints)
+    {
+        c.SwaggerDoc(endpoint.Key, new OpenApiInfo
+        {
+            Title = endpoint.Value.Title,
+            Version = endpoint.Value.Version
+        });
+    }
+    c.DocInclusionPredicate((docName, apiDesc) =>
+    {
+        var relativePath = apiDesc.RelativePath;
+        if (string.IsNullOrEmpty(relativePath)) return false;
+        return relativePath.StartsWith(docName, StringComparison.OrdinalIgnoreCase);
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -63,17 +73,10 @@ builder.Services.AddSwaggerGen(c => {
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement(){{
-        new OpenApiSecurityScheme {
-            Reference = new OpenApiReference {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-            }
-        },
-        new string[] {} }
+    c.AddSecurityRequirement((document) => new OpenApiSecurityRequirement()
+    {
+        [new OpenApiSecuritySchemeReference("Bearer", document)] = []
     });
-    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
-    
 });
 builder.Services.AddAuthentication(option =>
 {
@@ -101,7 +104,11 @@ await MigrationResolver.ExecuteMigration(app);
 if(!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BASE_URL")))
     app.UsePathBase(Environment.GetEnvironmentVariable("BASE_URL"));
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    foreach (var endpoint in ConfigureEndpoints.Endpoints)
+        c.SwaggerEndpoint($"./{endpoint.Key}/swagger.json", endpoint.Value.Title);
+});
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
 app.UseAuthentication();

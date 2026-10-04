@@ -38,16 +38,6 @@ namespace nest.core.aplication.auth
                     builder.Services.AddHealthChecks()
                         .AddDbContextCheck<DbContextPsSql>("Users check", customTestQuery: (db, token) => db.Users.AnyAsync(token));
                     break;
-                case "MySql":
-                    builder.Services.AddDbContext<NestDbContext, DbContextMySql>((sp) => {
-                        sp.AddInterceptors(new TenantGuardSaveChangesInterceptor());
-                    });
-                    builder.Services
-                        .AddIdentity<ApplicationUser, ApplicationRole>()
-                        .AddEntityFrameworkStores<DbContextMySql>();
-                    builder.Services.AddHealthChecks()
-                        .AddDbContextCheck<DbContextMySql>("Users check", customTestQuery: (db, token) => db.Users.AnyAsync(token));
-                    break;
                 default: throw new Exception("Engine no soportado para migraciones");
             }
         }

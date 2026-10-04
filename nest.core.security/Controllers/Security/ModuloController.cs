@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
 using MediatR;
@@ -8,12 +7,13 @@ using nest.core.aplicacion.security.Modulos.Commands;
 using nest.core.aplicacion.security.Modulos.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Aplicacion.Modulo;
+using nest.core.security.Extensions;
 
-namespace nest.core.security.Controllers;
+namespace nest.core.security.Controllers.Security;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route($"{ConfigureEndpoints.EndpointsEnum.SECURITY}/[controller]")]
 public class ModuloController : Controller
 {
     private readonly ISender sender;

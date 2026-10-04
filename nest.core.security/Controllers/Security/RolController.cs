@@ -1,6 +1,5 @@
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Data.ResponseModel;
-using System.Collections.Generic;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +7,13 @@ using nest.core.aplicacion.security.Roles.Commands;
 using nest.core.aplicacion.security.Roles.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Security;
+using nest.core.security.Extensions;
 
-namespace nest.core.security.Controllers;
+namespace nest.core.security.Controllers.Security;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route($"{ConfigureEndpoints.EndpointsEnum.SECURITY}/[controller]")]
 public class RolController : Controller
 {
     private readonly ISender sender;

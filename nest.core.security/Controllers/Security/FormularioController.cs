@@ -7,13 +7,13 @@ using nest.core.aplicacion.security.Formularios.Commands;
 using nest.core.aplicacion.security.Formularios.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Aplicacion.Formulario;
-using System.Collections.Generic;
+using nest.core.security.Extensions;
 
-namespace nest.core.security.Controllers;
+namespace nest.core.security.Controllers.Security;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route($"{ConfigureEndpoints.EndpointsEnum.SECURITY}/[controller]")]
 public class FormularioController : Controller
 {
     private readonly ISender sender;

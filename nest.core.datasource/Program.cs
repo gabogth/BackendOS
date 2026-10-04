@@ -1,14 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.OData;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using nest.core.aplication.auth;
 using nest.core.datasource.Extensions;
 using nest.core.dominio.Contabilidad.CuentaContableEntities;
-using nest.core.dominio.Logistica;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;

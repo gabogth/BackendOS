@@ -7,11 +7,9 @@ using nest.core.aplicacion.security.Usuarios.Commands;
 using nest.core.aplicacion.security.Usuarios.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Security;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using nest.core.security.Extensions;
 
-namespace nest.core.security.Controllers
+namespace nest.core.security.Controllers.Security
 {
     /// <summary>
     /// Controlador para la gestión de usuarios.
@@ -20,7 +18,7 @@ namespace nest.core.security.Controllers
     /// </summary>
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route($"{ConfigureEndpoints.EndpointsEnum.SECURITY}/[controller]")]
     public class UsuarioController : Controller
     {
         private readonly IMediator mediator;

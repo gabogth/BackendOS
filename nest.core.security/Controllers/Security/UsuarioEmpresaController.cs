@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,8 +5,9 @@ using nest.core.aplicacion.security.UsuarioEmpresas.Commands;
 using nest.core.aplicacion.security.UsuarioEmpresas.Queries;
 using nest.core.dominio;
 using nest.core.dominio.Security.UsuarioEmpresa;
+using nest.core.security.Extensions;
 
-namespace nest.core.security.Controllers
+namespace nest.core.security.Controllers.Security
 {
     /// <summary>
     /// Controlador para administrar las relaciones entre usuarios y empresas.
@@ -17,7 +15,7 @@ namespace nest.core.security.Controllers
     /// </summary>
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route($"{ConfigureEndpoints.EndpointsEnum.SECURITY}/[controller]")]
     public class UsuarioEmpresaController : Controller
     {
         private readonly IMediator mediator;
