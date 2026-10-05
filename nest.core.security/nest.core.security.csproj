@@ -9,9 +9,13 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
 	<NoWarn>1591</NoWarn>
 	<AssemblyVersion>1.0.0.16</AssemblyVersion>
-	<Title>$(AssemblyName)</Title>
-	<Description>La $(AssemblyName) permite administrar usuarios y roles dentro del sistema. Incluye operaciones para crear, modificar, eliminar usuarios, así como asignar roles a usuarios y obtener usuarios por roles.\r\n\r\nTodos los endpoints requieren autorización y autenticación.</Description>
-	<Copyright>Nest Corp</Copyright>
+	<Title>Nest</Title>
+	<Description>Permite utilizar todos los endpoints del sistema NEST.</Description>
+	<Copyright>Umbrela Corporation</Copyright>
+	<Authors>Gabriel Rodriguez Riveros</Authors>
+	<Company>Nest</Company>
+	<Product>Nest ERP</Product>
+	<Version>$(AssemblyVersion)</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,6 +34,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
 	<PackageReference Include="Microsoft.AspNetCore.OData" />
+	<PackageReference Include="HotChocolate.AspNetCore" />
+	<PackageReference Include="HotChocolate.Data" />
   </ItemGroup>
 
   <ItemGroup>

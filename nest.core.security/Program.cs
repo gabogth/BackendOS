@@ -1,15 +1,23 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.OData;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi;
 using nest.core.aplication.auth;
+using nest.core.dominio.Contabilidad.CuentaContableEntities;
 using nest.core.security.Extensions;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+var assembly = Assembly.GetExecutingAssembly();
+
+bool hasBaseUrl = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BASE_URL"));
 
 if (Environment.GetEnvironmentVariable("IS_LAMBDA") != null)
     builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
@@ -52,21 +60,37 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    string product = assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product;
     c.SwaggerDoc("/", new OpenApiInfo
     {
-        Title = "Nest Services",
-        Version = "V1"
+        Title = $"{product} - Principal",
+        Version = assembly.GetName().Version?.ToString(),
+        Contact = new OpenApiContact
+        {
+            Name = "Gabriel Rodriguez Riveros",
+            Email = "gabogth@gmail.com",
+            Url = new Uri("https://www.linkedin.com/in/gabogth")
+        },
+        Description = assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description
     });
     foreach (var endpoint in ConfigureEndpoints.Endpoints)
     {
         c.SwaggerDoc(endpoint.Key, new OpenApiInfo
         {
-            Title = endpoint.Value.Title,
-            Version = endpoint.Value.Version
+            Title = $"{product} - {endpoint.Value.Title}",
+            Version = assembly.GetName().Version?.ToString(),
+            Contact = new OpenApiContact
+            {
+                Name = "Gabriel Rodriguez Riveros",
+                Email = "gabogth@gmail.com",
+                Url = new Uri("https://www.linkedin.com/in/gabogth")
+            },
+            Description = assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description
         });
     }
     c.DocInclusionPredicate((docName, apiDesc) =>
     {
+        if (docName == "main") return true;
         var relativePath = apiDesc.RelativePath;
         if (string.IsNullOrEmpty(relativePath)) return false;
         return relativePath.StartsWith(docName, StringComparison.OrdinalIgnoreCase);
@@ -104,11 +128,28 @@ builder.Services.AddAuthentication(option =>
     };
 });
 builder.Services.AddAuthorization();
+builder.Services.AddHttpContextAccessor();
+builder.Services
+    .AddGraphQLServer()
+    .AddDataSources()
+    .AddFiltering()
+    .AddSorting()
+    .AddProjections()
+    .AddErrorFilter(err =>
+    {
+        if (err.Exception is not null)
+            return err.WithMessage(err.Exception.ToString());
+        return err;
+    });
+builder.Services
+    .AddControllers()
+    .AddOData(options =>
+        options.AddRouteComponents("odata", GetEdmModel())
+               .Select().Filter().OrderBy().Expand().Count().SetMaxTop(null));
 
 var app = builder.Build();
 await MigrationResolver.ExecuteMigration(app);
-if(!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BASE_URL")))
-    app.UsePathBase(Environment.GetEnvironmentVariable("BASE_URL"));
+if(hasBaseUrl) app.UsePathBase(Environment.GetEnvironmentVariable("BASE_URL"));
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
@@ -119,6 +160,8 @@ app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapGraphQL($"/graphql");
+app.MapNitroApp($"/my-graphql-ui");
 app.MapHealthChecks("/health/live", new HealthCheckOptions {
     ResponseWriter = async (ctx, report) =>
     {
@@ -139,3 +182,10 @@ app.MapHealthChecks("/health/live", new HealthCheckOptions {
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 app.Run();
+
+static IEdmModel GetEdmModel()
+{
+    var builder = new ODataConventionModelBuilder();
+    builder.EntitySet<CuentaContable>("CuentaContable");
+    return builder.GetEdmModel();
+}

@@ -1,4 +1,5 @@
 using FluentValidation;
+using HotChocolate.Execution.Configuration;
 using MediatR;
 using nest.core.aplicacion.contabilidad.CuentaContables.Behaviors;
 using nest.core.aplicacion.contabilidad.CuentaContables.Commands;
@@ -6,6 +7,7 @@ using nest.core.aplicacion.corporativo.Empresas.Behaviors;
 using nest.core.aplicacion.corporativo.Empresas.Commands;
 using nest.core.aplicacion.costos.CentroCostos.Behaviors;
 using nest.core.aplicacion.costos.CentroCostos.Commands;
+using nest.core.aplicacion.datasource.Querys;
 using nest.core.aplicacion.finanzas.CuentaCorrientes.Behaviors;
 using nest.core.aplicacion.finanzas.CuentaCorrientes.Commands;
 using nest.core.aplicacion.general.Departamentos.Behaviors;
@@ -90,6 +92,24 @@ namespace nest.core.security.Extensions
                 services.AddMemoryCache();
                 services.AddScoped<ICacheRepository, MemoryCacheRepository>();
             }
+        }
+
+        public static IRequestExecutorBuilder AddDataSources(this IRequestExecutorBuilder services)
+        {
+            services.AddQueryType(d => d.Name("Query"))
+                .AddTypeExtension<AplicacionQuery>()
+                .AddTypeExtension<ContabilidadQuery>()
+                .AddTypeExtension<CorporativoQuery>()
+                .AddTypeExtension<CostosQuery>()
+                .AddTypeExtension<FinanzasQuery>()
+                .AddTypeExtension<GeneralQuery>()
+                .AddTypeExtension<LegalQuery>()
+                .AddTypeExtension<LogisticaQuery>()
+                .AddTypeExtension<ManttoQuery>()
+                .AddTypeExtension<PatrimonialQuery>()
+                .AddTypeExtension<RRHHQuery>();
+
+            return services;
         }
     }
 }

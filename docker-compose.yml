@@ -16,14 +16,6 @@
       - POSTGRES_PASSWORD=4N&XY&d_0y6+
     ports:
       - "5431:5432"
-  # mysqlimage:
-  #   image: mysql
-  #   container_name: mysqlimage
-  #   restart: always
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=4N&XY&d_0y6+
-  #   ports:
-  #     - "3305:3306"
 
   pulumiiac:
     build:
@@ -45,36 +37,6 @@
         - CONNECTION_STRING=${CONNECTION_STRING}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-
-  # servicesiac:
-  #   build:
-  #     context: .
-  #     dockerfile: ./nest.iac.servicesinfra/Dockerfile
-  #   container_name: servicesiac
-  #   environment:
-  #     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-  #     - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-  #     - AWS_DEFAULT_REGION=us-east-1
-  #     - PULUMI_CONFIG_PASSPHRASE=${PULUMI_CONFIG_PASSPHRASE}
-  #     - PULUMI_STACK=${PULUMI_STACK_SERVICES}
-  #     - PULUMI_ACCESS_TOKEN=${PULUMI_ACCESS_TOKEN}
-  #     - CONNECTION_STRING=${CONNECTION_STRING}
-  #     - PULUMI_DEBUG_COMMANDS=true
-  #     - TF_LOG=TRACE
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   user: "0:0"
-
-  # securityservice:
-  #   build:
-  #     context: .
-  #     dockerfile: nest.core.security/Dockerfile
-  #   container_name: securityservice
-  #   environment:
-  #     - ASPNETCORE_HTTP_PORTS=8080
-  #     - CONNECTION_STRING=${CONNECTION_STRING}
-  #   ports:
-  #     - "8080:8080"
 
 volumes:
   sql_data:

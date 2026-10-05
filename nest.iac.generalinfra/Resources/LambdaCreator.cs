@@ -24,10 +24,12 @@ namespace nest.iac.generalinfra.Resources
             this.endpointUrl = endpointUrl;
             this.bucketName = bucketName;
         }
-        public Aws.Lambda.Function Build()
+        public Aws.Lambda.Function Build(bool createHealthCheck)
         {
             this.function = this.Create();
             CreateCW();
+            if (createHealthCheck)
+                CreateHealthCheck();
             return function;
         }
         private Aws.Lambda.Function Create()
@@ -107,7 +109,7 @@ namespace nest.iac.generalinfra.Resources
             var lambda = new Aws.Lambda.Function(currLambdaName, new Aws.Lambda.FunctionArgs
             {
                 Name = currLambdaName,
-                Runtime = "nodejs18.x",
+                Runtime = "nodejs22.x",
                 Handler = "index.handler",
                 Role = this.role.Arn,
                 Code = new AssetArchive(new Dictionary<string, AssetOrArchive>

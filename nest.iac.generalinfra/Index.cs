@@ -40,7 +40,7 @@ namespace nest.iac.generalinfra
             var apiGateway = apiGatewayCreator.Build();
             var ecrImage2 = new EcrCreator(ecrName, imageName, "../", "../nest.core.security/lambda.Dockerfile", "latest").Build();
             var lambdaRole = new RoleCreator(lambdaRoleName, prefix, Deployment.Instance.ProjectName).BuildLambda();
-            var lambda = new LambdaCreator(lambdaName, routePath, lambdaRole, cwName, apiGateway.ApiEndpoint, ecrImage2, bucketName).Build();
+            var lambda = new LambdaCreator(lambdaName, routePath, lambdaRole, cwName, apiGateway.ApiEndpoint, ecrImage2, bucketName).Build(true);
             var route = apiGatewayCreator.BuildLambda(lambda);
 
             //Outputs
