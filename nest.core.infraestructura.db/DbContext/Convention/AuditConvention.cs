@@ -25,7 +25,6 @@ namespace nest.core.infraestructura.db.DbContext.Convention
 
                 var auditId = audit.Property(typeof(long), "AuditId")
                     .IsRequired(true)
-                    .HasValueGenerationStrategy(MySqlValueGenerationStrategy.None)
                     .HasValueGenerationStrategy(SqlServerValueGenerationStrategy.None)
                     .HasValueGenerationStrategy(NpgsqlValueGenerationStrategy.None)
                     .HasValueGenerator(typeof(GenericValueGenerator<long>));

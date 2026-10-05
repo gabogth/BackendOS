@@ -9,17 +9,13 @@ Ejemplo: desde la carpeta 'main':
   .\uploadimage.ps1
 #>
 
-param(
-  [string]$fname    = "contabilidad"
-)
-
 $AwsRegion = "us-east-1"
 $AwsAccountId = "949982764789"
-$Repo = "nest-servicesinfra-$fname-ecr"
+$Repo = "nest-generalinfra-services-ecr"
 $ImageTag = "latest"
-$LocalImage = "nest-servicesinfra-$fname-ecr:local"
-$LambdaName = "nest-servicesinfra-$fname-lambda"
-$ImageFolder = "nest.core.$fname"
+$LocalImage = "nest-generalinfra-services-ecr:local"
+$LambdaName = "nest-generalinfra-services-lambda"
+$ImageFolder = "nest.core.security"
 $Dockerfile = "lambda.Dockerfile"
 
 # Derived

@@ -13,6 +13,7 @@
     <PackageReference Include="Pulumi" />
     <PackageReference Include="Pulumi.Aws" />
     <PackageReference Include="Pulumi.Docker" />
+	<PackageReference Include="Pulumi.Awsx" />
   </ItemGroup>
 
 </Project>

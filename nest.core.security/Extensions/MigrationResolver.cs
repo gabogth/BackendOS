@@ -22,12 +22,6 @@ namespace nest.core.security.Extensions
                     if (pendingMigrationsPostgres != null)
                         await applicationPostgres.Database.MigrateAsync();
                     break;
-                case "MySql":
-                    var applicationMySql = app.Services.CreateScope().ServiceProvider.GetRequiredService<DbContextMySql>();
-                    var pendingMigrationsMySql = await applicationMySql.Database.GetPendingMigrationsAsync();
-                    if (pendingMigrationsMySql != null)
-                        await applicationMySql.Database.MigrateAsync();
-                    break;
                 default: throw new Exception("Engine no soportado para migraciones");
             }
         }

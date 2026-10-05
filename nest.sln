@@ -25,24 +25,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		.env = .env
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		connectionstring.txt = connectionstring.txt
 		Directory.Packages.props = Directory.Packages.props
 		docker-compose.yml = docker-compose.yml
 		migrar-pg.ps1 = migrar-pg.ps1
 		nest.slnLaunch.user = nest.slnLaunch.user
 		README.md = README.md
-		security.dockerfile = security.dockerfile
 		uploadimage.ps1 = uploadimage.ps1
+		uploadimage.ps1.bak = uploadimage.ps1.bak
 		wait-for-db.sh = wait-for-db.sh
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.infrastructura.utils", "nest.core.infrastructura.utils\nest.core.infrastructura.utils.csproj", "{DB1613AE-66FB-484A-A7AC-3594D86A137E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gateway", "gateway", "{7842FC69-01A2-435E-A6E2-56853D2849B4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.gateway", "nest.core.gateway\nest.core.gateway.csproj", "{24B9A4CB-2204-447A-9FB5-69840DCB4DA1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.logistica", "nest.core.logistica\nest.core.logistica.csproj", "{560DD2F5-8DF9-4FF7-A779-7906B77BEE84}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.aplicacion.logistica", "nest.core.aplicacion.logistica\nest.core.aplicacion.logistica.csproj", "{88C6B1E9-18FB-418D-8E74-B8E559A0C3D8}"
 EndProject
@@ -58,21 +51,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.infraestructura.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.corporativo", "nest.core.aplicacion.corporativo\nest.core.aplicacion.corporativo.csproj", "{BB77B690-11A1-432F-99E6-EE4A2EA70886}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.corporativo", "nest.core.corporativo\nest.core.corporativo.csproj", "{C382CF42-012C-4D02-8FC4-F57CCB4BAB30}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplication.auth", "nest.core.aplication.auth\nest.core.aplication.auth.csproj", "{FF87C9E2-BC55-4D97-961E-8F081861AF5F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.infraestructura.rrhh", "nest.core.infraestructura.rrhh\nest.core.infraestructura.rrhh.csproj", "{D0E0A52B-67D0-4F86-96C8-7E680830FD8D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.rrhh", "nest.core.aplicacion.rrhh\nest.core.aplicacion.rrhh.csproj", "{C5025189-2B28-412A-A320-72F3A03E9390}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.rrhh", "nest.core.rrhh\nest.core.rrhh.csproj", "{0DD21FF4-1B7C-48B5-B118-637926543FE2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.infraestructura.legal", "nest.core.infraestructura.legal\nest.core.infraestructura.legal.csproj", "{5DEE3FE0-DED0-46D3-92F1-7D68A81F2E1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.legal", "nest.core.aplicacion.legal\nest.core.aplicacion.legal.csproj", "{31456CD2-B2EF-46DB-AB85-C65E85598F47}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.legal", "nest.core.legal\nest.core.legal.csproj", "{560A6D30-3BE5-4385-8B6D-902F57DF51DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.general", "nest.core.aplicacion.general\nest.core.aplicacion.general.csproj", "{C717ECBC-656F-48FC-B69C-DAC8D43BCA9F}"
 EndProject
@@ -80,25 +67,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.infraestructura.g
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.infraestructura.patrimonial", "nest.core.infraestructura.patrimonial\nest.core.infraestructura.patrimonial.csproj", "{BEF7E734-D586-4826-8928-C4D2042325C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.general", "nest.core.general\nest.core.general.csproj", "{9CF72613-82B7-4E29-8EB8-0C96C17E5453}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.infraestructura.finanzas", "nest.core.infraestructura.finanzas\nest.core.infraestructura.finanzas.csproj", "{671EFF2E-E5BB-4D7F-BC8C-976064590869}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.finanzas", "nest.core.aplicacion.finanzas\nest.core.aplicacion.finanzas.csproj", "{0ADBE9C4-E86F-4A34-B298-A294D36EEA2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.finanzas", "nest.core.finanzas\nest.core.finanzas.csproj", "{0CB0827A-CAE5-426E-821B-50156602A644}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.costos", "nest.core.costos\nest.core.costos.csproj", "{DA2B51D7-013F-4845-AA7A-C02471E403A0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.infraestructura.contabilidad", "nest.core.infraestructura.contabilidad\nest.core.infraestructura.contabilidad.csproj", "{CF9DF34A-D63A-4DFD-93FF-138FBECA041E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.contabilidad", "nest.core.aplicacion.contabilidad\nest.core.aplicacion.contabilidad.csproj", "{DF338E11-EE26-4B9E-9A94-D43921677BF0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.contabilidad", "nest.core.contabilidad\nest.core.contabilidad.csproj", "{BAC84888-4510-4C02-AAF1-EA40D4160D84}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.mantto", "nest.core.mantto\nest.core.mantto.csproj", "{2D797AE8-F294-4E40-B7F4-BBCF99B1E4F9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.datasource", "nest.core.datasource\nest.core.datasource.csproj", "{BB4DF1C3-36C6-4D27-A3A8-587104B22D4B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.aplicacion.mantto", "nest.core.aplicacion.mantto\nest.core.aplicacion.mantto.csproj", "{71DB6BF3-AFCE-4F0A-8BF9-9640F824A5D0}"
 EndProject
@@ -106,27 +81,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nest.core.infraestructura.m
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.patrimonial", "nest.core.aplicacion.patrimonial\nest.core.aplicacion.patrimonial.csproj", "{8AE68B5D-804D-4B49-A599-824CB7F27BF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.patrimonial", "nest.core.patrimonial\nest.core.patrimonial.csproj", "{A42EFDBC-68EF-465D-A3C4-5A57587F9669}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iac", "iac", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.iac.generalinfra", "nest.iac.generalinfra\nest.iac.generalinfra.csproj", "{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.iac.servicesinfra", "nest.iac.servicesinfra\nest.iac.servicesinfra.csproj", "{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "migrations", "migrations", "{7FC3797F-B49D-4CA0-858B-239AE3C16389}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.driver.postgres", "nest.core.driver.postgres\nest.core.driver.postgres.csproj", "{57ABD640-0269-4F2A-9DAB-449DF485FB27}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.driver.mysql", "nest.core.driver.mysql\nest.core.driver.mysql.csproj", "{180FFE87-C3EE-4ECC-8E12-2F6C1A298055}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.driver.sqlserver", "nest.core.driver.sqlserver\nest.core.driver.sqlserver.csproj", "{01D453BD-1A3D-4B5F-A4E0-F63E814BA034}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.utils", "nest.core.aplicacion.utils\nest.core.aplicacion.utils.csproj", "{78548182-FF83-4E13-9F9F-7293805BC214}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.datasource", "nest.core.aplicacion.datasource\nest.core.aplicacion.datasource.csproj", "{7E32C83F-BCBB-42E7-B32C-86CCA10101A5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.iclock", "nest.core.iclock\nest.core.iclock.csproj", "{FAFBD4F7-6F2B-B042-062C-0D06574A2E93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nest.core.aplicacion.iclock", "nest.core.aplicacion.iclock\nest.core.aplicacion.iclock.csproj", "{4DA3FA6D-D5CE-4B1E-9012-509D75E911A4}"
 EndProject
@@ -147,10 +114,6 @@ Global
 		{739D964D-EFB5-4004-99DD-C8D0176639DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB1613AE-66FB-484A-A7AC-3594D86A137E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB1613AE-66FB-484A-A7AC-3594D86A137E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{24B9A4CB-2204-447A-9FB5-69840DCB4DA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{24B9A4CB-2204-447A-9FB5-69840DCB4DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{560DD2F5-8DF9-4FF7-A779-7906B77BEE84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{560DD2F5-8DF9-4FF7-A779-7906B77BEE84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88C6B1E9-18FB-418D-8E74-B8E559A0C3D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{88C6B1E9-18FB-418D-8E74-B8E559A0C3D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63990945-2B5F-49C5-8857-D465CDD521D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -165,72 +128,46 @@ Global
 		{838B2053-E960-4D33-991E-C44C9C5D5E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB77B690-11A1-432F-99E6-EE4A2EA70886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BB77B690-11A1-432F-99E6-EE4A2EA70886}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C382CF42-012C-4D02-8FC4-F57CCB4BAB30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C382CF42-012C-4D02-8FC4-F57CCB4BAB30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF87C9E2-BC55-4D97-961E-8F081861AF5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF87C9E2-BC55-4D97-961E-8F081861AF5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0E0A52B-67D0-4F86-96C8-7E680830FD8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D0E0A52B-67D0-4F86-96C8-7E680830FD8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5025189-2B28-412A-A320-72F3A03E9390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C5025189-2B28-412A-A320-72F3A03E9390}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0DD21FF4-1B7C-48B5-B118-637926543FE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0DD21FF4-1B7C-48B5-B118-637926543FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DEE3FE0-DED0-46D3-92F1-7D68A81F2E1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5DEE3FE0-DED0-46D3-92F1-7D68A81F2E1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31456CD2-B2EF-46DB-AB85-C65E85598F47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{31456CD2-B2EF-46DB-AB85-C65E85598F47}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{560A6D30-3BE5-4385-8B6D-902F57DF51DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{560A6D30-3BE5-4385-8B6D-902F57DF51DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C717ECBC-656F-48FC-B69C-DAC8D43BCA9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C717ECBC-656F-48FC-B69C-DAC8D43BCA9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65163C72-679F-4432-A80D-D6B26A8E2735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{65163C72-679F-4432-A80D-D6B26A8E2735}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEF7E734-D586-4826-8928-C4D2042325C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BEF7E734-D586-4826-8928-C4D2042325C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CF72613-82B7-4E29-8EB8-0C96C17E5453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CF72613-82B7-4E29-8EB8-0C96C17E5453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{671EFF2E-E5BB-4D7F-BC8C-976064590869}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{671EFF2E-E5BB-4D7F-BC8C-976064590869}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ADBE9C4-E86F-4A34-B298-A294D36EEA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0ADBE9C4-E86F-4A34-B298-A294D36EEA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CB0827A-CAE5-426E-821B-50156602A644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CB0827A-CAE5-426E-821B-50156602A644}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA2B51D7-013F-4845-AA7A-C02471E403A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA2B51D7-013F-4845-AA7A-C02471E403A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF9DF34A-D63A-4DFD-93FF-138FBECA041E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF9DF34A-D63A-4DFD-93FF-138FBECA041E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF338E11-EE26-4B9E-9A94-D43921677BF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF338E11-EE26-4B9E-9A94-D43921677BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BAC84888-4510-4C02-AAF1-EA40D4160D84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAC84888-4510-4C02-AAF1-EA40D4160D84}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D797AE8-F294-4E40-B7F4-BBCF99B1E4F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D797AE8-F294-4E40-B7F4-BBCF99B1E4F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB4DF1C3-36C6-4D27-A3A8-587104B22D4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB4DF1C3-36C6-4D27-A3A8-587104B22D4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71DB6BF3-AFCE-4F0A-8BF9-9640F824A5D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71DB6BF3-AFCE-4F0A-8BF9-9640F824A5D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{873AD771-2522-4EF4-9927-1A917681ECD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{873AD771-2522-4EF4-9927-1A917681ECD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AE68B5D-804D-4B49-A599-824CB7F27BF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8AE68B5D-804D-4B49-A599-824CB7F27BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A42EFDBC-68EF-465D-A3C4-5A57587F9669}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A42EFDBC-68EF-465D-A3C4-5A57587F9669}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57ABD640-0269-4F2A-9DAB-449DF485FB27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{57ABD640-0269-4F2A-9DAB-449DF485FB27}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{180FFE87-C3EE-4ECC-8E12-2F6C1A298055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{180FFE87-C3EE-4ECC-8E12-2F6C1A298055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01D453BD-1A3D-4B5F-A4E0-F63E814BA034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{01D453BD-1A3D-4B5F-A4E0-F63E814BA034}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78548182-FF83-4E13-9F9F-7293805BC214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{78548182-FF83-4E13-9F9F-7293805BC214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E32C83F-BCBB-42E7-B32C-86CCA10101A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7E32C83F-BCBB-42E7-B32C-86CCA10101A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAFBD4F7-6F2B-B042-062C-0D06574A2E93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAFBD4F7-6F2B-B042-062C-0D06574A2E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DA3FA6D-D5CE-4B1E-9012-509D75E911A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4DA3FA6D-D5CE-4B1E-9012-509D75E911A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3066D5A9-6810-49F8-B93B-0F9A4B1D8A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -245,8 +182,6 @@ Global
 		{F71CDDA5-374C-495E-B4AC-49034077CA51} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{739D964D-EFB5-4004-99DD-C8D0176639DE} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 		{DB1613AE-66FB-484A-A7AC-3594D86A137E} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
-		{24B9A4CB-2204-447A-9FB5-69840DCB4DA1} = {7842FC69-01A2-435E-A6E2-56853D2849B4}
-		{560DD2F5-8DF9-4FF7-A779-7906B77BEE84} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{88C6B1E9-18FB-418D-8E74-B8E559A0C3D8} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 		{63990945-2B5F-49C5-8857-D465CDD521D3} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{574F996B-0195-4F99-B314-8F305087CD4B} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
@@ -254,39 +189,26 @@ Global
 		{83594524-1D39-4354-8665-9FDA978052FC} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 		{838B2053-E960-4D33-991E-C44C9C5D5E87} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{BB77B690-11A1-432F-99E6-EE4A2EA70886} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
-		{C382CF42-012C-4D02-8FC4-F57CCB4BAB30} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{FF87C9E2-BC55-4D97-961E-8F081861AF5F} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 		{D0E0A52B-67D0-4F86-96C8-7E680830FD8D} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{C5025189-2B28-412A-A320-72F3A03E9390} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
-		{0DD21FF4-1B7C-48B5-B118-637926543FE2} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{5DEE3FE0-DED0-46D3-92F1-7D68A81F2E1A} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{31456CD2-B2EF-46DB-AB85-C65E85598F47} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
-		{560A6D30-3BE5-4385-8B6D-902F57DF51DF} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{C717ECBC-656F-48FC-B69C-DAC8D43BCA9F} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 		{65163C72-679F-4432-A80D-D6B26A8E2735} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{BEF7E734-D586-4826-8928-C4D2042325C5} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
-		{9CF72613-82B7-4E29-8EB8-0C96C17E5453} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{671EFF2E-E5BB-4D7F-BC8C-976064590869} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{0ADBE9C4-E86F-4A34-B298-A294D36EEA2F} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
-		{0CB0827A-CAE5-426E-821B-50156602A644} = {B8494947-0BD9-4763-BC5A-40667E95E294}
-		{DA2B51D7-013F-4845-AA7A-C02471E403A0} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{CF9DF34A-D63A-4DFD-93FF-138FBECA041E} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{DF338E11-EE26-4B9E-9A94-D43921677BF0} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
-		{BAC84888-4510-4C02-AAF1-EA40D4160D84} = {B8494947-0BD9-4763-BC5A-40667E95E294}
-		{2D797AE8-F294-4E40-B7F4-BBCF99B1E4F9} = {B8494947-0BD9-4763-BC5A-40667E95E294}
-		{BB4DF1C3-36C6-4D27-A3A8-587104B22D4B} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{71DB6BF3-AFCE-4F0A-8BF9-9640F824A5D0} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 		{873AD771-2522-4EF4-9927-1A917681ECD9} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 		{8AE68B5D-804D-4B49-A599-824CB7F27BF7} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
-		{A42EFDBC-68EF-465D-A3C4-5A57587F9669} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{8666BE1C-00D5-49D1-8C2E-DA69E39B1B62} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{CAB3FE76-6E33-4FDE-B338-2BF03BA8F839} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{57ABD640-0269-4F2A-9DAB-449DF485FB27} = {7FC3797F-B49D-4CA0-858B-239AE3C16389}
-		{180FFE87-C3EE-4ECC-8E12-2F6C1A298055} = {7FC3797F-B49D-4CA0-858B-239AE3C16389}
 		{01D453BD-1A3D-4B5F-A4E0-F63E814BA034} = {7FC3797F-B49D-4CA0-858B-239AE3C16389}
 		{78548182-FF83-4E13-9F9F-7293805BC214} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 		{7E32C83F-BCBB-42E7-B32C-86CCA10101A5} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
-		{FAFBD4F7-6F2B-B042-062C-0D06574A2E93} = {B8494947-0BD9-4763-BC5A-40667E95E294}
 		{4DA3FA6D-D5CE-4B1E-9012-509D75E911A4} = {0C7E7657-5A4E-423A-876C-85816FF210D6}
 		{3066D5A9-6810-49F8-B93B-0F9A4B1D8A2E} = {7598498A-9B3E-4E43-9743-73C8A19EE155}
 	EndGlobalSection

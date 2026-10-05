@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.OData;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
+using Microsoft.OpenApi;
 using nest.core.aplication.auth;
+using nest.core.dominio.Contabilidad.CuentaContableEntities;
 using nest.core.security.Extensions;
 using System.Reflection;
 using System.Text;
@@ -11,6 +15,9 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+var assembly = Assembly.GetExecutingAssembly();
+
+bool hasBaseUrl = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BASE_URL"));
 
 if (Environment.GetEnvironmentVariable("IS_LAMBDA") != null)
     builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
@@ -36,6 +43,12 @@ builder.Services.AddCors(options =>
         builder.SetIsOriginAllowed(_ => true);
     });
 });
+builder.Services.AddHttpClient($"admService", client =>
+{
+    client.BaseAddress = new Uri(Environment.GetEnvironmentVariable("URL_ENDPOINT") ?? "");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+    client.Timeout = TimeSpan.FromSeconds(30);
+});
 // End services custom
 
 builder.Services.AddControllers()
@@ -45,15 +58,42 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     }); ;
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c => {
-    string proyecto = Assembly.GetExecutingAssembly().GetName().Name.Split('.')[2];
-    proyecto = char.ToUpper(proyecto[0]) + proyecto.Substring(1).ToLower();
-    string apiName = $"{proyecto} Api";
-    c.SwaggerDoc("v1", new OpenApiInfo { 
-        Title = apiName, 
-        Version = $"v{Assembly.GetExecutingAssembly().GetName().Version}",
-        Description = $"La {apiName} permite administrar usuarios y roles dentro del sistema. Incluye operaciones para crear, modificar, eliminar usuarios, así como asignar roles a usuarios y obtener usuarios por roles.\r\n\r\nTodos los endpoints requieren autorización y autenticación.",
-        Contact = new OpenApiContact { Email = "gabogth@gmail.com", Name = "Gabriel Rodriguez", Url = new Uri("https://es.stackoverflow.com/users/30423") }
+builder.Services.AddSwaggerGen(c =>
+{
+    string product = assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product;
+    c.SwaggerDoc("/", new OpenApiInfo
+    {
+        Title = $"{product} - Principal",
+        Version = assembly.GetName().Version?.ToString(),
+        Contact = new OpenApiContact
+        {
+            Name = "Gabriel Rodriguez Riveros",
+            Email = "gabogth@gmail.com",
+            Url = new Uri("https://www.linkedin.com/in/gabogth")
+        },
+        Description = assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description
+    });
+    foreach (var endpoint in ConfigureEndpoints.Endpoints)
+    {
+        c.SwaggerDoc(endpoint.Key, new OpenApiInfo
+        {
+            Title = $"{product} - {endpoint.Value.Title}",
+            Version = assembly.GetName().Version?.ToString(),
+            Contact = new OpenApiContact
+            {
+                Name = "Gabriel Rodriguez Riveros",
+                Email = "gabogth@gmail.com",
+                Url = new Uri("https://www.linkedin.com/in/gabogth")
+            },
+            Description = assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description
+        });
+    }
+    c.DocInclusionPredicate((docName, apiDesc) =>
+    {
+        if (docName == "main") return true;
+        var relativePath = apiDesc.RelativePath;
+        if (string.IsNullOrEmpty(relativePath)) return false;
+        return relativePath.StartsWith(docName, StringComparison.OrdinalIgnoreCase);
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -63,17 +103,10 @@ builder.Services.AddSwaggerGen(c => {
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement(){{
-        new OpenApiSecurityScheme {
-            Reference = new OpenApiReference {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-            }
-        },
-        new string[] {} }
+    c.AddSecurityRequirement((document) => new OpenApiSecurityRequirement()
+    {
+        [new OpenApiSecuritySchemeReference("Bearer", document)] = []
     });
-    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
-    
 });
 builder.Services.AddAuthentication(option =>
 {
@@ -95,17 +128,40 @@ builder.Services.AddAuthentication(option =>
     };
 });
 builder.Services.AddAuthorization();
+builder.Services.AddHttpContextAccessor();
+builder.Services
+    .AddGraphQLServer()
+    .AddDataSources()
+    .AddFiltering()
+    .AddSorting()
+    .AddProjections()
+    .AddErrorFilter(err =>
+    {
+        if (err.Exception is not null)
+            return err.WithMessage(err.Exception.ToString());
+        return err;
+    });
+builder.Services
+    .AddControllers()
+    .AddOData(options =>
+        options.AddRouteComponents("odata", GetEdmModel())
+               .Select().Filter().OrderBy().Expand().Count().SetMaxTop(null));
 
 var app = builder.Build();
 await MigrationResolver.ExecuteMigration(app);
-if(!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("BASE_URL")))
-    app.UsePathBase(Environment.GetEnvironmentVariable("BASE_URL"));
+if(hasBaseUrl) app.UsePathBase(Environment.GetEnvironmentVariable("BASE_URL"));
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    foreach (var endpoint in ConfigureEndpoints.Endpoints)
+        c.SwaggerEndpoint($"./{endpoint.Key}/swagger.json", endpoint.Value.Title);
+});
 app.UseHttpsRedirection();
 app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapGraphQL($"/graphql");
+app.MapNitroApp($"/my-graphql-ui");
 app.MapHealthChecks("/health/live", new HealthCheckOptions {
     ResponseWriter = async (ctx, report) =>
     {
@@ -126,3 +182,10 @@ app.MapHealthChecks("/health/live", new HealthCheckOptions {
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.MapControllers();
 app.Run();
+
+static IEdmModel GetEdmModel()
+{
+    var builder = new ODataConventionModelBuilder();
+    builder.EntitySet<CuentaContable>("CuentaContable");
+    return builder.GetEdmModel();
+}

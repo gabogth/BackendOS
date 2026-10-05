@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using MySqlConnector;
 using nest.core.dominio.Security.Audit;
 using Npgsql;
 using System.Reflection;
@@ -69,8 +68,6 @@ namespace nest.core.infraestructura.db.DbContext
                 ? new SqlConnectionStringBuilder(cs).ApplicationName
                 : Database.IsNpgsql()
                 ? new NpgsqlConnectionStringBuilder(cs).ApplicationName
-                : Database.IsMySql()
-                ? new MySqlConnectionStringBuilder(cs).ApplicationName
                 : null;
         }
     }

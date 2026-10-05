@@ -19,5 +19,10 @@ namespace nest.iac.generalinfra.Resources
         public static string RdsMasterUser { get { return Environment.GetEnvironmentVariable("DATABASE_MASTERUSER") ?? throw new Exception("environment variable DATABASE_MASTERUSER is required"); } }
         public static string RdsMasterPw { get { return Environment.GetEnvironmentVariable("DATABASE_MASTERPW") ?? throw new Exception("environment variable DATABASE_MASTERPW is required"); } }
         public static int RdsDatabasePort { get { return int.Parse(Environment.GetEnvironmentVariable("DATABASE_PORT") ?? throw new Exception("environment variable DATABASE_PORT is required")); } }
+
+
+        public static string Region { get { return Pulumi.Aws.Config.Region ?? "us-east-1"; } }
+        public static string AwsAccountId { get { return ConfigAws.Require("accountId"); } }
+        public static string ConnectionString { get { return Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? ""; } }
     }
 }

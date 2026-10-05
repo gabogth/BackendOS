@@ -1,29 +1,52 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	<InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.AspNetCore.OpenApi.Generated</InterceptorsNamespaces>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="AWSSDK.ECR" Version="4.0.101.6" />
+    <PackageVersion Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.101.4" />
+    <PackageVersion Include="AWSSDK.Lambda" Version="4.0.104.1" />
+    <PackageVersion Include="AWSSDK.S3" Version="4.0.103.4" />
+    <PackageVersion Include="Amazon.Lambda.AspNetCoreServer.Hosting" Version="1.9.0" />
     <PackageVersion Include="AutoMapper" Version="16.2.0" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
     <PackageVersion Include="DevExtreme.AspNet.Data" Version="5.1.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.12" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.12" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.12" />
-    <PackageVersion Include="DevExtreme.AspNet.Data" Version="5.1.0" />
-    <PackageVersion Include="MMLib.SwaggerForOcelot" Version="9.0.0" />
-    <PackageVersion Include="Ocelot" Version="24.0.0" />
-    <PackageVersion Include="Swashbuckle" Version="5.6.0" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="8.1.2" />
-    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
-    <PackageVersion Include="Pulumi" Version="3.87.0" />
-    <PackageVersion Include="Pulumi.Aws" Version="7.7.0" />
-    <PackageVersion Include="Pulumi.Docker" Version="4.8.2" />
-    <PackageVersion Include="AWSSDK.ECR" Version="4.0.4.7" />
-    <PackageVersion Include="Pulumi.Awsx" Version="3.0.0" />
+    <PackageVersion Include="EntityFramework" Version="6.5.1" />
     <PackageVersion Include="FluentValidation" Version="12.0.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageVersion Include="HotChocolate.AspNetCore" Version="15.1.11" />
+    <PackageVersion Include="HotChocolate.Data" Version="15.1.11" />
+    <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="15.1.11" />
+    <PackageVersion Include="HotChocolate.Pagination.EntityFramework" Version="14.3.0" />
+    <PackageVersion Include="MMLib.SwaggerForOcelot" Version="11.0.0" />
+    <PackageVersion Include="MailKit" Version="4.12.1" />
     <PackageVersion Include="MediatR" Version="13.1.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.AspNetCore.OData" Version="10.0.0-preview.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="10.0.12" />
+    <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+    <PackageVersion Include="Ocelot" Version="25.0.1" />
+    <PackageVersion Include="Pulumi" Version="3.87.0" />
+    <PackageVersion Include="Pulumi.Aws" Version="7.7.0" />
+    <PackageVersion Include="Pulumi.Awsx" Version="3.0.0" />
+    <PackageVersion Include="Pulumi.Docker" Version="4.8.2" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="10.0.3" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.11.0" />
   </ItemGroup>
 </Project>

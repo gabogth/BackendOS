@@ -38,7 +38,7 @@ namespace nest.core.aplicacion.security
                 );
             });
             services.ConfigureValidation(configuration);
-            services.AddAutoMapper(typeof(AutoMapperProfiles));
+            services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfiles>());
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
             services.AddTransient<IConnectionStringService>((services) => AuthClaim.constructClaimsAuth(services, configuration));
             services.AddTransient<IClaimsGenerator, JwtGenerator>();

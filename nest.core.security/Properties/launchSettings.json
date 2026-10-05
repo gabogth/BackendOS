@@ -13,11 +13,12 @@
     },
     "https": {
       "commandName": "Project",
+      "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ENGINE": "Npgsql",
-        "BASE_URL": "/security"
+        "BASE_URL": "/api"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:8382;http://localhost:8282"
