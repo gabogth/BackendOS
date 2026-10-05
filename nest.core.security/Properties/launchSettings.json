@@ -18,7 +18,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ENGINE": "Npgsql",
-        "BASE_URL": "/api"
+        "BASE_URL": ""
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:8382;http://localhost:8282"

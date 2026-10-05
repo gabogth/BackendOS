@@ -6,46 +6,6 @@
         "Path": "nest.core.security\\nest.core.security.csproj",
         "Action": "Start",
         "DebugTarget": "https"
-      },
-      {
-        "Path": "nest.core.gateway\\nest.core.gateway.csproj",
-        "Action": "Start",
-        "DebugTarget": "http"
-      },
-      {
-        "Path": "nest.core.corporativo\\nest.core.corporativo.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
-        "Path": "nest.core.rrhh\\nest.core.rrhh.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
-        "Path": "nest.core.general\\nest.core.general.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
-        "Path": "nest.core.mantto\\nest.core.mantto.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
-        "Path": "nest.core.logistica\\nest.core.logistica.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
-        "Path": "nest.core.iclock\\nest.core.iclock.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
-        "Path": "nest.core.legal\\nest.core.legal.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
       }
     ]
   }
