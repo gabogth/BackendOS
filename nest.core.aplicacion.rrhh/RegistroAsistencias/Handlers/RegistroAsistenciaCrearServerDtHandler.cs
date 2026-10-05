@@ -40,6 +40,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
                 var registro = mapper.Map<RegistroAsistencia>(request);
                 registro.Fecha = DateTime.Now;
                 var personal = await personalRepository.ObtenerPorId(request.PersonalId);
+                if(!personal.Persona.Estado) throw new Exception("Personal inactivo");
                 registro = await calculoService.PrepararRegistroAsync(registro, personal.HorarioCabecera);
                 registro = await repository.Agregar(registro);
                 return await repository.ObtenerPorId(registro.Id);

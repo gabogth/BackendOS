@@ -36,6 +36,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             {
                 var personal = await personalRepository.ObtenerPorDocumentoIdentidad(request.DocumentoTipo, request.DocumentoNumero);
                 var personalOk = await personalRepository.ObtenerPorId(personal.Id);
+                if(!personalOk.Persona.Estado) throw new Exception($"El personal se encuentra inactivo.");
                 var terminalBiometrico = await terminalBiometricoRepository.ObtenerPorSerialNumber(request.SerialNumber);
                 RegistroAsistencia registro = new RegistroAsistencia
                 {

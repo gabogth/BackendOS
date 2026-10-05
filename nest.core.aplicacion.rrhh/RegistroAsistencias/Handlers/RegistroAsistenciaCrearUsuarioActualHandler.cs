@@ -3,9 +3,6 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Commands;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Services.Interface;
-using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
-using nest.core.dominio.RRHH.HorarioCabeceraEntities;
-using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.Security.Tenant;
@@ -43,7 +40,8 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers
             {
                 var registro = mapper.Map<RegistroAsistencia>(request);
                 Personal actual = await personalRepository.ObtenerPorIdUsuario(connectionStringService.UserId);
-                if(actual == null) throw new Exception("Tienes que tener que tener un codigo de personal asignado a tu usuario.");
+                if (actual == null) throw new Exception("Tienes que tener que tener un codigo de personal asignado a tu usuario.");
+                if (!actual.Persona.Estado) throw new Exception("Personal inactivo");
                 registro.EmpresaId = connectionStringService.EmpresaId ?? throw new Exception("Usuario no autenticado");
                 registro.PersonalId = actual.Id;
                 registro.Fecha = DateTime.Now;

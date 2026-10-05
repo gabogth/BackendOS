@@ -2,20 +2,14 @@ using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Commands;
-using nest.core.aplicacion.rrhh.RegistroAsistencias.Handlers;
 using nest.core.aplicacion.rrhh.RegistroAsistencias.Services.Interface;
-using nest.core.aplication.auth;
-using nest.core.dominio.Mantto.OrdenTrabajoCabeceraEntities;
 using nest.core.dominio.Mantto.OrdenTrabajoHorarioEntities;
 using nest.core.dominio.RRHH.HorarioCabeceraEntities;
-using nest.core.dominio.RRHH.HorarioDetalleEntities;
 using nest.core.dominio.RRHH.PersonalEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaAdjuntoEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaEntities;
 using nest.core.dominio.RRHH.RegistroAsistenciaOrdenTrabajoEntities;
-using nest.core.dominio.Security.Tenant;
 using nest.core.dominio.Transaccional;
-using nest.core.infraestructura.rrhh;
 
 namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
 {
@@ -61,7 +55,7 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
                 var registro = mapper.Map<RegistroAsistencia>(request);
                 var personal = await personalRepository.ObtenerPorId(registro.PersonalId);
                 var otHorario = await ordenTrabajoHorarioRepository.ObtenerPorPersonalYFecha(registro.PersonalId, registro.Fecha);
-
+                if(!personal.Persona.Estado) throw new Exception("El personal se encuentra inactivo");
                 HorarioCabecera horarioActual = otHorario == null ? personal.HorarioCabecera : otHorario.HorarioCabecera;
                 registro = await calculoService.PrepararRegistroAsync(registro, horarioActual);
                 registro = await repository.Agregar(registro);

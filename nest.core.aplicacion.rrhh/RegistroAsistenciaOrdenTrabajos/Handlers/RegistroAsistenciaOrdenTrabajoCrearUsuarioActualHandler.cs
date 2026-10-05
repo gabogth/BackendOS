@@ -63,11 +63,10 @@ namespace nest.core.aplicacion.rrhh.RegistroAsistenciaOrdenTrabajos.Handlers
             {
                 var registro = mapper.Map<RegistroAsistencia>(request);
                 registro.Fecha = DateTime.Now;
-                //registro.Fecha = new DateTime(2026, 9, 2, 11, 48, 1);
                 registro.EmpresaId = connectionStringService.EmpresaId ?? throw new Exception("Usuario no autenticado");
                 var personal = await personalRepository.ObtenerPorIdUsuario(connectionStringService.UserId) ?? throw new Exception("El usuario debe tener el atributo IdUsuario");
                 registro.PersonalId = personal.Id;
-
+                if(!personal.Persona.Estado) throw new Exception("El personal se encuentra inactivo");
                 var fechaBusqueda = registro.Fecha.AddHours(-22);
 
                 var ultimaMarca = await repository.BuscarUltimaMarca(registro.PersonalId, fechaBusqueda);
