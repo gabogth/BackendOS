@@ -18,6 +18,7 @@ namespace nest.core.dominio.General.AdjuntoTipoEntities
         Cv = 4,
         Contrato = 5,
         Habilitacion = 6,
+        FirmaDigital = 7,
         Otro = 99
     }
 }
